@@ -1030,6 +1030,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTaunted: 0
+  isTauntedPositionValid: 0
+  tauntedPosition: {x: 0, y: 0, z: 0}
+  sightDistance: 2
+  leaveDistance: 3
   checkpoints:
   - {x: 4, y: 1, z: 0}
 --- !u!1 &148726131
@@ -2260,6 +2265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTaunted: 0
+  isTauntedPositionValid: 0
+  tauntedPosition: {x: 0, y: 0, z: 0}
+  sightDistance: 1
+  leaveDistance: 1
   checkpoints:
   - {x: 4, y: 5, z: 0}
   - {x: 2, y: 5, z: 0}
@@ -3694,6 +3704,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTaunted: 0
+  isTauntedPositionValid: 0
+  tauntedPosition: {x: 0, y: 0, z: 0}
+  sightDistance: 0
+  leaveDistance: 0
   checkpoints:
   - {x: 7, y: 7, z: 0}
   - {x: 9, y: 3, z: 0}
@@ -5540,6 +5555,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTaunted: 0
+  isTauntedPositionValid: 0
+  tauntedPosition: {x: 0, y: 0, z: 0}
+  sightDistance: 5
+  leaveDistance: 3
   checkpoints:
   - {x: 1, y: 7, z: 0}
   - {x: 1, y: 7, z: 0}

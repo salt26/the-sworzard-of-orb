@@ -6,17 +6,26 @@ public class EnemyMover : MonoBehaviour {
 
     GameManager gm;
     Transform t;
+    
+    private bool isMoving;      // 이동 중에 true
+    private bool isMoved;       // 이동이 끝나면 true
 
-    private bool isMoving;  // 이동 중에 true
-    private bool isMoved;   // 이동이 끝나면 true
-    //private Vector3 direction = new Vector3(-1f, 0f, 0f);   // PatrolLR 함수에서 사용
+    // TODO SerializeField는 디버깅 용도로 넣은 것
+    [SerializeField]
+    private bool hasTaunted;    // 근처에서 플레이어를 만난 경우 true
+    [SerializeField]
+    private bool isTauntedPositionValid;        // 순찰 경로를 이탈해 있는 동안 true
+    [SerializeField]
+    private Vector3 tauntedPosition;            // 플레이어를 처음 만났을 때의 본인의 위치
     private delegate Vector3 MovePattern();
     private MovePattern movePattern;
+    private Stack<Vector3> headCheckpoints;     // 순찰 시 가야 할 지점(main stack)
+    private Stack<Vector3> passedCheckpoints;   // 순찰 시 지나온 지점(sub stack)
 
-    private Stack<Vector3> headCheckpoints;     // 가야 할 지점(main stack)
-    private Stack<Vector3> passedCheckpoints;   // 지나온 지점(sub stack)
-
-    public List<Vector3> checkpoints;        // TODO: 임시로 Inspector에서 설정 가능
+    [Header("Public Fields")]
+    public int sightDistance;   // 순찰 중 플레이어를 발견할 수 있는 최대 택시 거리
+    public int leaveDistance;   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 택시 거리
+    public List<Vector3> checkpoints;           // TODO: 임시로 Inspector에서 설정 가능
 
     public bool Moved
     {
@@ -51,46 +60,69 @@ public class EnemyMover : MonoBehaviour {
         }
         else if (gm.Turn == 1 && !isMoving && !isMoved)
         {
-            Vector3 destination = Move1Taxi(movePattern());
-            if (IsSamePosition(destination, CurrentPosition()))
+            Vector3 playerPos = PositionToInt(gm.character.GetComponent<Transform>().position);
+            Vector3 destination;
+
+            if (hasTaunted)
             {
-                // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
-                isMoved = true;
+                // 한 번 도발당한 경우 처음 도발당한 위치에서 leaveDistance만큼 멀어지기 전까지 플레이어를 쫓아감
+                // 플레이어가 시야에서 벗어나도 쫓아감
+                destination = Move1Taxi(playerPos);
+                if (Distance(tauntedPosition, destination) <= leaveDistance)
+                {
+                    Move(destination);
+                }
+                else
+                {
+                    // 플레이어가 사라지면 도발 상태가 풀리고 처음 도발당한 위치로 돌아감
+                    hasTaunted = false;
+                    destination = Move1Taxi(tauntedPosition);
+                    Move(destination);
+
+                    // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
+                    if (IsSamePosition(destination, tauntedPosition))
+                    {
+                        isTauntedPositionValid = false;
+                    }
+                }
             }
-            else if (gm.map.GetTypeOfTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y)) == 0)
+            else if (isTauntedPositionValid)
             {
-                if (destination.x < t.position.x) GetComponent<SpriteRenderer>().flipX = false;
-                else if (destination.x > t.position.x) GetComponent<SpriteRenderer>().flipX = true;
-                StartCoroutine(MoveAnimation(destination));
+                // 도발 상태가 풀렸지만 아직 처음 도발당한 위치로 돌아가지 못한 경우
+                destination = Move1Taxi(tauntedPosition);
+                Move(destination);
+
+                // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
+                if (IsSamePosition(destination, tauntedPosition))
+                {
+                    isTauntedPositionValid = false;
+                }
             }
-            else
+            else {
+                // 시야에 플레이어가 없는 경우 정상 경로를 따라 순찰
+                destination = Move1Taxi(movePattern());
+                Move(destination);
+            }
+            
+            // 정상 경로를 순찰하던 중 플레이어를 발견한 경우
+            if (!hasTaunted && !isTauntedPositionValid
+                && Distance(playerPos, destination) <= sightDistance)
             {
-                // TODO 일단은 가려고 하는 곳이 갈 수 없는 지형이면 움직이지 않고 턴 넘김
-                isMoved = true;
+                // 도발당한 현재 위치(이동 후 위치)를 기억
+                // TODO 장애물에 막혀서 못 움직인 경우 버그가 생길 수 있음
+                tauntedPosition = destination;
+                isTauntedPositionValid = true;
+                hasTaunted = true;
+            }
+
+            // 한 번 경로를 이탈하여 정상 경로로 돌아가던 중 플레이어가 다시 나타난 경우
+            if (!hasTaunted && isTauntedPositionValid
+                && Distance(playerPos, tauntedPosition) <= leaveDistance)
+            {
+                hasTaunted = true;
             }
         }
     }
-
-    /*
-    private Vector3 PatrolLR()
-    {
-        // 하드코딩
-        // 언제나 x좌표가 2, 3, 4 중 하나라고 가정
-        int left = 2;
-        int right = 4;
-
-        if (Mathf.RoundToInt(t.position.x) <= left)
-        {
-            direction = new Vector3(1f, 0f, 0f);
-        }
-        else if (Mathf.RoundToInt(t.position.x) >= right)
-        {
-            direction = new Vector3(-1f, 0f, 0f);
-        }
-
-        return t.position + direction;
-    }
-    */
 
     /// <summary>
     /// 설정된 순찰 경로를 따라서, 지금 가야 할 곳을 반환하는 함수입니다.
@@ -143,14 +175,6 @@ public class EnemyMover : MonoBehaviour {
     /// <param name="checkpoints">들러야 하는 지점의 목록(순서대로)</param>
     private void InitializeCheckpoints(List<Vector3> checkpoints)
     {
-        /*
-        // 체크포인트 목록 첫 번째 원소가 현재 위치일 경우, 제거
-        while (checkpoints != null && checkpoints.Count > 0
-            && IsSamePosition(PositionToInt(checkpoints[0]), CurrentPosition()))
-        {
-            checkpoints.RemoveAt(0);
-        }
-        */
         headCheckpoints = new Stack<Vector3>();
         passedCheckpoints = new Stack<Vector3>();
 
@@ -197,6 +221,26 @@ public class EnemyMover : MonoBehaviour {
         }
 
         return CurrentPosition() + direction;
+    }
+
+    private void Move(Vector3 destination)
+    {
+        if (IsSamePosition(destination, CurrentPosition()))
+        {
+            // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
+            isMoved = true;
+        }
+        else if (gm.map.GetTypeOfTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y)) == 0)
+        {
+            if (destination.x < CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
+            else if (destination.x > CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
+            StartCoroutine(MoveAnimation(destination));
+        }
+        else
+        {
+            // TODO 일단은 가려고 하는 곳이 갈 수 없는 지형이면 움직이지 않고 턴 넘김
+            isMoved = true;
+        }
     }
 
     IEnumerator MoveAnimation(Vector3 destination)
@@ -249,5 +293,10 @@ public class EnemyMover : MonoBehaviour {
     {
         return (Mathf.RoundToInt(a.x) == Mathf.RoundToInt(b.x)
             && Mathf.RoundToInt(a.y) == Mathf.RoundToInt(b.y));
+    }
+
+    private int Distance(Vector3 a, Vector3 b)
+    {
+        return Mathf.RoundToInt(Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y));
     }
 }
