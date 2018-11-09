@@ -52,7 +52,12 @@ public class EnemyMover : MonoBehaviour {
         else if (gm.Turn == 1 && !isMoving && !isMoved)
         {
             Vector3 destination = Move1Taxi(movePattern());
-            if (gm.map.GetTypeOfTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y)) == 0)
+            if (IsSamePosition(destination, CurrentPosition()))
+            {
+                // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
+                isMoved = true;
+            }
+            else if (gm.map.GetTypeOfTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y)) == 0)
             {
                 if (destination.x < t.position.x) GetComponent<SpriteRenderer>().flipX = false;
                 else if (destination.x > t.position.x) GetComponent<SpriteRenderer>().flipX = true;
