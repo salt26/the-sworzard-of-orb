@@ -53,7 +53,7 @@ public class CharacterMover : MonoBehaviour {
     IEnumerator MoveAnimation(Vector3 direction)
     {
         isMoving = true;
-        int frame = 40;
+        int frame = 30;
         Vector3 origin = t.position;
         Vector3 destination = t.position + direction;
         for (int i = 0; i < frame; i++)

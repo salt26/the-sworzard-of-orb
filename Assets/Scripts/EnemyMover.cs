@@ -246,7 +246,7 @@ public class EnemyMover : MonoBehaviour {
     IEnumerator MoveAnimation(Vector3 destination)
     {
         isMoving = true;
-        int frame = 40;
+        int frame = 30;
         Vector3 origin = t.position;
         for (int i = 0; i < frame; i++)
         {
