@@ -21,8 +21,10 @@ public class EnemyMover : MonoBehaviour {
     private MovePattern movePattern;
     private Stack<Vector3> headCheckpoints;     // 순찰 시 가야 할 지점(main stack)
     private Stack<Vector3> passedCheckpoints;   // 순찰 시 지나온 지점(sub stack)
+    private GameObject myTauntedSprite;         // 도발당한 상태일 때 뜨는 !에 대한 레퍼런스
 
     [Header("Public Fields")]
+    public GameObject tauntedSprite;            // 도발당한 상태일 때 뜰 이미지의 오브젝트
     public int sightDistance;   // 순찰 중 플레이어를 발견할 수 있는 최대 택시 거리
     public int leaveDistance;   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 택시 거리
     public List<Vector3> checkpoints;           // TODO: 임시로 Inspector에서 설정 가능
@@ -41,6 +43,7 @@ public class EnemyMover : MonoBehaviour {
         t = GetComponent<Transform>();
         gm = GameManager.gm;
         isMoving = false;
+        myTauntedSprite = null;
 
         InitializeCheckpoints(checkpoints);
         movePattern += PatrolCheckpoints;
@@ -76,6 +79,7 @@ public class EnemyMover : MonoBehaviour {
                 {
                     // 플레이어가 사라지면 도발 상태가 풀리고 처음 도발당한 위치로 돌아감
                     hasTaunted = false;
+                    if (myTauntedSprite != null) Destroy(myTauntedSprite);
                     destination = Move1Taxi(tauntedPosition);
                     Move(destination);
 
@@ -113,6 +117,7 @@ public class EnemyMover : MonoBehaviour {
                 tauntedPosition = destination;
                 isTauntedPositionValid = true;
                 hasTaunted = true;
+                if (myTauntedSprite == null) myTauntedSprite = Instantiate(tauntedSprite, t);
             }
 
             // 한 번 경로를 이탈하여 정상 경로로 돌아가던 중 플레이어가 다시 나타난 경우
@@ -120,6 +125,7 @@ public class EnemyMover : MonoBehaviour {
                 && Distance(playerPos, tauntedPosition) <= leaveDistance)
             {
                 hasTaunted = true;
+                if (myTauntedSprite == null) myTauntedSprite = Instantiate(tauntedSprite, t);
             }
         }
     }
