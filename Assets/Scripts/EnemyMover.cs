@@ -230,8 +230,9 @@ public class EnemyMover : MonoBehaviour {
             // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
             isMoved = true;
         }
-        else if (gm.map.GetTypeOfTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y)) == 0)
+        else if (gm.map.CanMoveToTile(destination))
         {
+            // TODO 한 턴에 2칸 이상을 이동하는 경우, 지나는 모든 타일에 대한 고려가 필요함
             if (destination.x < CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
             else if (destination.x > CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
             StartCoroutine(MoveAnimation(destination));
@@ -248,6 +249,10 @@ public class EnemyMover : MonoBehaviour {
         isMoving = true;
         int frame = 30;
         Vector3 origin = t.position;
+
+        // 애니메이션이 시작하기 전에 이동 판정 완료
+        gm.map.SetObjectOnTile(null, origin);
+        gm.map.SetObjectOnTile(gameObject, destination);
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);

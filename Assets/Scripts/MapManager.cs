@@ -17,6 +17,7 @@ public class MapManager : MonoBehaviour {
             for (int j = 0; j < size.x; j++)
             {
                 MapTile t = Instantiate(tile, new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
+                t.Obj = null;
                 tiles[i].Add(t);
             }
         }
@@ -50,5 +51,100 @@ public class MapManager : MonoBehaviour {
         }
         else
             return GetTile(x, y).Type;
+    }
+
+    public int GetTypeOfTile(Vector3 position)
+    {
+        return GetTypeOfTile(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
+    /// <summary>
+    /// (x, y) 좌표에 위치한 MapTile 위에 있는 개체를 반환합니다.
+    /// 만약 MapTile이나 개체가 존재하지 않으면 null을 반환합니다.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public GameObject GetObjectOnTile(int x, int y)
+    {
+        MapTile t = GetTile(x, y);
+        if (t == null)
+        {
+            return null;
+        }
+        return t.Obj;
+    }
+
+    /// <summary>
+    /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에 있는 개체를 반환합니다.
+    /// 만약 MapTile이나 개체가 존재하지 않으면 null을 반환합니다.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public GameObject GetObjectOnTile(Vector3 position)
+    {
+        return GetObjectOnTile(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
+    /// <summary>
+    /// (x, y) 좌표에 위치한 MapTile 위에 있는 개체를
+    /// obj로 설정하고 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool SetObjectOnTile(GameObject obj, int x, int y)
+    {
+        MapTile t = GetTile(x, y);
+        if (t == null || t.Type != 0)
+        {
+            return false;
+        }
+        t.Obj = obj;
+        return true;
+    }
+
+    /// <summary>
+    /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에 있는 개체를
+    /// obj로 설정하고 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않으면 false를 반환합니다.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool SetObjectOnTile(GameObject obj, Vector3 position)
+    {
+        return SetObjectOnTile(obj, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
+    /// <summary>
+    /// (x, y) 좌표의 MapTile로 이동할 수 있으면 true를,
+    /// 이동할 수 없으면 false를 반환합니다.
+    /// 추락사를 허용하는 경우 canFall에 true를 넣어주세요.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="canFall"></param>
+    /// <returns></returns>
+    public bool CanMoveToTile(int x, int y, bool canFall = false)
+    {
+        return (canFall && GetTypeOfTile(x, y) == 2) ||
+            (GetTypeOfTile(x, y) == 0 && GetObjectOnTile(x, y) == null);
+    }
+
+    /// <summary>
+    /// destination의 (x, y) 좌표와 가장 가까운 곳에 위치한
+    /// MapTile로 이동할 수 있으면 true를,
+    /// 이동할 수 없으면 false를 반환합니다.
+    /// 추락사를 허용하는 경우 canFall에 true를 넣어주세요.
+    /// </summary>
+    /// <param name="destination"></param>
+    /// <param name="canFall"></param>
+    /// <returns></returns>
+    public bool CanMoveToTile(Vector3 destination, bool canFall = false)
+    {
+        return CanMoveToTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y), canFall);
     }
 }

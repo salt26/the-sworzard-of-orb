@@ -26,24 +26,24 @@ public class CharacterMover : MonoBehaviour {
         {
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
             if (Input.GetKeyDown(KeyCode.LeftArrow) &&
-                gm.map.GetTypeOfTile(Mathf.RoundToInt(t.position.x - 1f), Mathf.RoundToInt(t.position.y)) == 0) // != 1
+                gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x - 1f), Mathf.RoundToInt(t.position.y)))  // TODO true 붙여서 추락사 가능하게
             {
                 GetComponent<SpriteRenderer>().flipX = false;
                 StartCoroutine(MoveAnimation(new Vector3(-1f, 0f, 0f)));
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) &&
-                gm.map.GetTypeOfTile(Mathf.RoundToInt(t.position.x + 1f), Mathf.RoundToInt(t.position.y)) == 0) // != 1
+                gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x + 1f), Mathf.RoundToInt(t.position.y)))  // TODO true 붙여서 추락사 가능하게
             {
                 GetComponent<SpriteRenderer>().flipX = true;
                 StartCoroutine(MoveAnimation(new Vector3(1f, 0f, 0f)));
             }
             else if(Input.GetKeyDown(KeyCode.UpArrow) &&
-                gm.map.GetTypeOfTile(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y + 1f)) == 0) // != 1
+                gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y + 1f)))  // TODO true 붙여서 추락사 가능하게
             {
                 StartCoroutine(MoveAnimation(new Vector3(0f, 1f, 0f)));
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) &&
-                gm.map.GetTypeOfTile(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y - 1f)) == 0) // != 1
+                gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y - 1f)))  // TODO true 붙여서 추락사 가능하게
             {
                 StartCoroutine(MoveAnimation(new Vector3(0f, -1f, 0f)));
             }
@@ -56,6 +56,10 @@ public class CharacterMover : MonoBehaviour {
         int frame = 30;
         Vector3 origin = t.position;
         Vector3 destination = t.position + direction;
+
+        // 애니메이션이 시작하기 전에 이동 판정 완료
+        gm.map.SetObjectOnTile(null, origin);
+        gm.map.SetObjectOnTile(gameObject, destination);
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);
