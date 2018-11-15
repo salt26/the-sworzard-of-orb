@@ -62,7 +62,7 @@ public class CharacterMover : MonoBehaviour {
         gm.map.SetObjectOnTile(gameObject, destination);
         for (int i = 0; i < frame; i++)
         {
-            t.position = Vector3.Lerp(origin, destination, (float)i / frame);
+            t.position = Vector3.Lerp(origin, destination, Mathf.Sqrt((float)i / frame));
             if (i < frame / 2)
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(1f, 0.4f, 0.8f, 1f), (float)i / frame * 2);
             else
