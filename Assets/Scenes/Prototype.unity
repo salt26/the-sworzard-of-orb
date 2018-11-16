@@ -2272,8 +2272,8 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 1
-  leaveDistance: 1
+  sightDistance: 2
+  leaveDistance: 3
   checkpoints:
   - {x: 4, y: 5, z: 0}
   - {x: 2, y: 5, z: 0}
@@ -2851,7 +2851,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+  tilePrefab:
+  - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+  - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
   size: {x: 11, y: 9}
 --- !u!1 &480653690
 GameObject:
@@ -3111,7 +3113,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.54901963, g: 0.21960786, b: 0.19215688, a: 1}
+  m_BackGroundColor: {r: 0.101960786, g: 0.63529414, b: 0.9254902, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -3713,8 +3715,8 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 1
-  leaveDistance: 4
+  sightDistance: 2
+  leaveDistance: 3
   checkpoints:
   - {x: 7, y: 7, z: 0}
   - {x: 9, y: 3, z: 0}
@@ -5566,7 +5568,7 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 5
+  sightDistance: 2
   leaveDistance: 3
   checkpoints:
   - {x: 1, y: 7, z: 0}

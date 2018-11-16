@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour {
 
-    public GameObject tile;
+    public List<GameObject> tilePrefab;
     public Vector2 size;
 
     private List<List<MapTile>> tiles = new List<List<MapTile>>();
@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour {
             tiles.Add(new List<MapTile>());
             for (int j = 0; j < size.x; j++)
             {
-                MapTile t = Instantiate(tile, new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
+                MapTile t = Instantiate(tilePrefab[Random.Range(0,10) / 9], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
                 t.Obj = null;
                 tiles[i].Add(t);
             }
