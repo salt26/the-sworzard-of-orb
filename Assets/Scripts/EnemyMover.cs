@@ -253,7 +253,7 @@ public class EnemyMover : MonoBehaviour {
     IEnumerator MoveAnimation(Vector3 destination)
     {
         isMoving = true;
-        int frame = 30;
+        int frame = 20;
         Vector3 origin = t.position;
 
         // 애니메이션이 시작하기 전에 이동 판정 완료
