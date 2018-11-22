@@ -952,8 +952,8 @@ GameObject:
   m_Component:
   - component: {fileID: 144728519}
   - component: {fileID: 144728518}
-  - component: {fileID: 144728520}
   - component: {fileID: 144728521}
+  - component: {fileID: 144728520}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -1051,6 +1051,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 10
+  currentHealth: 10
+  weapon:
+    fire: 8
+  armor:
+    fire: 1
 --- !u!1 &148726131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,8 +2267,8 @@ GameObject:
   m_Component:
   - component: {fileID: 374579138}
   - component: {fileID: 374579137}
-  - component: {fileID: 374579136}
   - component: {fileID: 374579139}
+  - component: {fileID: 374579136}
   m_Layer: 0
   m_Name: Monster (1)
   m_TagString: Untagged
@@ -2361,6 +2368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 10
+  currentHealth: 10
+  weapon:
+    fire: 8
+  armor:
+    fire: 1
 --- !u!1 &385688026
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,8 +3729,8 @@ GameObject:
   m_Component:
   - component: {fileID: 815299970}
   - component: {fileID: 815299969}
-  - component: {fileID: 815299968}
   - component: {fileID: 815299971}
+  - component: {fileID: 815299968}
   m_Layer: 0
   m_Name: Monster (2)
   m_TagString: Untagged
@@ -3817,6 +3831,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 10
+  currentHealth: 10
+  weapon:
+    fire: 8
+  armor:
+    fire: 1
 --- !u!1 &831691505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4495,8 +4516,8 @@ GameObject:
   m_Component:
   - component: {fileID: 949091047}
   - component: {fileID: 949091046}
-  - component: {fileID: 949091048}
   - component: {fileID: 949091049}
+  - component: {fileID: 949091048}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -4586,6 +4607,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  maxHealth: 40
+  currentHealth: 40
+  weapon:
+    fire: 10
+  armor:
+    fire: 2
 --- !u!1 &973726451
 GameObject:
   m_ObjectHideFlags: 0
@@ -5668,8 +5696,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1423487766}
   - component: {fileID: 1423487765}
-  - component: {fileID: 1423487764}
   - component: {fileID: 1423487767}
+  - component: {fileID: 1423487764}
   m_Layer: 0
   m_Name: Monster (3)
   m_TagString: Untagged
@@ -5768,6 +5796,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 10
+  currentHealth: 10
+  weapon:
+    fire: 8
+  armor:
+    fire: 1
 --- !u!1 &1431647076
 GameObject:
   m_ObjectHideFlags: 0

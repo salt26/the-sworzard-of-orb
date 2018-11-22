@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMover : MonoBehaviour {
+public class PlayerMover : Mover {
 
     GameManager gm;
     Transform t;
@@ -25,19 +25,23 @@ public class CharacterMover : MonoBehaviour {
 		if (gm.Turn == 0 && !isMoving)
         {
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
-            if (Input.GetKeyDown(KeyCode.LeftArrow) &&
-                gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x - 1f), Mathf.RoundToInt(t.position.y)))  // TODO true 붙여서 추락사 가능하게
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 GetComponent<SpriteRenderer>().flipX = false;
-                StartCoroutine(MoveAnimation(new Vector3(-1f, 0f, 0f)));
+                if (gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x - 1f), Mathf.RoundToInt(t.position.y)))  // TODO true 붙여서 추락사 가능하게
+                {
+                    StartCoroutine(MoveAnimation(new Vector3(-1f, 0f, 0f)));
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) &&
-                gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x + 1f), Mathf.RoundToInt(t.position.y)))  // TODO true 붙여서 추락사 가능하게
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 GetComponent<SpriteRenderer>().flipX = true;
-                StartCoroutine(MoveAnimation(new Vector3(1f, 0f, 0f)));
+                if (gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x + 1f), Mathf.RoundToInt(t.position.y)))  // TODO true 붙여서 추락사 가능하게
+                {
+                    StartCoroutine(MoveAnimation(new Vector3(1f, 0f, 0f)));
+                }
             }
-            else if(Input.GetKeyDown(KeyCode.UpArrow) &&
+            else if (Input.GetKeyDown(KeyCode.UpArrow) &&
                 gm.map.CanMoveToTile(Mathf.RoundToInt(t.position.x), Mathf.RoundToInt(t.position.y + 1f)))  // TODO true 붙여서 추락사 가능하게
             {
                 StartCoroutine(MoveAnimation(new Vector3(0f, 1f, 0f)));

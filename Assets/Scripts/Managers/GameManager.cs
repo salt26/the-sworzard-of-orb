@@ -57,7 +57,8 @@ public class GameManager : MonoBehaviour {
             bool b = true;
             foreach (Character e in enemies)
             {
-                EnemyMover em = e.GetComponent<EnemyMover>();
+                if (e.type != Character.Type.Enemy) continue;
+                EnemyMover em = (EnemyMover)e.Mover;
                 if (!em.Moved)
                 {
                     b = false;
