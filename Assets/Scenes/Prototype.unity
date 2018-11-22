@@ -1052,6 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  size: 1
   maxHealth: 10
   currentHealth: 10
   weapon:
@@ -2369,6 +2370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  size: 1
   maxHealth: 10
   currentHealth: 10
   weapon:
@@ -3832,6 +3834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  size: 1
   maxHealth: 10
   currentHealth: 10
   weapon:
@@ -4608,10 +4611,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  size: 1
   maxHealth: 40
   currentHealth: 40
   weapon:
-    fire: 10
+    fire: 5
   armor:
     fire: 2
 --- !u!1 &973726451
@@ -5797,6 +5801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  size: 1
   maxHealth: 10
   currentHealth: 10
   weapon:

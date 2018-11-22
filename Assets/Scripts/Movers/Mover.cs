@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour {
     
+    public virtual void Death()
+    {
+
+    }
 }

@@ -47,7 +47,8 @@ public class MapManager : MonoBehaviour {
     {
         if (GetTile(x, y) == null)
         {
-            return 2;  // 밟으면 추락
+            //return 2;  // 밟으면 추락
+            return 1;   // TODO 위의 코드로 교체할 것!
         }
         else
             return GetTile(x, y).Type;

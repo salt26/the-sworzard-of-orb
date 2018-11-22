@@ -273,6 +273,13 @@ public class EnemyMover : Mover {
         isMoved = true;
     }
 
+    public override void Death()
+    {
+        // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
+        gm.map.SetEntityOnTile(null, t.position);
+        this.enabled = false;
+    }
+
     /// <summary>
     /// 인자로 주어진 좌표의 x, y값을 정수로 반올림하여 반환합니다.
     /// z값은 그대로 반환됩니다.

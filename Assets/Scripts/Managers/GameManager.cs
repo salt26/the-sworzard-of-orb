@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
             bool b = true;
             foreach (Character e in enemies)
             {
-                if (e.type != Character.Type.Enemy) continue;
+                if (e.type != Character.Type.Enemy || !e.Alive) continue;
                 EnemyMover em = (EnemyMover)e.Mover;
                 if (!em.Moved)
                 {
