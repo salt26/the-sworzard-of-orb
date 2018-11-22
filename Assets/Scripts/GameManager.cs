@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,6 +11,13 @@ public class GameManager : MonoBehaviour {
     public MapManager map;
     public CharacterMover character;
     public List<EnemyMover> enemies = new List<EnemyMover>();
+
+    [Header("Turn Mark")]
+    public Image turnMark;
+    public Sprite myTurn;
+    public Color myTurnColor;
+    public Sprite enemyTurn;
+    public Color enemyTurnColor;
     
     private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴
 
@@ -62,5 +70,15 @@ public class GameManager : MonoBehaviour {
     public void NextTurn()
     {
         turn = (turn + 1) % 2;
+        if (turn == 0)
+        {
+            turnMark.sprite = myTurn;
+            turnMark.color = myTurnColor;
+        }
+        else
+        {
+            turnMark.sprite = enemyTurn;
+            turnMark.color = enemyTurnColor;
+        }
     }
 }
