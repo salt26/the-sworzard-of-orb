@@ -13,6 +13,7 @@ public class Character : Entity {
     public int currentHealth;   // TODO private로 바꾸기
     public Element weapon;      // 무기의 속성과 공격력
     public Element armor;       // 방어구의 속성과 방어력
+    public int range = 1;
 
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true

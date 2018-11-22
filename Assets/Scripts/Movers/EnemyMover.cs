@@ -9,6 +9,7 @@ public class EnemyMover : Mover {
     
     private bool isMoving;      // 이동 중에 true
     private bool isMoved;       // 이동이 끝나면 true
+    private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
 
     // TODO SerializeField는 디버깅 용도로 넣은 것
     [SerializeField]
@@ -233,7 +234,7 @@ public class EnemyMover : Mover {
     {
         if (IsSamePosition(destination, CurrentPosition()))
         {
-            // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
+            // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이, 공격도 하지 않고 턴 넘김
             isMoved = true;
         }
         else if (gm.map.CanMoveToTile(destination))
@@ -242,6 +243,13 @@ public class EnemyMover : Mover {
             if (destination.x < CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
             else if (destination.x > CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
             StartCoroutine(MoveAnimation(destination));
+        }
+        else if (gm.map.GetTypeOfTile(destination) == 0 && gm.map.GetEntityOnTile(destination) != null
+            && gm.map.GetEntityOnTile(destination).GetType().Equals(typeof(Character))
+            && ((Character)gm.map.GetEntityOnTile(destination)).type == Character.Type.Player)
+        {
+            // 진행 방향으로 한 칸 앞에 플레이어가 있는 경우
+            Attack(PositionToInt((destination - CurrentPosition()).normalized), false);  // TODO 택시 거리 1칸이 보장되지 않음
         }
         else
         {
@@ -270,7 +278,32 @@ public class EnemyMover : Mover {
         }
         t.position = destination;
         isMoving = false;
-        isMoved = true;
+        Attack(PositionToInt((destination - origin).normalized), true); // TODO 택시 거리 1칸이 보장되지 않음
+    }
+
+    /// <summary>
+    /// 진행 방향(direction)에 있는 대상이 플레이어면 공격합니다. isCharge가 true이면 돌진 공격이 적용됩니다.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="isCharge"></param>
+    private void Attack(Vector3 direction, bool isCharge)
+    {
+        // 플레이어가 진행 방향에 있는지 체크
+        Entity e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x), Mathf.RoundToInt(t.position.y + direction.y));
+        if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Player)
+        {
+            // 진행 방향에 플레이어가 있을 경우
+            Character player = (Character)e;
+            float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
+            if (!isCharge) bonus = 1f;
+            player.currentHealth -= Mathf.Max(0, (int)(bonus * GetComponent<Character>().weapon.Damage()) - player.armor.Guard());
+            isMoved = true;
+        }
+        else
+        {
+            // 진행 방향에 아무것도 없거나 플레이어가 아닌 Entity가 있을 경우
+            isMoved = true;
+        }
     }
 
     public override void Death()

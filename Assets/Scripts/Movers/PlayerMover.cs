@@ -8,9 +8,10 @@ public class PlayerMover : Mover {
     Transform t;
 
     private bool isMoving;
+    private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         t = GetComponent<Transform>();
         gm = GameManager.gm;
         isMoving = false;
@@ -118,7 +119,7 @@ public class PlayerMover : Mover {
         {
             // 진행 방향에 적이 있을 경우
             Character enemy = (Character)e;
-            float bonus = 1.5f;         // 돌진 시 1.5배의 대미지 적용
+            float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
             if (!isCharge) bonus = 1f;
             enemy.currentHealth -= Mathf.Max(0, (int)(bonus * GetComponent<Character>().weapon.Damage()) - enemy.armor.Guard());
             gm.NextTurn();
