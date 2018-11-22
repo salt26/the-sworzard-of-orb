@@ -257,8 +257,8 @@ public class EnemyMover : MonoBehaviour {
         Vector3 origin = t.position;
 
         // 애니메이션이 시작하기 전에 이동 판정 완료
-        gm.map.SetObjectOnTile(null, origin);
-        gm.map.SetObjectOnTile(gameObject, destination);
+        gm.map.SetEntityOnTile(null, origin);
+        gm.map.SetEntityOnTile(GetComponent<Character>(), destination);
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);

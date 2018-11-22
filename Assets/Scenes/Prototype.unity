@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 144728519}
   - component: {fileID: 144728518}
   - component: {fileID: 144728520}
+  - component: {fileID: 144728521}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -1039,6 +1040,17 @@ MonoBehaviour:
   leaveDistance: 3
   checkpoints:
   - {x: 4, y: 1, z: 0}
+--- !u!114 &144728521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 144728517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &148726131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,6 +2261,7 @@ GameObject:
   - component: {fileID: 374579138}
   - component: {fileID: 374579137}
   - component: {fileID: 374579136}
+  - component: {fileID: 374579139}
   m_Layer: 0
   m_Name: Monster (1)
   m_TagString: Untagged
@@ -2337,6 +2350,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &374579139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 374579135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &385688026
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,6 +3716,7 @@ GameObject:
   - component: {fileID: 815299970}
   - component: {fileID: 815299969}
   - component: {fileID: 815299968}
+  - component: {fileID: 815299971}
   m_Layer: 0
   m_Name: Monster (2)
   m_TagString: Untagged
@@ -3781,6 +3806,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &815299971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815299967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &831691505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,6 +4496,7 @@ GameObject:
   - component: {fileID: 949091047}
   - component: {fileID: 949091046}
   - component: {fileID: 949091048}
+  - component: {fileID: 949091049}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -4536,6 +4573,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb0ab0c11f56b09419eec4fe4b2b97fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &949091049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 949091045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &973726451
@@ -5525,10 +5573,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 453756610}
-  character: {fileID: 949091048}
+  character: {fileID: 949091049}
   enemies:
-  - {fileID: 144728520}
-  - {fileID: 374579136}
+  - {fileID: 144728521}
+  - {fileID: 374579139}
+  - {fileID: 815299971}
+  - {fileID: 1423487767}
   turnMark: {fileID: 879808468}
   myTurn: {fileID: 21300000, guid: e1b7c4fa564894c45baa5c6298f6a8ab, type: 3}
   myTurnColor: {r: 0.627451, g: 1, b: 0, a: 1}
@@ -5619,6 +5669,7 @@ GameObject:
   - component: {fileID: 1423487766}
   - component: {fileID: 1423487765}
   - component: {fileID: 1423487764}
+  - component: {fileID: 1423487767}
   m_Layer: 0
   m_Name: Monster (3)
   m_TagString: Untagged
@@ -5706,6 +5757,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1423487767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423487763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eec14b9bb0b53459cd1e930e629a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1431647076
 GameObject:
   m_ObjectHideFlags: 0

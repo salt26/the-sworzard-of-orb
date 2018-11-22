@@ -16,8 +16,8 @@ public class MapManager : MonoBehaviour {
             tiles.Add(new List<MapTile>());
             for (int j = 0; j < size.x; j++)
             {
-                MapTile t = Instantiate(tilePrefab[Random.Range(0,10) / 9], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
-                t.Obj = null;
+                MapTile t = Instantiate(tilePrefab[Random.Range(0, 20) / 17], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
+                t.Entity = null;
                 tiles[i].Add(t);
             }
         }
@@ -65,14 +65,14 @@ public class MapManager : MonoBehaviour {
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public GameObject GetObjectOnTile(int x, int y)
+    public Entity GetEntityOnTile(int x, int y)
     {
         MapTile t = GetTile(x, y);
         if (t == null)
         {
             return null;
         }
-        return t.Obj;
+        return t.Entity;
     }
 
     /// <summary>
@@ -81,9 +81,9 @@ public class MapManager : MonoBehaviour {
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public GameObject GetObjectOnTile(Vector3 position)
+    public Entity GetEntityOnTile(Vector3 position)
     {
-        return GetObjectOnTile(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+        return GetEntityOnTile(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
     }
 
     /// <summary>
@@ -91,18 +91,18 @@ public class MapManager : MonoBehaviour {
     /// obj로 설정하고 true를 반환합니다.
     /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
     /// </summary>
-    /// <param name="obj"></param>
+    /// <param name="entity"></param>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public bool SetObjectOnTile(GameObject obj, int x, int y)
+    public bool SetEntityOnTile(Entity entity, int x, int y)
     {
         MapTile t = GetTile(x, y);
         if (t == null || t.Type != 0)
         {
             return false;
         }
-        t.Obj = obj;
+        t.Entity = entity;
         return true;
     }
 
@@ -111,12 +111,12 @@ public class MapManager : MonoBehaviour {
     /// obj로 설정하고 true를 반환합니다.
     /// 만약 MapTile이 존재하지 않으면 false를 반환합니다.
     /// </summary>
-    /// <param name="obj"></param>
+    /// <param name="entity"></param>
     /// <param name="position"></param>
     /// <returns></returns>
-    public bool SetObjectOnTile(GameObject obj, Vector3 position)
+    public bool SetEntityOnTile(Entity entity, Vector3 position)
     {
-        return SetObjectOnTile(obj, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+        return SetEntityOnTile(entity, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
     }
 
     /// <summary>
@@ -131,7 +131,7 @@ public class MapManager : MonoBehaviour {
     public bool CanMoveToTile(int x, int y, bool canFall = false)
     {
         return (canFall && GetTypeOfTile(x, y) == 2) ||
-            (GetTypeOfTile(x, y) == 0 && GetObjectOnTile(x, y) == null);
+            (GetTypeOfTile(x, y) == 0 && GetEntityOnTile(x, y) == null);
     }
 
     /// <summary>
