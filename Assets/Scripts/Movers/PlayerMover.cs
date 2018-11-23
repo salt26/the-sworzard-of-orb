@@ -79,6 +79,10 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(0f, -1f, 0f), false);
                 }
             }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                gm.NextTurn();
+            }
         }
 	}
 
