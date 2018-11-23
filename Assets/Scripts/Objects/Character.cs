@@ -39,7 +39,12 @@ public class Character : Entity {
 	}
 	
 	void Update () {
-		if (currentHealth <= 0 && alive)
+		
+	}
+
+    public void DeathCheck()
+    {
+        if (currentHealth <= 0 && alive)
         {
             // 죽음
             // TODO 죽는 애니메이션과 스프라이트
@@ -48,5 +53,5 @@ public class Character : Entity {
                 sr.enabled = false;
             mover.Death();
         }
-	}
+    }
 }

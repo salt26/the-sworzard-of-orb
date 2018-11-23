@@ -71,6 +71,12 @@ public class GameManager : MonoBehaviour {
 
     public void NextTurn()
     {
+        character.DeathCheck();
+        foreach (Character e in enemies)
+        {
+            e.DeathCheck();
+        }
+
         turn = (turn + 1) % 2;
         if (turn == 0)
         {
