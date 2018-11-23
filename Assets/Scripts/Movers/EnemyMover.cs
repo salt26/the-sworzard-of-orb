@@ -249,7 +249,10 @@ public class EnemyMover : Mover {
             && ((Character)gm.map.GetEntityOnTile(destination)).type == Character.Type.Player)
         {
             // 진행 방향으로 한 칸 앞에 플레이어가 있는 경우
+            if (destination.x < CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
+            else if (destination.x > CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
             Attack(PositionToInt((destination - CurrentPosition()).normalized), false);  // TODO 택시 거리 1칸이 보장되지 않음
+
         }
         else
         {

@@ -1059,6 +1059,7 @@ MonoBehaviour:
     fire: 8
   armor:
     fire: 1
+  range: 1
 --- !u!1 &148726131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,6 +2378,7 @@ MonoBehaviour:
     fire: 8
   armor:
     fire: 1
+  range: 1
 --- !u!1 &385688026
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,6 +3843,7 @@ MonoBehaviour:
     fire: 8
   armor:
     fire: 1
+  range: 1
 --- !u!1 &831691505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,6 +4621,7 @@ MonoBehaviour:
     fire: 5
   armor:
     fire: 2
+  range: 1
 --- !u!1 &973726451
 GameObject:
   m_ObjectHideFlags: 0
@@ -5808,6 +5812,7 @@ MonoBehaviour:
     fire: 8
   armor:
     fire: 1
+  range: 1
 --- !u!1 &1431647076
 GameObject:
   m_ObjectHideFlags: 0
