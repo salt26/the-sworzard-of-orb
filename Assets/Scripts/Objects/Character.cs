@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : Entity {
 
@@ -14,6 +15,9 @@ public class Character : Entity {
     public Element weapon;      // 무기의 속성과 공격력
     public Element armor;       // 방어구의 속성과 방어력
     public int range = 1;
+
+    [Header("Reference")]
+    public Slider healthBar;
 
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
@@ -36,11 +40,23 @@ public class Character : Entity {
     
 	void Awake () {
         mover = GetComponent<Mover>();
+        if (healthBar != null)
+        {
+            healthBar.maxValue = maxHealth;
+            healthBar.value = currentHealth;
+        }
 	}
 	
 	void Update () {
 		
 	}
+
+    public void Damaged(int damage)
+    {
+        int oldHealth = currentHealth;
+        currentHealth -= damage;
+        StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar));
+    }
 
     public void DeathCheck()
     {
@@ -51,6 +67,9 @@ public class Character : Entity {
             alive = false;
             foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
                 sr.enabled = false;
+
+            foreach (Image i in GetComponentsInChildren<Image>())
+                i.enabled = false;
             mover.Death();
         }
     }

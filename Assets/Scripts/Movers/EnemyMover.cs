@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyMover : Mover {
 
@@ -326,8 +327,7 @@ public class EnemyMover : Mover {
 
             if (i == frame / 3)
             {
-                player.currentHealth -= damage;
-                StartCoroutine(((PlayerMover)player.Mover).DamagedAnimation());
+                player.Damaged(damage);
             }
 
             yield return null;
@@ -337,7 +337,7 @@ public class EnemyMover : Mover {
         isMoved = true;
     }
 
-    public IEnumerator DamagedAnimation()
+    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null)
     {
         isMoving = true;
         int frame = 30;
@@ -348,7 +348,9 @@ public class EnemyMover : Mover {
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)i / frame * 2);
             else
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
-            
+
+            if (healthBar != null)
+                healthBar.value = Mathf.Lerp(GetComponent<Character>().currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
 
             yield return null;
         }
