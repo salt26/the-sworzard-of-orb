@@ -4525,7 +4525,7 @@ GameObject:
   - component: {fileID: 949091049}
   - component: {fileID: 949091048}
   m_Layer: 0
-  m_Name: Character
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4615,8 +4615,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   size: 1
-  maxHealth: 40
-  currentHealth: 40
+  maxHealth: 30
+  currentHealth: 30
   weapon:
     fire: 5
   armor:
@@ -5609,7 +5609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 453756610}
-  character: {fileID: 949091049}
+  player: {fileID: 949091049}
   enemies:
   - {fileID: 144728521}
   - {fileID: 374579139}

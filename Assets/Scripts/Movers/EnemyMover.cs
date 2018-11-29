@@ -64,7 +64,7 @@ public class EnemyMover : Mover {
         }
         else if (gm.Turn == 1 && !isMoving && !isMoved)
         {
-            Vector3 playerPos = PositionToInt(gm.character.GetComponent<Transform>().position);
+            Vector3 playerPos = PositionToInt(gm.player.GetComponent<Transform>().position);
             Vector3 destination;
 
             if (hasTaunted)
@@ -274,11 +274,12 @@ public class EnemyMover : Mover {
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);
             if (i < frame / 2)
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(1f, 0.4f, 0.8f, 1f), (float)i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.2f, 0.5f, 0.4f, 1f), (float)i / frame * 2);
             else
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(1f, 0.4f, 0.8f, 1f), (float)(frame - i) / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.2f, 0.5f, 0.4f, 1f), (float)(frame - i) / frame * 2);
             yield return null;
         }
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         t.position = destination;
         isMoving = false;
         Attack(PositionToInt((destination - origin).normalized), true); // TODO 택시 거리 1칸이 보장되지 않음
@@ -299,14 +300,60 @@ public class EnemyMover : Mover {
             Character player = (Character)e;
             float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
             if (!isCharge) bonus = 1f;
-            player.currentHealth -= Mathf.Max(0, (int)(bonus * GetComponent<Character>().weapon.Damage()) - player.armor.Guard());
-            isMoved = true;
+            StartCoroutine(AttackAnimation(direction, player, 
+                Mathf.Max(0, (int)(bonus * GetComponent<Character>().weapon.Damage()) - player.armor.Guard())));
         }
         else
         {
             // 진행 방향에 아무것도 없거나 플레이어가 아닌 Entity가 있을 경우
             isMoved = true;
         }
+    }
+
+    // TODO direction은 현재 사용하지 않음.
+    IEnumerator AttackAnimation(Vector3 direction, Character player, int damage)
+    {
+        isMoving = true;
+        int frame = 20;
+        Vector3 origin = t.position;
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (i < frame / 3)
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
+            else
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
+
+            if (i == frame / 3)
+            {
+                player.currentHealth -= damage;
+                StartCoroutine(((PlayerMover)player.Mover).DamagedAnimation());
+            }
+
+            yield return null;
+        }
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        isMoving = false;
+        isMoved = true;
+    }
+
+    public IEnumerator DamagedAnimation()
+    {
+        isMoving = true;
+        int frame = 30;
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (i < frame / 2)
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)i / frame * 2);
+            else
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
+            
+
+            yield return null;
+        }
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        isMoving = false;
     }
 
     public override void Death()

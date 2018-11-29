@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 
     // 여기에 등록되지 않은 캐릭터, 적 및 모든 개체는 게임 내에서 상호작용 불가
     public MapManager map;
-    public Character character;
+    public Character player;
     public List<Character> enemies = new List<Character>();
 
     [Header("Turn Mark")]
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
         turn = 0;
-        map.SetEntityOnTile(character, character.GetComponent<Transform>().position);
+        map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
 
         // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
         //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
 
     public void NextTurn()
     {
-        character.DeathCheck();
+        player.DeathCheck();
         foreach (Character e in enemies)
         {
             e.DeathCheck();
