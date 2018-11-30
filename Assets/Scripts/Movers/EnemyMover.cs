@@ -74,7 +74,7 @@ public class EnemyMover : Mover {
                 destination = Move1Taxi(playerPos);
                 if (Distance(tauntedPosition, destination) <= leaveDistance)
                 {
-                    Move(destination);
+                    destination = Move(destination);
                 }
                 else
                 {
@@ -82,7 +82,7 @@ public class EnemyMover : Mover {
                     hasTaunted = false;
                     if (myTauntedSprite != null) Destroy(myTauntedSprite);
                     destination = Move1Taxi(tauntedPosition);
-                    Move(destination);
+                    destination = Move(destination);
 
                     // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
                     if (IsSamePosition(destination, tauntedPosition))
@@ -95,7 +95,7 @@ public class EnemyMover : Mover {
             {
                 // 도발 상태가 풀렸지만 아직 처음 도발당한 위치로 돌아가지 못한 경우
                 destination = Move1Taxi(tauntedPosition);
-                Move(destination);
+                destination = Move(destination);
 
                 // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
                 if (IsSamePosition(destination, tauntedPosition))
@@ -106,7 +106,7 @@ public class EnemyMover : Mover {
             else {
                 // 시야에 플레이어가 없는 경우 정상 경로를 따라 순찰
                 destination = Move1Taxi(movePattern());
-                Move(destination);
+                destination = Move(destination);
             }
             
             // 정상 경로를 순찰하던 중 플레이어를 발견한 경우
@@ -141,10 +141,10 @@ public class EnemyMover : Mover {
     {
         // 경로 초기화가 되지 않은 경우
         if (headCheckpoints == null || passedCheckpoints == null)
-            return CurrentPosition();
+            return GetCurrentPosition();
 
         // 바로 다음에 가야 할 위치가 현재 위치와 같으면, 그 위치를 지나온 경로로 취급합니다.
-        while (headCheckpoints.Count > 0 && IsSamePosition(CurrentPosition(), headCheckpoints.Peek()))
+        while (headCheckpoints.Count > 0 && IsSamePosition(GetCurrentPosition(), headCheckpoints.Peek()))
         {
             passedCheckpoints.Push(headCheckpoints.Pop());
         }
@@ -159,7 +159,7 @@ public class EnemyMover : Mover {
 
         // 돌아갈 경로에서 가장 먼저 가게 될 곳은 항상 현재 위치이므로,
         // 현재 위치가 아니면서 처음으로 가야 할 곳을 찾습니다.
-        while (headCheckpoints.Count > 0 && IsSamePosition(CurrentPosition(), headCheckpoints.Peek()))
+        while (headCheckpoints.Count > 0 && IsSamePosition(GetCurrentPosition(), headCheckpoints.Peek()))
         {
             passedCheckpoints.Push(headCheckpoints.Pop());
         }
@@ -168,7 +168,7 @@ public class EnemyMover : Mover {
         // 일반적인 경우 지금 먼저 가야 할 곳의 위치를 반환합니다.
         if (headCheckpoints.Count == 0)
         {
-            return CurrentPosition();
+            return GetCurrentPosition();
         }
         else
         {
@@ -185,7 +185,7 @@ public class EnemyMover : Mover {
         headCheckpoints = new Stack<Vector3>();
         passedCheckpoints = new Stack<Vector3>();
 
-        passedCheckpoints.Push(CurrentPosition());
+        passedCheckpoints.Push(GetCurrentPosition());
         if (checkpoints != null)
         {
             for (int i = checkpoints.Count - 1; i >= 0; i--)
@@ -206,19 +206,19 @@ public class EnemyMover : Mover {
     private Vector3 Move1Taxi(Vector3 destination)
     {
         Vector3 direction;
-        if (CurrentPosition().y < destination.y)
+        if (GetCurrentPosition().y < destination.y)
         {
             direction = new Vector3(0f, 1f, 0f);
         }
-        else if (CurrentPosition().y > destination.y)
+        else if (GetCurrentPosition().y > destination.y)
         {
             direction = new Vector3(0f, -1f, 0f);
         }
-        else if (CurrentPosition().x < destination.x)
+        else if (GetCurrentPosition().x < destination.x)
         {
             direction = new Vector3(1f, 0f, 0f);
         }
-        else if (CurrentPosition().x > destination.x)
+        else if (GetCurrentPosition().x > destination.x)
         {
             direction = new Vector3(-1f, 0f, 0f);
         }
@@ -227,37 +227,40 @@ public class EnemyMover : Mover {
             direction = Vector3.zero;
         }
 
-        return CurrentPosition() + direction;
+        return GetCurrentPosition() + direction;
     }
 
-    private void Move(Vector3 destination)
+    private Vector3 Move(Vector3 destination)
     {
-        if (IsSamePosition(destination, CurrentPosition()))
+        if (IsSamePosition(destination, GetCurrentPosition()))
         {
             // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이, 공격도 하지 않고 턴 넘김
             isMoved = true;
+            return destination;
         }
         else if (gm.map.CanMoveToTile(destination))
         {
             // TODO 한 턴에 2칸 이상을 이동하는 경우, 지나는 모든 타일에 대한 고려가 필요함
-            if (destination.x < CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
-            else if (destination.x > CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
+            if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
+            else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
             StartCoroutine(MoveAnimation(destination));
+            return destination;
         }
         else if (gm.map.GetTypeOfTile(destination) == 0 && gm.map.GetEntityOnTile(destination) != null
             && gm.map.GetEntityOnTile(destination).GetType().Equals(typeof(Character))
             && ((Character)gm.map.GetEntityOnTile(destination)).type == Character.Type.Player)
         {
             // 진행 방향으로 한 칸 앞에 플레이어가 있는 경우
-            if (destination.x < CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
-            else if (destination.x > CurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
-            Attack(PositionToInt((destination - CurrentPosition()).normalized), false);  // TODO 택시 거리 1칸이 보장되지 않음
-
+            if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
+            else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
+            Attack(PositionToInt((destination - GetCurrentPosition()).normalized), false);  // TODO 택시 거리 1칸이 보장되지 않음
+            return GetCurrentPosition();
         }
         else
         {
             // TODO 일단은 가려고 하는 곳이 갈 수 없는 지형이면 움직이지 않고 턴 넘김
             isMoved = true;
+            return GetCurrentPosition();
         }
     }
 
@@ -379,7 +382,7 @@ public class EnemyMover : Mover {
     /// 현재 이 오브젝트의 위치를 정수 좌표로 반환합니다.
     /// </summary>
     /// <returns></returns>
-    private Vector3 CurrentPosition()
+    private Vector3 GetCurrentPosition()
     {
         return PositionToInt(t.position);
     }
