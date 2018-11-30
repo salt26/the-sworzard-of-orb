@@ -1138,10 +1138,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 100
+  currentHealth: 100
   weapon:
-    fire: 8
+    fire: 80
   armor:
     fire: 1
   range: 1
@@ -2681,10 +2681,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 100
+  currentHealth: 100
   weapon:
-    fire: 8
+    fire: 80
   armor:
     fire: 1
   range: 1
@@ -4464,10 +4464,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 100
+  currentHealth: 100
   weapon:
-    fire: 8
+    fire: 80
   armor:
     fire: 1
   range: 1
@@ -5504,7 +5504,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1f20e05925af94f458b946f48bfae685, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 806e3fa8596dc964786a10b8e1aaf0e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5553,13 +5553,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   size: 1
-  maxHealth: 30
-  currentHealth: 30
+  maxHealth: 350
+  currentHealth: 350
   weapon:
-    fire: 5
+    fire: 50
   armor:
     fire: 2
-  range: 1
+  range: 2
   healthBar: {fileID: 1265668945}
 --- !u!1 &961433546
 GameObject:
@@ -7017,10 +7017,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 100
+  currentHealth: 100
   weapon:
-    fire: 8
+    fire: 80
   armor:
     fire: 1
   range: 1

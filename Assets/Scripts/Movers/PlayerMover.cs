@@ -129,17 +129,7 @@ public class PlayerMover : Mover {
     {
         // 적 또는 상호작용 가능한 대상이 진행 방향에 있는지 체크
         Entity e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x), Mathf.RoundToInt(t.position.y + direction.y));
-        if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Enemy)
-        {
-            // 진행 방향에 적이 있을 경우
-            Character enemy = (Character)e;
-            float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
-            if (!isCharge) bonus = 1f;
-
-            StartCoroutine(AttackAnimation(direction, enemy,
-                Mathf.Max(0, (int)(bonus * GetComponent<Character>().weapon.Damage()) - enemy.armor.Guard())));
-        }
-        else if (e != null && e.GetType().Equals(typeof(Interactable)))
+        if (e != null && e.GetType().Equals(typeof(Interactable)))
         {
             // 진행 방향에 상호작용 가능한 대상이 있을 경우
             // TODO
@@ -147,13 +137,37 @@ public class PlayerMover : Mover {
         }
         else
         {
-            // 진행 방향에 아무것도 없을 경우
-            gm.NextTurn();
+            // 사정거리 내의 모든 적 확인
+            List<Character> enemies = new List<Character>();
+            for (int i = 1; i <= GetComponent<Character>().range; i++)
+            {
+                e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x * i), Mathf.RoundToInt(t.position.y + direction.y * i));
+                if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Enemy)
+                {
+                    enemies.Add((Character)e);
+                }
+            }
+            if (enemies.Count > 0)
+            {
+                // 진행 방향으로 사정거리 내에 적이 있을 경우
+                float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
+                if (!isCharge) bonus = 1f;
+
+                // 무기의 사정거리만큼 대미지 감소 (예: 사정거리 2이면 대미지는 1/2)
+                if (GetComponent<Character>().range > 1) bonus /= GetComponent<Character>().range;
+
+                StartCoroutine(AttackAnimation(direction, enemies, bonus));
+            }
+            else
+            {
+                // 진행 방향에 아무것도 없을 경우
+                gm.NextTurn();
+            }
         }
     }
 
     // TODO direction은 현재 사용하지 않음.
-    IEnumerator AttackAnimation(Vector3 direction, Character enemy, int damage)
+    IEnumerator AttackAnimation(Vector3 direction, List<Character> enemies, float bonusDamage)
     {
         isMoving = true;
         int frame = 20;
@@ -168,7 +182,8 @@ public class PlayerMover : Mover {
 
             if (i == frame / 3)
             {
-                enemy.Damaged(damage);
+                foreach (Character enemy in enemies)
+                    enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * GetComponent<Character>().weapon.Damage()) - enemy.armor.Guard()));
             }
 
             yield return null;
