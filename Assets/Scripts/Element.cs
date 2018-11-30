@@ -7,6 +7,7 @@ public class Element {
 
     public int fire;
     private int ice, nature;
+    private int range = 1;  // 사정거리(무기에만 적용)
 
     public Element(int fire, int ice, int nature)
     {
@@ -23,7 +24,7 @@ public class Element {
         this.nature = 0;
     }
 
-    #region 프로퍼티 (Fire, Ice, Nature)
+    #region 프로퍼티 (Fire, Ice, Nature, Range)
     /* TODO
     public int Fire
     {
@@ -59,6 +60,19 @@ public class Element {
         set
         {
             nature = value;
+        }
+    }
+
+    public int Range
+    {
+        get
+        {
+            return range;
+        }
+        set
+        {
+            if (value > 0) range = value;
+            else range = 1;
         }
     }
     #endregion
@@ -117,7 +131,11 @@ public class Element {
         if (fire < max) f = 0;
         if (ice < max) i = 0;
         if (nature < max) n = 0;
-        return new Element(f, i, n);
+        Element e = new Element(f, i, n);
+
+        // 무기의 사정거리만큼 대미지 감소 (예: 사정거리 2이면 대미지는 1/2)
+        if (Range > 1) e = e * new Vector3(1f / Range, 1f / Range, 1f / Range);
+        return e;
     }
 
     /// <summary>

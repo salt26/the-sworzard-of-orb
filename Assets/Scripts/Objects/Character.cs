@@ -45,6 +45,7 @@ public class Character : Entity {
             healthBar.maxValue = maxHealth;
             healthBar.value = currentHealth;
         }
+        weapon.Range = range;
 	}
 	
 	void Update () {
@@ -71,6 +72,25 @@ public class Character : Entity {
             foreach (Image i in GetComponentsInChildren<Image>())
                 i.enabled = false;
             mover.Death();
+        }
+    }
+
+    public void ToggleWeapon()
+    {
+        if (type != Type.Player) return;
+        if (range == 1)
+        {
+            // 창으로 변경
+            GetComponent<SpriteRenderer>().sprite = Resources.Load("PowerCharacter2", typeof(Sprite)) as Sprite;
+            range = 2;
+            weapon.Range = range;
+        }
+        else
+        {
+            // 칼로 변경
+            GetComponent<SpriteRenderer>().sprite = Resources.Load("PowerCharacter", typeof(Sprite)) as Sprite;
+            range = 1;
+            weapon.Range = range;
         }
     }
 }

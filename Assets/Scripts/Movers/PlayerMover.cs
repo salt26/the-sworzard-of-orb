@@ -92,6 +92,11 @@ public class PlayerMover : Mover {
             {
                 gm.NextTurn();
             }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                GetComponent<Character>().ToggleWeapon();
+                gm.NextTurn();
+            }
         }
 	}
 
@@ -152,9 +157,6 @@ public class PlayerMover : Mover {
                 // 진행 방향으로 사정거리 내에 적이 있을 경우
                 float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
                 if (!isCharge) bonus = 1f;
-
-                // 무기의 사정거리만큼 대미지 감소 (예: 사정거리 2이면 대미지는 1/2)
-                if (GetComponent<Character>().range > 1) bonus /= GetComponent<Character>().range;
 
                 StartCoroutine(AttackAnimation(direction, enemies, bonus));
             }
