@@ -1138,10 +1138,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 10
+  currentHealth: 10
   weapon:
-    fire: 80
+    fire: 8
   armor:
     fire: 1
   range: 1
@@ -2681,10 +2681,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 10
+  currentHealth: 10
   weapon:
-    fire: 80
+    fire: 8
   armor:
     fire: 1
   range: 1
@@ -4464,10 +4464,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 10
+  currentHealth: 10
   weapon:
-    fire: 80
+    fire: 8
   armor:
     fire: 1
   range: 1
@@ -5553,10 +5553,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   size: 1
-  maxHealth: 350
-  currentHealth: 350
+  maxHealth: 30
+  currentHealth: 30
   weapon:
-    fire: 50
+    fire: 5
   armor:
     fire: 2
   range: 2
@@ -7017,10 +7017,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   size: 1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 10
+  currentHealth: 10
   weapon:
-    fire: 80
+    fire: 8
   armor:
     fire: 1
   range: 1
