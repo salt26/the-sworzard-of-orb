@@ -1116,6 +1116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}
@@ -1146,6 +1147,7 @@ MonoBehaviour:
     fire: 1
   range: 1
   healthBar: {fileID: 117954381}
+  oldHealth: 0
 --- !u!1 &148726131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,6 +2599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}
@@ -2689,6 +2692,7 @@ MonoBehaviour:
     fire: 1
   range: 1
   healthBar: {fileID: 466083305}
+  oldHealth: 0
 --- !u!1 &385688026
 GameObject:
   m_ObjectHideFlags: 0
@@ -4379,6 +4383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}
@@ -4472,6 +4477,7 @@ MonoBehaviour:
     fire: 1
   range: 1
   healthBar: {fileID: 1706919090}
+  oldHealth: 0
 --- !u!1 &819977310
 GameObject:
   m_ObjectHideFlags: 0
@@ -5540,6 +5546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0ab0c11f56b09419eec4fe4b2b97fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
 --- !u!114 &949091049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5561,6 +5568,7 @@ MonoBehaviour:
     fire: 2
   range: 2
   healthBar: {fileID: 1265668945}
+  oldHealth: 0
 --- !u!1 &961433546
 GameObject:
   m_ObjectHideFlags: 0
@@ -6934,6 +6942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}
@@ -7025,6 +7034,7 @@ MonoBehaviour:
     fire: 1
   range: 1
   healthBar: {fileID: 1166034374}
+  oldHealth: 0
 --- !u!1 &1431647076
 GameObject:
   m_ObjectHideFlags: 0
