@@ -19,8 +19,12 @@ public class Character : Entity {
     [Header("Reference")]
     public Slider healthBar;
 
+    [HideInInspector]
+    public int oldHealth;       // 플레이어가 자신의 턴을 넘길 때 남아있던 체력
+
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
+    private bool hasDamaged = false;
 
     public Mover Mover
     {
@@ -46,17 +50,34 @@ public class Character : Entity {
             healthBar.value = currentHealth;
         }
         weapon.Range = range;
+        oldHealth = currentHealth;
 	}
 	
 	void Update () {
 		
 	}
 
+    /// <summary>
+    /// 대미지를 받을 때 호출됩니다.
+    /// 해당 턴의 모든 대미지 계산이 완료된 후, 반드시 DamagedAnimation()이 호출되어야 합니다.
+    /// </summary>
+    /// <param name="damage"></param>
     public void Damaged(int damage)
     {
-        int oldHealth = currentHealth;
         currentHealth -= damage;
-        StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar));
+        hasDamaged = true;
+    }
+
+    /// <summary>
+    /// 대미지 계산이 완료된 후, 피격 애니메이션을 재생하기 위해 호출됩니다.
+    /// </summary>
+    public void DamagedAnimation()
+    {
+        if (hasDamaged)
+        {
+            hasDamaged = false;
+            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar));
+        }
     }
 
     public void DeathCheck()

@@ -8,7 +8,6 @@ public class EnemyMover : Mover {
     GameManager gm;
     Transform t;
     
-    private bool isMoving;      // 이동 중에 true
     private bool isMoved;       // 이동이 끝나면 true
     private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
 
@@ -328,13 +327,13 @@ public class EnemyMover : Mover {
             if (i == frame / 3)
             {
                 player.Damaged(damage);
+                isMoved = true;
             }
 
             yield return null;
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         isMoving = false;
-        isMoved = true;
     }
 
     public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null)

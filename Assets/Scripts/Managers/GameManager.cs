@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
     public Sprite enemyTurn;
     public Color enemyTurnColor;
     
-    private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴
+    private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중
 
     public int Turn
     {
@@ -69,15 +69,65 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// 턴을 넘깁니다.
+    /// 피격 애니메이션을 재생하고, 모든 애니메이션이 끝날 때까지 기다렸다가, 사망 판정 후 턴이 넘어갑니다.
+    /// </summary>
     public void NextTurn()
     {
+        StartCoroutine(NextTurnWithDelay());
+    }
+
+    IEnumerator NextTurnWithDelay()
+    {
+        bool ready;
+        int oldTurn = turn;
+        turn = 2;   // 임시 턴 (피격 애니메이션 재생 중 키 입력으로 한 턴에 여러 번 행동하는 것을 방지)
+
+        if (oldTurn == 0)
+        {
+            // 턴을 넘길 때의 플레이어의 현재 체력을 기억
+            player.oldHealth = player.currentHealth;
+            foreach (Character e in enemies)
+            {
+                e.DamagedAnimation();
+            }
+        }
+        else if (oldTurn == 1)
+        {
+            // 턴을 넘길 때의 각 적의 현재 체력을 기억
+            foreach (Character e in enemies)
+            {
+                e.oldHealth = e.currentHealth;
+            }
+            player.DamagedAnimation();
+        }
+
+        while (true)
+        {
+            ready = true;
+            foreach (Character e in enemies)
+            {
+                if (e.Alive && e.Mover.isMoving)
+                {
+                    ready = false;
+                    break;
+                }
+            }
+            if (player.Alive && player.Mover.isMoving) ready = false;
+
+            if (ready) break;
+            else yield return null;
+        }
+
+        // 사망 여부 확인
         player.DeathCheck();
         foreach (Character e in enemies)
         {
             e.DeathCheck();
         }
 
-        turn = (turn + 1) % 2;
+        turn = (oldTurn + 1) % 2;
         if (turn == 0)
         {
             turnMark.sprite = myTurn;

@@ -7,8 +7,7 @@ public class PlayerMover : Mover {
 
     GameManager gm;
     Transform t;
-
-    private bool isMoving;
+    
     private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
 
     public bool IsMoving
@@ -185,14 +184,17 @@ public class PlayerMover : Mover {
             if (i == frame / 3)
             {
                 foreach (Character enemy in enemies)
+                {
                     enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * GetComponent<Character>().weapon.Damage()) - enemy.armor.Guard()));
+                }
+
+                gm.NextTurn();
             }
 
             yield return null;
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         isMoving = false;
-        gm.NextTurn();
     }
 
     public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null)
