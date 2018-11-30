@@ -1122,7 +1122,7 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 2
+  sightDistance: 1
   leaveDistance: 3
   checkpoints:
   - {x: 4, y: 1, z: 0}
@@ -2605,7 +2605,7 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 2
+  sightDistance: 1
   leaveDistance: 3
   checkpoints:
   - {x: 4, y: 5, z: 0}
@@ -4389,7 +4389,7 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 2
+  sightDistance: 1
   leaveDistance: 3
   checkpoints:
   - {x: 7, y: 7, z: 0}
@@ -5560,8 +5560,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   size: 1
-  maxHealth: 30
-  currentHealth: 30
+  maxHealth: 60
+  currentHealth: 60
   weapon:
     fire: 5
   armor:
@@ -6948,7 +6948,7 @@ MonoBehaviour:
   tauntedPosition: {x: 0, y: 0, z: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
-  sightDistance: 2
+  sightDistance: 1
   leaveDistance: 3
   checkpoints:
   - {x: 1, y: 7, z: 0}
