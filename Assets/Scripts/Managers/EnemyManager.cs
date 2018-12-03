@@ -40,16 +40,16 @@ public class EnemyManager : MonoBehaviour {
 [System.Serializable]
 public class EnemyInfo
 {
-    public string name;
-    public int level = 1;
+    public string name;     // 이름(Primary key)
+    public int level = 1;   // 레벨(Primary key)
     public int size = 1;    // 크기(충돌 판정이 이루어지는 타일 수)
     public int maxHealth;
     public Weapon weapon;   // 무기의 속성과 공격력
     public Armor armor;     // 방어구의 속성과 방어력
 
-    public int sightDistance;
-    public int leaveDistance;
+    public int sightDistance;   // 적의 시야
+    public int leaveDistance;   // 적의 최대 이동 거리
 
-    public int gold;
-    public List<GameObject> items;
+    public int gold;            // 적이 떨어뜨릴 화폐 양
+    public List<string> items;  // 적이 떨어뜨릴 아이템 이름 목록("Gold" 제외)
 }

@@ -186,6 +186,7 @@ public class MapManager : MonoBehaviour {
     /// <summary>
     /// (x, y) 좌표에 위치한 MapTile 위에
     /// gold만큼의 화폐 오브젝트를 생성하고 true를 반환합니다.
+    /// 만약 gold가 0 이하이면 화폐를 생성하지 않고 true를 반환합니다.
     /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
     /// </summary>
     /// <param name="gold"></param>
@@ -199,7 +200,8 @@ public class MapManager : MonoBehaviour {
         {
             return false;
         }
-        GameObject g = Instantiate(ItemManager.im.Gold, t.GetComponent<Transform>().position + new Vector3(0f, 0f, -0.5f), Quaternion.identity);
+        if (gold <= 0) return true;
+        GameObject g = Instantiate(ItemManager.im.Gold, t.GetComponent<Transform>().position + new Vector3(0f, 0f, -0.4f), Quaternion.identity);
         g.GetComponent<Gold>().Quantity = gold;
         t.Items.Add(g.GetComponent<Item>());
         return true;
@@ -208,6 +210,7 @@ public class MapManager : MonoBehaviour {
     /// <summary>
     /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에
     /// gold만큼의 화폐 오브젝트를 생성하고 true를 반환합니다.
+    /// 만약 gold가 0 이하이면 화폐를 생성하지 않고 true를 반환합니다.
     /// 만약 MapTile이 존재하지 않으면 false를 반환합니다.
     /// </summary>
     /// <param name="gold"></param>
@@ -216,5 +219,55 @@ public class MapManager : MonoBehaviour {
     public bool AddGoldOnTile(int gold, Vector3 position)
     {
         return AddGoldOnTile(gold, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
+    /// <summary>
+    /// (x, y) 좌표에 위치한 MapTile 위에 놓인
+    /// 모든 아이템들을 inventory에 넣고 제거한 뒤 true를 반환합니다.
+    /// 만약 아이템이 떨어져 있지 않으면 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
+    /// </summary>
+    /// <param name="inventory"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool PickUpItemsOnTile(Inventory inventory, int x, int y)
+    {
+        MapTile t = GetTile(x, y);
+        if (t == null || t.Type != 0)
+        {
+            return false;
+        }
+        foreach (Item i in t.Items)
+        {
+            if (i.name.Equals("Gold"))
+            {
+                inventory.Gold += ((Gold)i).Quantity;
+            }
+            else
+            {
+                inventory.items.Add(i.name);
+            }
+        }
+        for (int i = t.Items.Count - 1; i >= 0; i--)
+        {
+            Destroy(t.Items[i].gameObject);
+        }
+        t.Items = new List<Item>();
+        return true;
+    }
+
+    /// <summary>
+    /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에 놓인
+    /// 모든 아이템들을 inventory에 넣고 제거한 뒤 true를 반환합니다.
+    /// 만약 아이템이 떨어져 있지 않으면 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
+    /// </summary>
+    /// <param name="inventory"></param>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool PickUpItemsOnTile(Inventory inventory, Vector3 position)
+    {
+        return PickUpItemsOnTile(inventory, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
     }
 }

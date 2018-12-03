@@ -6,5 +6,6 @@ public class Item : MonoBehaviour {
 
     //public enum Type { Gold, Orb, Consumable };
     //public Type type;
-    public new string name;
+
+    public new string name; // 아이템 이름(Primary key)
 }

@@ -114,6 +114,7 @@ public class PlayerMover : Mover {
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         t.position = destination;
         isMoving = false;
+        gm.map.PickUpItemsOnTile(GetComponent<Inventory>(), t.position);
         Interaction(direction, true);
     }
 

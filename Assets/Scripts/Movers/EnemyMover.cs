@@ -400,6 +400,10 @@ public class EnemyMover : Mover {
         isMoving = false;
     }
 
+    /// <summary>
+    /// 사망을 처리합니다.
+    /// 사망한 위치에 화폐와 아이템을 드랍합니다.
+    /// </summary>
     public override void Death()
     {
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
@@ -408,9 +412,10 @@ public class EnemyMover : Mover {
         int gold = EnemyManager.em.FindEnemyInfo(c.name, c.level).gold;
         gm.map.AddGoldOnTile(gold, t.position);
 
-        List<GameObject> items = EnemyManager.em.FindEnemyInfo(c.name, c.level).items;
-        foreach (GameObject item in items)
+        List<string> items = EnemyManager.em.FindEnemyInfo(c.name, c.level).items;
+        foreach (string itemName in items)
         {
+            GameObject item = ItemManager.im.GetItemPrefab(itemName);
             gm.map.AddItemOnTile(item, t.position);
         }
         this.enabled = false;

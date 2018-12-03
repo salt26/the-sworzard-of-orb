@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour {
 
     // TODO 나중에 private으로 바꾸기
-    public List<Item> items;
+    public List<string> items;
     
     private int gold = 0;
 
