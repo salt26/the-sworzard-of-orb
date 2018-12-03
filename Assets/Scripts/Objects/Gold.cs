@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Gold : Item {
+
+    private int quantity;
+
+    public int Quantity
+    {
+        get
+        {
+            return quantity;
+        }
+        set
+        {
+            if (value >= 2)
+            {
+                GetComponent<SpriteRenderer>().sprite = Resources.Load("Golds2", typeof(Sprite)) as Sprite;
+                quantity = value;
+            }
+            else if (value == 1)
+            {
+                GetComponent<SpriteRenderer>().sprite = Resources.Load("Golds", typeof(Sprite)) as Sprite;
+                quantity = value;
+            }
+        }
+    }
+}

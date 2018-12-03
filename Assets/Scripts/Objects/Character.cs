@@ -12,9 +12,8 @@ public class Character : Entity {
     public int size = 1;        // 크기(충돌 판정이 이루어지는 타일 수)
     public int maxHealth;
     public int currentHealth;   // TODO private로 바꾸기
-    public Element weapon;      // 무기의 속성과 공격력
-    public Element armor;       // 방어구의 속성과 방어력
-    public int range = 1;
+    public List<Weapon> weapons;    // 무기의 속성과 공격력
+    public Armor armor;           // 방어구의 속성과 방어력
 
     [Header("Reference")]
     public Slider healthBar;
@@ -25,6 +24,7 @@ public class Character : Entity {
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
     private bool hasDamaged = false;
+    private int weaponNum = -1;
 
     public Mover Mover
     {
@@ -41,6 +41,17 @@ public class Character : Entity {
             return alive;
         }
     }
+
+    public Weapon EquippedWeapon
+    {
+        get
+        {
+            if (weaponNum >= 0 && weaponNum < weapons.Count)
+                return weapons[weaponNum];
+            else
+                return null;
+        }
+    }
     
 	void Awake () {
         mover = GetComponent<Mover>();
@@ -49,11 +60,15 @@ public class Character : Entity {
             healthBar.maxValue = maxHealth;
             healthBar.value = currentHealth;
         }
-        weapon.Range = range;
         oldHealth = currentHealth;
 	}
-	
-	void Update () {
+
+    void Start()
+    {
+        ToggleWeapon();
+    }
+
+    void Update () {
 		
 	}
 
@@ -98,7 +113,19 @@ public class Character : Entity {
 
     public void ToggleWeapon()
     {
-        if (type != Type.Player) return;
+        if (type != Type.Player)
+        {
+            // TODO 적은 무기 변경 불가
+            weaponNum = 0;
+            return;
+        }
+        weaponNum++;
+        if (weaponNum >= weapons.Count || weaponNum < 0) weaponNum = 0;
+
+        GetComponent<SpriteRenderer>().sprite = EquippedWeapon.CharacterSprite;
+        GameManager.gm.weaponMark.sprite = EquippedWeapon.WeaponSprite;
+
+        /*
         if (range == 1)
         {
             // 창으로 변경
@@ -113,5 +140,6 @@ public class Character : Entity {
             range = 1;
             weapon.Range = range;
         }
+        */
     }
 }

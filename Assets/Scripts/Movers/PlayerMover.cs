@@ -10,17 +10,10 @@ public class PlayerMover : Mover {
     
     private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
 
-    public bool IsMoving
-    {
-        get
-        {
-            return isMoving;
-        }
-    }
-
     // Use this for initialization
     void Start () {
         t = GetComponent<Transform>();
+        c = GetComponent<Character>();
         gm = GameManager.gm;
         isMoving = false;
 	}
@@ -93,7 +86,7 @@ public class PlayerMover : Mover {
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
-                GetComponent<Character>().ToggleWeapon();
+                c.ToggleWeapon();
                 gm.NextTurn();
             }
         }
@@ -108,7 +101,7 @@ public class PlayerMover : Mover {
 
         // 애니메이션이 시작하기 전에 이동 판정 완료
         gm.map.SetEntityOnTile(null, origin);
-        gm.map.SetEntityOnTile(GetComponent<Character>(), destination);
+        gm.map.SetEntityOnTile(c, destination);
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, Mathf.Sqrt(Mathf.Sqrt((float)i / frame)));
@@ -143,7 +136,7 @@ public class PlayerMover : Mover {
         {
             // 사정거리 내의 모든 적 확인
             List<Character> enemies = new List<Character>();
-            for (int i = 1; i <= GetComponent<Character>().range; i++)
+            for (int i = 1; i <= c.EquippedWeapon.Range; i++)
             {
                 e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x * i), Mathf.RoundToInt(t.position.y + direction.y * i));
                 if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Enemy)
@@ -185,7 +178,7 @@ public class PlayerMover : Mover {
             {
                 foreach (Character enemy in enemies)
                 {
-                    enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * GetComponent<Character>().weapon.Damage()) - enemy.armor.Guard()));
+                    enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Damage()) - enemy.armor.Guard()));
                 }
 
                 gm.NextTurn();
@@ -210,7 +203,7 @@ public class PlayerMover : Mover {
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
 
             if (healthBar != null)
-                healthBar.value = Mathf.Lerp(GetComponent<Character>().currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
+                healthBar.value = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
 
             yield return null;
         }
@@ -223,5 +216,6 @@ public class PlayerMover : Mover {
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
         gm.map.SetEntityOnTile(null, t.position);
         this.enabled = false;
+        gm.restartText.SetActive(true);
     }
 }

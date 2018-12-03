@@ -43,6 +43,7 @@ public class EnemyMover : Mover {
     void Start()
     {
         t = GetComponent<Transform>();
+        c = GetComponent<Character>();
         gm = GameManager.gm;
         isMoving = false;
         myTauntedSprite = null;
@@ -311,7 +312,7 @@ public class EnemyMover : Mover {
 
         // 애니메이션이 시작하기 전에 이동 판정 완료
         gm.map.SetEntityOnTile(null, origin);
-        gm.map.SetEntityOnTile(GetComponent<Character>(), destination);
+        gm.map.SetEntityOnTile(c, destination);
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);
@@ -343,7 +344,7 @@ public class EnemyMover : Mover {
             float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
             if (!isCharge) bonus = 1f;
             StartCoroutine(AttackAnimation(direction, player, 
-                Mathf.Max(0, (int)(bonus * GetComponent<Character>().weapon.Damage()) - player.armor.Guard())));
+                Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Damage()) - player.armor.Guard())));
         }
         else
         {
@@ -391,7 +392,7 @@ public class EnemyMover : Mover {
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
 
             if (healthBar != null)
-                healthBar.value = Mathf.Lerp(GetComponent<Character>().currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
+                healthBar.value = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
 
             yield return null;
         }

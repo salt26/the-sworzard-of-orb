@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -18,6 +19,12 @@ public class GameManager : MonoBehaviour {
     public Color myTurnColor;
     public Sprite enemyTurn;
     public Color enemyTurnColor;
+
+    [Header("Weapon Mark")]
+    public Image weaponMark;
+
+    [Header("Restart Text")]
+    public GameObject restartText;
     
     private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중
 
@@ -32,7 +39,8 @@ public class GameManager : MonoBehaviour {
 	void Awake () {
 		if (gm != null)
         {
-            Destroy(this);
+            // 기존 gm을 지우고, 새 GameManger가 gm이 됨
+            Destroy(gm.gameObject);
         }
         gm = this;
         DontDestroyOnLoad(this);
@@ -66,6 +74,13 @@ public class GameManager : MonoBehaviour {
                 }
             }
             if (b) NextTurn();
+        }
+
+        // TODO 디버깅용 재시작 기능
+        // 최종 버전에서는 없어야 함
+        if (!player.Alive && Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 	}
 
@@ -108,13 +123,13 @@ public class GameManager : MonoBehaviour {
             ready = true;
             foreach (Character e in enemies)
             {
-                if (e.Alive && e.Mover.isMoving)
+                if (e.Alive && e.Mover.IsMoving)
                 {
                     ready = false;
                     break;
                 }
             }
-            if (player.Alive && player.Mover.isMoving) ready = false;
+            if (player.Alive && player.Mover.IsMoving) ready = false;
 
             if (ready) break;
             else yield return null;
