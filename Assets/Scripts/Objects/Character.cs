@@ -9,11 +9,13 @@ public class Character : Entity {
 
     [Header("Stat")]
     public Type type;
-    public int size = 1;        // 크기(충돌 판정이 이루어지는 타일 수)
+    public new string name;
+    public int level = 1;
+    public int size = 1;            // 크기(충돌 판정이 이루어지는 타일 수)
     public int maxHealth;
-    public int currentHealth;   // TODO private로 바꾸기
+    public int currentHealth;       // TODO private로 바꾸기
     public List<Weapon> weapons;    // 무기의 속성과 공격력
-    public Armor armor;           // 방어구의 속성과 방어력
+    public Armor armor;             // 방어구의 속성과 방어력
 
     [Header("Reference")]
     public Slider healthBar;
@@ -55,22 +57,34 @@ public class Character : Entity {
     
 	void Awake () {
         mover = GetComponent<Mover>();
+	}
+
+    void Start()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        if (type == Type.Enemy)
+        {
+            EnemyInfo ei = EnemyManager.em.FindEnemyInfo(name, level);
+            size = ei.size;
+            maxHealth = ei.maxHealth;
+            weapons = new List<Weapon> { ei.weapon };
+            armor = ei.armor;
+            ((EnemyMover)mover).sightDistance = ei.sightDistance;
+            ((EnemyMover)mover).leaveDistance = ei.leaveDistance;
+        }
+        currentHealth = maxHealth;
         if (healthBar != null)
         {
             healthBar.maxValue = maxHealth;
             healthBar.value = currentHealth;
         }
         oldHealth = currentHealth;
-	}
-
-    void Start()
-    {
         ToggleWeapon();
     }
-
-    void Update () {
-		
-	}
 
     /// <summary>
     /// 대미지를 받을 때 호출됩니다.
@@ -117,6 +131,7 @@ public class Character : Entity {
         {
             // TODO 적은 무기 변경 불가
             weaponNum = 0;
+            GetComponent<SpriteRenderer>().sprite = EquippedWeapon.CharacterSprite;
             return;
         }
         weaponNum++;

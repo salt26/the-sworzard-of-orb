@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Gold : Item {
 
+    [SerializeField]
     private int quantity;
 
     public int Quantity
@@ -25,5 +27,10 @@ public class Gold : Item {
                 quantity = value;
             }
         }
+    }
+
+    void Start()
+    {
+        Quantity = quantity;
     }
 }

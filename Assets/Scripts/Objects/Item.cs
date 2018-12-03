@@ -6,5 +6,5 @@ public class Item : MonoBehaviour {
 
     //public enum Type { Gold, Orb, Consumable };
     //public Type type;
-    
+    public new string name;
 }

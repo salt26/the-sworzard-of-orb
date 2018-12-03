@@ -27,9 +27,9 @@ public class EnemyMover : Mover {
 
     [Header("Public Fields")]
     public GameObject tauntedSprite;            // 도발당한 상태일 때 뜰 이미지의 오브젝트
-    public int sightDistance;   // 순찰 중 플레이어를 발견할 수 있는 최대 택시 거리
-    public int leaveDistance;   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 택시 거리
-    public List<Vector3> checkpoints;           // TODO: 임시로 Inspector에서 설정 가능
+    public int sightDistance;                   // 순찰 중 플레이어를 발견할 수 있는 최대 택시 거리
+    public int leaveDistance;                   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 택시 거리
+    public List<Vector3> checkpoints;           // TODO 임시로 Inspector에서 설정 가능
 
     public bool Moved
     {
@@ -404,6 +404,15 @@ public class EnemyMover : Mover {
     {
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
         gm.map.SetEntityOnTile(null, t.position);
+
+        int gold = EnemyManager.em.FindEnemyInfo(c.name, c.level).gold;
+        gm.map.AddGoldOnTile(gold, t.position);
+
+        List<GameObject> items = EnemyManager.em.FindEnemyInfo(c.name, c.level).items;
+        foreach (GameObject item in items)
+        {
+            gm.map.AddItemOnTile(item, t.position);
+        }
         this.enabled = false;
     }
 

@@ -148,4 +148,73 @@ public class MapManager : MonoBehaviour {
     {
         return CanMoveToTile(Mathf.RoundToInt(destination.x), Mathf.RoundToInt(destination.y), canFall);
     }
+
+    /// <summary>
+    /// (x, y) 좌표에 위치한 MapTile 위에
+    /// item 오브젝트를 생성하고 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool AddItemOnTile(GameObject item, int x, int y)
+    {
+        MapTile t = GetTile(x, y);
+        if (t == null || t.Type != 0)
+        {
+            return false;
+        }
+        GameObject g = Instantiate(item, t.GetComponent<Transform>().position + new Vector3(0f, 0f, -0.5f), Quaternion.identity);
+        t.Items.Add(g.GetComponent<Item>());
+        return true;
+    }
+
+    /// <summary>
+    /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에
+    /// item 오브젝트를 생성하고 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않으면 false를 반환합니다.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool AddItemOnTile(GameObject item, Vector3 position)
+    {
+        return AddItemOnTile(item, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
+    /// <summary>
+    /// (x, y) 좌표에 위치한 MapTile 위에
+    /// gold만큼의 화폐 오브젝트를 생성하고 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
+    /// </summary>
+    /// <param name="gold"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool AddGoldOnTile(int gold, int x, int y)
+    {
+        MapTile t = GetTile(x, y);
+        if (t == null || t.Type != 0)
+        {
+            return false;
+        }
+        GameObject g = Instantiate(ItemManager.im.Gold, t.GetComponent<Transform>().position + new Vector3(0f, 0f, -0.5f), Quaternion.identity);
+        g.GetComponent<Gold>().Quantity = gold;
+        t.Items.Add(g.GetComponent<Item>());
+        return true;
+    }
+
+    /// <summary>
+    /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에
+    /// gold만큼의 화폐 오브젝트를 생성하고 true를 반환합니다.
+    /// 만약 MapTile이 존재하지 않으면 false를 반환합니다.
+    /// </summary>
+    /// <param name="gold"></param>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool AddGoldOnTile(int gold, Vector3 position)
+    {
+        return AddGoldOnTile(gold, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
 }

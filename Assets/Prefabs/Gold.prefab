@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e923982b4ec9c3b4981004d9d00827bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantity: 1
+  name: Gold
+  quantity: 0
 --- !u!212 &212512912646188450
 SpriteRenderer:
   m_ObjectHideFlags: 1
