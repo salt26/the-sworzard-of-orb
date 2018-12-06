@@ -47,6 +47,7 @@ public class EnemyInfo
     public Weapon weapon;   // 무기의 속성과 공격력
     public Armor armor;     // 방어구의 속성과 방어력
 
+    public EnemyMover.DistanceType distanceType;    // 거리 측정 방식(반드시 설정해야만 함!)
     public int sightDistance;   // 적의 시야
     public int leaveDistance;   // 적의 최대 이동 거리
 

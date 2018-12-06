@@ -73,6 +73,7 @@ public class Character : Entity {
             maxHealth = ei.maxHealth;
             weapons = new List<Weapon> { ei.weapon };
             armor = ei.armor;
+            ((EnemyMover)mover).distanceType = ei.distanceType;
             ((EnemyMover)mover).sightDistance = ei.sightDistance;
             ((EnemyMover)mover).leaveDistance = ei.leaveDistance;
         }

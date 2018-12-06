@@ -1122,8 +1122,9 @@ MonoBehaviour:
   myTauntedSprite: {fileID: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
+  distanceType: 0
   sightDistance: 1
-  leaveDistance: 3
+  leaveDistance: 2
   checkpoints:
   - {x: 4, y: 1, z: 0}
 --- !u!114 &144728521
@@ -2756,8 +2757,9 @@ MonoBehaviour:
   myTauntedSprite: {fileID: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
+  distanceType: 0
   sightDistance: 1
-  leaveDistance: 3
+  leaveDistance: 2
   checkpoints:
   - {x: 4, y: 5, z: 0}
   - {x: 2, y: 5, z: 0}
@@ -3429,14 +3431,14 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 100
+    m_MaxSize: 80
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Map Name
+  m_Text: Grassland
 --- !u!222 &459590993
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4691,8 +4693,9 @@ MonoBehaviour:
   myTauntedSprite: {fileID: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
+  distanceType: 0
   sightDistance: 1
-  leaveDistance: 3
+  leaveDistance: 2
   checkpoints:
   - {x: 7, y: 7, z: 0}
   - {x: 9, y: 3, z: 0}
@@ -6192,8 +6195,9 @@ MonoBehaviour:
   myTauntedSprite: {fileID: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
+  distanceType: 0
   sightDistance: 2
-  leaveDistance: 3
+  leaveDistance: 4
   checkpoints: []
 --- !u!114 &1054533290
 MonoBehaviour:
@@ -7946,8 +7950,9 @@ MonoBehaviour:
     armor:
       element:
         fire: 1
+    distanceType: 2
     sightDistance: 1
-    leaveDistance: 3
+    leaveDistance: 2
     gold: 1
     items: []
   - name: Frost element
@@ -7965,8 +7970,9 @@ MonoBehaviour:
     armor:
       element:
         fire: 1
+    distanceType: 2
     sightDistance: 2
-    leaveDistance: 3
+    leaveDistance: 4
     gold: 2
     items: []
 --- !u!1 &1411100701
@@ -8148,8 +8154,9 @@ MonoBehaviour:
   myTauntedSprite: {fileID: 0}
   tauntedSprite: {fileID: 1653964375561626, guid: 5c4b08a37db80aa46bcb1c12ff33012c,
     type: 2}
+  distanceType: 0
   sightDistance: 2
-  leaveDistance: 3
+  leaveDistance: 4
   checkpoints:
   - {x: 1, y: 7, z: 0}
   - {x: 1, y: 7, z: 0}

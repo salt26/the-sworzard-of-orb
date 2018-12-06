@@ -24,9 +24,14 @@ public class EnemyMover : Mover {
     private Stack<Vector3> passedCheckpoints;   // 순찰 시 지나온 지점(sub stack)
     [SerializeField]
     private GameObject myTauntedSprite;         // 도발당한 상태일 때 뜨는 !에 대한 레퍼런스
+    private delegate int Distance(Vector3 a, Vector3 b);
+    private Distance distance;
+
+    public enum DistanceType { None, Manhattan, Chebyshev };
 
     [Header("Public Fields")]
     public GameObject tauntedSprite;            // 도발당한 상태일 때 뜰 이미지의 오브젝트
+    public DistanceType distanceType = DistanceType.None;
     public int sightDistance;                   // 순찰 중 플레이어를 발견할 수 있는 최대 택시 거리
     public int leaveDistance;                   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 택시 거리
     public List<Vector3> checkpoints;           // TODO 임시로 Inspector에서 설정 가능
@@ -50,6 +55,10 @@ public class EnemyMover : Mover {
 
         InitializeCheckpoints(checkpoints);
         movePattern += PatrolCheckpoints;
+        if (distanceType == DistanceType.Manhattan)
+            distance += ManhattanDistance;
+        else if (distanceType == DistanceType.Chebyshev)
+            distance += ChebyshevDistance;
     }
 
     // Update is called once per frame
@@ -60,6 +69,17 @@ public class EnemyMover : Mover {
             gm = GameManager.gm;
             return;
         }
+
+        if (distanceType == DistanceType.None)
+        {
+            Debug.LogWarning("Enemy distanceType is None!");
+            return;                     // Character의 Initialize에서 설정해 줄 때까지 대기
+        }
+        else if (distanceType == DistanceType.Manhattan)
+            distance += ManhattanDistance;
+        else if (distanceType == DistanceType.Chebyshev)
+            distance += ChebyshevDistance;
+
         if (gm.Turn == 0 && isMoved)
         {
             isMoved = false;
@@ -76,7 +96,7 @@ public class EnemyMover : Mover {
                 // 한 번 도발당한 경우 처음 도발당한 위치에서 leaveDistance만큼 멀어지기 전까지 플레이어를 쫓아감
                 // 플레이어가 시야에서 벗어나도 쫓아감
                 destination = Move1Taxi(playerPos);
-                if (Distance(tauntedPosition, destination) <= leaveDistance)
+                if (distance(tauntedPosition, destination) <= leaveDistance)
                 {
                     destination = Move(destination);
                 }
@@ -129,7 +149,7 @@ public class EnemyMover : Mover {
     private void Discover(Vector3 playerPos, Vector3 enemyPos)
     {
         if (!hasTaunted && !isTauntedPositionValid
-                && Distance(playerPos, enemyPos) <= sightDistance)
+                && distance(playerPos, enemyPos) <= sightDistance)
         {
             // 도발당한 현재 위치(이동 후 위치)를 기억
             // TODO 장애물에 막혀서 못 움직인 경우 버그가 생길 수 있음
@@ -141,8 +161,8 @@ public class EnemyMover : Mover {
 
         // 한 번 경로를 이탈하여 정상 경로로 돌아가던 중 플레이어가 다시 나타난 경우
         if (!hasTaunted && isTauntedPositionValid
-            && Distance(playerPos, enemyPos) <= sightDistance
-            && Distance(playerPos, tauntedPosition) <= leaveDistance)
+            && distance(playerPos, enemyPos) <= sightDistance
+            && distance(playerPos, tauntedPosition) <= leaveDistance)
         {
             hasTaunted = true;
             if (myTauntedSprite == null) myTauntedSprite = Instantiate(tauntedSprite, t);
@@ -454,8 +474,26 @@ public class EnemyMover : Mover {
             && Mathf.RoundToInt(a.y) == Mathf.RoundToInt(b.y));
     }
 
-    private int Distance(Vector3 a, Vector3 b)
+    /// <summary>
+    /// 두 위치 사이의 택시 거리를 반환합니다.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    private int ManhattanDistance(Vector3 a, Vector3 b)
     {
         return Mathf.RoundToInt(Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y));
+    }
+
+    /// <summary>
+    /// 두 위치 사이의 체스보드 거리를 반환합니다.
+    /// 체스에서 킹이 이동할 때 걸리는 최소 이동 횟수와 같습니다.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    private int ChebyshevDistance(Vector3 a, Vector3 b)
+    {
+        return Mathf.RoundToInt(Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y)));
     }
 }
