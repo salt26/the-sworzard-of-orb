@@ -253,7 +253,7 @@ public class EnemyMover : Mover {
     /// <summary>
     /// 1 택시 거리만큼 움직일 때,
     /// 인자로 주어진 목적지까지 가기 위해 나아가야 할 지점을 반환합니다.
-    /// 좌우 이동보다 상하 이동을 항상 우선시합니다.
+    /// 좌우 이동을 우선시할 확률과 상하 이동을 우선시할 확률이 각각 1/2씩입니다.
     /// TODO 일단은 장애물이 없다고 가정합니다.
     /// </summary>
     /// <param name="destination"></param>
@@ -261,27 +261,116 @@ public class EnemyMover : Mover {
     private Vector3 Move1Taxi(Vector3 destination)
     {
         Vector3 direction;
-        if (GetCurrentPosition().y < destination.y)
+        int r = Random.Range(0, 2);
+        if (r == 0)
         {
-            direction = new Vector3(0f, 1f, 0f);
-        }
-        else if (GetCurrentPosition().y > destination.y)
-        {
-            direction = new Vector3(0f, -1f, 0f);
-        }
-        else if (GetCurrentPosition().x < destination.x)
-        {
-            direction = new Vector3(1f, 0f, 0f);
-        }
-        else if (GetCurrentPosition().x > destination.x)
-        {
-            direction = new Vector3(-1f, 0f, 0f);
+            if (GetCurrentPosition().y < destination.y)
+            {
+                direction = new Vector3(0f, 1f, 0f);
+            }
+            else if (GetCurrentPosition().y > destination.y)
+            {
+                direction = new Vector3(0f, -1f, 0f);
+            }
+            else if (GetCurrentPosition().x < destination.x)
+            {
+                direction = new Vector3(1f, 0f, 0f);
+            }
+            else if (GetCurrentPosition().x > destination.x)
+            {
+                direction = new Vector3(-1f, 0f, 0f);
+            }
+            else
+            {
+                direction = Vector3.zero;
+            }
         }
         else
         {
-            direction = Vector3.zero;
+            if (GetCurrentPosition().x < destination.x)
+            {
+                direction = new Vector3(1f, 0f, 0f);
+            }
+            else if (GetCurrentPosition().x > destination.x)
+            {
+                direction = new Vector3(-1f, 0f, 0f);
+            }
+            else if(GetCurrentPosition().y < destination.y)
+            {
+                direction = new Vector3(0f, 1f, 0f);
+            }
+            else if (GetCurrentPosition().y > destination.y)
+            {
+                direction = new Vector3(0f, -1f, 0f);
+            }
+            else 
+            {
+                direction = Vector3.zero;
+            }
         }
         
+        return GetCurrentPosition() + direction;
+    }
+
+    /// <summary>
+    /// 1 택시 거리만큼 움직일 때,
+    /// 인자로 주어진 목적지까지 가기 위해 나아가야 할 지점을 반환합니다.
+    /// isUpDownFirst가 true이면 좌우 이동보다 상하 이동을 항상 우선시하며,
+    /// false이면 좌우 이동을 항상 우선시합니다.
+    /// TODO 일단은 장애물이 없다고 가정합니다.
+    /// </summary>
+    /// <param name="destination"></param>
+    /// <returns></returns>
+    private Vector3 Move1Taxi(Vector3 destination, bool isUpDownFirst)
+    {
+        Vector3 direction;
+        if (isUpDownFirst)
+        {
+            if (GetCurrentPosition().y < destination.y)
+            {
+                direction = new Vector3(0f, 1f, 0f);
+            }
+            else if (GetCurrentPosition().y > destination.y)
+            {
+                direction = new Vector3(0f, -1f, 0f);
+            }
+            else if (GetCurrentPosition().x < destination.x)
+            {
+                direction = new Vector3(1f, 0f, 0f);
+            }
+            else if (GetCurrentPosition().x > destination.x)
+            {
+                direction = new Vector3(-1f, 0f, 0f);
+            }
+            else
+            {
+                direction = Vector3.zero;
+            }
+        }
+        else
+        {
+            if (GetCurrentPosition().x < destination.x)
+            {
+                direction = new Vector3(1f, 0f, 0f);
+            }
+            else if (GetCurrentPosition().x > destination.x)
+            {
+                direction = new Vector3(-1f, 0f, 0f);
+            }
+            else if (GetCurrentPosition().y < destination.y)
+            {
+                direction = new Vector3(0f, 1f, 0f);
+            }
+            else if (GetCurrentPosition().y > destination.y)
+            {
+                direction = new Vector3(0f, -1f, 0f);
+            }
+            else
+            {
+                direction = Vector3.zero;
+            }
+        }
+
         return GetCurrentPosition() + direction;
     }
 
