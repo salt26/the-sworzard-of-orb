@@ -26,6 +26,7 @@ public class EnemyMover : Mover {
     private GameObject myTauntedSprite;         // 도발당한 상태일 때 뜨는 !에 대한 레퍼런스
     private delegate int Distance(Vector3 a, Vector3 b);
     private Distance distance;
+    private bool isDistanceNone = true;
 
     public enum DistanceType { None, Manhattan, Chebyshev };
 
@@ -56,9 +57,15 @@ public class EnemyMover : Mover {
         InitializeCheckpoints(checkpoints);
         movePattern += PatrolCheckpoints;
         if (distanceType == DistanceType.Manhattan)
+        {
             distance += ManhattanDistance;
+            isDistanceNone = false;
+        }
         else if (distanceType == DistanceType.Chebyshev)
+        {
             distance += ChebyshevDistance;
+            isDistanceNone = false;
+        }
     }
 
     // Update is called once per frame
@@ -70,15 +77,24 @@ public class EnemyMover : Mover {
             return;
         }
 
-        if (distanceType == DistanceType.None)
+        if (isDistanceNone)
         {
-            Debug.LogWarning("Enemy distanceType is None!");
-            return;                     // Character의 Initialize에서 설정해 줄 때까지 대기
+            if (distanceType == DistanceType.None)
+            {
+                Debug.LogWarning("Enemy distanceType is None!");
+                return;                     // Character의 Initialize에서 설정해 줄 때까지 대기
+            }
+            else if (distanceType == DistanceType.Manhattan)
+            {
+                distance += ManhattanDistance;
+                isDistanceNone = false;
+            }
+            else if (distanceType == DistanceType.Chebyshev)
+            {
+                distance += ChebyshevDistance;
+                isDistanceNone = false;
+            }
         }
-        else if (distanceType == DistanceType.Manhattan)
-            distance += ManhattanDistance;
-        else if (distanceType == DistanceType.Chebyshev)
-            distance += ChebyshevDistance;
 
         if (gm.Turn == 0 && isMoved)
         {
@@ -265,7 +281,7 @@ public class EnemyMover : Mover {
         {
             direction = Vector3.zero;
         }
-
+        
         return GetCurrentPosition() + direction;
     }
 

@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
 
     [Header("Restart Text")]
     public GameObject restartText;
+
+    [Header("Debugging")]
+    public int turnNumber = 0;
     
     private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중
 
@@ -150,6 +153,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
+            turnNumber++;   // TODO 디버깅 용
             turnMark.sprite = enemyTurn;
             turnMark.color = enemyTurnColor;
         }
