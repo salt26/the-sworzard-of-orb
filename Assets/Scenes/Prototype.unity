@@ -1127,10 +1127,6 @@ MonoBehaviour:
   leaveDistance: 2
   checkpoints:
   - {x: 4, y: 1, z: 0}
-  discoverCount: 0
-  moveCount: 0
-  move1taxiCount: 0
-  attackCount: 0
 --- !u!114 &144728521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2768,10 +2764,6 @@ MonoBehaviour:
   - {x: 4, y: 5, z: 0}
   - {x: 2, y: 5, z: 0}
   - {x: 2, y: 3, z: 0}
-  discoverCount: 0
-  moveCount: 0
-  move1taxiCount: 0
-  attackCount: 0
 --- !u!212 &374579137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3375,9 +3367,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab:
-  - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-  - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
+  mapInfo:
+  - name: Grassland
+    tilePrefab:
+    - {fileID: 1152014077754128, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
+    - {fileID: 1152014077754128, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
+    - {fileID: 1152014077754128, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
+    - {fileID: 1152014077754128, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+    - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
+    - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
+    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
+    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
+    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
+    backgroundColor: {r: 0.27450982, g: 0.44705883, b: 1, a: 1}
+  - name: Braxis
+    tilePrefab:
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+    - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
+    - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
+    - {fileID: 1847509651114918, guid: ab8b5b34574154e49a0f496363d5d79a, type: 2}
+    backgroundColor: {r: 0, g: 0.7294118, b: 1, a: 1}
+  - name: Char
+    tilePrefab:
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
+    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
+    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
+    - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
+    - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
+    backgroundColor: {r: 0.4528302, g: 0.03203987, b: 0.03203987, a: 1}
+  mapName: 2
   size: {x: 11, y: 9}
 --- !u!1 &459590990
 GameObject:
@@ -4709,10 +4759,6 @@ MonoBehaviour:
   - {x: 9, y: 3, z: 0}
   - {x: 6, y: 0, z: 0}
   - {x: 4, y: 8, z: 0}
-  discoverCount: 0
-  moveCount: 0
-  move1taxiCount: 0
-  attackCount: 0
 --- !u!212 &815299969
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6211,10 +6257,6 @@ MonoBehaviour:
   sightDistance: 2
   leaveDistance: 4
   checkpoints: []
-  discoverCount: 0
-  moveCount: 0
-  move1taxiCount: 0
-  attackCount: 0
 --- !u!114 &1054533290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8181,10 +8223,6 @@ MonoBehaviour:
   checkpoints:
   - {x: 1, y: 7, z: 0}
   - {x: 1, y: 7, z: 0}
-  discoverCount: 0
-  moveCount: 0
-  move1taxiCount: 0
-  attackCount: 0
 --- !u!212 &1423487765
 SpriteRenderer:
   m_ObjectHideFlags: 0

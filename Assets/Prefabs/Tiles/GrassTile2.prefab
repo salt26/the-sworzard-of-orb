@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212075520771296272}
   - component: {fileID: 114083832832266556}
   m_Layer: 0
-  m_Name: GrassTile
+  m_Name: GrassTile2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

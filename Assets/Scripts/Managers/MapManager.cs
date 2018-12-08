@@ -4,29 +4,52 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour {
 
-    public List<GameObject> tilePrefab;
+    private enum MapType { Grassland, Braxis, Char };
+    public List<MapInfo> mapInfo;
+    
+    [SerializeField]
+    private MapType mapName;
     public Vector2 size;
 
     private List<List<MapTile>> tiles = new List<List<MapTile>>();
 
     // Use this for initialization
     void Awake () {
+        MapInfo mi = FindMapInfo(mapName.ToString());
+        if (mi == null)
+        {
+            Debug.LogWarning("Map doesn't exist!");
+            return;
+        }
 		for (int i = 0; i < size.y; i++)
         {
             tiles.Add(new List<MapTile>());
             for (int j = 0; j < size.x; j++)
             {
-                MapTile t = Instantiate(tilePrefab[Random.Range(0, 20) / 17], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
+                MapTile t = Instantiate(mi.tilePrefab[Random.Range(0, mi.tilePrefab.Count)], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
                 t.Entity = null;
                 tiles[i].Add(t);
             }
         }
+        Camera.main.backgroundColor = mi.backgroundColor;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public MapInfo FindMapInfo(string name)
+    {
+        foreach (MapInfo mi in mapInfo)
+        {
+            if (mi.name.Equals(name))
+            {
+                return mi;
+            }
+        }
+        return null;
+    }
 
     /// <summary>
     /// (x, y) 좌표에 위치한 MapTile을 반환합니다.
@@ -270,4 +293,12 @@ public class MapManager : MonoBehaviour {
     {
         return PickUpItemsOnTile(inventory, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
     }
+}
+
+[System.Serializable]
+public class MapInfo
+{
+    public string name;
+    public List<GameObject> tilePrefab;
+    public Color backgroundColor;
 }
