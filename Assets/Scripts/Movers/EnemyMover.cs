@@ -149,7 +149,7 @@ public class EnemyMover : Mover {
             }
             else {
                 // 시야에 플레이어가 없는 경우 정상 경로를 따라 순찰
-                destination = Move1Taxi(movePattern());
+                destination = Move1Taxi(movePattern(), true);
                 destination = Move(destination);
             }
 
@@ -169,7 +169,7 @@ public class EnemyMover : Mover {
         {
             // 도발당한 현재 위치(이동 후 위치)를 기억
             // TODO 장애물에 막혀서 못 움직인 경우 버그가 생길 수 있음
-            tauntedPosition = GetCurrentPosition();
+            tauntedPosition = enemyPos;
             isTauntedPositionValid = true;
             hasTaunted = true;
             if (myTauntedSprite == null) myTauntedSprite = Instantiate(tauntedSprite, t);
