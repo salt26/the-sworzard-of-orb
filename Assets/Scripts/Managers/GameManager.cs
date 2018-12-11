@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public MapManager map;
     public Character player;
     public List<Character> enemies = new List<Character>();
+    public List<Interactable> interactables = new List<Interactable>();
 
     [Header("Turn Mark")]
     public Image turnMark;
@@ -59,6 +60,10 @@ public class GameManager : MonoBehaviour {
         foreach (Character e in enemies)
         {
             map.SetEntityOnTile(e, e.GetComponent<Transform>().position);
+        }
+        foreach (Interactable i in interactables)
+        {
+            map.SetEntityOnTile(i, i.GetComponent<Transform>().position);
         }
     }
 
