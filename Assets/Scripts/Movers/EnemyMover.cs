@@ -107,24 +107,39 @@ public class EnemyMover : Mover {
 
             Discover(playerPos, GetCurrentPosition());
 
-            if (hasTaunted)
+            if (!AttackWithoutMove())
             {
-                // 한 번 도발당한 경우 처음 도발당한 위치에서 leaveDistance만큼 멀어지기 전까지 플레이어를 쫓아감
-                // 플레이어가 시야에서 벗어나도 쫓아감
-                destination = Move1Taxi(playerPos);
-                if (distance(tauntedPosition, destination) <= leaveDistance)
+                if (hasTaunted)
                 {
-                    destination = Move(destination);
-                }
-                else
-                {
-                    // 플레이어가 사라지면 도발 상태가 풀리고 처음 도발당한 위치로 돌아감
-                    hasTaunted = false;
-                    if (myTauntedSprite != null)
+                    // 한 번 도발당한 경우 처음 도발당한 위치에서 leaveDistance만큼 멀어지기 전까지 플레이어를 쫓아감
+                    // 플레이어가 시야에서 벗어나도 쫓아감
+                    destination = Move1Taxi(playerPos);
+                    if (distance(tauntedPosition, destination) <= leaveDistance)
                     {
-                        Destroy(myTauntedSprite);
-                        myTauntedSprite = null;
+                        destination = Move(destination);
                     }
+                    else
+                    {
+                        // 플레이어가 사라지면 도발 상태가 풀리고 처음 도발당한 위치로 돌아감
+                        hasTaunted = false;
+                        if (myTauntedSprite != null)
+                        {
+                            Destroy(myTauntedSprite);
+                            myTauntedSprite = null;
+                        }
+                        destination = Move1Taxi(tauntedPosition);
+                        destination = Move(destination);
+
+                        // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
+                        if (IsSamePosition(destination, tauntedPosition))
+                        {
+                            isTauntedPositionValid = false;
+                        }
+                    }
+                }
+                else if (isTauntedPositionValid)
+                {
+                    // 도발 상태가 풀렸지만 아직 처음 도발당한 위치로 돌아가지 못한 경우
                     destination = Move1Taxi(tauntedPosition);
                     destination = Move(destination);
 
@@ -134,26 +149,15 @@ public class EnemyMover : Mover {
                         isTauntedPositionValid = false;
                     }
                 }
-            }
-            else if (isTauntedPositionValid)
-            {
-                // 도발 상태가 풀렸지만 아직 처음 도발당한 위치로 돌아가지 못한 경우
-                destination = Move1Taxi(tauntedPosition);
-                destination = Move(destination);
-
-                // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
-                if (IsSamePosition(destination, tauntedPosition))
+                else
                 {
-                    isTauntedPositionValid = false;
+                    // 시야에 플레이어가 없는 경우 정상 경로를 따라 순찰
+                    destination = Move1Taxi(movePattern(), true);
+                    destination = Move(destination);
                 }
-            }
-            else {
-                // 시야에 플레이어가 없는 경우 정상 경로를 따라 순찰
-                destination = Move1Taxi(movePattern(), true);
-                destination = Move(destination);
-            }
 
-            Discover(playerPos, destination);
+                Discover(playerPos, destination);
+            }
         }
     }
 
@@ -380,8 +384,8 @@ public class EnemyMover : Mover {
         {
             // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
             // 제자리에서 인접한 네 칸 안에 플레이어가 있으면 공격함
-            AttackWithoutMove();
-            isMoved = true;
+            if (!AttackWithoutMove())
+                isMoved = true;
             return destination;
         }
         else if (gm.map.CanMoveToTile(destination))
@@ -406,14 +410,21 @@ public class EnemyMover : Mover {
         {
             // TODO 일단은 가려고 하는 곳이 갈 수 없는 지형이면 움직이지 않고 턴 넘김
             // 제자리에서 인접한 네 칸 안에 플레이어가 있으면 공격함
-            AttackWithoutMove();
-            isMoved = true;
+            if (!AttackWithoutMove())
+                isMoved = true;
             return GetCurrentPosition();
         }
     }
 
-    private void AttackWithoutMove()
+    /// <summary>
+    /// 이동하지 않고 상하좌우로 붙어 있는 플레이어를 공격합니다.
+    /// 공격에 성공하면 턴을 넘기고 true를 반환합니다.
+    /// 플레이어가 주변에 없으면 턴을 넘기지 않고 false를 반환합니다.
+    /// </summary>
+    /// <returns></returns>
+    private bool AttackWithoutMove()
     {
+        bool isAttacked = false;
         List<Vector3> melee = new List<Vector3>() { new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), new Vector3(0f, -1f, 0f), new Vector3(0f, 1f, 0f) };
         foreach (Vector3 v in melee)
         {
@@ -425,8 +436,10 @@ public class EnemyMover : Mover {
                 if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
                 else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
                 Attack(PositionToInt((destination - GetCurrentPosition()).normalized), false);
+                isAttacked = true;
             }
         }
+        return isAttacked;
     }
 
     IEnumerator MoveAnimation(Vector3 destination)
@@ -468,8 +481,9 @@ public class EnemyMover : Mover {
             Character player = (Character)e;
             float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
             if (!isCharge) bonus = 1f;
-            StartCoroutine(AttackAnimation(direction, player, 
-                Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Damage()) - player.armor.Guard())));
+            StartCoroutine(AttackAnimation(direction, player,
+                //Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Attack()) - player.armor.Defense())));
+                player.armor.ComputeDamage(c.EquippedWeapon, bonus)));
         }
         else
         {
@@ -504,7 +518,7 @@ public class EnemyMover : Mover {
         isMoving = false;
     }
 
-    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null)
+    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
         isMoving = true;
         int frame = 30;
@@ -515,11 +529,22 @@ public class EnemyMover : Mover {
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)i / frame * 2);
             else
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
-
+            
+            float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
             if (healthBar != null)
-                healthBar.value = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
+                healthBar.value = f;
+            if (statusUI != null)
+            {
+                statusUI.UpdateHealthText((int)f, GetComponent<Character>().maxHealth);
+            }
 
             yield return null;
+        }
+        if (healthBar != null)
+            healthBar.value = c.currentHealth;
+        if (statusUI != null)
+        {
+            statusUI.UpdateHealthText(c.currentHealth, GetComponent<Character>().maxHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         isMoving = false;

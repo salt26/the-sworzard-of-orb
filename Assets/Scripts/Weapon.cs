@@ -43,7 +43,7 @@ public class Weapon {
     
     /// <summary>
     /// 유효 무기 속성을 반환합니다.
-    /// 최댓값이 아닌 속성 값은 모두 0이 됩니다.
+    /// 최댓값이 아닌 속성 값은 모두 0이 되며, 사정거리에 따른 대미지 감소가 적용됩니다.
     /// </summary>
     /// <returns></returns>
     public Element ValidElement()
@@ -61,14 +61,26 @@ public class Weapon {
         return e;
     }
 
+    /// <summary>
+    /// 기본 공격력인 속성 합을 반환합니다.
+    /// 사정거리에 따른 대미지 감소가 적용됩니다.
+    /// </summary>
+    /// <returns></returns>
+    public int BaseAttack()
+    {
+        Element e = new Element(element.Fire, element.Ice, element.Nature);
+        if (Range > 1) e = e * new Vector3(1f / Range, 1f / Range, 1f / Range);
+        return e.Sum();
+    }
+
 
     /// <summary>
     /// 무기의 공격력을 반환합니다.
     /// </summary>
     /// <returns></returns>
-    public int Damage()
+    public int Attack()
     {
         // TODO
-        return ValidElement().Sum();
+        return BaseAttack() + ValidElement().Sum();
     }
 }

@@ -19,6 +19,7 @@ public class Character : Entity {
 
     [Header("Reference")]
     public Slider healthBar;
+    public StatusUI statusUI;
 
     [HideInInspector]
     public int oldHealth;       // 플레이어가 자신의 턴을 넘길 때 남아있던 체력
@@ -85,6 +86,13 @@ public class Character : Entity {
         }
         oldHealth = currentHealth;
         ToggleWeapon();
+        
+        if (statusUI != null)
+        {
+            statusUI.UpdateHealthText(currentHealth, maxHealth);
+            statusUI.UpdateAttackText(EquippedWeapon);
+            statusUI.UpdateDefenseText(armor);
+        }
     }
 
     /// <summary>
@@ -106,7 +114,7 @@ public class Character : Entity {
         if (hasDamaged)
         {
             hasDamaged = false;
-            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar));
+            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI));
         }
     }
 
@@ -140,6 +148,9 @@ public class Character : Entity {
 
         GetComponent<SpriteRenderer>().sprite = EquippedWeapon.CharacterSprite;
         GameManager.gm.weaponMark.sprite = EquippedWeapon.WeaponSprite;
+        
+        if (statusUI != null)
+            statusUI.UpdateAttackText(EquippedWeapon);
 
         /*
         if (range == 1)

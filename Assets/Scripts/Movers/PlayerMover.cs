@@ -179,7 +179,8 @@ public class PlayerMover : Mover {
             {
                 foreach (Character enemy in enemies)
                 {
-                    enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Damage()) - enemy.armor.Guard()));
+                    enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, bonusDamage));
+                    //enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Attack()) - enemy.armor.Defense()));
                 }
 
                 gm.NextTurn();
@@ -191,7 +192,7 @@ public class PlayerMover : Mover {
         isMoving = false;
     }
 
-    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null)
+    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
         isMoving = true;
         int frame = 30;
@@ -203,10 +204,21 @@ public class PlayerMover : Mover {
             else
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
 
+            float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
             if (healthBar != null)
-                healthBar.value = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
+                healthBar.value = f;
+            if (statusUI != null)
+            {
+                statusUI.UpdateHealthText((int)f, GetComponent<Character>().maxHealth);
+            }
 
             yield return null;
+        }
+        if (healthBar != null)
+            healthBar.value = c.currentHealth;
+        if (statusUI != null)
+        {
+            statusUI.UpdateHealthText(c.currentHealth, GetComponent<Character>().maxHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         isMoving = false;

@@ -4,23 +4,15 @@ using UnityEngine;
 
 [System.Serializable]
 public class Element {
-
-    public int fire;
-    private int ice, nature;
+    
+    [SerializeField]
+    private int fire, ice, nature;
 
     public Element(int fire, int ice, int nature)
     {
         this.fire = fire;
         this.ice = ice;
         this.nature = nature;
-    }
-
-    // TODO 임시 생성자
-    public Element(int fire)
-    {
-        this.fire = fire;
-        this.ice = 0;
-        this.nature = 0;
     }
 
     #region 프로퍼티 (Fire, Ice, Nature)

@@ -1,26 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
-
-    private enum MapType { Grassland, Braxis, Char };
+    
     public List<MapInfo> mapInfo;
     
     [SerializeField]
-    private MapType mapName;
+    private string mapName;
     public Vector2 size;
 
     private List<List<MapTile>> tiles = new List<List<MapTile>>();
 
+    [SerializeField]
+    private Text mapText;
+
     // Use this for initialization
     void Awake () {
-        MapInfo mi = FindMapInfo(mapName.ToString());
+        MapInfo mi = FindMapInfo(mapName);
         if (mi == null)
         {
             Debug.LogWarning("Map doesn't exist!");
             return;
         }
+        mapText.text = mi.name;
 		for (int i = 0; i < size.y; i++)
         {
             tiles.Add(new List<MapTile>());
