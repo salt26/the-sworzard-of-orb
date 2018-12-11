@@ -5,21 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Armor {
 
-    [SerializeField]
-    private int baseDefense;
-
     public Element element;
-
-    /// <summary>
-    /// 기본 방어력
-    /// </summary>
-    public int BaseDefense
-    {
-        get
-        {
-            return baseDefense;
-        }
-    }
     
     /// <summary>
     /// 유효 방어구 속성을 반환합니다.
@@ -37,7 +23,16 @@ public class Armor {
     public int Defense()
     {
         // TODO
-        return BaseDefense + ValidElement().Sum();
+        return BaseDefense() + ValidElement().Sum();
+    }
+
+    /// <summary>
+    /// 기본 방어력인 속성 합을 반환합니다.
+    /// </summary>
+    /// <returns></returns>
+    public int BaseDefense()
+    {
+        return element.Sum();
     }
 
     /// <summary>
@@ -50,10 +45,10 @@ public class Armor {
     {
         //Mathf.Max(0, (int)(bonusDamage * otherWeapon.Attack()) - Defense())
 
-        int baseDamage = Mathf.Max(0, (int)(bonusDamage * otherWeapon.BaseAttack()) - BaseDefense);
-        int fire = Mathf.Max(0, (int)(bonusDamage * otherWeapon.ValidElement().Fire) - ValidElement().Fire);
-        int ice = Mathf.Max(0, (int)(bonusDamage * otherWeapon.ValidElement().Ice) - ValidElement().Ice);
-        int nature = Mathf.Max(0, (int)(bonusDamage * otherWeapon.ValidElement().Nature) - ValidElement().Nature);
+        int baseDamage = Mathf.Max(0, (int)(bonusDamage * otherWeapon.BaseAttack()) - BaseDefense());
+        int fire = Mathf.Max(0, otherWeapon.ValidElement().Fire - ValidElement().Fire);
+        int ice = Mathf.Max(0, otherWeapon.ValidElement().Ice - ValidElement().Ice);
+        int nature = Mathf.Max(0, otherWeapon.ValidElement().Nature - ValidElement().Nature);
 
         return baseDamage + fire + ice + nature;
     }

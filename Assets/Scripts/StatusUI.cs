@@ -57,7 +57,7 @@ public class StatusUI : MonoBehaviour {
             attackBaseText.text = "공: <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + Padding(weapon.BaseAttack()) + "</color>";
         }
 
-        if (attackFireText != null && weapon.ValidElement().Fire > 0)
+        if (attackFireText != null/* && weapon.ValidElement().Fire > 0*/)
         {
             attackFireText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + Padding(weapon.ValidElement().Fire) + "</color>";
         }
@@ -66,7 +66,7 @@ public class StatusUI : MonoBehaviour {
             attackFireText.text = "";
         }
 
-        if (attackIceText != null && weapon.ValidElement().Ice > 0)
+        if (attackIceText != null/* && weapon.ValidElement().Ice > 0*/)
         {
             attackIceText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + Padding(weapon.ValidElement().Ice) + "</color>";
         }
@@ -75,7 +75,7 @@ public class StatusUI : MonoBehaviour {
             attackIceText.text = "";
         }
 
-        if (attackNatureText != null && weapon.ValidElement().Nature > 0)
+        if (attackNatureText != null/* && weapon.ValidElement().Nature > 0*/)
         {
             attackNatureText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + Padding(weapon.ValidElement().Nature) + "</color>";
         }
@@ -92,7 +92,7 @@ public class StatusUI : MonoBehaviour {
 
         if (defenseBaseText != null)
         {
-            defenseBaseText.text = "방: <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + Padding(armor.BaseDefense) + "</color>";
+            defenseBaseText.text = "방: <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + Padding(armor.BaseDefense()) + "</color>";
         }
 
         if (defenseFireText != null)
