@@ -1103,7 +1103,7 @@ Transform:
   m_Children:
   - {fileID: 309104971}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &144728520
 MonoBehaviour:
@@ -2718,7 +2718,7 @@ Transform:
   m_Children:
   - {fileID: 810777626}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &374579139
 MonoBehaviour:
@@ -3255,7 +3255,7 @@ Transform:
   - {fileID: 1985617123}
   - {fileID: 1289925862}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &453756610
 MonoBehaviour:
@@ -3512,7 +3512,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480653690
 GameObject:
@@ -4666,7 +4666,7 @@ Transform:
   m_Children:
   - {fileID: 1915097494}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &815299971
 MonoBehaviour:
@@ -5789,7 +5789,7 @@ Transform:
   m_Children:
   - {fileID: 1221924309}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1106316761
 GameObject:
@@ -6952,159 +6952,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1349403477
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1349403478}
-  - component: {fileID: 1349403479}
-  - component: {fileID: 1349403481}
-  - component: {fileID: 1349403480}
-  - component: {fileID: 1349403482}
-  m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1349403478
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1349403477}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1349403479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1349403477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0caa809cc2437fe44aeee1a941100d38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1644396795196400, guid: e70bc294baf0bf14db9f607a3640cf56,
-    type: 2}
-  UIPrefab: {fileID: 1765860688458176, guid: 6403b117423a4274faa4caeb4efdedf1, type: 2}
-  player: {fileID: 0}
-  map: {fileID: 453756610}
-  enemies:
-  - {fileID: 144728521}
-  - {fileID: 374579139}
-  - {fileID: 815299971}
-  - {fileID: 1423487767}
-  - {fileID: 1054533290}
-  interactables:
-  - {fileID: 469425544}
-  turnMark: {fileID: 0}
-  myTurn: {fileID: 21300000, guid: e1b7c4fa564894c45baa5c6298f6a8ab, type: 3}
-  myTurnColor: {r: 0.627451, g: 1, b: 0, a: 1}
-  enemyTurn: {fileID: 21300000, guid: 01202ddb52a31404badadb7c463452f4, type: 3}
-  enemyTurnColor: {r: 1, g: 1, b: 1, a: 1}
-  weaponMark: {fileID: 0}
-  restartText: {fileID: 0}
-  turnNumber: 0
---- !u!114 &1349403480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1349403477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74b45876e9cd14b43b61839b284a1104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gold: {fileID: 1776454541308646, guid: 90275dba6b22dd5479ca5cef39f8ff48, type: 2}
-  items:
-  - {fileID: 1338476123407234, guid: a37accdd18de38f47b02a4272713aea2, type: 2}
---- !u!114 &1349403481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1349403477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1143aee55877cfa4683ce8712e62c3d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyInfo:
-  - name: Flame element
-    level: 1
-    size: 1
-    maxHealth: 30
-    weapon:
-      element:
-        fire: 8
-        ice: 0
-        nature: 1
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b,
-        type: 3}
-      name: Spark
-    armor:
-      element:
-        fire: 1
-        ice: 0
-        nature: 2
-    distanceType: 2
-    sightDistance: 1
-    leaveDistance: 2
-    gold: 1
-    items: []
-  - name: Frost element
-    level: 1
-    size: 1
-    maxHealth: 30
-    weapon:
-      element:
-        fire: 3
-        ice: 7
-        nature: 0
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345,
-        type: 3}
-      name: Dry ice
-    armor:
-      element:
-        fire: 0
-        ice: 3
-        nature: 1
-    distanceType: 2
-    sightDistance: 2
-    leaveDistance: 4
-    gold: 2
-    items: []
---- !u!114 &1349403482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1349403477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f4e8d2b89dfdbe40bb34abcbaab9180, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-  fireColor: {r: 0.94509804, g: 0.24313726, b: 0, a: 1}
-  iceColor: {r: 0, g: 0.4862745, b: 0.94509804, a: 1}
-  natureColor: {r: 0.09411765, g: 0.7019608, b: 0, a: 1}
 --- !u!1 &1413768040
 GameObject:
   m_ObjectHideFlags: 0
@@ -7279,7 +7126,7 @@ Transform:
   m_Children:
   - {fileID: 229440012}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1423487767
 MonoBehaviour:
@@ -8031,7 +7878,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534937919
 GameObject:
@@ -10427,7 +10274,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140347748
 GameObject:

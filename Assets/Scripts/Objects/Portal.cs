@@ -10,7 +10,6 @@ public class Portal : Interactable {
     public override void Interact()
     {
         GameManager.gm.player.GetComponent<Transform>().position = new Vector3(startPosition.x, startPosition.y, GameManager.gm.player.GetComponent<Transform>().position.z);
-        Debug.Log("Interact Portal");
         GameManager.gm.ChangeScene(sceneName);
     }
 }

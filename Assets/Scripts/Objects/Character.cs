@@ -27,6 +27,7 @@ public class Character : Entity {
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
     private bool hasDamaged = false;
+    //private bool hasHealed = false;
     private int weaponNum = -1;
 
     public Mover Mover
@@ -116,6 +117,16 @@ public class Character : Entity {
             hasDamaged = false;
             StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI));
         }
+    }
+
+    public void Healed(int heal)
+    {
+        oldHealth = currentHealth;
+        currentHealth += heal;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+
+        // TODO Heal 애니메이션 새로 만들기
+        StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI));
     }
 
     public void DeathCheck()

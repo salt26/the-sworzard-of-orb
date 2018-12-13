@@ -113,19 +113,27 @@ public class GameManager : MonoBehaviour {
         if (!player.Alive && Input.GetKeyDown(KeyCode.R))
         {
             restartText.SetActive(false);
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+            // 0번 씬에 Manager 오브젝트가 있다고 가정
+            SceneManager.LoadSceneAsync("Scenes/Town");
             Destroy(UIObject);
             Destroy(this.gameObject);
         }
 	}
 
+    /// <summary>
+    /// 플레이어의 체력을 모두 회복하고 씬을 전환합니다.
+    /// 씬 전환이 완료되면 플레이어의 턴이 됩니다.
+    /// </summary>
+    /// <param name="sceneName"></param>
     public void ChangeScene(string sceneName)
     {
+        player.Healed(player.maxHealth);
         StartCoroutine(LoadScene(sceneName));
     }
 
     IEnumerator LoadScene(string sceneName)
     {
+        // TODO 씬 전환 중에 불투명한 패널로 화면 가리기
         isSceneLoaded = false;
         Scene currentScene = SceneManager.GetActiveScene();
 
