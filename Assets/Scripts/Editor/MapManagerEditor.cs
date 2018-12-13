@@ -11,12 +11,14 @@ public class MapManagerEditor : Editor {
     SerializedProperty sceneTilesListProp;
     SerializedProperty mapInfoListProp;
     SerializedProperty mapNameStringProp;
+    SerializedProperty bgColorProp;
 
     void OnEnable()
     {
         sceneTilesListProp = serializedObject.FindProperty("sceneTiles");
         mapInfoListProp = serializedObject.FindProperty("mapInfo");
         mapNameStringProp = serializedObject.FindProperty("mapName");
+        bgColorProp = serializedObject.FindProperty("backgroundColor");
     }
 
     public override void OnInspectorGUI()
@@ -31,6 +33,8 @@ public class MapManagerEditor : Editor {
         {
             EditorGUILayout.PropertyField(sceneTilesListProp, true);
             EditorGUILayout.PropertyField(mapNameStringProp);
+            //mm.backgroundColor = EditorGUILayout.ColorField("Background Color", mm.backgroundColor);
+            EditorGUILayout.PropertyField(bgColorProp);
         }
         else
         {

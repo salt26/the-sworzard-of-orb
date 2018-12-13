@@ -10,8 +10,7 @@ public class Inventory : MonoBehaviour {
     
     private int gold = 0;
 
-    [SerializeField]
-    private Text goldText;
+    public Text goldText;
 
     public int Gold
     {

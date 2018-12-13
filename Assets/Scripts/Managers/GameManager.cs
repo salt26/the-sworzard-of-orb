@@ -8,27 +8,36 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager gm;
 
-    // 여기에 등록되지 않은 캐릭터, 적 및 모든 개체는 게임 내에서 상호작용 불가
-    public MapManager map;
-    public Character player;
-    public List<Character> enemies = new List<Character>();
-    public List<Interactable> interactables = new List<Interactable>();
+    public GameObject playerPrefab;
+    public GameObject UIPrefab;
 
-    [Header("Turn Mark")]
+    // 여기에 등록되지 않은 캐릭터, 적 및 모든 개체는 게임 내에서 상호작용 불가
+    // 등록은 MapEntityInfo에서!
+    public Character player;
+    [HideInInspector]
+    public MapManager map;
+    [HideInInspector]
+    public List<Character> enemies = new List<Character>();
+    [HideInInspector]
+    public List<Interactable> interactables = new List<Interactable>();
+    
+    [HideInInspector]
     public Image turnMark;
     public Sprite myTurn;
     public Color myTurnColor;
     public Sprite enemyTurn;
     public Color enemyTurnColor;
 
-    [Header("Weapon Mark")]
+    [HideInInspector]
     public Image weaponMark;
-
-    [Header("Restart Text")]
+    [HideInInspector]
     public GameObject restartText;
 
     [Header("Debugging")]
     public int turnNumber = 0;
+
+    private GameObject UIObject;
+    private bool isSceneLoaded = false;
     
     private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중
 
@@ -39,35 +48,50 @@ public class GameManager : MonoBehaviour {
             return turn;
         }
     }
+
+    public bool IsSceneLoaded
+    {
+        get
+        {
+            return isSceneLoaded;
+        }
+    }
     
 	void Awake () {
+        /*
 		if (gm != null)
         {
             // 기존 gm을 지우고, 새 GameManger가 gm이 됨
             Destroy(gm.gameObject);
         }
+        */
+        if (gm != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         gm = this;
         DontDestroyOnLoad(this);
+        GameObject p = Instantiate(playerPrefab);
+        UIObject = Instantiate(UIPrefab);
+        player = p.GetComponent<Character>();
+        player.healthBar = UIObject.GetComponent<UIInfo>().healthBar;
+        player.statusUI = UIObject.GetComponent<UIInfo>().playerStatusUI;
+        player.GetComponent<Inventory>().goldText = UIObject.GetComponent<UIInfo>().goldText;
+        turnMark = UIObject.GetComponent<UIInfo>().turnMark;
+        weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
+        restartText = UIObject.GetComponent<UIInfo>().restartText;
 	}
 
     void Start()
     {
-        turn = 0;
-        map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
-
-        // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
-        //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
-        foreach (Character e in enemies)
-        {
-            map.SetEntityOnTile(e, e.GetComponent<Transform>().position);
-        }
-        foreach (Interactable i in interactables)
-        {
-            map.SetEntityOnTile(i, i.GetComponent<Transform>().position);
-        }
+        Initialize();
+        isSceneLoaded = true;
     }
 
     void FixedUpdate () {
+        if (!isSceneLoaded) return;
+
 		if (turn == 1)
         {
             bool b = true;
@@ -88,9 +112,71 @@ public class GameManager : MonoBehaviour {
         // 최종 버전에서는 없어야 함
         if (!player.Alive && Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            restartText.SetActive(false);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+            Destroy(UIObject);
+            Destroy(this.gameObject);
         }
 	}
+
+    public void ChangeScene(string sceneName)
+    {
+        StartCoroutine(LoadScene(sceneName));
+    }
+
+    IEnumerator LoadScene(string sceneName)
+    {
+        isSceneLoaded = false;
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Scenes/" + sceneName, LoadSceneMode.Additive);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        SceneManager.MoveGameObjectToScene(player.gameObject, SceneManager.GetSceneByName(sceneName));
+        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(currentScene);
+
+        while (!asyncUnload.isDone)
+        {
+            yield return null;
+        }
+
+        Initialize();
+        isSceneLoaded = true;
+    }
+
+    private void Initialize()
+    {
+        GameObject g = GameObject.Find("MapEntityInfo");
+        if (g != null)
+        {
+            MapEntityInfo mei = g.GetComponent<MapEntityInfo>();
+            if (mei != null)
+            {
+                map = mei.map;
+                enemies = mei.enemies;
+                interactables = mei.interactables;
+            }
+        }
+        turn = 0;
+        turnMark.sprite = myTurn;
+        turnMark.color = myTurnColor;
+        map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
+
+        // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
+        //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
+        foreach (Character e in enemies)
+        {
+            map.SetEntityOnTile(e, e.GetComponent<Transform>().position);
+        }
+        foreach (Interactable i in interactables)
+        {
+            map.SetEntityOnTile(i, i.GetComponent<Transform>().position);
+        }
+    }
 
     /// <summary>
     /// 턴을 넘깁니다.

@@ -7,18 +7,31 @@ public class MapManager : MonoBehaviour {
 
     public bool autoGeneration;
     public List<MapInfo> mapInfo;
-    public int mapIndex;
     
     public string mapName;
     public Vector2Int size;
+
+    public int mapIndex;
+    public Color backgroundColor;
 
     public List<MapTile> sceneTiles;
     private List<List<MapTile>> tiles;
     
     private Text mapText;
+    private Vector2 bottomLeft = new Vector2(Mathf.Infinity, Mathf.Infinity);
+    private Vector2 topRight = new Vector2(Mathf.NegativeInfinity, Mathf.NegativeInfinity);
+    private bool isReady = false;
+
+    public bool IsReady
+    {
+        get
+        {
+            return isReady;
+        }
+    }
 
     // Use this for initialization
-    void Awake () {
+    void Start () {
 
         if (mapText == null) {
             GameObject g = GameObject.Find("MapText");
@@ -27,7 +40,43 @@ public class MapManager : MonoBehaviour {
 
         if (!autoGeneration)
         {
-
+            sceneTiles = new List<MapTile>();
+            foreach (MapTile t in GetComponentsInChildren<MapTile>())
+            {
+                if (t.gameObject.activeInHierarchy)
+                    sceneTiles.Add(t);
+            }
+            foreach (MapTile t in sceneTiles)
+            {
+                Vector3 p = t.GetComponent<Transform>().position;
+                t.GetComponent<Transform>().position = new Vector3((int)(p.x), (int)(p.y), p.z);
+                p = t.GetComponent<Transform>().position;
+                if (p.x < bottomLeft.x) bottomLeft.x = p.x;
+                if (p.y < bottomLeft.y) bottomLeft.y = p.y;
+                if (p.x > topRight.x) topRight.x = p.x;
+                if (p.y > topRight.y) topRight.y = p.y;
+            }
+            tiles = new List<List<MapTile>>();
+            if (sceneTiles.Count > 0)
+            {
+                for (int i = 0; i < (int)topRight.y - (int)bottomLeft.y + 1; i++)
+                {
+                    tiles.Add(new List<MapTile>());
+                    for (int j = 0; j < (int)topRight.x - (int)bottomLeft.x + 1; j++)
+                    {
+                        tiles[i].Add(null);
+                    }
+                }
+            }
+            foreach (MapTile t in sceneTiles)
+            {
+                Vector3 p = t.GetComponent<Transform>().position;
+                tiles[(int)p.y - (int)bottomLeft.y][(int)p.x - (int)bottomLeft.x] = t;
+            }
+            if (mapText != null)
+                mapText.text = mapName;
+            if (Camera.main != null)
+                Camera.main.backgroundColor = backgroundColor;
         }
         else
         {
@@ -39,7 +88,8 @@ public class MapManager : MonoBehaviour {
                 Debug.LogWarning("Map doesn't exist!");
                 return;
             }
-            mapText.text = mi.name;
+            if (mapText != null)
+                mapText.text = mi.name;
             for (int i = 0; i < size.y; i++)
             {
                 tiles.Add(new List<MapTile>());
@@ -50,13 +100,10 @@ public class MapManager : MonoBehaviour {
                     tiles[i].Add(t);
                 }
             }
-            Camera.main.backgroundColor = mi.backgroundColor;
+            if (Camera.main != null)
+                Camera.main.backgroundColor = mi.backgroundColor;
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        isReady = true;
 	}
 
     public MapInfo FindMapInfo(string name)
@@ -80,10 +127,20 @@ public class MapManager : MonoBehaviour {
     /// <returns></returns>
     private MapTile GetTile(int x, int y)
     {
-        if (x < 0 || y < 0 || y >= tiles.Count || x >= tiles[y].Count)
-            return null;
+        if (autoGeneration)
+        {
+            if (x < 0 || y < 0 || y >= tiles.Count || x >= tiles[y].Count)
+                return null;
+            else
+                return tiles[y][x];
+        }
         else
-            return tiles[y][x];
+        {
+            if (x < (int)bottomLeft.x || y < (int)bottomLeft.y || x > (int)topRight.x || y > (int)topRight.y)
+                return null;
+            else
+                return tiles[y - (int)bottomLeft.y][x - (int)bottomLeft.x];
+        }
     }
 
     public int GetTypeOfTile(int x, int y)

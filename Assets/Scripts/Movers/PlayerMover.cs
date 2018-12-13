@@ -19,12 +19,7 @@ public class PlayerMover : Mover {
 	}
 	
 	void Update () {
-        if (gm == null)
-        {
-            gm = GameManager.gm;
-            return;
-        }
-		if (gm.Turn == 0 && !isMoving)
+		if (gm.Turn == 0 && gm.IsSceneLoaded && !isMoving)
         {
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -127,10 +122,10 @@ public class PlayerMover : Mover {
     {
         // 적 또는 상호작용 가능한 대상이 진행 방향에 있는지 체크
         Entity e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x), Mathf.RoundToInt(t.position.y + direction.y));
-        if (e != null && e.GetType().Equals(typeof(Interactable)))
+        if (e != null && typeof(Interactable).IsAssignableFrom(e.GetType()))
         {
             // 진행 방향에 상호작용 가능한 대상이 있을 경우
-            // TODO
+            ((Interactable)e).Interact();
             gm.NextTurn();
         }
         else
