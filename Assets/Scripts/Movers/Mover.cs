@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Character))]
 public class Mover : MonoBehaviour {
 
     protected bool isMoving;   // 이동 중에 true

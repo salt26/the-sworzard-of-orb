@@ -4387,6 +4387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoGeneration: 1
   mapInfo:
   - name: Green
     tilePrefab:
@@ -4447,9 +4448,17 @@ MonoBehaviour:
     - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
     - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
     backgroundColor: {r: 0.4528302, g: 0.03203987, b: 0.03203987, a: 1}
-  mapName: Red
+  - name: Fiery rock
+    tilePrefab:
+    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
+    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
+    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
+    - {fileID: 1534433596372290, guid: 4aa01325efae5f74b8482dbbfaa28771, type: 2}
+    backgroundColor: {r: 0.63529414, g: 0.2613101, b: 0.2401412, a: 1}
+  mapIndex: 3
+  mapName: Fiery rock
   size: {x: 11, y: 9}
-  mapText: {fileID: 459590992}
+  sceneTiles: []
 --- !u!1 &459590990
 GameObject:
   m_ObjectHideFlags: 0
@@ -7844,6 +7853,7 @@ GameObject:
   - component: {fileID: 949091049}
   - component: {fileID: 949091048}
   - component: {fileID: 949091050}
+  - component: {fileID: 949091051}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7977,6 +7987,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: []
   goldText: {fileID: 1565612929}
+--- !u!114 &949091051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 949091045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d478d8aebc874c842b69e78054f1ad2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &961433546
 GameObject:
   m_ObjectHideFlags: 0
@@ -11840,6 +11861,7 @@ GameObject:
   - component: {fileID: 1476680524}
   - component: {fileID: 1476680523}
   - component: {fileID: 1476680522}
+  - component: {fileID: 1476680526}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -11931,6 +11953,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1476680526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1476680521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d478d8aebc874c842b69e78054f1ad2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1480650063
 GameObject:
   m_ObjectHideFlags: 0

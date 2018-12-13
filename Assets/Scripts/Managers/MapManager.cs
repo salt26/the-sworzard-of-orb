@@ -4,38 +4,54 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour {
-    
+
+    public bool autoGeneration;
     public List<MapInfo> mapInfo;
+    public int mapIndex;
     
-    [SerializeField]
-    private string mapName;
-    public Vector2 size;
+    public string mapName;
+    public Vector2Int size;
 
-    private List<List<MapTile>> tiles = new List<List<MapTile>>();
-
-    [SerializeField]
+    public List<MapTile> sceneTiles;
+    private List<List<MapTile>> tiles;
+    
     private Text mapText;
 
     // Use this for initialization
     void Awake () {
-        MapInfo mi = FindMapInfo(mapName);
-        if (mi == null)
-        {
-            Debug.LogWarning("Map doesn't exist!");
-            return;
+
+        if (mapText == null) {
+            GameObject g = GameObject.Find("MapText");
+            if (g != null) mapText = g.GetComponent<Text>();
         }
-        mapText.text = mi.name;
-		for (int i = 0; i < size.y; i++)
+
+        if (!autoGeneration)
         {
-            tiles.Add(new List<MapTile>());
-            for (int j = 0; j < size.x; j++)
+
+        }
+        else
+        {
+            tiles = new List<List<MapTile>>();
+
+            MapInfo mi = FindMapInfo(mapName);
+            if (mi == null)
             {
-                MapTile t = Instantiate(mi.tilePrefab[Random.Range(0, mi.tilePrefab.Count)], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
-                t.Entity = null;
-                tiles[i].Add(t);
+                Debug.LogWarning("Map doesn't exist!");
+                return;
             }
+            mapText.text = mi.name;
+            for (int i = 0; i < size.y; i++)
+            {
+                tiles.Add(new List<MapTile>());
+                for (int j = 0; j < size.x; j++)
+                {
+                    MapTile t = Instantiate(mi.tilePrefab[Random.Range(0, mi.tilePrefab.Count)], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
+                    t.Entity = null;
+                    tiles[i].Add(t);
+                }
+            }
+            Camera.main.backgroundColor = mi.backgroundColor;
         }
-        Camera.main.backgroundColor = mi.backgroundColor;
 	}
 	
 	// Update is called once per frame
