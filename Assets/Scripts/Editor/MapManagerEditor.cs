@@ -8,14 +8,14 @@ using UnityEditor;
 public class MapManagerEditor : Editor {
 
     private string[] mapOptions;
-    SerializedProperty sceneTilesListProp;
+    //SerializedProperty sceneTilesListProp;
     SerializedProperty mapInfoListProp;
     SerializedProperty mapNameStringProp;
     SerializedProperty bgColorProp;
 
     void OnEnable()
     {
-        sceneTilesListProp = serializedObject.FindProperty("sceneTiles");
+        //sceneTilesListProp = serializedObject.FindProperty("sceneTiles");
         mapInfoListProp = serializedObject.FindProperty("mapInfo");
         mapNameStringProp = serializedObject.FindProperty("mapName");
         bgColorProp = serializedObject.FindProperty("backgroundColor");
@@ -31,7 +31,7 @@ public class MapManagerEditor : Editor {
         mm.autoGeneration = EditorGUILayout.Toggle("Auto Generation", mm.autoGeneration);
         if (!mm.autoGeneration)
         {
-            EditorGUILayout.PropertyField(sceneTilesListProp, true);
+            //EditorGUILayout.PropertyField(sceneTilesListProp, true);
             EditorGUILayout.PropertyField(mapNameStringProp);
             //mm.backgroundColor = EditorGUILayout.ColorField("Background Color", mm.backgroundColor);
             EditorGUILayout.PropertyField(bgColorProp);

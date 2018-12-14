@@ -223,7 +223,7 @@ public class PlayerMover : Mover {
     {
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
         gm.map.SetEntityOnTile(null, t.position);
-        GetComponent<Inventory>().items = new List<string>();   // 가지고 있던 모든 아이템을 잃음 
+        GetComponent<Inventory>().RemoveAllItems();   // 가지고 있던 모든 아이템을 잃음 
         this.enabled = false;
         gm.restartText.SetActive(true);
     }

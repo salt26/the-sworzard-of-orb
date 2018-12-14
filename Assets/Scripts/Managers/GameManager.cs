@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
         player.healthBar = UIObject.GetComponent<UIInfo>().healthBar;
         player.statusUI = UIObject.GetComponent<UIInfo>().playerStatusUI;
         player.GetComponent<Inventory>().goldText = UIObject.GetComponent<UIInfo>().goldText;
+        player.GetComponent<Inventory>().itemButtons = UIObject.GetComponent<UIInfo>().itemButtons;
         turnMark = UIObject.GetComponent<UIInfo>().turnMark;
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
         restartText = UIObject.GetComponent<UIInfo>().restartText;

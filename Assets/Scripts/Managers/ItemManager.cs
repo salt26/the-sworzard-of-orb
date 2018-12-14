@@ -45,6 +45,28 @@ public class ItemManager : MonoBehaviour {
         return null;
     }
 
+    /// <summary>
+    /// 아이템 name이 등록된 아이템인지 확인합니다.
+    /// 등록된 아이템이면 true를 반환합니다.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool IsRegisteredItem(string name)
+    {
+        foreach (GameObject g in items)
+        {
+            if (g == null || g.GetComponent<Item>() == null)
+            {
+                continue;
+            }
+            else if (g.GetComponent<Item>().name.Equals(name))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void Awake()
     {
         im = this;
