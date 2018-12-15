@@ -2967,7 +2967,7 @@ MonoBehaviour:
   mapInfo: []
   mapName: Town
   size: {x: 11, y: 9}
-  mapIndex: 0
+  mapIndex: -1
   backgroundColor: {r: 0.49100295, g: 0.7169812, b: 0.36187258, a: 1}
   sceneTiles: []
 --- !u!4 &795156760
@@ -5890,6 +5890,7 @@ MonoBehaviour:
   items:
   - {fileID: 1338476123407234, guid: a37accdd18de38f47b02a4272713aea2, type: 2}
   - {fileID: 1334113729494510, guid: 10f393f7869739b438be97144cf6b835, type: 2}
+  - {fileID: 1180353763201866, guid: fd1e20f3085ac134da0e6ed14c77979b, type: 2}
 --- !u!114 &1349403481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5925,7 +5926,8 @@ MonoBehaviour:
     sightDistance: 1
     leaveDistance: 2
     gold: 1
-    items: []
+    items:
+    - Nature orb
   - name: Frost element
     level: 1
     size: 1
@@ -5950,7 +5952,7 @@ MonoBehaviour:
     leaveDistance: 4
     gold: 2
     items:
-    - Nature orb
+    - Large potion
 --- !u!114 &1349403482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8342,6 +8344,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+--- !u!1 &1901761411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1901761414}
+  - component: {fileID: 1901761413}
+  - component: {fileID: 1901761412}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1901761412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901761411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1901761413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901761411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1901761414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901761411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1903767679
 GameObject:
   m_ObjectHideFlags: 0

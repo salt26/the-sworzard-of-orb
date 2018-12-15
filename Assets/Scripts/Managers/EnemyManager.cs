@@ -52,5 +52,6 @@ public class EnemyInfo
     public int leaveDistance;   // 적의 최대 이동 거리
 
     public int gold;            // 적이 떨어뜨릴 화폐 양
+    //public List<KeyValuePair<string, float>> items;  // 적이 떨어뜨릴 아이템 이름 목록("Gold" 제외)
     public List<string> items;  // 적이 떨어뜨릴 아이템 이름 목록("Gold" 제외)
 }

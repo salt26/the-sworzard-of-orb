@@ -9,7 +9,7 @@ public class UIInfo : MonoBehaviour {
     public Slider healthBar;
     public StatusUI playerStatusUI;
     public Text goldText;
-    public List<GameObject> itemButtons;
+    public List<Button> itemButtons;
 
     [Header("GM")]
     public Image turnMark;

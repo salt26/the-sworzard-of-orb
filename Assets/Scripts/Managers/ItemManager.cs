@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 /// <summary>
 /// 각종 아이템 프리팹의 레퍼런스를 들고 있습니다.
@@ -21,6 +22,11 @@ public class ItemManager : MonoBehaviour {
         {
             return gold;
         }
+    }
+    
+    void Awake()
+    {
+        im = this;
     }
 
     /// <summary>
@@ -67,9 +73,56 @@ public class ItemManager : MonoBehaviour {
         return false;
     }
 
-    void Awake()
+    /// <summary>
+    /// 아이템의 효과를 발동시킵니다.
+    /// </summary>
+    /// <param name="effectName">효과 메서드 이름</param>
+    /// <param name="param">효과의 수치 인자</param>
+    public void InvokeEffect(string effectName, int param)
     {
-        im = this;
+        if (effectName == null || effectName.Equals("")) return;
+        MethodInfo mi = typeof(ItemEffect).GetMethod(effectName);
+        if (mi == null)
+        {
+            Debug.LogWarning("There is no effect method named '" + effectName + "'!");
+            return;
+        }
+        mi.Invoke(null, new object[] { param });
+    }
+
+
+    #region 아이템 효과(Effect) 메서드
+    
+    /// <summary>
+    /// 아이템 효과를 정의한 클래스입니다.
+    /// </summary>
+    private class ItemEffect
+    {
+        // 이 클래스 안에는 아이템 효과 메서드만 정의되어야 하며,
+        // 이 안의 모든 메서드는 int 인자 하나를 받아 void 타입을 반환하는 static 메서드여야 합니다.
+
+        public static void Heal(int heal)
+        {
+            GameManager.gm.player.Healed(heal);
+        }
     }
     
+    #endregion
+}
+
+[System.Serializable]
+public class ItemInfo
+{
+    public enum Type { Orb, Consumable };
+    public Type type;
+
+    public string name;     // 아이템 이름(Primary key)
+
+    public int level;       // Orb에만 존재
+
+    public Sprite onTileSprite;     // 맵의 타일 위에서 보여질 이미지
+    public Sprite inventorySprite;  // 인벤토리에서 보여질 이미지
+
+    public string effectName;
+    public int effectParam;
 }

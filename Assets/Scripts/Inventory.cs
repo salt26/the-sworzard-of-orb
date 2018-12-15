@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour {
     public Text goldText;
 
     [HideInInspector]
-    public List<GameObject> itemButtons;    // UI의 각 버튼에 대한 레퍼런스
+    public List<Button> itemButtons;    // UI의 각 버튼에 대한 레퍼런스
 
     public GameObject itemImage;            // 아이템 이미지 프리팹
 
@@ -47,6 +47,10 @@ public class Inventory : MonoBehaviour {
     void Start()
     {
         itemImages = new List<KeyValuePair<string, GameObject>>();
+        foreach (Button b in itemButtons)
+        { 
+            b.onClick.AddListener(delegate { UseItem(itemButtons.IndexOf(b)); });
+        }
     }
 
     /// <summary>
@@ -117,6 +121,17 @@ public class Inventory : MonoBehaviour {
         {
             Destroy(itemImages[i].Value);
             itemImages.RemoveAt(i);
+        }
+    }
+
+    public void UseItem(int index)
+    {
+        //Debug.Log("Use item " + index + " from inventory.");
+        if (index < Items.Count)
+        {
+            ItemManager.im.GetItemPrefab(items[index]).GetComponent<Item>().Use();
+            items.RemoveAt(index);
+            UpdateUI();
         }
     }
 }

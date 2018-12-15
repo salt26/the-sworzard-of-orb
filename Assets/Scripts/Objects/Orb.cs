@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Orb : Item {
 
-    public int level;
+    public int level;       // 오브 레벨
     public Element stat;
-    public delegate void Effect();
-    public Effect effect;
-    public string effectName;
 
 }

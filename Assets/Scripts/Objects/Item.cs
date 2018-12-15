@@ -10,4 +10,15 @@ public class Item : MonoBehaviour {
     public new string name; // 아이템 이름(Primary key)
 
     public Sprite inventorySprite;  // 인벤토리에서 보여질 이미지
+
+    [SerializeField]
+    private string effectName;
+    [SerializeField]
+    private int effectParam;
+
+    public void Use()
+    {
+        //Debug.Log("Use item: " + name);
+        ItemManager.im.InvokeEffect(effectName, effectParam);
+    }
 }
