@@ -29,9 +29,8 @@ public class MapManager : MonoBehaviour {
             return isReady;
         }
     }
-
-    // Use this for initialization
-    void Start () {
+    
+    public void Initialize () {
 
         if (mapText == null) {
             GameObject g = GameObject.Find("MapText");
@@ -127,7 +126,12 @@ public class MapManager : MonoBehaviour {
     /// <returns></returns>
     private MapTile GetTile(int x, int y)
     {
-        if (autoGeneration)
+        if (!IsReady)
+        {
+            Debug.LogWarning("Map is not initialized!");
+            return null;
+        }
+        else if (autoGeneration)
         {
             if (x < 0 || y < 0 || y >= tiles.Count || x >= tiles[y].Count)
                 return null;

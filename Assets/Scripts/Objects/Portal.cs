@@ -5,11 +5,13 @@ using UnityEngine;
 public class Portal : Interactable {
 
     public string sceneName;
+    public string mapName;
     public Vector2Int startPosition;
 
     public override void Interact()
     {
+        if (mapName == "") mapName = null;
         GameManager.gm.player.GetComponent<Transform>().position = new Vector3(startPosition.x, startPosition.y, GameManager.gm.player.GetComponent<Transform>().position.z);
-        GameManager.gm.ChangeScene(sceneName);
+        GameManager.gm.ChangeScene(sceneName, mapName);
     }
 }

@@ -126,13 +126,13 @@ public class GameManager : MonoBehaviour {
     /// 씬 전환이 완료되면 플레이어의 턴이 됩니다.
     /// </summary>
     /// <param name="sceneName"></param>
-    public void ChangeScene(string sceneName)
+    public void ChangeScene(string sceneName, string mapName = null)
     {
         player.Healed(player.maxHealth);
-        StartCoroutine(LoadScene(sceneName));
+        StartCoroutine(LoadScene(sceneName, mapName));
     }
 
-    IEnumerator LoadScene(string sceneName)
+    IEnumerator LoadScene(string sceneName, string mapName = null)
     {
         // TODO 씬 전환 중에 불투명한 패널로 화면 가리기
         isSceneLoaded = false;
@@ -153,11 +153,11 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
 
-        Initialize();
+        Initialize(mapName);
         isSceneLoaded = true;
     }
 
-    private void Initialize()
+    private void Initialize(string mapName = null)
     {
         GameObject g = GameObject.Find("MapEntityInfo");
         if (g != null)
@@ -170,6 +170,8 @@ public class GameManager : MonoBehaviour {
                 interactables = mei.interactables;
             }
         }
+        if (mapName != null) map.mapName = mapName;
+        map.Initialize();
         turn = 0;
         turnMark.sprite = myTurn;
         turnMark.color = myTurnColor;
