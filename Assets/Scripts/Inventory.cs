@@ -124,14 +124,48 @@ public class Inventory : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 인벤토리의 index 위치에 들어 있는 아이템을 사용합니다.
+    /// 사용한 아이템은 사라지며, 플레이어의 턴이 상대에게 넘어갑니다.
+    /// </summary>
+    /// <param name="index"></param>
     public void UseItem(int index)
     {
-        //Debug.Log("Use item " + index + " from inventory.");
+        GameManager gm = GameManager.gm;
+        if (gm == null) return;
+        else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving)
+        {
+            if (index < Items.Count)
+            {
+                Debug.Log("Use item " + index + " from inventory.");
+                ItemManager.im.GetItemPrefab(items[index]).GetComponent<Item>().Use();
+                items.RemoveAt(index);
+                UpdateUI();
+                gm.NextTurn();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 인벤토리의 index 위치에 들어 있는 아이템을 버립니다.
+    /// </summary>
+    /// <param name="index"></param>
+    public void RemoveItem(int index)
+    {
         if (index < Items.Count)
         {
-            ItemManager.im.GetItemPrefab(items[index]).GetComponent<Item>().Use();
+            Debug.Log("Remove item " + index + " from inventory.");
             items.RemoveAt(index);
             UpdateUI();
+        }
+    }
+
+    public void RemoveItem(Button itemButton)
+    {
+        int i = itemButtons.IndexOf(itemButton);
+        if (i >= 0)
+        {
+            RemoveItem(i);
         }
     }
 }
