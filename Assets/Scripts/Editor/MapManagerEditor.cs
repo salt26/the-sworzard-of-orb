@@ -49,7 +49,7 @@ public class MapManagerEditor : Editor {
             if (mm.mapInfo.Count > 0)
                 mm.mapName = mapOptions[mm.mapIndex];
 
-            mm.size = EditorGUILayout.Vector2IntField("Map Size", mm.size);
+            //mm.size = EditorGUILayout.Vector2IntField("Map Size", mm.size);
         }
 
         serializedObject.ApplyModifiedProperties();

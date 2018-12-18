@@ -9,7 +9,8 @@ public class MapManager : MonoBehaviour {
     public List<MapInfo> mapInfo;
     
     public string mapName;
-    public Vector2Int size;
+    //public Vector2Int size;
+    private int[][] mapShape;
 
     public int mapIndex;
     public Color backgroundColor;
@@ -79,31 +80,122 @@ public class MapManager : MonoBehaviour {
         }
         else
         {
-            tiles = new List<List<MapTile>>();
+            mapShape = GenerateMapShape(new Vector2Int(11, 9));
+            tiles = GenerateMap(mapShape);
+        }
+        isReady = true;
+	}
 
-            MapInfo mi = FindMapInfo(mapName);
-            if (mi == null)
+    private List<List<MapTile>> GenerateMap(int[][] mapShape)
+    {
+        List<List<MapTile>> tiles = new List<List<MapTile>>();
+
+        MapInfo mi = FindMapInfo(mapName);
+        if (mi == null)
+        {
+            Debug.LogWarning("Map doesn't exist!");
+            return null;
+        }
+
+        if (mapText != null)
+            mapText.text = mi.name;
+
+        if (Camera.main != null)
+            Camera.main.backgroundColor = mi.backgroundColor;
+
+        for (int i = 0; i < mapShape.Length; i++)
+        {
+            // i는 y좌표
+            tiles.Add(new List<MapTile>());
+            for (int j = 0; j < mapShape[i].Length; j++)
             {
-                Debug.LogWarning("Map doesn't exist!");
-                return;
-            }
-            if (mapText != null)
-                mapText.text = mi.name;
-            for (int i = 0; i < size.y; i++)
-            {
-                tiles.Add(new List<MapTile>());
-                for (int j = 0; j < size.x; j++)
+                // j는 x좌표
+                if (mapShape[i][j] == 0)
                 {
+                    // 0이면 없는 타일
+                    tiles[i].Add(null);
+                }
+                else
+                {
+                    // 1이면 밟을 수 있는 타일
                     MapTile t = Instantiate(mi.tilePrefab[Random.Range(0, mi.tilePrefab.Count)], new Vector3(j, i, 0f), Quaternion.identity, GetComponent<Transform>()).GetComponent<MapTile>();
                     t.Entity = null;
                     tiles[i].Add(t);
                 }
             }
-            if (Camera.main != null)
-                Camera.main.backgroundColor = mi.backgroundColor;
         }
-        isReady = true;
-	}
+        return tiles;
+    }
+
+    private int[][] GenerateMapShape(Vector2Int size)
+    {
+        // TODO 지금은 하드코딩되어 있음
+        // 나중에 size를 받아, 그 안을 걸어다닐 수 있도록 0과 1로 랜덤하게 채워야 함
+        int[][] mapShape = new int[size.y][];
+        for (int i = 0; i < size.y; i++)
+        {
+            mapShape[i] = new int[size.x];
+        }
+
+        if (mapName.Equals("Red"))
+        {
+            for (int i = 0; i < size.y; i++)
+            {
+                for (int j = 0; j < size.x; j++)
+                {
+                    mapShape[i][j] = 1;
+                }
+            }
+            for (int i = size.y / 2 - 2; i <= size.y / 2 + 2; i++)
+            {
+                for (int j = size.x / 2 - 2; j <= size.x / 2 + 2; j++)
+                {
+                    if (i == size.y / 2 || j == size.x / 2)
+                        mapShape[i][j] = 0;
+                }
+            }
+        }
+        else if (mapName.Equals("Blue"))
+        {
+            for (int i = 0; i < size.y; i++)
+            {
+                for (int j = 0; j < size.x; j++)
+                {
+                    if (i % 3 == 1 && j % 4 == 1)
+                    {
+                        mapShape[i][j] = 0;
+                    }
+                    else
+                        mapShape[i][j] = 1;
+                }
+            }
+        }
+        else if (mapName.Equals("Green"))
+        {
+            for (int i = 0; i < size.y; i++)
+            {
+                for (int j = 0; j < size.x; j++)
+                {
+                    if (i + j >= 2 && i + j < size.x + size.y - 3 && i - j <= size.y - 3 && j - i <= size.x - 3)
+                    {
+                        mapShape[i][j] = 1;
+                    }
+                    else mapShape[i][j] = 0;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < size.y; i++)
+            {
+                for (int j = 0; j < size.x; j++)
+                {
+                    mapShape[i][j] = 1;
+                }
+            }
+        }
+        return mapShape;
+    }
 
     public MapInfo FindMapInfo(string name)
     {

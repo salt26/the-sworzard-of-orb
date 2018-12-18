@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Prototype
   mapName: Blue
-  startPosition: {x: 6, y: 2}
+  startPosition: {x: 6, y: 4}
 --- !u!212 &297285870
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3058,7 +3058,6 @@ MonoBehaviour:
   autoGeneration: 0
   mapInfo: []
   mapName: Town
-  size: {x: 11, y: 9}
   mapIndex: -1
   backgroundColor: {r: 0.49100295, g: 0.7169812, b: 0.36187258, a: 1}
   sceneTiles: []
@@ -6006,7 +6005,7 @@ MonoBehaviour:
         nature: 1
       range: 1
       weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b,
+      characterSprite: {fileID: 21300000, guid: 8a11f4ebaabb9d34a91379a7bc844ec9,
         type: 3}
       name: Spark
     armor:
@@ -6031,7 +6030,7 @@ MonoBehaviour:
         nature: 0
       range: 1
       weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345,
+      characterSprite: {fileID: 21300000, guid: fbc9c0c59d043d140871c3adc4762611,
         type: 3}
       name: Dry ice
     armor:
@@ -6178,7 +6177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Prototype
   mapName: Red
-  startPosition: {x: 6, y: 2}
+  startPosition: {x: 10, y: 8}
 --- !u!212 &1383867727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8794,7 +8793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Prototype
   mapName: Green
-  startPosition: {x: 6, y: 2}
+  startPosition: {x: 6, y: 4}
 --- !u!212 &1921366976
 SpriteRenderer:
   m_ObjectHideFlags: 0
