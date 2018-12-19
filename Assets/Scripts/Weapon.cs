@@ -6,6 +6,9 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Weapon {
 
+    [SerializeField]
+    private string name;
+
     public Element element;
 
     [SerializeField]
@@ -14,8 +17,6 @@ public class Weapon {
     private Sprite weaponMarkSprite;
     [SerializeField]
     private Sprite characterSprite;
-    [SerializeField]
-    private string name;
 
     public int Range
     {

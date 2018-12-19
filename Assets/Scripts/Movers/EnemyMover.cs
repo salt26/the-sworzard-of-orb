@@ -96,6 +96,8 @@ public class EnemyMover : Mover {
             }
         }
 
+        if (!gm.IsSceneLoaded) return;
+
         if (gm.Turn == 0 && isMoved)
         {
             isMoved = false;

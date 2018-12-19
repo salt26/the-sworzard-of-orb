@@ -122,13 +122,13 @@ public class GameManager : MonoBehaviour {
 	}
 
     /// <summary>
-    /// 플레이어의 체력을 모두 회복하고 씬을 전환합니다.
+    /// 씬을 전환합니다.
     /// 씬 전환이 완료되면 플레이어의 턴이 됩니다.
     /// </summary>
     /// <param name="sceneName"></param>
     public void ChangeScene(string sceneName, string mapName = null)
     {
-        player.Healed(player.maxHealth);
+        //player.Healed(player.maxHealth);
         StartCoroutine(LoadScene(sceneName, mapName));
     }
 

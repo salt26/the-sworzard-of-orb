@@ -78,16 +78,17 @@ public class ItemManager : MonoBehaviour {
     /// </summary>
     /// <param name="effectName">효과 메서드 이름</param>
     /// <param name="param">효과의 수치 인자</param>
-    public void InvokeEffect(string effectName, int param)
+    public bool InvokeEffect(string effectName, int param)
     {
-        if (effectName == null || effectName.Equals("")) return;
+        if (effectName == null || effectName.Equals("")) return false;
         MethodInfo mi = typeof(ItemEffect).GetMethod(effectName);
         if (mi == null)
         {
             Debug.LogWarning("There is no effect method named '" + effectName + "'!");
-            return;
+            return false;
         }
         mi.Invoke(null, new object[] { param });
+        return true;
     }
 
 

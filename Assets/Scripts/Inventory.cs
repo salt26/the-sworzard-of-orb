@@ -137,11 +137,13 @@ public class Inventory : MonoBehaviour {
         {
             if (index < Items.Count)
             {
-                Debug.Log("Use item " + index + " from inventory.");
-                ItemManager.im.GetItemPrefab(items[index]).GetComponent<Item>().Use();
-                items.RemoveAt(index);
-                UpdateUI();
-                gm.NextTurn();
+                if (ItemManager.im.GetItemPrefab(items[index]).GetComponent<Item>().Use())
+                {
+                    Debug.Log("Use item " + index + " from inventory.");
+                    items.RemoveAt(index);
+                    UpdateUI();
+                    gm.NextTurn();
+                }
             }
         }
     }

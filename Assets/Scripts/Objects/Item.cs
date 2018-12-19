@@ -16,9 +16,9 @@ public class Item : MonoBehaviour {
     [SerializeField]
     private int effectParam;
 
-    public void Use()
+    public virtual bool Use()
     {
         //Debug.Log("Use item: " + name);
-        ItemManager.im.InvokeEffect(effectName, effectParam);
+        return ItemManager.im.InvokeEffect(effectName, effectParam);
     }
 }

@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Town.unity
     guid: 1a0e01a48f354be41865a20547bdab47
   - enabled: 1
-    path: Assets/Scenes/Prototype.unity
+    path: Assets/Scenes/GreenField.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/BlueField.unity
+    guid: 5d083bacce4447341ba44038f9b83160
+  - enabled: 1
+    path: Assets/Scenes/RedField.unity
+    guid: bb71dafeca95a5a4c8e5bd4ea2d86e53
   m_configObjects: {}

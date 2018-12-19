@@ -1139,20 +1139,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Flame element
+  name: Nature pudding
   level: 1
   size: 1
   maxHealth: 20
   currentHealth: 20
   weapons:
-  - element:
+  - name: Spark
+    element:
       fire: 8
       ice: 0
       nature: 0
     range: 1
     weaponMarkSprite: {fileID: 0}
     characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
-    name: Spark
   armor:
     element:
       fire: 1
@@ -2658,8 +2658,6 @@ MonoBehaviour:
   leaveDistance: 2
   checkpoints:
   - {x: 4, y: 5, z: 0}
-  - {x: 2, y: 5, z: 0}
-  - {x: 2, y: 3, z: 0}
 --- !u!212 &374579137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2732,20 +2730,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Flame element
+  name: Nature pudding
   level: 1
   size: 1
   maxHealth: 20
   currentHealth: 20
   weapons:
-  - element:
+  - name: Spark
+    element:
       fire: 8
       ice: 0
       nature: 0
     range: 1
     weaponMarkSprite: {fileID: 0}
     characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
-    name: Spark
   armor:
     element:
       fire: 1
@@ -4680,20 +4678,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Flame element
+  name: Nature pudding
   level: 1
   size: 1
   maxHealth: 20
   currentHealth: 20
   weapons:
-  - element:
+  - name: Spark
+    element:
       fire: 8
       ice: 0
       nature: 0
     range: 1
     weaponMarkSprite: {fileID: 0}
     characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
-    name: Spark
   armor:
     element:
       fire: 1
@@ -5709,20 +5707,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Frost element
+  name: Flame element
   level: 1
   size: 1
   maxHealth: 20
   currentHealth: 20
   weapons:
-  - element:
+  - name: Dry ice
+    element:
       fire: 8
       ice: 0
       nature: 0
     range: 1
     weaponMarkSprite: {fileID: 0}
     characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345, type: 3}
-    name: Dry ice
   armor:
     element:
       fire: 1
@@ -7138,20 +7136,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Frost element
+  name: Goblin pudding
   level: 1
   size: 1
   maxHealth: 20
   currentHealth: 20
   weapons:
-  - element:
+  - name: Dry ice
+    element:
       fire: 8
       ice: 0
       nature: 0
     range: 1
     weaponMarkSprite: {fileID: 0}
     characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345, type: 3}
-    name: Dry ice
   armor:
     element:
       fire: 1
