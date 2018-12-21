@@ -5965,6 +5965,7 @@ MonoBehaviour:
   enemyTurnColor: {r: 1, g: 1, b: 1, a: 1}
   weaponMark: {fileID: 0}
   restartText: {fileID: 0}
+  loadingPanel: {fileID: 0}
   turnNumber: 0
 --- !u!114 &1349403480
 MonoBehaviour:
@@ -5981,6 +5982,8 @@ MonoBehaviour:
   items:
   - {fileID: 1338476123407234, guid: a37accdd18de38f47b02a4272713aea2, type: 2}
   - {fileID: 1334113729494510, guid: 10f393f7869739b438be97144cf6b835, type: 2}
+  - {fileID: 1027662513192624, guid: 5879c24b7a3a01442b8b8d88e86cd450, type: 2}
+  - {fileID: 1466590255123974, guid: c010c539e413bda449679d1258de2467, type: 2}
   - {fileID: 1180353763201866, guid: fd1e20f3085ac134da0e6ed14c77979b, type: 2}
 --- !u!114 &1349403481
 MonoBehaviour:
@@ -6068,7 +6071,7 @@ MonoBehaviour:
     leaveDistance: 2
     gold: 1
     items:
-    - Nature orb
+    - Fire orb
   - name: Ice pudding
     level: 1
     size: 1
@@ -6093,7 +6096,7 @@ MonoBehaviour:
     leaveDistance: 2
     gold: 1
     items:
-    - Nature orb
+    - Water orb
   - name: Nature pudding
     level: 1
     size: 1

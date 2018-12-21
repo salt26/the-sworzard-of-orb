@@ -65,6 +65,12 @@ public class Element {
         return new Element(a.fire - b.fire, a.ice - b.ice, a.nature - b.nature);
     }
 
+    /// <summary>
+    /// 각 속성 값은 int
+    /// </summary>
+    /// <param name="times"></param>
+    /// <param name="a"></param>
+    /// <returns></returns>
     public static Element operator *(Vector3 times, Element a)
     {
         return new Element((int)(a.fire * times.x),
@@ -72,6 +78,12 @@ public class Element {
             (int)(a.nature * times.z));
     }
 
+    /// <summary>
+    /// 각 속성 값은 int
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="times"></param>
+    /// <returns></returns>
     public static Element operator *(Element a, Vector3 times)
     {
         return new Element((int)(a.fire * times.x),

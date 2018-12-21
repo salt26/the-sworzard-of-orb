@@ -49,17 +49,14 @@ public class Weapon {
     /// <returns></returns>
     public Element ValidElement()
     {
-        // TODO 일단 (불 속성) = (기본 공격력)
-        int max = Mathf.Max(element.Fire, element.Ice, element.Nature);
-        int f = max, i = max, n = max;
-        if (element.Fire < max) f = 0;
-        if (element.Ice < max) i = 0;
-        if (element.Nature < max) n = 0;
-        Element e = new Element(f, i, n);
-
         // 무기의 사정거리만큼 대미지 감소 (예: 사정거리 2이면 대미지는 1/2)
-        if (Range > 1) e = e * new Vector3(1f / Range, 1f / Range, 1f / Range);
-        return e;
+        Element e1 = element * new Vector3(1f / Range, 1f / Range, 1f / Range);
+        int max = Mathf.Max(e1.Fire, e1.Ice, e1.Nature);
+        int f = max, i = max, n = max;
+        if (e1.Fire < max) f = 0;
+        if (e1.Ice < max) i = 0;
+        if (e1.Nature < max) n = 0;
+        return new Element(f, i, n);
     }
 
     /// <summary>

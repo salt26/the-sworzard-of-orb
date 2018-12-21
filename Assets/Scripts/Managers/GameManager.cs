@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour {
     public Image weaponMark;
     [HideInInspector]
     public GameObject restartText;
+    [HideInInspector]
+    public GameObject loadingPanel;
 
     [Header("Debugging")]
     public int turnNumber = 0;
@@ -82,6 +84,7 @@ public class GameManager : MonoBehaviour {
         turnMark = UIObject.GetComponent<UIInfo>().turnMark;
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
         restartText = UIObject.GetComponent<UIInfo>().restartText;
+        loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
 	}
 
     void Start()
@@ -123,12 +126,11 @@ public class GameManager : MonoBehaviour {
 
     /// <summary>
     /// 씬을 전환합니다.
-    /// 씬 전환이 완료되면 플레이어의 턴이 됩니다.
     /// </summary>
     /// <param name="sceneName"></param>
     public void ChangeScene(string sceneName, string mapName = null)
     {
-        //player.Healed(player.maxHealth);
+        player.Healed(player.maxHealth);
         StartCoroutine(LoadScene(sceneName, mapName));
     }
 
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour {
     {
         // TODO 씬 전환 중에 불투명한 패널로 화면 가리기
         isSceneLoaded = false;
+        loadingPanel.SetActive(true);
         Scene currentScene = SceneManager.GetActiveScene();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Scenes/" + sceneName, LoadSceneMode.Additive);
@@ -154,6 +157,8 @@ public class GameManager : MonoBehaviour {
         }
 
         Initialize(mapName);
+        yield return new WaitForSeconds(0.25f);
+        loadingPanel.SetActive(false);
         isSceneLoaded = true;
     }
 
@@ -172,9 +177,6 @@ public class GameManager : MonoBehaviour {
         }
         if (mapName != null) map.mapName = mapName;
         map.Initialize();
-        turn = 0;
-        turnMark.sprite = myTurn;
-        turnMark.color = myTurnColor;
         map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
 
         // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정

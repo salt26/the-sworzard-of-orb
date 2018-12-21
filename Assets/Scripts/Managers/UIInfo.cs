@@ -15,4 +15,5 @@ public class UIInfo : MonoBehaviour {
     public Image turnMark;
     public Image weaponMark;
     public GameObject restartText;
+    public GameObject loadingPanel;
 }
