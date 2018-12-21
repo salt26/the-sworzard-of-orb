@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class UIInfo : MonoBehaviour {
 
@@ -20,4 +23,21 @@ public class UIInfo : MonoBehaviour {
 
     [Header("Enemy")]
     public StatusUI enemyStatusUI;
+
+    [Header("etc")]
+    public GameObject menuUI;
+
+    public void MenuUI()
+    {
+        menuUI.SetActive(!menuUI.activeInHierarchy);
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
