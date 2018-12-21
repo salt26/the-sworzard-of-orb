@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114926819351538088}
   - component: {fileID: 114924400162181276}
   - component: {fileID: 114983017880003552}
+  - component: {fileID: 65427192794790216}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -114,6 +115,18 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!65 &65427192794790216
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1644396795196400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81938083245572966
 AudioListener:
   m_ObjectHideFlags: 1
@@ -150,22 +163,22 @@ MonoBehaviour:
   maxHealth: 120
   currentHealth: 120
   weapons:
-  - element:
+  - name: Sword
+    element:
       fire: 4
       ice: 4
       nature: 1
     range: 1
     weaponMarkSprite: {fileID: 21300000, guid: 3e5dfcfe7f1667a4f842828e5fed42ce, type: 3}
     characterSprite: {fileID: 21300000, guid: 1f20e05925af94f458b946f48bfae685, type: 3}
-    name: Sword
-  - element:
+  - name: Spear
+    element:
       fire: 4
       ice: 4
       nature: 1
     range: 2
     weaponMarkSprite: {fileID: 21300000, guid: f050f5a7580da194b8c407eecc5e3f39, type: 3}
     characterSprite: {fileID: 21300000, guid: 806e3fa8596dc964786a10b8e1aaf0e5, type: 3}
-    name: Spear
   armor:
     element:
       fire: 2

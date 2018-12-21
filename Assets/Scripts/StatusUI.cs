@@ -36,6 +36,13 @@ public class StatusUI : MonoBehaviour {
         }
     }
 
+    public void UpdateAll(Character character, int currentHealth)
+    {
+        UpdateAttackText(character.EquippedWeapon);
+        UpdateDefenseText(character.armor);
+        UpdateHealthText(currentHealth, character.maxHealth);
+    }
+
     public void UpdateHealthText(int currentHealth, int maxHealth)
     {
         if (maxHealth <= 0) return;

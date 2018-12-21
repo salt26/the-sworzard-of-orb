@@ -5948,6 +5948,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1644396795196400, guid: e70bc294baf0bf14db9f607a3640cf56,
     type: 2}
   UIPrefab: {fileID: 1765860688458176, guid: 6403b117423a4274faa4caeb4efdedf1, type: 2}
+  selectedBorderPrefab: {fileID: 1466062530658470, guid: b31224b6fe7e7df408bc9f31fe363b58,
+    type: 2}
   player: {fileID: 0}
   map: {fileID: 0}
   enemies:
@@ -5966,6 +5968,8 @@ MonoBehaviour:
   weaponMark: {fileID: 0}
   restartText: {fileID: 0}
   loadingPanel: {fileID: 0}
+  selectedCharacter: {fileID: 0}
+  mySelectedBorder: {fileID: 0}
   turnNumber: 0
 --- !u!114 &1349403480
 MonoBehaviour:
@@ -6009,7 +6013,7 @@ MonoBehaviour:
         nature: 5
       range: 1
       weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: 8a11f4ebaabb9d34a91379a7bc844ec9,
+      characterSprite: {fileID: 21300000, guid: f698a2b36d3aefc4c893ec9dfa34e97b,
         type: 3}
     armor:
       element:
@@ -6034,7 +6038,7 @@ MonoBehaviour:
         nature: 0
       range: 1
       weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: fbc9c0c59d043d140871c3adc4762611,
+      characterSprite: {fileID: 21300000, guid: b3c76090dea4da341aa67a02f84ac4fc,
         type: 3}
     armor:
       element:
@@ -6166,6 +6170,31 @@ MonoBehaviour:
         fire: 3
         ice: 1
         nature: 1
+    distanceType: 2
+    sightDistance: 2
+    leaveDistance: 4
+    gold: 2
+    items:
+    - Large potion
+  - name: Tree element
+    level: 1
+    size: 1
+    maxHealth: 20
+    weapon:
+      name: Spiky vine
+      element:
+        fire: 1
+        ice: 1
+        nature: 6
+      range: 1
+      weaponMarkSprite: {fileID: 0}
+      characterSprite: {fileID: 21300000, guid: 90cece5e5fe8e964a80d85525b15da72,
+        type: 3}
+    armor:
+      element:
+        fire: 3
+        ice: 3
+        nature: 0
     distanceType: 2
     sightDistance: 2
     leaveDistance: 4

@@ -1038,6 +1038,7 @@ GameObject:
   - component: {fileID: 144728518}
   - component: {fileID: 144728521}
   - component: {fileID: 144728520}
+  - component: {fileID: 144728522}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -1161,6 +1162,18 @@ MonoBehaviour:
   healthBar: {fileID: 117954381}
   statusUI: {fileID: 0}
   oldHealth: 0
+--- !u!65 &144728522
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 144728517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &148726131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,6 +2642,7 @@ GameObject:
   - component: {fileID: 374579137}
   - component: {fileID: 374579139}
   - component: {fileID: 374579136}
+  - component: {fileID: 374579140}
   m_Layer: 0
   m_Name: Monster (1)
   m_TagString: Untagged
@@ -2752,6 +2766,18 @@ MonoBehaviour:
   healthBar: {fileID: 466083305}
   statusUI: {fileID: 0}
   oldHealth: 0
+--- !u!65 &374579140
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 374579135}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &385688026
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,7 +3352,7 @@ MonoBehaviour:
     - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
     - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
     - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
-    backgroundColor: {r: 0.4528302, g: 0.03203987, b: 0.03203987, a: 1}
+    backgroundColor: {r: 0.36078432, g: 0.02745098, b: 0.02745098, a: 1}
   - name: Fiery rock
     tilePrefab:
     - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
@@ -4574,6 +4600,7 @@ GameObject:
   - component: {fileID: 815299969}
   - component: {fileID: 815299971}
   - component: {fileID: 815299968}
+  - component: {fileID: 815299972}
   m_Layer: 0
   m_Name: Monster (2)
   m_TagString: Untagged
@@ -4700,6 +4727,18 @@ MonoBehaviour:
   healthBar: {fileID: 1706919090}
   statusUI: {fileID: 0}
   oldHealth: 0
+--- !u!65 &815299972
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815299967}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &819977310
 GameObject:
   m_ObjectHideFlags: 0
@@ -5667,6 +5706,7 @@ GameObject:
   - component: {fileID: 1054533291}
   - component: {fileID: 1054533290}
   - component: {fileID: 1054533289}
+  - component: {fileID: 1054533293}
   m_Layer: 0
   m_Name: Monster (4)
   m_TagString: Untagged
@@ -5707,7 +5747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Flame element
+  name: Tree element
   level: 1
   size: 1
   maxHealth: 20
@@ -5789,6 +5829,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1054533293
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1054533288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1106316761
 GameObject:
   m_ObjectHideFlags: 0
@@ -7036,6 +7088,7 @@ GameObject:
   - component: {fileID: 1423487765}
   - component: {fileID: 1423487767}
   - component: {fileID: 1423487764}
+  - component: {fileID: 1423487768}
   m_Layer: 0
   m_Name: Monster (3)
   m_TagString: Untagged
@@ -7158,6 +7211,18 @@ MonoBehaviour:
   healthBar: {fileID: 1166034374}
   statusUI: {fileID: 0}
   oldHealth: 0
+--- !u!65 &1423487768
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423487763}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1431647076
 GameObject:
   m_ObjectHideFlags: 0

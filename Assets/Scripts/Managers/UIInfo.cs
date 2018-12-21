@@ -16,4 +16,8 @@ public class UIInfo : MonoBehaviour {
     public Image weaponMark;
     public GameObject restartText;
     public GameObject loadingPanel;
+    public GameObject enemyStatusUIGroup;
+
+    [Header("Enemy")]
+    public StatusUI enemyStatusUI;
 }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject playerPrefab;
     public GameObject UIPrefab;
+    public GameObject selectedBorderPrefab;
 
     // 여기에 등록되지 않은 캐릭터, 적 및 모든 개체는 게임 내에서 상호작용 불가
     // 등록은 MapEntityInfo에서!
@@ -35,6 +36,10 @@ public class GameManager : MonoBehaviour {
     [HideInInspector]
     public GameObject loadingPanel;
 
+    [SerializeField]
+    private Character selectedCharacter = null;
+    public GameObject mySelectedBorder;
+
     [Header("Debugging")]
     public int turnNumber = 0;
 
@@ -56,6 +61,14 @@ public class GameManager : MonoBehaviour {
         get
         {
             return isSceneLoaded;
+        }
+    }
+
+    public Character SelectedCharacter
+    {
+        get
+        {
+            return selectedCharacter;
         }
     }
     
@@ -95,6 +108,15 @@ public class GameManager : MonoBehaviour {
 
     void FixedUpdate () {
         if (!isSceneLoaded) return;
+
+        if (UIObject.GetComponent<UIInfo>().enemyStatusUIGroup.activeInHierarchy && selectedCharacter == null)
+        {
+            UIObject.GetComponent<UIInfo>().enemyStatusUIGroup.SetActive(false);
+        }
+        else if (!UIObject.GetComponent<UIInfo>().enemyStatusUIGroup.activeInHierarchy && selectedCharacter != null)
+        {
+            UIObject.GetComponent<UIInfo>().enemyStatusUIGroup.SetActive(true);
+        }
 
 		if (turn == 1)
         {
@@ -184,6 +206,7 @@ public class GameManager : MonoBehaviour {
         foreach (Character e in enemies)
         {
             map.SetEntityOnTile(e, e.GetComponent<Transform>().position);
+            e.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
         }
         foreach (Interactable i in interactables)
         {
@@ -261,5 +284,19 @@ public class GameManager : MonoBehaviour {
             turnMark.sprite = enemyTurn;
             turnMark.color = enemyTurnColor;
         }
+    }
+
+    /// <summary>
+    /// 인자로 넘긴 캐릭터를 선택하여, 경계를 표시하고 상태 UI에 정보를 보여줍니다.
+    /// 인자로 null을 줄 수 있습니다.
+    /// </summary>
+    /// <param name="c"></param>
+    public void SelectCharacter(Character c)
+    {
+        selectedCharacter = c;
+        if (mySelectedBorder != null) Destroy(mySelectedBorder);
+
+        if (selectedCharacter != null)
+            mySelectedBorder = Instantiate(selectedBorderPrefab, c.GetComponent<Transform>());
     }
 }

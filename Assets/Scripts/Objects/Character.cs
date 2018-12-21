@@ -90,9 +90,7 @@ public class Character : Entity {
         
         if (statusUI != null)
         {
-            statusUI.UpdateHealthText(currentHealth, maxHealth);
-            statusUI.UpdateAttackText(EquippedWeapon);
-            statusUI.UpdateDefenseText(armor);
+            statusUI.UpdateAll(this, currentHealth);
         }
     }
 
@@ -179,5 +177,17 @@ public class Character : Entity {
             weapon.Range = range;
         }
         */
+    }
+
+    void OnMouseDown()
+    {
+        SelectThisCharacter();
+    }
+
+    public void SelectThisCharacter()
+    {
+        if (type == Type.Player || !Alive) return;
+        GameManager.gm.SelectCharacter(this);
+        statusUI.UpdateAll(this, currentHealth);
     }
 }

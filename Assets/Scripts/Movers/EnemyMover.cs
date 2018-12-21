@@ -523,21 +523,23 @@ public class EnemyMover : Mover {
     public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
         isMoving = true;
-        int frame = 30;
+        int frame = 20;
+
+        GetComponent<Character>().SelectThisCharacter();
 
         for (int i = 0; i < frame; i++)
         {
             if (i < frame / 2)
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (float)i / frame * 2);
             else
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.4f), (float)(frame - i) / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (float)(frame - i) / frame * 2);
             
             float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
             if (healthBar != null)
                 healthBar.value = f;
             if (statusUI != null)
             {
-                statusUI.UpdateHealthText((int)f, GetComponent<Character>().maxHealth);
+                statusUI.UpdateAll(GetComponent<Character>(), (int)f);
             }
 
             yield return null;
@@ -546,7 +548,7 @@ public class EnemyMover : Mover {
             healthBar.value = c.currentHealth;
         if (statusUI != null)
         {
-            statusUI.UpdateHealthText(c.currentHealth, GetComponent<Character>().maxHealth);
+            statusUI.UpdateAll (GetComponent<Character>(), c.currentHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         isMoving = false;
@@ -558,6 +560,10 @@ public class EnemyMover : Mover {
     /// </summary>
     public override void Death()
     {
+        if (GetComponent<Character>().Equals(gm.SelectedCharacter))
+        {
+            gm.SelectCharacter(null);
+        }
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
         gm.map.SetEntityOnTile(null, t.position);
 
