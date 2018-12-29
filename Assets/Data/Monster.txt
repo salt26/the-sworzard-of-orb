@@ -1,0 +1,50 @@
+# Monster Data
+# (Monster ID) (@Name) (Type) (Size) (Max Health)
+# | (@Weapon name) (Weapon fire stat) (Weapon ice stat) (Weapon nature stat) (Weapon fire stat delta) (Weapon ice stat delta) (Weapon nature stat delta) (Weapon range)
+# | (Armor fire stat) (Armor ice stat) (Armor nature stat) (Armor fire stat delta) (Armor ice stat delta) (Armor nature stat delta)
+# | (Distance type) (Sight distance) (Leave distance) (Gold)
+# | (Item ID1) (Count1) (Probability1)[ | (Item ID2) (Count2) (Probability2) ...]
+#
+# Type: 0 - Normal / 1 - Elite / 2 - Boss
+# Distance type: 0 - Manhattan / 1 - Chebyshev / else - None
+#
+0 Flame_element 1 1 30
+| Spark 10 4 5 0 0 0 1
+| 1 0 2 0 0 0
+| 1 2 4 2
+| 100 1 0.5
+1 Frost_element 1 1 30
+| Dry_ice 3 7 0 0 0 0 1
+| 0 3 1 0 0 0
+| 1 2 4 2
+| 101 1 0.5
+2 Fire_pudding 0 1 30
+| Incinerator 6 0 0 0 0 0 1
+| 3 0 0 0 0 0
+| 1 1 2 1
+| 1 1 0.3 | 100 1 0.1
+3 Ice_pudding 0 1 30
+| Extinguisher 0 6 0 0 0 0 1
+| 0 3 0 0 0 0
+| 1 1 2 1
+| 1 1 0.3 | 101 1 0.1
+4 Nature_pudding 0 1 30
+| Root 0 0 6 0 0 0 1
+| 0 0 3 0 0 0
+| 1 1 2 1
+| 1 1 0.3 | 102 1 0.1
+5 Goblin_pudding 1 1 30
+| Steal 4 2 4 0 0 0 1
+| 1 1 1 0 0 0
+| 1 2 4 2
+| 1 1 1
+6 Devil_pudding 1 1 40
+| Corruption 2 2 2 0 0 0 1
+| 3 1 1 0 0 0
+| 1 2 4 2
+| 1 1 1
+7 Tree_element 1 1 20
+| Spiky_vine 1 1 6 0 0 0 1
+| 3 3 0 0 0 0
+| 1 2 4 2
+| 102 1 0.5

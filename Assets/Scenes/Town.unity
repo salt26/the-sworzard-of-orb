@@ -5914,6 +5914,7 @@ GameObject:
   - component: {fileID: 1349403481}
   - component: {fileID: 1349403480}
   - component: {fileID: 1349403482}
+  - component: {fileID: 1349403483}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -6216,6 +6217,48 @@ MonoBehaviour:
   fireColor: {r: 0.94509804, g: 0.24313726, b: 0, a: 1}
   iceColor: {r: 0, g: 0.4862745, b: 0.94509804, a: 1}
   natureColor: {r: 0.09411765, g: 0.7019608, b: 0, a: 1}
+--- !u!114 &1349403483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1349403477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa85b83fc75963542bcffe2be09cb975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 1152014077754128, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
+  - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
+  - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
+  - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+  - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
+  - {fileID: 1762695419623694, guid: 102ce3397b5e6694e984909f76a3407f, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+  - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
+  - {fileID: 1847509651114918, guid: ab8b5b34574154e49a0f496363d5d79a, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+  - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
+  - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1363020943
 GameObject:
   m_ObjectHideFlags: 0
