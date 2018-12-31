@@ -1152,8 +1152,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
   armor:
     element:
       fire: 1
@@ -1943,6 +1941,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &277169170
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &296127719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,8 +2796,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
   armor:
     element:
       fire: 1
@@ -3293,75 +3331,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoGeneration: 1
-  mapInfo:
-  - name: Green
-    tilePrefab:
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1762695419623694, guid: 102ce3397b5e6694e984909f76a3407f, type: 2}
-    - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
-    - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
-    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-    backgroundColor: {r: 0.27450982, g: 0.44705883, b: 1, a: 1}
-  - name: Blue
-    tilePrefab:
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
-    - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
-    - {fileID: 1847509651114918, guid: ab8b5b34574154e49a0f496363d5d79a, type: 2}
-    backgroundColor: {r: 0, g: 0.7294118, b: 1, a: 1}
-  - name: Red
-    tilePrefab:
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
-    - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
-    backgroundColor: {r: 0.36078432, g: 0.02745098, b: 0.02745098, a: 1}
-  - name: Fiery rock
-    tilePrefab:
-    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
-    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
-    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
-    - {fileID: 1534433596372290, guid: 4aa01325efae5f74b8482dbbfaa28771, type: 2}
-    backgroundColor: {r: 0.63529414, g: 0.2613101, b: 0.2401412, a: 1}
+  mapInfo: []
   mapName: Blue
-  mapIndex: 1
+  mapIndex: 0
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   sceneTiles: []
 --- !u!1 &466083304
@@ -3448,96 +3420,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &469425543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 469425546}
-  - component: {fileID: 469425545}
-  - component: {fileID: 469425544}
-  m_Layer: 0
-  m_Name: Portal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &469425544
+--- !u!114 &469425544 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 469425543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114697124652033582, guid: 6101acd7c1e299744a5cc50191e79b35,
+    type: 2}
+  m_PrefabInternal: {fileID: 277169170}
   m_Script: {fileID: 11500000, guid: d76a0e73670bbea47afb9d65c88fa400, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Town
-  mapName: 
-  startPosition: {x: 0, y: 2}
---- !u!212 &469425545
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 469425543}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1b65bb333f083894ba0de53bdcc3df9f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &469425546
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 469425543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 4, z: -1}
-  m_LocalScale: {x: 3, y: 3, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480653690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4717,8 +4605,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
   armor:
     element:
       fire: 1
@@ -5759,8 +5645,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345, type: 3}
   armor:
     element:
       fire: 1
@@ -7201,8 +7085,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345, type: 3}
   armor:
     element:
       fire: 1

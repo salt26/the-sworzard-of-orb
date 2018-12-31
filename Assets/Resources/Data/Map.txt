@@ -1,0 +1,6 @@
+# Map Generation Data
+# (Map ID) (@Name) (Width) (Height) (Background color R) (Background color G) (Background color B) | (Tile ID1) (Tile ID2) ... | (Monster ID1) (Monster ID2) ...[ | (Interactable ID1) (Interactable ID2) ...]
+#
+0 Green 11 9 0.2745098 0.4470588 1 | 1 1 1 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 5 | 4 4 4 5 7 | 0
+1 Blue 11 9 0 0.7294118 1 | 10 10 10 10 10 10 10 10 11 11 12 | 3 3 3 1 1 | 0
+2 Red 11 9 0.3607843 0.02745098 0.02745098 | 20 20 20 20 20 20 20 20 20 20 20 20 20 21 21 21 21 22 22 | 2 2 2 0 6 | 0

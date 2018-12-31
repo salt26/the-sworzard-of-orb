@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Reflection;
 
 /// <summary>
-/// 각종 아이템 프리팹의 레퍼런스를 들고 있습니다.
+/// 각종 아이템의 정보를 들고 있습니다.
 /// </summary>
 public class ItemManager : MonoBehaviour {
 
@@ -14,7 +14,12 @@ public class ItemManager : MonoBehaviour {
     private GameObject gold;
 
     [SerializeField]
-    private List<GameObject> items;
+    private List<GameObject> items; // TODO 지우기
+
+    /// <summary>
+    /// Key는 아이템 ID(오브는 1xx, 기타 아이템은 xx), Value는 아이템 정보입니다.
+    /// </summary>
+    public Dictionary<int, ItemInfo> itemInfo;
 
     public GameObject Gold
     {
@@ -49,6 +54,16 @@ public class ItemManager : MonoBehaviour {
             }
         }
         return null;
+    }
+
+    public GameObject GetItemPrefab(int id)
+    {
+        // TODO items 대신 itemInfo 사용
+        // TODO 리스트 인덱스 대신 id 필드 사용 
+        if (id < 0 || id >= items.Count ||
+            items[id] == null || items[id].GetComponent<Item>() == null)
+            return null;
+        else return items[id];
     }
 
     /// <summary>
@@ -115,14 +130,21 @@ public class ItemManager : MonoBehaviour {
 public class ItemInfo
 {
     public enum Type { Orb, Consumable };
-    public Type type;
 
     public string name;     // 아이템 이름(Primary key)
+    public Type type;
+
+    public string tooltip;  // 툴팁
 
     public int level;       // Orb에만 존재
+    public Element stat;    // Orb에만 존재
 
+    public int price;       // 상점에서 구매할 때의 가격
+
+    /*
     public Sprite onTileSprite;     // 맵의 타일 위에서 보여질 이미지
     public Sprite inventorySprite;  // 인벤토리에서 보여질 이미지
+    */
 
     public string effectName;
     public int effectParam;

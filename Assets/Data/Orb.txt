@@ -1,6 +1,0 @@
-# Orb Data
-# (Orb ID) (@Name) (@Tooltip) (Level) (Fire stat) (Ice stat) (Nature stat) (Price)[ (@Effect name) (Effect param)]
-#
-100 Fire_orb 흔한_불_속성_오브 1 1 0 0 10
-101 Water_orb 흔한_물_속성_오브 1 0 1 0 10
-102 Nature_orb 흔한_자연_속성_오브 1 0 0 1 10

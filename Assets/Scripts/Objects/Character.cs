@@ -149,14 +149,16 @@ public class Character : Entity {
         {
             // TODO 적은 무기 변경 불가
             weaponNum = 0;
-            GetComponent<SpriteRenderer>().sprite = EquippedWeapon.CharacterSprite;
+            GetComponent<SpriteRenderer>().sprite = 
+                Resources.Load("Monsters/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
+            Debug.LogWarning("Monsters/" + StringUtility.ToPascalCase(name) + "/");
             return;
         }
         weaponNum++;
         if (weaponNum >= weapons.Count || weaponNum < 0) weaponNum = 0;
 
-        GetComponent<SpriteRenderer>().sprite = EquippedWeapon.CharacterSprite;
-        GameManager.gm.weaponMark.sprite = EquippedWeapon.WeaponSprite;
+        GetComponent<SpriteRenderer>().sprite = GetComponent<PlayerMover>().characterSprite[weaponNum];
+        GameManager.gm.weaponMark.sprite = GetComponent<PlayerMover>().weaponMarkSprite[weaponNum];
         
         if (statusUI != null)
             statusUI.UpdateAttackText(EquippedWeapon);

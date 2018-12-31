@@ -5913,8 +5913,11 @@ GameObject:
   - component: {fileID: 1349403479}
   - component: {fileID: 1349403481}
   - component: {fileID: 1349403480}
+  - component: {fileID: 1349403485}
   - component: {fileID: 1349403482}
   - component: {fileID: 1349403483}
+  - component: {fileID: 1349403486}
+  - component: {fileID: 1349403484}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -5990,6 +5993,7 @@ MonoBehaviour:
   - {fileID: 1027662513192624, guid: 5879c24b7a3a01442b8b8d88e86cd450, type: 2}
   - {fileID: 1466590255123974, guid: c010c539e413bda449679d1258de2467, type: 2}
   - {fileID: 1180353763201866, guid: fd1e20f3085ac134da0e6ed14c77979b, type: 2}
+  itemInfo: []
 --- !u!114 &1349403481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6004,6 +6008,7 @@ MonoBehaviour:
   enemyInfo:
   - name: Flame element
     level: 1
+    type: 1
     size: 1
     maxHealth: 30
     weapon:
@@ -6029,6 +6034,7 @@ MonoBehaviour:
     - Large potion
   - name: Frost element
     level: 1
+    type: 1
     size: 1
     maxHealth: 30
     weapon:
@@ -6054,6 +6060,7 @@ MonoBehaviour:
     - Large potion
   - name: Fire pudding
     level: 1
+    type: 0
     size: 1
     maxHealth: 30
     weapon:
@@ -6079,6 +6086,7 @@ MonoBehaviour:
     - Fire orb
   - name: Ice pudding
     level: 1
+    type: 0
     size: 1
     maxHealth: 30
     weapon:
@@ -6104,6 +6112,7 @@ MonoBehaviour:
     - Water orb
   - name: Nature pudding
     level: 1
+    type: 0
     size: 1
     maxHealth: 30
     weapon:
@@ -6129,6 +6138,7 @@ MonoBehaviour:
     - Nature orb
   - name: Goblin pudding
     level: 1
+    type: 1
     size: 1
     maxHealth: 30
     weapon:
@@ -6154,6 +6164,7 @@ MonoBehaviour:
     - Large potion
   - name: Devil pudding
     level: 1
+    type: 1
     size: 1
     maxHealth: 40
     weapon:
@@ -6179,6 +6190,7 @@ MonoBehaviour:
     - Large potion
   - name: Tree element
     level: 1
+    type: 1
     size: 1
     maxHealth: 20
     weapon:
@@ -6229,29 +6241,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 1152014077754128, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
-  - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-  - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
-  - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-  - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-  - {fileID: 1762695419623694, guid: 102ce3397b5e6694e984909f76a3407f, type: 2}
+  - {fileID: 114918526474830376, guid: 58b1a3ec12d6a1047bc520f7eb5de1a0, type: 2}
+  - {fileID: 114083832832266556, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
+  - {fileID: 114170308219131596, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
+  - {fileID: 114083832832266556, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
+  - {fileID: 114594327822036638, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
+  - {fileID: 114449508093703000, guid: 102ce3397b5e6694e984909f76a3407f, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-  - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
-  - {fileID: 1847509651114918, guid: ab8b5b34574154e49a0f496363d5d79a, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-  - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-  - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
+  - {fileID: 114677674007760628, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
+  - {fileID: 114479695355668748, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
+  - {fileID: 114758032335769232, guid: ab8b5b34574154e49a0f496363d5d79a, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -6259,6 +6261,57 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 114165365393200746, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
+  - {fileID: 114281519575985208, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
+  - {fileID: 114848304898144182, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1349403484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1349403477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c37cfd56d9a2f42aa26ceb50cfb0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1349403485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1349403477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoGeneration: 0
+  mapInfo: []
+  mapName: 
+  mapIndex: 0
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneTiles: []
+--- !u!114 &1349403486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1349403477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79b5273918c7d54a848e489c5c0de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactables:
+  - {fileID: 114697124652033582, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
 --- !u!1 &1363020943
 GameObject:
   m_ObjectHideFlags: 0

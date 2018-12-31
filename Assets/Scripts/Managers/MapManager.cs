@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MapManager : MonoBehaviour {
 
     public bool autoGeneration;
-    public List<MapInfo> mapInfo;
+    public Dictionary<int, MapInfo> mapInfo;
     
     public string mapName;
     //public Vector2Int size;
@@ -196,16 +196,23 @@ public class MapManager : MonoBehaviour {
         }
         return mapShape;
     }
-
+    
     public MapInfo FindMapInfo(string name)
     {
-        foreach (MapInfo mi in mapInfo)
+        foreach (KeyValuePair<int, MapInfo> mi in mapInfo)
         {
-            if (mi.name.Equals(name))
+            if (mi.Value == null) continue;
+            if (mi.Value.name.Equals(name))
             {
-                return mi;
+                return mi.Value;
             }
         }
+        return null;
+    }
+
+    public MapInfo FindMapInfo(int id)
+    {
+        if (mapInfo.ContainsKey(id)) return mapInfo[id];
         return null;
     }
 
@@ -478,4 +485,6 @@ public class MapInfo
     public string name;
     public List<GameObject> tilePrefab;
     public Color backgroundColor;
+    public List<int> enemiesID = new List<int>();
+    public List<int> interactablesID = new List<int>();
 }

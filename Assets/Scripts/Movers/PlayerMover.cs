@@ -9,6 +9,9 @@ public class PlayerMover : Mover {
     Transform t;
     
     private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
+    
+    public List<Sprite> weaponMarkSprite;
+    public List<Sprite> characterSprite;
 
     // Use this for initialization
     void Start () {
