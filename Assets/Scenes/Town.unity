@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76a0e73670bbea47afb9d65c88fa400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: BlueField
+  sceneName: Field
   mapName: Blue
   startPosition: {x: 6, y: 4}
 --- !u!212 &297285870
@@ -3052,15 +3052,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 795156758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 098799a163cb9934ba2287d76f1582c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoGeneration: 0
-  mapInfo: []
-  mapName: Town
-  mapIndex: -1
-  backgroundColor: {r: 0.49100295, g: 0.7169812, b: 0.36187258, a: 1}
-  sceneTiles: []
+  mapName: 
 --- !u!4 &795156760
 Transform:
   m_ObjectHideFlags: 0
@@ -5956,14 +5951,8 @@ MonoBehaviour:
     type: 2}
   player: {fileID: 0}
   map: {fileID: 0}
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  interactables:
-  - {fileID: 0}
+  enemies: []
+  interactables: []
   turnMark: {fileID: 0}
   myTurn: {fileID: 21300000, guid: e1b7c4fa564894c45baa5c6298f6a8ab, type: 3}
   myTurnColor: {r: 0.627451, g: 1, b: 0, a: 1}
@@ -5993,7 +5982,6 @@ MonoBehaviour:
   - {fileID: 1027662513192624, guid: 5879c24b7a3a01442b8b8d88e86cd450, type: 2}
   - {fileID: 1466590255123974, guid: c010c539e413bda449679d1258de2467, type: 2}
   - {fileID: 1180353763201866, guid: fd1e20f3085ac134da0e6ed14c77979b, type: 2}
-  itemInfo: []
 --- !u!114 &1349403481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6005,215 +5993,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1143aee55877cfa4683ce8712e62c3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo:
-  - name: Flame element
-    level: 1
-    type: 1
-    size: 1
-    maxHealth: 30
-    weapon:
-      name: Spark
-      element:
-        fire: 10
-        ice: 4
-        nature: 5
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: f698a2b36d3aefc4c893ec9dfa34e97b,
-        type: 3}
-    armor:
-      element:
-        fire: 1
-        ice: 0
-        nature: 2
-    distanceType: 2
-    sightDistance: 2
-    leaveDistance: 4
-    gold: 2
-    items:
-    - Large potion
-  - name: Frost element
-    level: 1
-    type: 1
-    size: 1
-    maxHealth: 30
-    weapon:
-      name: Dry ice
-      element:
-        fire: 3
-        ice: 7
-        nature: 0
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: b3c76090dea4da341aa67a02f84ac4fc,
-        type: 3}
-    armor:
-      element:
-        fire: 0
-        ice: 3
-        nature: 1
-    distanceType: 2
-    sightDistance: 2
-    leaveDistance: 4
-    gold: 2
-    items:
-    - Large potion
-  - name: Fire pudding
-    level: 1
-    type: 0
-    size: 1
-    maxHealth: 30
-    weapon:
-      name: Incinerator
-      element:
-        fire: 6
-        ice: 0
-        nature: 0
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: f5d8e5192996da8429c41bb03d1e7008,
-        type: 3}
-    armor:
-      element:
-        fire: 3
-        ice: 0
-        nature: 0
-    distanceType: 2
-    sightDistance: 1
-    leaveDistance: 2
-    gold: 1
-    items:
-    - Fire orb
-  - name: Ice pudding
-    level: 1
-    type: 0
-    size: 1
-    maxHealth: 30
-    weapon:
-      name: Extinguisher
-      element:
-        fire: 0
-        ice: 6
-        nature: 0
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: e8cd02d1d909e4b48b0edd5c2631f82f,
-        type: 3}
-    armor:
-      element:
-        fire: 0
-        ice: 3
-        nature: 0
-    distanceType: 2
-    sightDistance: 1
-    leaveDistance: 2
-    gold: 1
-    items:
-    - Water orb
-  - name: Nature pudding
-    level: 1
-    type: 0
-    size: 1
-    maxHealth: 30
-    weapon:
-      name: Root
-      element:
-        fire: 0
-        ice: 0
-        nature: 6
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: eab690954a618e34bb9337ad2ac0019b,
-        type: 3}
-    armor:
-      element:
-        fire: 0
-        ice: 0
-        nature: 3
-    distanceType: 2
-    sightDistance: 1
-    leaveDistance: 2
-    gold: 1
-    items:
-    - Nature orb
-  - name: Goblin pudding
-    level: 1
-    type: 1
-    size: 1
-    maxHealth: 30
-    weapon:
-      name: Steal
-      element:
-        fire: 4
-        ice: 2
-        nature: 4
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: 82dae44dc7a8d0140acfd9ee78445ab5,
-        type: 3}
-    armor:
-      element:
-        fire: 1
-        ice: 1
-        nature: 1
-    distanceType: 2
-    sightDistance: 2
-    leaveDistance: 4
-    gold: 2
-    items:
-    - Large potion
-  - name: Devil pudding
-    level: 1
-    type: 1
-    size: 1
-    maxHealth: 40
-    weapon:
-      name: Corruption
-      element:
-        fire: 2
-        ice: 2
-        nature: 2
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: b40bd8641bede0d4bb06155fd9510177,
-        type: 3}
-    armor:
-      element:
-        fire: 3
-        ice: 1
-        nature: 1
-    distanceType: 2
-    sightDistance: 2
-    leaveDistance: 4
-    gold: 2
-    items:
-    - Large potion
-  - name: Tree element
-    level: 1
-    type: 1
-    size: 1
-    maxHealth: 20
-    weapon:
-      name: Spiky vine
-      element:
-        fire: 1
-        ice: 1
-        nature: 6
-      range: 1
-      weaponMarkSprite: {fileID: 0}
-      characterSprite: {fileID: 21300000, guid: 90cece5e5fe8e964a80d85525b15da72,
-        type: 3}
-    armor:
-      element:
-        fire: 3
-        ice: 3
-        nature: 0
-    distanceType: 2
-    sightDistance: 2
-    leaveDistance: 4
-    gold: 2
-    items:
-    - Large potion
+  monsterPrefab: {fileID: 1234459837270610, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
 --- !u!114 &1349403482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6293,12 +6074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoGeneration: 0
-  mapInfo: []
-  mapName: 
-  mapIndex: 0
-  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneTiles: []
+  townBackgroundColor: {r: 0.49019608, g: 0.7176471, b: 0.36078432, a: 1}
+  mapText: {fileID: 0}
 --- !u!114 &1349403486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6428,7 +6205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76a0e73670bbea47afb9d65c88fa400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: RedField
+  sceneName: Field
   mapName: Red
   startPosition: {x: 10, y: 8}
 --- !u!212 &1383867727
@@ -9044,7 +8821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76a0e73670bbea47afb9d65c88fa400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: GreenField
+  sceneName: Field
   mapName: Green
   startPosition: {x: 6, y: 4}
 --- !u!212 &1921366976

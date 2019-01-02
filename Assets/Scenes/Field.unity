@@ -796,7 +796,8 @@ SpriteRenderer:
 --- !u!1 &117954379
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1582131661293638, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -812,7 +813,8 @@ GameObject:
 --- !u!224 &117954380
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224854203291904584, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117954379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -832,7 +834,8 @@ RectTransform:
 --- !u!114 &117954381
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114519151274808870, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117954379}
   m_Enabled: 1
@@ -1030,7 +1033,8 @@ SpriteRenderer:
 --- !u!1 &144728517
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1234459837270610, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -1045,11 +1049,12 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &144728518
 SpriteRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 212834839474372438, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144728517}
   m_Enabled: 1
@@ -1081,7 +1086,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8a11f4ebaabb9d34a91379a7bc844ec9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f698a2b36d3aefc4c893ec9dfa34e97b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1095,7 +1100,8 @@ SpriteRenderer:
 --- !u!4 &144728519
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4794783849093744, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144728517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1109,7 +1115,8 @@ Transform:
 --- !u!114 &144728520
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114267566674906548, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144728517}
   m_Enabled: 1
@@ -1126,12 +1133,12 @@ MonoBehaviour:
   distanceType: 0
   sightDistance: 1
   leaveDistance: 2
-  checkpoints:
-  - {x: 4, y: 0, z: 0}
+  checkpoints: []
 --- !u!114 &144728521
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114133506055233350, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144728517}
   m_Enabled: 1
@@ -1140,23 +1147,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Fire pudding
+  name: A monster
   level: 1
   size: 1
-  maxHealth: 20
-  currentHealth: 20
-  weapons:
-  - name: Spark
-    element:
-      fire: 8
-      ice: 0
-      nature: 0
-    range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
+  maxHealth: 1
+  currentHealth: 1
+  weapons: []
   armor:
     element:
-      fire: 1
+      fire: 0
       ice: 0
       nature: 0
   healthBar: {fileID: 117954381}
@@ -1165,7 +1164,8 @@ MonoBehaviour:
 --- !u!65 &144728522
 BoxCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 65349362075107318, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144728517}
   m_Material: {fileID: 0}
@@ -2096,7 +2096,8 @@ SpriteRenderer:
 --- !u!1 &309104970
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1012289520869148, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -2114,7 +2115,8 @@ GameObject:
 --- !u!224 &309104971
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224482238709272238, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309104970}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -2133,7 +2135,8 @@ RectTransform:
 --- !u!114 &309104972
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114033114422091914, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309104970}
   m_Enabled: 1
@@ -2149,7 +2152,8 @@ MonoBehaviour:
 --- !u!114 &309104973
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114556019540064454, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309104970}
   m_Enabled: 1
@@ -2170,7 +2174,8 @@ MonoBehaviour:
 --- !u!223 &309104974
 Canvas:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 223083209803911122, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309104970}
   m_Enabled: 1
@@ -2649,7 +2654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &374579136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2744,7 +2749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Fire pudding
+  name: Nature pudding
   level: 1
   size: 1
   maxHealth: 20
@@ -2756,8 +2761,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
   armor:
     element:
       fire: 1
@@ -3289,89 +3292,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 453756608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 098799a163cb9934ba2287d76f1582c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoGeneration: 1
-  mapInfo:
-  - name: Green
-    tilePrefab:
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1977296882086666, guid: 49df1d9b9c880804eb78b14d0fdeb9da, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1752433350761860, guid: 753eb197b2f02164db672b0a3105f6b0, type: 2}
-    - {fileID: 1762695419623694, guid: 102ce3397b5e6694e984909f76a3407f, type: 2}
-    - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
-    - {fileID: 1621030111532780, guid: 896e9a63d0a1dbf4bacfb3483e23e56c, type: 2}
-    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-    - {fileID: 1752433350761860, guid: f959d99a395a73a48bfa3b3aee96af93, type: 2}
-    backgroundColor: {r: 0.27450982, g: 0.44705883, b: 1, a: 1}
-    enemiesID: 
-    interactablesID: 
-  - name: Blue
-    tilePrefab:
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1645587792970794, guid: 157fbabd6cfe5c8418522c8b36668bc8, type: 2}
-    - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
-    - {fileID: 1456249168852664, guid: 82dfe2ff5fdc34b4d9a5dd0d879a5081, type: 2}
-    - {fileID: 1847509651114918, guid: ab8b5b34574154e49a0f496363d5d79a, type: 2}
-    backgroundColor: {r: 0, g: 0.7294118, b: 1, a: 1}
-    enemiesID: 
-    interactablesID: 
-  - name: Red
-    tilePrefab:
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1522123470536334, guid: ea54c36cbcde64e42a4917114277cde3, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1632087784401288, guid: f35f52ae8ef215b4f9d320b7662f01e0, type: 2}
-    - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
-    - {fileID: 1910305578512866, guid: 905adcf2b2847a541b69890b7cdb26ab, type: 2}
-    backgroundColor: {r: 0.36078432, g: 0.02745098, b: 0.02745098, a: 1}
-    enemiesID: 
-    interactablesID: 
-  - name: Fiery rock
-    tilePrefab:
-    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
-    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
-    - {fileID: 1188206757894392, guid: 4077fad74c848524587ea7b558b76509, type: 2}
-    - {fileID: 1534433596372290, guid: 4aa01325efae5f74b8482dbbfaa28771, type: 2}
-    backgroundColor: {r: 0.63529414, g: 0.2613101, b: 0.2401412, a: 1}
-    enemiesID: 
-    interactablesID: 
-  mapName: Red
-  mapIndex: 2
-  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneTiles: []
+  mapName: 
 --- !u!1 &466083304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3606,54 +3530,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &491921600
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
-  m_IsPrefabAsset: 0
---- !u!114 &491921601 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114697124652033582, guid: 6101acd7c1e299744a5cc50191e79b35,
-    type: 2}
-  m_PrefabInternal: {fileID: 491921600}
-  m_Script: {fileID: 11500000, guid: d76a0e73670bbea47afb9d65c88fa400, type: 3}
 --- !u!1 &498599422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,7 +4449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &815299968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4671,7 +4547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Fire pudding
+  name: Nature pudding
   level: 1
   size: 1
   maxHealth: 20
@@ -4683,8 +4559,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: a1c39f3f97e00db40ab66040f776ec0b, type: 3}
   armor:
     element:
       fire: 1
@@ -4777,7 +4651,8 @@ CanvasRenderer:
 --- !u!1 &830168084
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1385163900550542, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -4792,7 +4667,8 @@ GameObject:
 --- !u!224 &830168085
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224080371050846474, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 830168084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -5679,7 +5555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1054533289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5713,7 +5589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Devil pudding
+  name: Tree element
   level: 1
   size: 1
   maxHealth: 20
@@ -5725,8 +5601,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345, type: 3}
   armor:
     element:
       fire: 1
@@ -6283,7 +6157,8 @@ RectTransform:
 --- !u!1 &1221161051
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1211275216305020, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -6300,7 +6175,8 @@ GameObject:
 --- !u!224 &1221161052
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224907666665446836, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1221161051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -6318,7 +6194,8 @@ RectTransform:
 --- !u!114 &1221161053
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114950894573261750, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1221161051}
   m_Enabled: 1
@@ -6345,7 +6222,8 @@ MonoBehaviour:
 --- !u!222 &1221161054
 CanvasRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 222158491569732822, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1221161051}
   m_CullTransparentMesh: 0
@@ -6968,6 +6846,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1382587601
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660326374849184, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1760684910793356, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_Name
+      value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1760684910793356, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1413768040
 GameObject:
   m_ObjectHideFlags: 0
@@ -7061,7 +6989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1423487764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7155,7 +7083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  name: Flame element
+  name: Goblin pudding
   level: 1
   size: 1
   maxHealth: 20
@@ -7167,8 +7095,6 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 1
-    weaponMarkSprite: {fileID: 0}
-    characterSprite: {fileID: 21300000, guid: b85881d5f93bac046b7bd93165e24345, type: 3}
   armor:
     element:
       fire: 1
@@ -7417,7 +7343,8 @@ SpriteRenderer:
 --- !u!1 &1450729673
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1614524964307006, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -7434,7 +7361,8 @@ GameObject:
 --- !u!224 &1450729674
 RectTransform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 224113654371773926, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450729673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -7452,7 +7380,8 @@ RectTransform:
 --- !u!114 &1450729675
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 114130498899077314, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450729673}
   m_Enabled: 1
@@ -7479,7 +7408,8 @@ MonoBehaviour:
 --- !u!222 &1450729676
 CanvasRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 222400540052677204, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450729673}
   m_CullTransparentMesh: 0
@@ -7886,14 +7816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 453756610}
-  enemies:
-  - {fileID: 144728521}
-  - {fileID: 374579139}
-  - {fileID: 815299971}
-  - {fileID: 1423487767}
-  - {fileID: 1054533290}
-  interactables:
-  - {fileID: 491921601}
+  enemies: []
+  interactables: []
 --- !u!4 &1530492261
 Transform:
   m_ObjectHideFlags: 0

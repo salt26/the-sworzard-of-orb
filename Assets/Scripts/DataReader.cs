@@ -213,10 +213,10 @@ public class DataReader : MonoBehaviour {
             if (!token[7].Equals("|")) Error("Map");
 
             int i = 8;
+            mi.tilePrefab = new List<GameObject>();
             for (i = 8; i < token.Length; i++)
             {
                 if (token[i].Equals("|")) break;
-                mi.tilePrefab = new List<GameObject>();
                 MapTile mt = GetComponent<TileManager>().tiles[int.Parse(token[i])];
                 if (mt != null)
                     mi.tilePrefab.Add(mt.gameObject);

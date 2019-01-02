@@ -70,6 +70,7 @@ public class Character : Entity {
     {
         if (type == Type.Enemy)
         {
+            Debug.Log("Enemy initialized. (call second)");
             EnemyInfo ei = EnemyManager.em.FindEnemyInfo(name, level);
             size = ei.size;
             maxHealth = ei.maxHealth;
@@ -151,7 +152,6 @@ public class Character : Entity {
             weaponNum = 0;
             GetComponent<SpriteRenderer>().sprite = 
                 Resources.Load("Monsters/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
-            Debug.LogWarning("Monsters/" + StringUtility.ToPascalCase(name) + "/");
             return;
         }
         weaponNum++;

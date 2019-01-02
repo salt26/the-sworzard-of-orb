@@ -58,12 +58,12 @@ public class EnemyMover : Mover {
         movePattern += PatrolCheckpoints;
         if (distanceType == DistanceType.Manhattan)
         {
-            distance += ManhattanDistance;
+            distance += VectorUtility.ManhattanDistance;
             isDistanceNone = false;
         }
         else if (distanceType == DistanceType.Chebyshev)
         {
-            distance += ChebyshevDistance;
+            distance += VectorUtility.ChebyshevDistance;
             isDistanceNone = false;
         }
     }
@@ -86,12 +86,12 @@ public class EnemyMover : Mover {
             }
             else if (distanceType == DistanceType.Manhattan)
             {
-                distance += ManhattanDistance;
+                distance += VectorUtility.ManhattanDistance;
                 isDistanceNone = false;
             }
             else if (distanceType == DistanceType.Chebyshev)
             {
-                distance += ChebyshevDistance;
+                distance += VectorUtility.ChebyshevDistance;
                 isDistanceNone = false;
             }
         }
@@ -104,7 +104,7 @@ public class EnemyMover : Mover {
         }
         else if (gm.Turn == 1 && !isMoving && !isMoved)
         {
-            Vector3 playerPos = PositionToInt(gm.player.GetComponent<Transform>().position);
+            Vector3 playerPos = VectorUtility.PositionToInt(gm.player.GetComponent<Transform>().position);
             Vector3 destination;
 
             Discover(playerPos, GetCurrentPosition());
@@ -133,7 +133,7 @@ public class EnemyMover : Mover {
                         destination = Move(destination);
 
                         // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
-                        if (IsSamePosition(destination, tauntedPosition))
+                        if (VectorUtility.IsSamePosition(destination, tauntedPosition))
                         {
                             isTauntedPositionValid = false;
                         }
@@ -146,7 +146,7 @@ public class EnemyMover : Mover {
                     destination = Move(destination);
 
                     // 처음 도발당한 위치로 돌아간 경우 정상 경로를 따라 순찰함
-                    if (IsSamePosition(destination, tauntedPosition))
+                    if (VectorUtility.IsSamePosition(destination, tauntedPosition))
                     {
                         isTauntedPositionValid = false;
                     }
@@ -205,7 +205,7 @@ public class EnemyMover : Mover {
             return GetCurrentPosition();
 
         // 바로 다음에 가야 할 위치가 현재 위치와 같으면, 그 위치를 지나온 경로로 취급합니다.
-        while (headCheckpoints.Count > 0 && IsSamePosition(GetCurrentPosition(), headCheckpoints.Peek()))
+        while (headCheckpoints.Count > 0 && VectorUtility.IsSamePosition(GetCurrentPosition(), headCheckpoints.Peek()))
         {
             passedCheckpoints.Push(headCheckpoints.Pop());
         }
@@ -220,7 +220,7 @@ public class EnemyMover : Mover {
 
         // 돌아갈 경로에서 가장 먼저 가게 될 곳은 항상 현재 위치이므로,
         // 현재 위치가 아니면서 처음으로 가야 할 곳을 찾습니다.
-        while (headCheckpoints.Count > 0 && IsSamePosition(GetCurrentPosition(), headCheckpoints.Peek()))
+        while (headCheckpoints.Count > 0 && VectorUtility.IsSamePosition(GetCurrentPosition(), headCheckpoints.Peek()))
         {
             passedCheckpoints.Push(headCheckpoints.Pop());
         }
@@ -251,7 +251,7 @@ public class EnemyMover : Mover {
         {
             for (int i = checkpoints.Count - 1; i >= 0; i--)
             {
-                headCheckpoints.Push(PositionToInt(checkpoints[i]));
+                headCheckpoints.Push(VectorUtility.PositionToInt(checkpoints[i]));
             }
         }
     }
@@ -382,7 +382,7 @@ public class EnemyMover : Mover {
 
     private Vector3 Move(Vector3 destination)
     {
-        if (IsSamePosition(destination, GetCurrentPosition()))
+        if (VectorUtility.IsSamePosition(destination, GetCurrentPosition()))
         {
             // 제자리에 머물러 있는 경우 움직이는 애니메이션 없이 턴 넘김
             // 제자리에서 인접한 네 칸 안에 플레이어가 있으면 공격함
@@ -405,7 +405,7 @@ public class EnemyMover : Mover {
             // 진행 방향으로 한 칸 앞에 플레이어가 있는 경우
             if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
             else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
-            Attack(PositionToInt((destination - GetCurrentPosition()).normalized), false);  // TODO 택시 거리 1칸이 보장되지 않음
+            Attack(VectorUtility.PositionToInt((destination - GetCurrentPosition()).normalized), false);  // TODO 택시 거리 1칸이 보장되지 않음
             return GetCurrentPosition();
         }
         else
@@ -437,7 +437,7 @@ public class EnemyMover : Mover {
             {
                 if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
                 else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
-                Attack(PositionToInt((destination - GetCurrentPosition()).normalized), false);
+                Attack(VectorUtility.PositionToInt((destination - GetCurrentPosition()).normalized), false);
                 isAttacked = true;
             }
         }
@@ -465,7 +465,7 @@ public class EnemyMover : Mover {
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         t.position = destination;
         isMoving = false;
-        Attack(PositionToInt((destination - origin).normalized), true); // TODO 택시 거리 1칸이 보장되지 않음
+        Attack(VectorUtility.PositionToInt((destination - origin).normalized), true); // TODO 택시 거리 1칸이 보장되지 않음
     }
 
     /// <summary>
@@ -591,58 +591,11 @@ public class EnemyMover : Mover {
     }
 
     /// <summary>
-    /// 인자로 주어진 좌표의 x, y값을 정수로 반올림하여 반환합니다.
-    /// z값은 그대로 반환됩니다.
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    private Vector3 PositionToInt(Vector3 position)
-    {
-        return new Vector3(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y), position.z);
-    }
-
-    /// <summary>
     /// 현재 이 오브젝트의 위치를 정수 좌표로 반환합니다.
     /// </summary>
     /// <returns></returns>
     private Vector3 GetCurrentPosition()
     {
-        return PositionToInt(t.position);
-    }
-
-    /// <summary>
-    /// 두 좌표가 같은 위치이면 true, 다른 위치이면 false를 반환합니다.
-    /// z값은 비교하지 않고, x, y값을 반올림한 정수 값이 각각 같은지 비교합니다.
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    private bool IsSamePosition(Vector3 a, Vector3 b)
-    {
-        return (Mathf.RoundToInt(a.x) == Mathf.RoundToInt(b.x)
-            && Mathf.RoundToInt(a.y) == Mathf.RoundToInt(b.y));
-    }
-
-    /// <summary>
-    /// 두 위치 사이의 택시 거리를 반환합니다.
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    private int ManhattanDistance(Vector3 a, Vector3 b)
-    {
-        return Mathf.RoundToInt(Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y));
-    }
-
-    /// <summary>
-    /// 두 위치 사이의 체스보드 거리를 반환합니다.
-    /// 체스에서 킹이 이동할 때 걸리는 최소 이동 횟수와 같습니다.
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    private int ChebyshevDistance(Vector3 a, Vector3 b)
-    {
-        return Mathf.RoundToInt(Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y)));
+        return VectorUtility.PositionToInt(t.position);
     }
 }

@@ -16,10 +16,8 @@ public class GameManager : MonoBehaviour {
     // 등록은 MapEntityInfo에서!
     public Character player;
     [HideInInspector]
-    public MapManager map;
-    [HideInInspector]
+    public Map map;
     public List<Character> enemies = new List<Character>();
-    [HideInInspector]
     public List<Interactable> interactables = new List<Interactable>();
     
     [HideInInspector]
@@ -186,10 +184,11 @@ public class GameManager : MonoBehaviour {
 
     private void Initialize(string mapName = null)
     {
+        MapEntityInfo mei = null;
         GameObject g = GameObject.Find("MapEntityInfo");
         if (g != null)
         {
-            MapEntityInfo mei = g.GetComponent<MapEntityInfo>();
+            mei = g.GetComponent<MapEntityInfo>();
             if (mei != null)
             {
                 map = mei.map;
@@ -197,21 +196,106 @@ public class GameManager : MonoBehaviour {
                 interactables = mei.interactables;
             }
         }
-        if (mapName != null) map.mapName = mapName;
-        map.Initialize();
+        bool mapAutoGeneration = false;
+        if (mapName != null)
+        {
+            map.mapName = mapName;
+            mapAutoGeneration = true;
+        }
+        map.Initialize(mapAutoGeneration);
         map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
 
-        // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
-        //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
-        foreach (Character e in enemies)
-        {
-            map.SetEntityOnTile(e, e.GetComponent<Transform>().position);
-            e.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
-        }
-        foreach (Interactable i in interactables)
+        #region MapEntityInfo에 따라 씬에 미리 배치되어 있는 개체 등록
+        foreach (Interactable i in mei.interactables)
         {
             map.SetEntityOnTile(i, i.GetComponent<Transform>().position);
         }
+        // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
+        //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
+        foreach (Character c in mei.enemies)
+        {
+            map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
+            c.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
+        }
+        #endregion
+
+        #region 맵 정보(MapInfo)에 따라 개체 생성 후 등록
+        if (mapName != null)
+        {
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName);
+            if (mi != null)
+            {
+                foreach (int id in mi.interactablesID)
+                {
+                    Interactable i = GetComponent<InteractableManager>().GetInteractable(id);
+                    if (i != null)
+                    {
+                        // 생성 위치 정하기
+                        int x, y, maxLoop = 100;
+                        bool canCreate = true;
+                        for (int j = 0; j < maxLoop; j++)
+                        {
+                            // TODO 지금은 가능한 위치 중에서 랜덤으로 생성
+                            x = Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x));
+                            y = Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y));
+                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0)
+                            {
+                                break;
+                            }
+                            if (j == maxLoop - 1)
+                            {
+                                Debug.LogWarning("Exceed max loop limit!");
+                                canCreate = false;
+                            }
+                        }
+                        if (!canCreate) continue;
+
+                        // TODO 생성 위치 바꾸기
+                        g = Instantiate(i.gameObject, new Vector3(10f, 4f, -1f), Quaternion.identity);
+                        interactables.Add(g.GetComponent<Interactable>());
+                        map.SetEntityOnTile(g.GetComponent<Interactable>(), g.GetComponent<Transform>().position);
+                    }
+                }
+                // TODO 맵 정보에 의해 생성되는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
+                //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
+                foreach (int id in mi.enemiesID)
+                {
+                    EnemyInfo ei = EnemyManager.em.FindEnemyInfo(id);
+                    if (ei != null)
+                    {
+                        // 생성 위치 정하기
+                        int x = 0, y = 0, maxLoop = 100;
+                        bool canCreate = true;
+                        for (int j = 0; j < maxLoop; j++)
+                        {
+                            // TODO 지금은 가능한 위치 중에서 랜덤으로 생성
+                            x = Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x));
+                            y = Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y));
+                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0)
+                            {
+                                break;
+                            }
+                            if (j == maxLoop - 1)
+                            {
+                                Debug.LogWarning("Exceed max loop limit!");
+                                canCreate = false;
+                            }
+                        }
+                        if (!canCreate) continue;
+
+                        g = Instantiate(EnemyManager.em.monsterPrefab, new Vector3(x, y, -1f), Quaternion.identity);
+                        Character c = g.GetComponent<Character>();
+                        c.name = ei.name;
+                        c.level = ei.level;
+                        Debug.Log("GM creates an enemy. (call first)");
+                        enemies.Add(c);
+                        map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
+                        c.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
+                    }
+                }
+            }
+        }
+        #endregion
     }
 
     /// <summary>

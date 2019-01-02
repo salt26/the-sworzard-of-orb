@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+/*
 [CustomEditor(typeof(MapManager))]
 [CanEditMultipleObjects]
 public class MapManagerEditor : Editor {
@@ -51,3 +52,4 @@ public class MapManagerEditor : Editor {
         serializedObject.ApplyModifiedProperties();
     }
 }
+*/

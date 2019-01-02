@@ -13,6 +13,7 @@ public class EnemyManager : MonoBehaviour {
     /// key는 몬스터 ID, value는 몬스터 정보입니다.
     /// </summary>
     public Dictionary<int, EnemyInfo> enemyInfo;
+    public GameObject monsterPrefab;
 
     void Awake()
     {
