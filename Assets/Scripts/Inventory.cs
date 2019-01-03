@@ -81,7 +81,7 @@ public class Inventory : MonoBehaviour {
             Debug.LogWarning("Item is null.");
             return;
         }
-        if (!ItemManager.im.IsRegisteredItem(item))
+        if (ItemManager.im.FindItemInfo(item) == null)
         {
             Debug.LogWarning("Unregistered item.");
             return;
@@ -103,7 +103,7 @@ public class Inventory : MonoBehaviour {
                 KeyValuePair<string, GameObject> p =
                     new KeyValuePair<string, GameObject>(items[i],
                     Instantiate(itemImage, itemButtons[i].GetComponent<Transform>()));
-                p.Value.GetComponent<Image>().sprite = ItemManager.im.GetItemPrefab(p.Key).GetComponent<Item>().inventorySprite;
+                p.Value.GetComponent<Image>().sprite = ItemManager.im.GetItemSprite(p.Key);
                 itemImages.Insert(i, p);
             }
             else if (items[i] != null && !items[i].Equals(itemImages[i].Key))
@@ -113,7 +113,7 @@ public class Inventory : MonoBehaviour {
                 KeyValuePair<string, GameObject> p =
                     new KeyValuePair<string, GameObject>(items[i],
                     Instantiate(itemImage, itemButtons[i].GetComponent<Transform>()));
-                p.Value.GetComponent<Image>().sprite = ItemManager.im.GetItemPrefab(p.Key).GetComponent<Item>().inventorySprite;
+                p.Value.GetComponent<Image>().sprite = ItemManager.im.GetItemSprite(p.Key);
                 itemImages.Insert(i, p);
             }
         }
@@ -137,7 +137,7 @@ public class Inventory : MonoBehaviour {
         {
             if (index < Items.Count)
             {
-                if (ItemManager.im.GetItemPrefab(items[index]).GetComponent<Item>().Use())
+                if (ItemManager.im.FindItemInfo(items[index]).Use())
                 {
                     Debug.Log("Use item " + index + " from inventory.");
                     items.RemoveAt(index);

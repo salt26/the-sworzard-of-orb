@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class Weapon {
 
     public string name;
-
     public Element element;
-
     public int range;
+    public delegate void WeaponEffect(int param);
+    //public WeaponEffect afterAttackEffect;
 
     public int Range
     {

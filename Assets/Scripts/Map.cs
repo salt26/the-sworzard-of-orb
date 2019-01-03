@@ -225,15 +225,6 @@ public class Map : MonoBehaviour {
             Debug.LogWarning("Map is not initialized!");
             return null;
         }
-        /*
-        else if (autoGeneration)
-        {
-            if (x < 0 || y < 0 || y >= tiles.Count || x >= tiles[y].Count)
-                return null;
-            else
-                return tiles[y][x];
-        }
-        */
         else
         {
             if (x < (int)bottomLeft.x || y < (int)bottomLeft.y || x > (int)topRight.x || y > (int)topRight.y)
@@ -366,39 +357,39 @@ public class Map : MonoBehaviour {
 
     /// <summary>
     /// (x, y) 좌표에 위치한 MapTile 위에
-    /// item 오브젝트를 생성하고 true를 반환합니다.
+    /// 아이템 id를 갖는 아이템 오브젝트를 생성하고 true를 반환합니다.
     /// 만약 MapTile이 존재하지 않거나 밟을 수 없는 타일이면 false를 반환합니다.
-    /// item이 null이거나 ItemManager에 등록된 아이템이 아닌 경우에도 false를 반환합니다.
+    /// ItemManager에 등록된 아이템이 아닌 경우에도 false를 반환합니다.
     /// </summary>
     /// <param name="item"></param>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public bool AddItemOnTile(GameObject item, int x, int y)
+    public bool AddItemOnTile(int itemID, int x, int y)
     {
         MapTile t = GetTile(x, y);
-        if (t == null || t.Type != 0 || item == null || item.GetComponent<Item>() == null ||
-            !ItemManager.im.IsRegisteredItem(item.GetComponent<Item>().name))
+        if (t == null || t.Type != 0 ||
+            ItemManager.im.FindItemInfo(itemID) == null)
         {
             return false;
         }
-        GameObject g = Instantiate(item, t.GetComponent<Transform>().position + new Vector3(0f, 0f, -0.5f), Quaternion.identity);
+        GameObject g = ItemManager.im.CreateItem(itemID, t.GetComponent<Transform>().position + new Vector3(0f, 0f, -0.5f));
         t.Items.Add(g.GetComponent<Item>());
         return true;
     }
 
     /// <summary>
     /// position의 (x, y) 좌표와 가장 가까운 곳에 위치한 MapTile 위에
-    /// item 오브젝트를 생성하고 true를 반환합니다.
+    /// 아이템 id를 갖는 아이템 오브젝트를 생성하고 true를 반환합니다.
     /// 만약 MapTile이 존재하지 않으면 false를 반환합니다.
-    /// item이 null이거나 ItemManager에 등록된 아이템이 아닌 경우에도 false를 반환합니다.
+    /// ItemManager에 등록된 아이템이 아닌 경우에도 false를 반환합니다.
     /// </summary>
     /// <param name="item"></param>
     /// <param name="position"></param>
     /// <returns></returns>
-    public bool AddItemOnTile(GameObject item, Vector3 position)
+    public bool AddItemOnTile(int itemID, Vector3 position)
     {
-        return AddItemOnTile(item, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+        return AddItemOnTile(itemID, Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
     }
 
     /// <summary>

@@ -5,13 +5,17 @@ using UnityEngine;
 public class Orb : Item {
 
     public int level;       // 오브 레벨
-    public Element stat;
 
-    public override bool Use()
+    public override void Initialize(string itemName)
     {
-        // TODO 지금은 현재 장착한 무기에 스탯이 추가됨
-        GameManager.gm.player.EquippedWeapon.element += stat;
-        GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
-        return true;
+        ItemInfo ii = ItemManager.im.FindItemInfo(itemName);
+        if (ii == null)
+        {
+            Debug.LogWarning("Failed to initialize item.");
+            return;
+        }
+        name = itemName;
+        level = ii.level;
+        GetComponent<SpriteRenderer>().sprite = ItemManager.im.GetItemSprite(itemName);
     }
 }

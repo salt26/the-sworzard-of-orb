@@ -584,8 +584,11 @@ public class EnemyMover : Mover {
         List<EnemyDropItemInfo> items = EnemyManager.em.FindEnemyInfo(c.name, c.level).dropItems;
         foreach (EnemyDropItemInfo di in items)
         {
-            GameObject item = ItemManager.im.GetItemPrefab(di.itemID);
-            gm.map.AddItemOnTile(item, t.position);
+            for (int i = 0; i < di.count; i++)
+            {
+                if (Random.Range(0f, 1f) < di.probability)
+                    gm.map.AddItemOnTile(di.itemID, t.position);
+            }
         }
         this.enabled = false;
     }

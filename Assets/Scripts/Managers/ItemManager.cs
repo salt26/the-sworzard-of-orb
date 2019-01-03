@@ -13,13 +13,14 @@ public class ItemManager : MonoBehaviour {
     [SerializeField]
     private GameObject gold;
 
-    [SerializeField]
-    private List<GameObject> items; // TODO 지우기
-
     /// <summary>
     /// Key는 아이템 ID(오브는 1xx, 기타 아이템은 xx), Value는 아이템 정보입니다.
     /// </summary>
     public Dictionary<int, ItemInfo> itemInfo;
+    public GameObject itemPrefab;
+    public GameObject orbPrefab;
+
+    public const float sellDiscount = 0.6f; // 아이템 구매 가격에 이 비율이 곱해진 것이 판매 가격
 
     public GameObject Gold
     {
@@ -35,57 +36,90 @@ public class ItemManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// 아이템 name을 인자로 주면, 해당하는 아이템 프리팹을 찾아 반환합니다.
-    /// 프리팹이 없으면 null을 반환합니다.
+    /// 아이템 게임오브젝트를 생성하여 반환합니다.
+    /// 아이템 정보가 존재하지 않으면 null을 반환합니다.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="id">아이템 ID</param>
+    /// <param name="pos">생성할 위치</param>
     /// <returns></returns>
-    public GameObject GetItemPrefab(string name)
+    public GameObject CreateItem(int id, Vector3 pos)
     {
-        foreach (GameObject g in items)
+        if (itemInfo.ContainsKey(id))
         {
-            if (g == null || g.GetComponent<Item>() == null)
+            if (itemInfo[id].type == ItemInfo.Type.Consumable)
             {
-                continue;
+                GameObject g = Instantiate(itemPrefab, pos, Quaternion.identity);
+                g.GetComponent<Item>().Initialize(itemInfo[id].name);
+                return g;
             }
-            else if (g.GetComponent<Item>().name.Equals(name))
+            else
             {
+                GameObject g = Instantiate(orbPrefab, pos, Quaternion.identity);
+                g.GetComponent<Orb>().Initialize(itemInfo[id].name);
                 return g;
             }
         }
         return null;
     }
 
-    public GameObject GetItemPrefab(int id)
-    {
-        // TODO items 대신 itemInfo 사용
-        // TODO 리스트 인덱스 대신 id 필드 사용 
-        if (id < 0 || id >= items.Count ||
-            items[id] == null || items[id].GetComponent<Item>() == null)
-            return null;
-        else return items[id];
-    }
-
     /// <summary>
-    /// 아이템 name이 등록된 아이템인지 확인합니다.
-    /// 등록된 아이템이면 true를 반환합니다.
+    /// 아이템 name을 인자로 주면, 해당하는 아이템 정보를 찾아 반환합니다.
+    /// 정보가 없으면 null을 반환합니다.
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public bool IsRegisteredItem(string name)
+    public ItemInfo FindItemInfo(string name)
     {
-        foreach (GameObject g in items)
+        foreach (KeyValuePair<int, ItemInfo> ii in itemInfo)
         {
-            if (g == null || g.GetComponent<Item>() == null)
+            if (ii.Value.name.Equals(name))
             {
-                continue;
-            }
-            else if (g.GetComponent<Item>().name.Equals(name))
-            {
-                return true;
+                return ii.Value;
             }
         }
-        return false;
+        return null;
+    }
+
+    /// <summary>
+    /// 아이템 id를 인자로 주면, 해당하는 아이템 정보를 찾아 반환합니다.
+    /// 정보가 없으면 null을 반환합니다.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public ItemInfo FindItemInfo(int id)
+    {
+        if (itemInfo.ContainsKey(id)) return itemInfo[id];
+        return null;
+    }
+
+    /// <summary>
+    /// 아이템 name을 인자로 주면, 해당하는 아이템 스프라이트를 반환합니다.
+    /// 정보가 없으면 null을 반환합니다.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public Sprite GetItemSprite(string name)
+    {
+        ItemInfo ii = FindItemInfo(name);
+        if (ii == null) return null;
+        else if (ii.type == ItemInfo.Type.Consumable)
+            return Resources.Load("Items/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
+        else return Resources.Load("Items/Orbs/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
+    }
+
+    /// <summary>
+    /// 아이템 id를 인자로 주면, 해당하는 아이템 스프라이트를 반환합니다.
+    /// 정보가 없으면 null을 반환합니다.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public Sprite GetItemSprite(int id)
+    {
+        ItemInfo ii = FindItemInfo(id);
+        if (ii == null) return null;
+        else if (ii.type == ItemInfo.Type.Consumable)
+            return Resources.Load("Items/" + StringUtility.ToPascalCase(ii.name), typeof(Sprite)) as Sprite;
+        else return Resources.Load("Items/Orbs/" + StringUtility.ToPascalCase(ii.name), typeof(Sprite)) as Sprite;
     }
 
     /// <summary>
@@ -141,11 +175,43 @@ public class ItemInfo
 
     public int price;       // 상점에서 구매할 때의 가격
 
-    /*
-    public Sprite onTileSprite;     // 맵의 타일 위에서 보여질 이미지
-    public Sprite inventorySprite;  // 인벤토리에서 보여질 이미지
-    */
-
     public string effectName;
     public int effectParam;
+    
+    /// <summary>
+    /// 구매 가격
+    /// </summary>
+    public int BuyPrice
+    {
+        get
+        {
+            return price;
+        }
+    }
+
+    /// <summary>
+    /// 판매 가격
+    /// </summary>
+    public int SellPrice
+    {
+        get
+        {
+            return (int)(price * ItemManager.sellDiscount);
+        }
+    }
+
+    public bool Use()
+    {
+        if (type == Type.Consumable)
+        {
+            return ItemManager.im.InvokeEffect(effectName, effectParam);
+        }
+        else
+        {
+            // TODO 오브 사용 시 지금은 현재 장착한 무기에 스탯이 추가됨
+            GameManager.gm.player.EquippedWeapon.element += stat;
+            GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
+            return true;
+        }
+    }
 }

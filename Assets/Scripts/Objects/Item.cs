@@ -9,16 +9,23 @@ public class Item : MonoBehaviour {
 
     public new string name; // 아이템 이름(Primary key)
 
-    public Sprite inventorySprite;  // 인벤토리에서 보여질 이미지
-
-    [SerializeField]
-    private string effectName;
-    [SerializeField]
-    private int effectParam;
-
-    public virtual bool Use()
+    public bool Use()
     {
-        //Debug.Log("Use item: " + name);
-        return ItemManager.im.InvokeEffect(effectName, effectParam);
+        ItemInfo ii = ItemManager.im.FindItemInfo(name);
+        if (ii != null)
+            return ii.Use();
+        else return false;
+    }
+
+    public virtual void Initialize(string itemName)
+    {
+        ItemInfo ii = ItemManager.im.FindItemInfo(itemName);
+        if (ii == null)
+        {
+            Debug.LogWarning("Failed to initialize item.");
+            return;
+        }
+        name = itemName;
+        GetComponent<SpriteRenderer>().sprite = ItemManager.im.GetItemSprite(itemName);
     }
 }
