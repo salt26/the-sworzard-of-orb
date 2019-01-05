@@ -1,5 +1,5 @@
-# Item Data
+﻿# Item Data
 # (Item ID) (@Name) (@Tooltip) (Price)[ (@Effect name) (Effect param)]
 #
-0 No_item It's_not_a_bug,_it's_a_feature! 0
-1 Large_potion Restores_40_health. 6 Heal 40
+0 No_item 버그가_아니라_기능입니다. 0
+1 Large_potion 체력을_40_회복합니다. 6 Heal 40

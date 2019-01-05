@@ -1,4 +1,4 @@
-# Monster Data
+﻿# Monster Data
 # (Monster ID) (@Name) (Type) (Size) (Max Health)
 # | (@Weapon name) (Weapon fire stat) (Weapon ice stat) (Weapon nature stat) (Weapon fire stat delta) (Weapon ice stat delta) (Weapon nature stat delta) (Weapon range)
 # | (Armor fire stat) (Armor ice stat) (Armor nature stat) (Armor fire stat delta) (Armor ice stat delta) (Armor nature stat delta)
