@@ -89,7 +89,7 @@ public class Map : MonoBehaviour {
         }
         else
         {
-            mapShape = GenerateMapShape(new Vector2Int(11, 9));
+            mapShape = GenerateMapShape(new Vector2Int(21, 21));
             tiles = GenerateMap(mapShape);
         }
         isReady = true;
@@ -151,6 +151,19 @@ public class Map : MonoBehaviour {
             mapShape[i] = new int[size.x];
         }
 
+        while (true)
+        {
+            mapShape = _MapGenerate(mapShape, 6);
+            if (_IslandChecker(mapShape)) break;
+            else
+            {
+                Debug.LogWarning("Retry map generating...");
+            }
+        }
+
+        return mapShape;
+
+        /*
         if (mapName.Equals("Red"))
         {
             for (int i = 0; i < size.y; i++)
@@ -209,6 +222,100 @@ public class Map : MonoBehaviour {
             }
         }
         return mapShape;
+        */
+    }
+
+    private int[][] _MapGenerate(int[][] mapShape, int step)
+    {
+        int maxR = Mathf.Min(mapShape.Length / 2, mapShape[0].Length / 2);
+        for (int i = 1; i < step + 1; i++)
+        {
+            float r = maxR * (0.5f * Mathf.Exp(-0.8f * Mathf.Sqrt(i)));
+            for (int j = 0; j < i * i; j++)
+            {
+                float x = Random.Range(0f, 1f) * (mapShape.Length - r * 2) + r;
+                float y = Random.Range(0f, 1f) * (mapShape[0].Length - r * 2) + r;
+                mapShape = _CircleGenerate(mapShape, r, x, y);
+            }
+        }
+        return mapShape;
+    }
+
+    private int[][] _CircleGenerate(int[][] mapShape, float r, float x, float y)
+    {
+        for (int i = 0; i < mapShape.Length; i++)
+        {
+            for (int j = 0; j < mapShape[0].Length; j++)
+            {
+                if (Mathf.Sqrt(Mathf.Pow(i - x, 2) + Mathf.Pow(j - y, 2)) <= r)
+                {
+                    mapShape[i][j] = 1;
+                }
+            }
+        }
+        return mapShape;
+    }
+    
+    private bool _IslandChecker(int[][] mapShape)
+    {
+        bool[][] check = new bool[mapShape.Length][];
+        for (int i = 0; i < mapShape.Length; i++)
+        {
+            check[i] = new bool[mapShape[i].Length];
+            for (int j = 0; j < mapShape[i].Length; j++)
+            {
+                check[i][j] = false;
+            }
+        }
+        bool flag = false;
+        for (int i = 0; i < mapShape.Length; i++)
+        {
+            for (int j = 0; j < mapShape[0].Length; j++)
+            {
+                if (mapShape[i][j] == 1)
+                {
+                    if (!check[i][j])
+                    {
+                        if (flag) return false;
+                        check = _BFS(check, mapShape, j, i);
+                        flag = true;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private bool[][] _BFS(bool[][] check, int[][] mapShape, int x, int y)
+    {
+        Queue<Vector2Int> q = new Queue<Vector2Int>();
+        q.Enqueue(new Vector2Int(x, y));
+        check[y][x] = true;
+        while (q.Count > 0)
+        {
+            Vector2Int v = q.Dequeue();
+            if (v.y > 0 && mapShape[v.y - 1][v.x] == 1 && !check[v.y - 1][v.x])
+            {
+                check[v.y - 1][v.x] = true;
+                q.Enqueue(new Vector2Int(v.x, v.y - 1));
+            }
+            if (v.y < mapShape.Length - 1 && mapShape[v.y + 1][v.x] == 1 && !check[v.y + 1][v.x])
+            {
+                check[v.y + 1][v.x] = true;
+                q.Enqueue(new Vector2Int(v.x, v.y + 1));
+            }
+            if (v.x > 0 && mapShape[v.y][v.x - 1] == 1 && !check[v.y][v.x - 1])
+            {
+                check[v.y][v.x - 1] = true;
+                q.Enqueue(new Vector2Int(v.x - 1, v.y));
+            }
+            if (v.x < mapShape[0].Length - 1 && mapShape[v.y][v.x + 1] == 1 && !check[v.y][v.x + 1])
+            {
+                check[v.y][v.x + 1] = true;
+                q.Enqueue(new Vector2Int(v.x + 1, v.y));
+            }
+        }
+        return check;
     }
 
     /// <summary>
