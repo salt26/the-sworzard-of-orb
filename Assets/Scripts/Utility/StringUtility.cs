@@ -33,4 +33,22 @@ public class StringUtility {
         //Debug.Log("ToPascalCase " + original + " -> " + r);
         return r;
     }
+
+    /// <summary>
+    /// 값이 한 자리 숫자일 경우 앞에 띄어쓰기를 붙여서 반환합니다.
+    /// TODO 값이 항상 99 이하라고 가정합니다.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string Padding(int value)
+    {
+        if (value < 10)
+        {
+            return " " + value;
+        }
+        else
+        {
+            return "" + value;
+        }
+    }
 }

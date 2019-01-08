@@ -15,4 +15,9 @@ public class ColorManager : MonoBehaviour {
     {
         cm = this;
     }
+
+    public static Color ChangeAlpha(Color c, float alpha)
+    {
+        return new Color(c.r, c.g, c.b, alpha);
+    }
 }

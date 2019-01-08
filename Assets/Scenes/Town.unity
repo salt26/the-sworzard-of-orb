@@ -1463,7 +1463,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Field
   mapName: Blue
-  startPosition: {x: 6, y: 4}
 --- !u!212 &297285870
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6203,7 +6202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Field
   mapName: Red
-  startPosition: {x: 10, y: 8}
 --- !u!212 &1383867727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8819,7 +8817,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Field
   mapName: Green
-  startPosition: {x: 6, y: 4}
 --- !u!212 &1921366976
 SpriteRenderer:
   m_ObjectHideFlags: 0

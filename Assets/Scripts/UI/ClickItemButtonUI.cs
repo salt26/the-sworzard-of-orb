@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ClickButton : MonoBehaviour, IPointerClickHandler {
+public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
 
     GameManager gm;
 

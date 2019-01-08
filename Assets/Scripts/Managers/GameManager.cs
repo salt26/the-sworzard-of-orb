@@ -69,6 +69,14 @@ public class GameManager : MonoBehaviour {
             return selectedCharacter;
         }
     }
+
+    public GameObject Canvas
+    {
+        get
+        {
+            return UIObject.gameObject;
+        }
+    }
     
 	void Awake () {
         /*
