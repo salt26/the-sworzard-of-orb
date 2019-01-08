@@ -43,6 +43,15 @@ public class Map : MonoBehaviour {
         }
     }
 
+    public Vector2Int MapSize
+    {
+        get
+        {
+            if (!IsReady) return new Vector2Int(0, 0);
+            return new Vector2Int(mapShape[0].Length, mapShape.Length);
+        }
+    }
+
     public void Initialize(bool autoGen)
     {
         autoGeneration = autoGen;
@@ -151,80 +160,22 @@ public class Map : MonoBehaviour {
             mapShape[i] = new int[size.x];
         }
 
-        while (true)
+        int maxLoop = 100;
+        for (int i = 0; i < maxLoop; i++)
         {
             mapShape = _MapGenerate(mapShape, 6);
-            if (_IslandChecker(mapShape)) break;
+            if (_IslandChecker(mapShape) && _CornerChecker(mapShape)) break;
             else
             {
-                Debug.LogWarning("Retry map generating...");
+                Debug.Log("Retry map generating...");
+                if (i == maxLoop - 1) Debug.LogError("Exceed max loop limit!");
             }
         }
 
         return mapShape;
-
-        /*
-        if (mapName.Equals("Red"))
-        {
-            for (int i = 0; i < size.y; i++)
-            {
-                for (int j = 0; j < size.x; j++)
-                {
-                    mapShape[i][j] = 1;
-                }
-            }
-            for (int i = size.y / 2 - 2; i <= size.y / 2 + 2; i++)
-            {
-                for (int j = size.x / 2 - 2; j <= size.x / 2 + 2; j++)
-                {
-                    if (i == size.y / 2 || j == size.x / 2)
-                        mapShape[i][j] = 0;
-                }
-            }
-        }
-        else if (mapName.Equals("Blue"))
-        {
-            for (int i = 0; i < size.y; i++)
-            {
-                for (int j = 0; j < size.x; j++)
-                {
-                    if (i % 3 == 1 && j % 4 == 1)
-                    {
-                        mapShape[i][j] = 0;
-                    }
-                    else
-                        mapShape[i][j] = 1;
-                }
-            }
-        }
-        else if (mapName.Equals("Green"))
-        {
-            for (int i = 0; i < size.y; i++)
-            {
-                for (int j = 0; j < size.x; j++)
-                {
-                    if (i + j >= 2 && i + j < size.x + size.y - 3 && i - j <= size.y - 3 && j - i <= size.x - 3)
-                    {
-                        mapShape[i][j] = 1;
-                    }
-                    else mapShape[i][j] = 0;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < size.y; i++)
-            {
-                for (int j = 0; j < size.x; j++)
-                {
-                    mapShape[i][j] = 1;
-                }
-            }
-        }
-        return mapShape;
-        */
     }
 
+    #region 대륙 생성 및 무결성 검사 메서드
     private int[][] _MapGenerate(int[][] mapShape, int step)
     {
         int maxR = Mathf.Min(mapShape.Length / 2, mapShape[0].Length / 2);
@@ -256,6 +207,11 @@ public class Map : MonoBehaviour {
         return mapShape;
     }
     
+    /// <summary>
+    /// 생성한 대륙이 걸어서 이동할 수 있는 하나의 섬인지 확인합니다.
+    /// </summary>
+    /// <param name="mapShape"></param>
+    /// <returns></returns>
     private bool _IslandChecker(int[][] mapShape)
     {
         bool[][] check = new bool[mapShape.Length][];
@@ -316,6 +272,129 @@ public class Map : MonoBehaviour {
             }
         }
         return check;
+    }
+
+    /// <summary>
+    /// 생성한 대륙을 (4 * 4)등분했을 때,
+    /// 모서리에 해당하는 네 영역에 모두 타일이 하나 이상 존재하는지 확인합니다.
+    /// </summary>
+    /// <param name="mapShape"></param>
+    /// <returns></returns>
+    private bool _CornerChecker(int[][] mapShape)
+    {
+        int checkCount = 0;
+        for (int i = mapShape.Length * 3 / 4; i < mapShape.Length; i++)
+        {
+            for (int j = mapShape[0].Length * 3 / 4; j < mapShape[0].Length; j++)
+            {
+                if (mapShape[i][j] == 1)
+                {
+                    checkCount++;
+                    break;
+                }
+            }
+            if (checkCount == 1) break;
+        }
+        for (int i = mapShape.Length * 3 / 4; i < mapShape.Length; i++)
+        {
+            for (int j = 0; j < mapShape[0].Length / 4; j++)
+            {
+                if (mapShape[i][j] == 0)
+                {
+                    checkCount++;
+                    break;
+                }
+            }
+            if (checkCount == 2) break;
+        }
+        for (int i = 0; i < mapShape.Length / 4; i++)
+        {
+            for (int j = 0; j < mapShape[0].Length / 4; j++)
+            {
+                if (mapShape[i][j] == 0)
+                {
+                    checkCount++;
+                    break;
+                }
+            }
+            if (checkCount == 3) break;
+        }
+        for (int i = 0; i < mapShape.Length / 4; i++)
+        {
+            for (int j = mapShape[0].Length * 3 / 4; j < mapShape[0].Length; j++)
+            {
+                if (mapShape[i][j] == 0)
+                {
+                    checkCount++;
+                    break;
+                }
+            }
+            if (checkCount == 4) break;
+        }
+        if (checkCount == 4) return true;
+        else return false;
+    }
+    #endregion
+
+    /// <summary>
+    /// 대륙을 (4 * 4)등분할 때, 모서리에 해당하는 영역에 있는 타일 하나의 위치를 반환합니다.
+    /// 자동 생성된 맵에서만 사용할 수 있습니다.
+    /// </summary>
+    /// <param name="quadrant">사분면 (1 이상 4 이하)</param>
+    /// <returns></returns>
+    public Vector2Int GetACornerPosition(int quadrant)
+    {
+        if (!IsReady || !autoGeneration || quadrant < 1 || quadrant > 4)
+            return new Vector2Int(0, 0);
+
+        Vector2Int v = new Vector2Int(0, 0);
+        int maxLoop = 100;
+        bool isMaxLoop = false;
+        switch (quadrant)
+        {
+            case 1:
+                for (int i = 0; i < maxLoop; i++)
+                {
+                    v = new Vector2Int(Random.Range(mapShape[0].Length * 3 / 4, mapShape[0].Length),
+                        Random.Range(mapShape.Length * 3 / 4, mapShape.Length));
+                    if (GetTile(v.x, v.y) != null) break;
+                    if (i == maxLoop - 1) isMaxLoop = true;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < maxLoop; i++)
+                {
+                    v = new Vector2Int(Random.Range(0, mapShape[0].Length / 4),
+                        Random.Range(mapShape.Length * 3 / 4, mapShape.Length));
+                    if (GetTile(v.x, v.y) != null) break;
+                    if (i == maxLoop - 1) isMaxLoop = true;
+                }
+                break;
+            case 3:
+                for (int i = 0; i < maxLoop; i++)
+                {
+                    v = new Vector2Int(Random.Range(0, mapShape[0].Length / 4),
+                        Random.Range(0, mapShape.Length / 4));
+                    if (GetTile(v.x, v.y) != null) break;
+                    if (i == maxLoop - 1) isMaxLoop = true;
+                }
+                break;
+            default:
+                for (int i = 0; i < maxLoop; i++)
+                {
+                    v = new Vector2Int(Random.Range(mapShape[0].Length * 3 / 4, mapShape[0].Length),
+                        Random.Range(0, mapShape.Length / 4));
+                    if (GetTile(v.x, v.y) != null) break;
+                    if (i == maxLoop - 1) isMaxLoop = true;
+                }
+                break;
+        }
+        if (isMaxLoop)
+        {
+            Debug.LogError("Exceed max loop limit!");
+            return new Vector2Int(0, 0);
+        }
+        return v;
     }
 
     /// <summary>

@@ -70,7 +70,7 @@ public class Character : Entity {
     {
         if (type == Type.Enemy)
         {
-            Debug.Log("Enemy initialized. (call second)");
+            //Debug.Log("Enemy initialized. (call second)");
             EnemyInfo ei = EnemyManager.em.FindEnemyInfo(name, level);
             size = ei.size;
             maxHealth = ei.maxHealth;

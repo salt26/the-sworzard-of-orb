@@ -203,6 +203,19 @@ public class GameManager : MonoBehaviour {
             mapAutoGeneration = true;
         }
         map.Initialize(mapAutoGeneration);
+
+        // 플레이어 시작 위치 지정
+        int randomQuadrant = Random.Range(1, 5);
+        Vector2Int v = map.GetACornerPosition(randomQuadrant);
+        if (!mapAutoGeneration)
+        {
+            player.GetComponent<Transform>().position = new Vector3(0f, 2f, -1f);
+        }
+        else
+        {
+            player.GetComponent<Transform>().position =
+                new Vector3(v.x, v.y, player.GetComponent<Transform>().position.z);
+        }
         map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
 
         #region MapEntityInfo에 따라 씬에 미리 배치되어 있는 개체 등록
@@ -230,15 +243,21 @@ public class GameManager : MonoBehaviour {
                     Interactable i = GetComponent<InteractableManager>().GetInteractable(id);
                     if (i != null)
                     {
-                        // 생성 위치 정하기
-                        int x, y, maxLoop = 100;
+                        int quadrant = 0, maxLoop = 100;
                         bool canCreate = true;
                         for (int j = 0; j < maxLoop; j++)
                         {
-                            // TODO 지금은 가능한 위치 중에서 랜덤으로 생성
-                            x = Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x));
-                            y = Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y));
-                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0)
+                            for (int k = 0; k < maxLoop; k++)
+                            {
+                                quadrant = Random.Range(1, 5);
+                                if (quadrant != randomQuadrant) break;
+                                if (k == maxLoop - 1)
+                                {
+                                    Debug.LogWarning("Exceed max loop limit!");
+                                }
+                            }
+                            v = map.GetACornerPosition(quadrant);
+                            if (map.GetEntityOnTile(v.x, v.y) == null && map.GetTypeOfTile(v.x, v.y) == 0)
                             {
                                 break;
                             }
@@ -251,7 +270,7 @@ public class GameManager : MonoBehaviour {
                         if (!canCreate) continue;
 
                         // TODO 생성 위치 바꾸기
-                        g = Instantiate(i.gameObject, new Vector3(10f, 4f, -1f), Quaternion.identity);
+                        g = Instantiate(i.gameObject, new Vector3(v.x, v.y, -1f), Quaternion.identity);
                         interactables.Add(g.GetComponent<Interactable>());
                         map.SetEntityOnTile(g.GetComponent<Interactable>(), g.GetComponent<Transform>().position);
                     }
@@ -271,9 +290,19 @@ public class GameManager : MonoBehaviour {
                             // TODO 지금은 가능한 위치 중에서 랜덤으로 생성
                             x = Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x));
                             y = Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y));
-                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0)
+                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0 &&
+                                VectorUtility.ChebyshevDistance(new Vector3(x, y, 0f), player.GetComponent<Transform>().position) > 3)
                             {
-                                break;
+                                bool b = true;
+                                foreach (Interactable i in interactables)
+                                {
+                                    if (VectorUtility.ChebyshevDistance(new Vector3(x, y, 0f), i.GetComponent<Transform>().position) <= 2)
+                                    {
+                                        b = false;
+                                        break;
+                                    }
+                                }
+                                if (b) break;
                             }
                             if (j == maxLoop - 1)
                             {
@@ -287,10 +316,34 @@ public class GameManager : MonoBehaviour {
                         Character c = g.GetComponent<Character>();
                         c.name = ei.name;
                         c.level = ei.level;
-                        Debug.Log("GM creates an enemy. (call first)");
+                        //Debug.Log("GM creates an enemy. (call first)");
                         enemies.Add(c);
                         map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
                         c.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
+
+                        // 순찰 경로 지정
+                        if (ei.type == EnemyInfo.Type.Normal)
+                        {
+                            int x2 = 0, y2 = 0, distance = 4;
+                            bool b2 = true;
+                            c.GetComponent<EnemyMover>().checkpoints = new List<Vector3>();
+                            for (int j = 0; j < maxLoop; j++)
+                            {
+                                // TODO 지금은 자신 근처의 가능한 위치 중에서 랜덤으로 지정
+                                x2 = Random.Range(Mathf.Clamp(x - distance, 0, map.MapSize.x - 1), Mathf.Clamp(x + distance, 0, map.MapSize.x - 1));
+                                y2 = Random.Range(Mathf.Clamp(y - distance, 0, map.MapSize.y - 1), Mathf.Clamp(y + distance, 0, map.MapSize.y - 1));
+                                if (map.GetEntityOnTile(x2, y2) == null && map.GetTypeOfTile(x2, y2) == 0)
+                                {
+                                    break;
+                                }
+                                if (j == maxLoop - 1)
+                                {
+                                    Debug.LogWarning("Exceed max loop limit!");
+                                    b2 = false;
+                                }
+                            }
+                            if (b2) c.GetComponent<EnemyMover>().checkpoints.Add(new Vector3(x2, y2, -1f));
+                        }
                     }
                 }
             }
