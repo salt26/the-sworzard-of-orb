@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a979ade333e19468980cd510e55540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemReference: 
+  ButtonIndex: 0
   itemNameText: {fileID: 114941721273302126}
   itemTooltipText: {fileID: 114072260713443502}
 --- !u!114 &114413342404190418
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.0485938, g: 0.37108496, b: 0.49056602, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
