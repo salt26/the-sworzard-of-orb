@@ -171,21 +171,21 @@ MonoBehaviour:
   weapons:
   - name: Sword
     element:
-      fire: 4
-      ice: 4
-      nature: 1
+      fire: 3
+      ice: 3
+      nature: 3
     range: 1
   - name: Spear
     element:
-      fire: 4
-      ice: 4
-      nature: 1
+      fire: 3
+      ice: 3
+      nature: 3
     range: 2
   armor:
     element:
-      fire: 2
-      ice: 0
-      nature: 0
+      fire: 1
+      ice: 1
+      nature: 1
   healthBar: {fileID: 0}
   statusUI: {fileID: 0}
   oldHealth: 0
