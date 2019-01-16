@@ -2,4 +2,5 @@
 # (Item ID) (@Name) (@Tooltip) (Price)[ (@Effect name) (Effect param)]
 #
 0 No_item 버그가_아니라_기능입니다. 0
-1 Large_potion 체력을_40_회복합니다. 6 Heal 40
+1 Large_potion 체력을_60_회복합니다. 7 Heal 60
+2 Small_potion 체력을_20_회복합니다. 2 Heal 20

@@ -144,6 +144,25 @@ public class Character : Entity {
         }
     }
 
+    /// <summary>
+    /// 플레이어 캐릭터를 최대 체력으로 부활시킵니다.
+    /// 이 메서드가 호출된 후에 gm.ChangeScene()이 호출됨을 가정합니다.
+    /// </summary>
+    public void Revive()
+    {
+        if (!alive && type == Type.Player)
+        {
+            alive = true;
+            currentHealth = maxHealth;
+            foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+                sr.enabled = true;
+
+            foreach (Image i in GetComponentsInChildren<Image>())
+                i.enabled = true;
+            mover.enabled = true;
+        }
+    }
+
     public void ToggleWeapon()
     {
         if (type != Type.Player)

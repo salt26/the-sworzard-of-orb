@@ -63,31 +63,32 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리에 아이템을 넣습니다.
-    /// 최대 보관 가능 개수를 초과하면 아이템을 더 넣지 않습니다.
-    /// item이 null이거나 ItemManager에 등록되지 않은 아이템이면 넣지 않습니다.
+    /// 인벤토리에 아이템을 넣고 true를 반환합니다.
+    /// 최대 보관 가능 개수를 초과하면 아이템을 더 넣지 않고 false를 반환합니다.
+    /// item이 null이거나 ItemManager에 등록되지 않은 아이템이면 넣지 않고 true를 반환합니다.
     /// </summary>
     /// <param name="item"></param>
-    public void AddItem(string item)
+    public bool AddItem(string item)
     {
         if (items.Count >= maxItemNumber)
         {
             // TODO 인벤토리가 가득 찬 경우 처리하기
             Debug.Log("Inventory is full!");
-            return;
+            return false;
         }
         if (item == null)
         {
             Debug.LogWarning("Item is null.");
-            return;
+            return true;
         }
         if (ItemManager.im.FindItemInfo(item) == null)
         {
             Debug.LogWarning("Unregistered item.");
-            return;
+            return true;
         }
         items.Add(item);
         UpdateUI();
+        return true;
     }
 
     /// <summary>
@@ -133,7 +134,7 @@ public class Inventory : MonoBehaviour {
     {
         GameManager gm = GameManager.gm;
         if (gm == null) return;
-        else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving)
+        else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving && GetComponent<Character>().Alive)
         {
             if (index < Items.Count)
             {
@@ -154,7 +155,7 @@ public class Inventory : MonoBehaviour {
     /// <param name="index"></param>
     public void RemoveItem(int index)
     {
-        if (index < Items.Count)
+        if (GetComponent<Character>().Alive && index < Items.Count)
         {
             Debug.Log("Remove item " + index + " from inventory.");
             items.RemoveAt(index);

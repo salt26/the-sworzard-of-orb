@@ -628,28 +628,38 @@ public class Map : MonoBehaviour {
     /// <returns></returns>
     public bool PickUpItemsOnTile(Inventory inventory, int x, int y)
     {
+        bool b;
         MapTile t = GetTile(x, y);
         if (t == null || t.Type != 0)
         {
             return false;
         }
-        foreach (Item i in t.Items)
+        for (int i = t.Items.Count - 1; i >= 0; i--)
         {
-            if (i.name.Equals("Gold"))
+            if (t.Items[i] == null) continue;
+            if (t.Items[i].name.Equals("Gold"))
             {
-                inventory.Gold += ((Gold)i).Quantity;
+                inventory.Gold += ((Gold)t.Items[i]).Quantity;
+                Destroy(t.Items[i].gameObject);
+                t.Items[i] = null;
             }
             else
             {
                 // TODO
-                inventory.AddItem(i.name);
+                b = inventory.AddItem(t.Items[i].name);
+                if (b)
+                {
+                    Destroy(t.Items[i].gameObject);
+                    t.Items[i] = null;
+                }
             }
         }
-        for (int i = t.Items.Count - 1; i >= 0; i--)
+        List<Item> l = new List<Item>();
+        for (int i = 0; i < t.Items.Count; i++)
         {
-            Destroy(t.Items[i].gameObject);
+            if (t.Items[i] != null) l.Add(t.Items[i]);
         }
-        t.Items = new List<Item>();
+        t.Items = l;
         return true;
     }
 

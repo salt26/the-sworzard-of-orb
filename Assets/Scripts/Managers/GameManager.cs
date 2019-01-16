@@ -145,10 +145,16 @@ public class GameManager : MonoBehaviour {
         if (!player.Alive && Input.GetKeyDown(KeyCode.R))
         {
             restartText.SetActive(false);
+            player.GetComponent<Inventory>().RemoveAllItems();   // 가지고 있던 모든 아이템을 잃음
+            player.GetComponent<Inventory>().Gold = 0;
+            player.Revive();
+            ChangeScene("Town");
+            /*
             // 0번 씬에 Manager 오브젝트가 있다고 가정
-            SceneManager.LoadSceneAsync("Scenes/Town");
+            //SceneManager.LoadSceneAsync("Scenes/Town");
             Destroy(UIObject);
             Destroy(this.gameObject);
+            */
         }
 	}
 
@@ -291,7 +297,7 @@ public class GameManager : MonoBehaviour {
                     if (ei != null)
                     {
                         // 생성 위치 정하기
-                        int x = 0, y = 0, maxLoop = 100;
+                        int x = 0, y = 0, x2 = 0, y2 = 0, maxLoop = 100;
                         bool canCreate = true;
                         for (int j = 0; j < maxLoop; j++)
                         {
@@ -310,7 +316,32 @@ public class GameManager : MonoBehaviour {
                                         break;
                                     }
                                 }
-                                if (b) break;
+                                if (b)
+                                {
+                                    // 순찰 경로 지정
+                                    if (ei.type == EnemyInfo.Type.Normal)
+                                    {
+                                        int distance = 4;
+                                        bool b2 = true;
+                                        for (int k = 0; k < maxLoop; k++)
+                                        {
+                                            // TODO 지금은 자신 근처의 가능한 위치 중에서 랜덤으로 지정
+                                            x2 = Random.Range(Mathf.Clamp(x - distance, 0, map.MapSize.x - 1), Mathf.Clamp(x + distance, 0, map.MapSize.x - 1));
+                                            y2 = Random.Range(Mathf.Clamp(y - distance, 0, map.MapSize.y - 1), Mathf.Clamp(y + distance, 0, map.MapSize.y - 1));
+                                            if (map.GetEntityOnTile(x2, y2) == null && map.GetTypeOfTile(x2, y2) == 0)
+                                            {
+                                                break;
+                                            }
+                                            if (k == maxLoop - 1)
+                                            {
+                                                Debug.LogWarning("Exceed max loop limit!");
+                                                b2 = false;
+                                            }
+                                        }
+                                        if (b2) break;
+                                    }
+                                    else break;
+                                }
                             }
                             if (j == maxLoop - 1)
                             {
@@ -328,29 +359,12 @@ public class GameManager : MonoBehaviour {
                         enemies.Add(c);
                         map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
                         c.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
+                        
+                        c.GetComponent<EnemyMover>().checkpoints = new List<Vector3>();
 
-                        // 순찰 경로 지정
                         if (ei.type == EnemyInfo.Type.Normal)
                         {
-                            int x2 = 0, y2 = 0, distance = 4;
-                            bool b2 = true;
-                            c.GetComponent<EnemyMover>().checkpoints = new List<Vector3>();
-                            for (int j = 0; j < maxLoop; j++)
-                            {
-                                // TODO 지금은 자신 근처의 가능한 위치 중에서 랜덤으로 지정
-                                x2 = Random.Range(Mathf.Clamp(x - distance, 0, map.MapSize.x - 1), Mathf.Clamp(x + distance, 0, map.MapSize.x - 1));
-                                y2 = Random.Range(Mathf.Clamp(y - distance, 0, map.MapSize.y - 1), Mathf.Clamp(y + distance, 0, map.MapSize.y - 1));
-                                if (map.GetEntityOnTile(x2, y2) == null && map.GetTypeOfTile(x2, y2) == 0)
-                                {
-                                    break;
-                                }
-                                if (j == maxLoop - 1)
-                                {
-                                    Debug.LogWarning("Exceed max loop limit!");
-                                    b2 = false;
-                                }
-                            }
-                            if (b2) c.GetComponent<EnemyMover>().checkpoints.Add(new Vector3(x2, y2, -1f));
+                            c.GetComponent<EnemyMover>().checkpoints.Add(new Vector3(x2, y2, -1f));
                         }
                     }
                 }

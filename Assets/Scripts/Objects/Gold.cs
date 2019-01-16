@@ -18,12 +18,12 @@ public class Gold : Item {
         {
             if (value >= 2)
             {
-                GetComponent<SpriteRenderer>().sprite = Resources.Load("Golds2", typeof(Sprite)) as Sprite;
+                GetComponent<SpriteRenderer>().sprite = Resources.Load("NewGolds2", typeof(Sprite)) as Sprite;
                 quantity = value;
             }
             else if (value == 1)
             {
-                GetComponent<SpriteRenderer>().sprite = Resources.Load("Golds", typeof(Sprite)) as Sprite;
+                GetComponent<SpriteRenderer>().sprite = Resources.Load("NewGolds", typeof(Sprite)) as Sprite;
                 quantity = value;
             }
         }
