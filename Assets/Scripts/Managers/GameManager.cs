@@ -217,6 +217,18 @@ public class GameManager : MonoBehaviour {
             mapAutoGeneration = true;
         }
         map.Initialize(mapAutoGeneration);
+        
+        AvailableTile availableTile = new AvailableTile(map.MapSize, map.BottomLeft);    // 맵의 각 타일 위에 새 개체를 놓을 수 있는지 확인
+
+        for (int i = (int)map.BottomLeft.x; i <= (int)map.TopRight.x; i++)
+        {
+            for (int j = (int)map.BottomLeft.y; j <= (int)map.TopRight.y; j++)
+            {
+                // 밟을 수 없는 타일 확인
+                if (map.GetTypeOfTile(i, j) != 0)
+                    availableTile.Set(i, j);
+            }
+        }
 
         // 플레이어 시작 위치 지정
         int randomQuadrant = Random.Range(1, 5);
@@ -231,18 +243,26 @@ public class GameManager : MonoBehaviour {
                 new Vector3(v.x, v.y, player.GetComponent<Transform>().position.z);
         }
         map.SetEntityOnTile(player, player.GetComponent<Transform>().position);
+        availableTile.Set(v.x, v.y);
 
         #region MapEntityInfo에 따라 씬에 미리 배치되어 있는 개체 등록
         foreach (Interactable i in mei.interactables)
         {
             map.SetEntityOnTile(i, i.GetComponent<Transform>().position);
+            availableTile.Set(i.GetComponent<Transform>().position);
         }
         // TODO 시작 시에 존재하는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
         //      또한, 다른 개체와 같은 타일에 겹쳐 있는 상태로 시작하는 적이 없다고 가정
+        //      그리고 맵의 범위를 벗어난 위치에 있거나 벗어난 위치를 순찰 체크포인트로 갖는 적이 없다고 가정
         foreach (Character c in mei.enemies)
         {
-            map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
+            map.SetEntityOnTile(c, c.GetComponent<Transform>().position);
             c.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
+            availableTile.Set(c.GetComponent<Transform>().position);
+            foreach (Vector3 cp in ((EnemyMover)c.Mover).checkpoints)
+            {
+                availableTile.Set(cp);
+            }
         }
         #endregion
 
@@ -287,6 +307,7 @@ public class GameManager : MonoBehaviour {
                         g = Instantiate(i.gameObject, new Vector3(v.x, v.y, -1f), Quaternion.identity);
                         interactables.Add(g.GetComponent<Interactable>());
                         map.SetEntityOnTile(g.GetComponent<Interactable>(), g.GetComponent<Transform>().position);
+                        availableTile.Set(v.x, v.y);
                     }
                 }
                 // TODO 맵 정보에 의해 생성되는 모든 적의 충돌 판정 크기가 타일 1개 크기라고 가정
@@ -301,7 +322,7 @@ public class GameManager : MonoBehaviour {
                         bool canCreate = true;
                         for (int j = 0; j < maxLoop; j++)
                         {
-                            // TODO 지금은 가능한 위치 중에서 랜덤으로 생성
+                            // 우선 가능한 위치 중에서 랜덤으로 생성하고, 후에 스폰 가능한 위치인지 확인
                             x = Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x));
                             y = Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y));
                             if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0 &&
@@ -325,12 +346,30 @@ public class GameManager : MonoBehaviour {
                                         bool b2 = true;
                                         for (int k = 0; k < maxLoop; k++)
                                         {
-                                            // TODO 지금은 자신 근처의 가능한 위치 중에서 랜덤으로 지정
+                                            // 자신 근처의 위치 중에서, 순찰 경로 안에 스폰 불가능 위치가 하나도 존재하지 않은 위치로 결정
+                                            // 순찰 경로의 체크포인트가 하나만 존재함을 가정
                                             x2 = Random.Range(Mathf.Clamp(x - distance, 0, map.MapSize.x - 1), Mathf.Clamp(x + distance, 0, map.MapSize.x - 1));
                                             y2 = Random.Range(Mathf.Clamp(y - distance, 0, map.MapSize.y - 1), Mathf.Clamp(y + distance, 0, map.MapSize.y - 1));
-                                            if (map.GetEntityOnTile(x2, y2) == null && map.GetTypeOfTile(x2, y2) == 0)
+                                            if (map.GetEntityOnTile(x2, y2) == null && map.GetTypeOfTile(x2, y2) == 0 && !(x2 == x && y2 == y))
                                             {
-                                                break;
+                                                bool b3 = true;
+                                                for (int l = Mathf.Min(x, x2); l <= Mathf.Max(x, x2); l++)
+                                                {
+                                                    if (!availableTile.Get(l, Mathf.Min(y, y2)) || !availableTile.Get(l, Mathf.Max(y, y2)))
+                                                    {
+                                                        b3 = false;
+                                                        break;
+                                                    }
+                                                }
+                                                for (int l = Mathf.Min(y, y2); l <= Mathf.Max(y, y2); l++)
+                                                {
+                                                    if (!availableTile.Get(Mathf.Min(x, x2), l) || !availableTile.Get(Mathf.Max(x, x2), l))
+                                                    {
+                                                        b3 = false;
+                                                        break;
+                                                    }
+                                                }
+                                                if (b3) break;
                                             }
                                             if (k == maxLoop - 1)
                                             {
@@ -343,6 +382,7 @@ public class GameManager : MonoBehaviour {
                                     else break;
                                 }
                             }
+                            Debug.Log(j);
                             if (j == maxLoop - 1)
                             {
                                 Debug.LogWarning("Exceed max loop limit!");
@@ -359,12 +399,14 @@ public class GameManager : MonoBehaviour {
                         enemies.Add(c);
                         map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
                         c.statusUI = UIObject.GetComponent<UIInfo>().enemyStatusUI;
+                        availableTile.Set(x, y);
                         
                         c.GetComponent<EnemyMover>().checkpoints = new List<Vector3>();
 
                         if (ei.type == EnemyInfo.Type.Normal)
                         {
                             c.GetComponent<EnemyMover>().checkpoints.Add(new Vector3(x2, y2, -1f));
+                            availableTile.Set(x2, y2);
                         }
                     }
                 }
@@ -457,5 +499,82 @@ public class GameManager : MonoBehaviour {
 
         if (selectedCharacter != null)
             mySelectedBorder = Instantiate(selectedBorderPrefab, c.GetComponent<Transform>());
+    }
+}
+
+/// <summary>
+/// 맵 자동 생성 시, 새로운 적 개체를 스폰할 때 사용되는 클래스입니다.
+/// 맵에서 개체가 스폰될 수 없는 위치를 가지고 있습니다.
+/// </summary>
+public class AvailableTile
+{
+    private List<List<bool>> t = new List<List<bool>>();
+    private Vector2Int bottomLeft;
+    private Vector2Int mapSize;
+
+    /// <summary>
+    /// 맵 크기에 맞게 모든 타일을 스폰 가능 위치로 초기화합니다.
+    /// </summary>
+    /// <param name="bottomLeft"></param>
+    /// <param name="mapSize"></param>
+    public AvailableTile(Vector2Int mapSize, Vector2 bottomLeft = new Vector2())
+    {
+        this.bottomLeft = new Vector2Int((int)bottomLeft.x, (int)bottomLeft.y);
+        this.mapSize = mapSize;
+        for (int i = 0; i < mapSize.y; i++)
+        {
+            t.Add(new List<bool>());
+            for (int j = 0; j < mapSize.x; j++)
+            {
+                t[i].Add(true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// (x, y) 좌표의 타일을 isSpawnable로 설정합니다.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="isSpawnable"></param>
+    public void Set(int x, int y, bool isSpawnable = false)
+    {
+        if (x < bottomLeft.x || y < bottomLeft.y ||
+            x - bottomLeft.x >= mapSize.x || y - bottomLeft.y >= mapSize.y)
+        {
+            Debug.LogWarning("Invalid position!");
+            return;
+        }
+        t[y - bottomLeft.y][x - bottomLeft.x] = isSpawnable;
+    }
+
+    /// <summary>
+    /// pos에서 가장 가까운 정수 좌표 (x, y)의 타일을 isSpawnable로 설정합니다.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="isSpawnable"></param>
+    public void Set(Vector3 pos, bool isSpawnable = false)
+    {
+        int x = Mathf.RoundToInt(pos.x);
+        int y = Mathf.RoundToInt(pos.y);
+        Set(x, y, isSpawnable);
+    }
+
+    /// <summary>
+    /// (x, y) 좌표의 타일에 새 개체를 스폰할 수 있는지 반환합니다.
+    /// 만약 맵의 범위를 벗어나는 좌표이면 false를 반환합니다.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Get(int x, int y)
+    {
+        if (x < bottomLeft.x || y < bottomLeft.y ||
+            x - bottomLeft.x >= mapSize.x || y - bottomLeft.y >= mapSize.y)
+        {
+            Debug.LogWarning("Invalid position!");
+            return false;
+        }
+        return t[y - bottomLeft.y][x - bottomLeft.x];
     }
 }

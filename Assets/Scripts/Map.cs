@@ -43,12 +43,20 @@ public class Map : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 맵 크기를 반환합니다.
+    /// 자동 생성된 맵이 아닌 경우 (0, 0)을 반환합니다.
+    /// </summary>
     public Vector2Int MapSize
     {
         get
         {
-            if (!IsReady) return new Vector2Int(0, 0);
-            return new Vector2Int(mapShape[0].Length, mapShape.Length);
+            if (!IsReady)
+                return new Vector2Int(0, 0);
+            else if (!autoGeneration)
+                return new Vector2Int((int)TopRight.x - (int)BottomLeft.x + 1, (int)TopRight.y - (int)BottomLeft.y + 1);
+            else
+                return new Vector2Int(mapShape[0].Length, mapShape.Length);
         }
     }
 
