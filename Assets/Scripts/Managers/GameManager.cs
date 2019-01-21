@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour {
     private Character selectedCharacter = null;
     public GameObject mySelectedBorder;
 
+    [HideInInspector]
+    public Dictionary<string, int> mapLevel = new Dictionary<string, int>();
+
     [Header("Debugging")]
     public int turnNumber = 0;
 
@@ -165,6 +168,11 @@ public class GameManager : MonoBehaviour {
     public void ChangeScene(string sceneName, string mapName = null)
     {
         player.Healed(player.maxHealth);
+        if (mapName != null)
+        {
+            if (mapLevel.ContainsKey(mapName)) mapLevel[mapName]++;
+            else mapLevel.Add(mapName, 1);
+        }
         StartCoroutine(LoadScene(sceneName, mapName));
     }
 
@@ -382,7 +390,7 @@ public class GameManager : MonoBehaviour {
                                     else break;
                                 }
                             }
-                            Debug.Log(j);
+                            //Debug.Log(j);
                             if (j == maxLoop - 1)
                             {
                                 Debug.LogWarning("Exceed max loop limit!");
@@ -394,7 +402,7 @@ public class GameManager : MonoBehaviour {
                         g = Instantiate(EnemyManager.em.monsterPrefab, new Vector3(x, y, -1f), Quaternion.identity);
                         Character c = g.GetComponent<Character>();
                         c.name = ei.name;
-                        c.level = ei.level;
+                        c.level = mapLevel[mapName];
                         //Debug.Log("GM creates an enemy. (call first)");
                         enemies.Add(c);
                         map.SetEntityOnTile(c, g.GetComponent<Transform>().position);

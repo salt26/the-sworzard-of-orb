@@ -22,6 +22,7 @@ public class EnemyManager : MonoBehaviour {
     
     /// <summary>
     /// 적 name과 level을 인자로 주면, 해당하는 적 정보를 찾아 반환합니다.
+    /// 적 name 정보는 있지만 level이 맞지 않는 경우, name이 맞는 적 정보를 하나 찾아 반환합니다.
     /// 정보가 없으면 null을 반환합니다.
     /// </summary>
     /// <param name="name"></param>
@@ -32,6 +33,10 @@ public class EnemyManager : MonoBehaviour {
         foreach (KeyValuePair<int, EnemyInfo> ei in enemyInfo)
         {
             if (ei.Value.name.Equals(name) && ei.Value.level == level)
+            {
+                return ei.Value;
+            }
+            else if (ei.Value.name.Equals(name))
             {
                 return ei.Value;
             }

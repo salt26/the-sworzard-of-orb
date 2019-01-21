@@ -74,8 +74,11 @@ public class Character : Entity {
             EnemyInfo ei = EnemyManager.em.FindEnemyInfo(name, level);
             size = ei.size;
             maxHealth = ei.maxHealth;
-            weapons = new List<Weapon> { ei.weapon };
-            armor = ei.armor;
+            weapons = new List<Weapon> { ei.weapon.Clone() };
+            armor = ei.armor.Clone();
+            weapons[0].element += ei.weaponDelta * (level - 1);
+            armor.element += ei.armorDelta * (level - 1);
+            //Debug.Log(name + "(Lv." + level + "): W" + weapons[0].element + ", A" + armor.element);
             ((EnemyMover)mover).distanceType = ei.distanceType;
             ((EnemyMover)mover).sightDistance = ei.sightDistance;
             ((EnemyMover)mover).leaveDistance = ei.leaveDistance;

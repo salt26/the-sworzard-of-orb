@@ -91,12 +91,27 @@ public class Element {
             (int)(a.nature * times.z));
     }
 
+    public static Element operator *(int times, Element a)
+    {
+        return new Element(a.fire * times, a.ice * times, a.nature * times);
+    }
+    
+    public static Element operator *(Element a, int times)
+    {
+        return new Element(a.fire * times, a.ice * times, a.nature * times);
+    }
+
     public static implicit operator Vector3(Element a)
     {
         return new Vector3(a.fire, a.ice, a.nature);
     }
     #endregion
-      
+
+    public override string ToString()
+    {
+        return "(" + fire + "/" + ice + "/" + nature + ")";
+    }
+
     public int Sum()
     {
         return fire + ice + nature;
