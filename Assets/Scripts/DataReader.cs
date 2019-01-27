@@ -11,6 +11,7 @@ public class DataReader : MonoBehaviour {
         EnemyManager em = GetComponent<EnemyManager>();
         MapManager mm = GetComponent<MapManager>();
         im.itemInfo = new Dictionary<int, ItemInfo>();
+        im.orbRecipe = new Dictionary<OrbIngredient, int>();
         em.enemyInfo = new Dictionary<int, EnemyInfo>();
         mm.mapInfo = new Dictionary<int, MapInfo>();
 
@@ -55,7 +56,7 @@ public class DataReader : MonoBehaviour {
             if (l.StartsWith("#")) continue;
             string[] token = l.Split(' ');
 
-            if (token.Length != 8 && token.Length != 10) Error("Orb");
+            if (token.Length != 9 && token.Length != 13 && token.Length != 15) Error("Orb");
 
             ItemInfo ii = new ItemInfo();
 
@@ -64,13 +65,48 @@ public class DataReader : MonoBehaviour {
             ii.type = ItemInfo.Type.Orb;
             ii.tooltip = StringUtility.ReplaceUnderbar(token[2]);
             ii.level = int.Parse(token[3]);
-            ii.stat = new Element(int.Parse(token[4]), int.Parse(token[5]), int.Parse(token[6]));
-            ii.price = int.Parse(token[7]);
-
-            if (token.Length == 10)
+            switch (int.Parse(token[4]))
             {
-                ii.effectName = StringUtility.ToPascalCase(token[8]);
-                ii.effectParam = int.Parse(token[9]);
+                case 0:
+                    ii.usage = ItemInfo.Usage.None;
+                    break;
+                case 1:
+                    ii.usage = ItemInfo.Usage.Weapon;
+                    break;
+                case 2:
+                    ii.usage = ItemInfo.Usage.Armor;
+                    break;
+                default:
+                    ii.usage = ItemInfo.Usage.None;
+                    break;
+            }
+            ii.stat = new Element(int.Parse(token[5]), int.Parse(token[6]), int.Parse(token[7]));
+            ii.price = int.Parse(token[8]);
+
+            if (token.Length > 9)
+            {
+                if (!token[9].Equals("|"))
+                {
+                    // 특수 효과가 있는 경우
+                    ii.effectName = StringUtility.ToPascalCase(token[9]);
+                    ii.effectParam = int.Parse(token[10]);
+                    if (token.Length == 15)
+                    {
+                        // 재료가 있는 경우
+                        // token[11] : '|'
+                        OrbIngredient oi = new OrbIngredient(int.Parse(token[12]), int.Parse(token[13]), int.Parse(token[14]));
+                        im.orbRecipe.Add(oi, int.Parse(token[0]));
+                    }
+                    else Error("Orb");
+                }
+                else if (token.Length == 13)
+                {
+                    // 특수 효과는 없고 재료가 있는 경우
+                    // token[9] : '|'
+                    OrbIngredient oi = new OrbIngredient(int.Parse(token[10]), int.Parse(token[11]), int.Parse(token[12]));
+                    im.orbRecipe.Add(oi, int.Parse(token[0]));
+                }
+                else Error("Orb");
             }
             im.itemInfo.Add(int.Parse(token[0]), ii);
         }

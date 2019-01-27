@@ -47,7 +47,8 @@ public class GameManager : MonoBehaviour {
     private GameObject UIObject;
     private bool isSceneLoaded = false;
     
-    private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중
+    [SerializeField]
+    private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중, 3이면 Altar에서 조합하는 중
 
     public int Turn
     {
@@ -429,6 +430,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void NextTurn()
     {
+        if (turn > 1) return;
         StartCoroutine(NextTurnWithDelay());
     }
 
@@ -489,10 +491,33 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            turnNumber++;   // TODO 디버깅 용
+            turnNumber++;
             turnMark.sprite = enemyTurn;
             turnMark.color = enemyTurnColor;
         }
+    }
+
+    /// <summary>
+    /// Altar와 상호작용하여 조합하는 상태로 턴이 넘어갑니다.
+    /// </summary>
+    public void AltarTurn()
+    {
+        if (turn != 0) return;
+        //Debug.Log("AltarTurn");
+        turn = 3;
+    }
+
+    /// <summary>
+    /// Altar에서의 조합을 마치고 턴을 넘깁니다.
+    /// </summary>
+    public void NextTurnFromAltar()
+    {
+        if (turn != 3) return;
+        //Debug.Log("NextTurnFromAltar");
+        turn = 1;
+        turnNumber++;
+        turnMark.sprite = enemyTurn;
+        turnMark.color = enemyTurnColor;
     }
 
     /// <summary>

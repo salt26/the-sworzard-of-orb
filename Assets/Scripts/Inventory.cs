@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour {
 
     // TODO 나중에 inspector에서 안 보이게 하기
     [SerializeField]
-    private List<string> items;
+    private List<string> items = new List<string>();
     
     private int gold = 0;
 
@@ -50,6 +50,7 @@ public class Inventory : MonoBehaviour {
         foreach (Button b in itemButtons)
         { 
             b.onClick.AddListener(delegate { UseItem(itemButtons.IndexOf(b)); });
+            b.onClick.AddListener(delegate { DedicateItem(itemButtons.IndexOf(b)); });
         }
     }
 
@@ -128,47 +129,118 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// 인벤토리의 index 위치에 들어 있는 아이템을 사용합니다.
     /// 사용한 아이템은 사라지며, 플레이어의 턴이 상대에게 넘어갑니다.
+    /// 플레이어의 턴일 때에만 동작합니다.
     /// </summary>
     /// <param name="index"></param>
     public void UseItem(int index)
     {
         GameManager gm = GameManager.gm;
         if (gm == null) return;
-        else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving && GetComponent<Character>().Alive)
+        else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving &&
+            GetComponent<Character>().Alive && index < Items.Count)
         {
-            if (index < Items.Count)
+            if (ItemManager.im.FindItemInfo(items[index]).Use())
             {
-                if (ItemManager.im.FindItemInfo(items[index]).Use())
-                {
-                    Debug.Log("Use item " + index + " from inventory.");
-                    items.RemoveAt(index);
-                    UpdateUI();
-                    gm.NextTurn();
-                }
+                Debug.Log("Use item " + index + " from inventory.");
+                items.RemoveAt(index);
+                UpdateUI();
+                gm.NextTurn();
             }
         }
     }
 
     /// <summary>
-    /// 인벤토리의 index 위치에 들어 있는 아이템을 버립니다.
+    /// 인벤토리의 index 위치에 들어 있는 아이템을 플레이어 위치에 드랍하고 턴을 넘깁니다.
+    /// 플레이어의 턴이고 제단과 상호작용하지 않을 때에만 작동합니다.
     /// </summary>
     /// <param name="index"></param>
-    public void RemoveItem(int index)
+    public void DropItem(int index)
     {
-        if (GetComponent<Character>().Alive && index < Items.Count)
+        GameManager gm = GameManager.gm;
+        if (gm == null) return;
+        else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving &&
+            GetComponent<Character>().Alive && index < Items.Count)
         {
-            Debug.Log("Remove item " + index + " from inventory.");
+            Debug.Log("Drop item " + index + " from inventory.");
+            GameManager.gm.map.AddItemOnTile(ItemManager.im.FindItemID(Items[index]), GetComponent<Transform>().position);
             items.RemoveAt(index);
             UpdateUI();
+            gm.NextTurn();
         }
     }
 
-    public void RemoveItem(Button itemButton)
+    /// <summary>
+    /// 인벤토리의 itemButton이 놓인 위치에 들어 있는 아이템을 플레이어 위치에 드랍하고 턴을 넘깁니다.
+    /// 플레이어의 턴이고 제단과 상호작용하지 않을 때에만 작동합니다.
+    /// </summary>
+    /// <param name="itemButton"></param>
+    public void DropItem(Button itemButton)
     {
         int i = itemButtons.IndexOf(itemButton);
         if (i >= 0)
         {
-            RemoveItem(i);
+            DropItem(i);
         }
+    }
+
+    /// <summary>
+    /// indices의 각 원소를 위치로 하여, 인벤토리의 해당 위치에 들어 있는 아이템들을 삭제합니다.
+    /// </summary>
+    /// <param name="indices"></param>
+    public void RemoveItem(List<int> indices)
+    {
+        /*
+        GameManager gm = GameManager.gm;
+        if (gm == null) return;
+        if (gm.Turn == 3 && gm.IsSceneLoaded && indices != null)
+        */
+        if (indices != null)
+        {
+            indices.Sort();
+            for (int i = indices.Count - 1; i >= 0; i--)
+            {
+                int index = indices[i];
+                if (index < Items.Count)
+                {
+                    Debug.Log("Remove item " + index + " from inventory.");
+                    items.RemoveAt(index);
+                }
+            }
+            UpdateUI();
+        }
+    }
+
+    /// <summary>
+    /// 인벤토리의 index 위치에 있는 오브 아이템을 제단에 바칩니다.
+    /// 제단과 상호작용하는 중에만 동작합니다.
+    /// </summary>
+    /// <param name="index"></param>
+    public void DedicateItem(int index)
+    {
+        GameManager gm = GameManager.gm;
+        if (gm == null) return;
+        else if (gm.Turn == 3 && gm.IsSceneLoaded && index < Items.Count)
+        {
+            // 아이템이 제단에 올라가서, 제단 버튼 위에 Instantiate되어야 함
+            // 그리고 인벤토리의 이 버튼이 하이라이트되며 비활성화되어야 함 (이건 ClickItemButtonUI.cs에서)
+            //Debug.Log("DedicateItem " + index);
+            gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().AddOrb(Items[index], index);
+        }
+    }
+
+    /// <summary>
+    /// 아이템 버튼을 인자로 받아, 해당 버튼에 들어있는 아이템 name을 반환합니다.
+    /// 아이템이 들어있지 않은 버튼이면 null을 반환합니다.
+    /// </summary>
+    /// <param name="itemButton"></param>
+    /// <returns></returns>
+    public string FindItemNameInButton(Button itemButton)
+    {
+        int i = itemButtons.IndexOf(itemButton);
+        if (i >= 0 && i < Items.Count)
+        {
+            return Items[i];
+        }
+        return null;
     }
 }

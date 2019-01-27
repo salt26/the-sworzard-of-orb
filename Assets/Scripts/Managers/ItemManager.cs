@@ -17,6 +17,11 @@ public class ItemManager : MonoBehaviour {
     /// Key는 아이템 ID(오브는 1xx, 기타 아이템은 xx), Value는 아이템 정보입니다.
     /// </summary>
     public Dictionary<int, ItemInfo> itemInfo;
+
+    /// <summary>
+    /// 오브 조합 레시피입니다. Key는 OrbIngredient, Value는 조합 결과로 나오는 오브의 id입니다.
+    /// </summary>
+    public Dictionary<OrbIngredient, int> orbRecipe;
     public GameObject itemPrefab;
     public GameObject orbPrefab;
 
@@ -93,6 +98,48 @@ public class ItemManager : MonoBehaviour {
     }
 
     /// <summary>
+    /// 아이템 name을 인자로 주면, 해당하는 아이템 id를 찾아 반환합니다.
+    /// 정보가 없으면 -1을 반환합니다.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public int FindItemID(string name)
+    {
+        foreach (KeyValuePair<int, ItemInfo> ii in itemInfo)
+        {
+            if (ii.Value.name.Equals(name))
+            {
+                return ii.Key;
+            }
+        }
+        return -1;
+    }
+
+    /// <summary>
+    /// 세 재료 오브 name을 인자로 주면, 이들을 조합해 나오는 오브의 id를 반환합니다.
+    /// 만약 조합 레시피가 존재하지 않으면 -1을 반환합니다.
+    /// 만약 오브가 아닌 것이 포함되어 있으면 -2를 반환합니다.
+    /// </summary>
+    /// <param name="orbName1"></param>
+    /// <param name="orbName2"></param>
+    /// <param name="orbName3"></param>
+    /// <returns></returns>
+    public int FindOrbCombResultID(string orbName1, string orbName2, string orbName3)
+    {
+        int id1 = FindItemID(orbName1), id2 = FindItemID(orbName2), id3 = FindItemID(orbName3);
+        if (id1 >= 100 && id2 >= 100 && id3 >= 100)
+        {
+            OrbIngredient oi = new OrbIngredient(id1, id2, id3);
+            if (orbRecipe.ContainsKey(oi))
+            {
+                return orbRecipe[oi];
+            }
+            else return -1;
+        }
+        return -2;
+    }
+
+    /// <summary>
     /// 아이템 name을 인자로 주면, 해당하는 아이템 스프라이트를 반환합니다.
     /// 정보가 없으면 null을 반환합니다.
     /// </summary>
@@ -164,6 +211,7 @@ public class ItemManager : MonoBehaviour {
 public class ItemInfo
 {
     public enum Type { Orb, Consumable };
+    public enum Usage { None, Weapon, Armor };
 
     public string name;     // 아이템 이름(Primary key)
     public Type type;
@@ -171,6 +219,7 @@ public class ItemInfo
     public string tooltip;  // 툴팁
 
     public int level;       // Orb에만 존재
+    public Usage usage;     // Orb에만 존재
     public Element stat;    // Orb에만 존재
 
     public int price;       // 상점에서 구매할 때의 가격
@@ -212,6 +261,53 @@ public class ItemInfo
             GameManager.gm.player.EquippedWeapon.element += stat;
             GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
             return true;
+        }
+    }
+}
+
+/// <summary>
+/// 어떤 오브의 재료가 되는 세 오브의 id를 정렬하여 가질 수 있는 자료 구조입니다.
+/// 인덱싱과 Equals()를 지원합니다.
+/// </summary>
+public class OrbIngredient
+{
+    private List<int> IDs;
+
+    public OrbIngredient(int orbID1, int orbID2, int orbID3)
+    {
+        IDs = new List<int>()
+        {
+            orbID1,
+            orbID2,
+            orbID3
+        };
+        IDs.Sort();
+    }
+
+    public int this[int i]
+    {
+        get { return IDs[i]; }
+    }
+
+    public override bool Equals(object obj)
+    {
+        var v = obj as OrbIngredient;
+        if (v != null)
+        {
+            return this[0] == v[0] && this[1] == v[1] && this[2] == v[2];
+        }
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 23 + this[0].GetHashCode();
+            hash = hash * 23 + this[1].GetHashCode();
+            hash = hash * 23 + this[2].GetHashCode();
+            return hash;
         }
     }
 }

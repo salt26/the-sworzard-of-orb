@@ -24,8 +24,9 @@ public class UIInfo : MonoBehaviour {
     [Header("Enemy")]
     public StatusUI enemyStatusUI;
 
-    [Header("etc")]
+    [Header("ETC")]
     public GameObject menuUI;
+    public GameObject altarPanel;
 
     public void MenuUI()
     {
