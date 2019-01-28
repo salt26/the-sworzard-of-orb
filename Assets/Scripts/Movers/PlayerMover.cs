@@ -25,7 +25,7 @@ public class PlayerMover : Mover {
 		if (gm.Turn == 0 && gm.IsSceneLoaded && !isMoving)
         {
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 int x = Mathf.RoundToInt(t.position.x - 1f), y = Mathf.RoundToInt(t.position.y);
 
@@ -38,7 +38,7 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(-1f, 0f, 0f), false);
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow))
             {
                 int x = Mathf.RoundToInt(t.position.x + 1f), y = Mathf.RoundToInt(t.position.y);
 
@@ -52,7 +52,7 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(1f, 0f, 0f), false);
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKey(KeyCode.UpArrow))
             {
                 int x = Mathf.RoundToInt(t.position.x), y = Mathf.RoundToInt(t.position.y + 1f);
 
@@ -65,7 +65,7 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(0f, 1f, 0f), false);
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.DownArrow))
             {
                 int x = Mathf.RoundToInt(t.position.x), y = Mathf.RoundToInt(t.position.y - 1f);
 

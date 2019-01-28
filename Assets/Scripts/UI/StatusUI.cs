@@ -97,17 +97,17 @@ public class StatusUI : MonoBehaviour {
 
         if (defenseFireText != null)
         {
-            defenseFireText.text = "/ <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + StringUtility.Padding(armor.ValidElement().Fire) + "</color>";
+            defenseFireText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + StringUtility.Padding(armor.ValidElement().Fire) + "</color>";
         }
 
         if (defenseIceText != null)
         {
-            defenseIceText.text = "/ <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + StringUtility.Padding(armor.ValidElement().Ice) + "</color>";
+            defenseIceText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + StringUtility.Padding(armor.ValidElement().Ice) + "</color>";
         }
 
         if (defenseNatureText != null)
         {
-            defenseNatureText.text = "/ <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + StringUtility.Padding(armor.ValidElement().Nature) + "</color>";
+            defenseNatureText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + StringUtility.Padding(armor.ValidElement().Nature) + "</color>";
         }
     }
 }

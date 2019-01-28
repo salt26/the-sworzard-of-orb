@@ -258,9 +258,23 @@ public class ItemInfo
         else
         {
             // TODO 오브 사용 시 지금은 현재 장착한 무기에 스탯이 추가됨
-            GameManager.gm.player.EquippedWeapon.element += stat;
-            GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
-            return true;
+            if (usage == Usage.None) return false;
+            else if (usage == Usage.Weapon)
+            {
+                GameManager.gm.player.EquippedWeapon.element += stat;
+                GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
+                return true;
+            }
+            else if (usage == Usage.Armor)
+            {
+                GameManager.gm.player.armor.element += stat;
+                GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

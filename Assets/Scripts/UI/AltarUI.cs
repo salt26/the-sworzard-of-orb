@@ -15,6 +15,14 @@ public class AltarUI : MonoBehaviour {
     private List<KeyValuePair<int, string>> orbs = new List<KeyValuePair<int, string>>();
     private List<KeyValuePair<string, GameObject>> orbImages = new List<KeyValuePair<string, GameObject>>();
 
+    public List<KeyValuePair<int, string>> Orbs
+    {
+        get
+        {
+            return orbs.Clone();
+        }
+    }
+
     void Start()
     {
         foreach (Button b in altarButtons)

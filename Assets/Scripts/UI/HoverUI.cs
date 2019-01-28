@@ -11,16 +11,31 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
     public Vector2 maxPos;          // 각 원소는 0 이상 1 이하, minPos보다 커야 함
 
     private TooltipUI myTooltip = null;
+    [SerializeField]
+    private bool isAltar;
 
     public void OnPointerEnter(PointerEventData e)
     {
         if (myTooltip == null)
         {
+            int index = -1;
             if (tooltipPanel.GetComponent<ItemTooltipUI>() != null)
             {
-                int index = int.Parse(gameObject.name);
-                if (index >= GameManager.gm.player.GetComponent<Inventory>().Items.Count)
-                    return;
+                if (!isAltar)
+                {
+                    index = int.Parse(gameObject.name);
+                    if (index >= GameManager.gm.player.GetComponent<Inventory>().Items.Count)
+                        return;
+                }
+                else
+                {
+                    if (gameObject.name.Equals("TopButton")) index = 100;
+                    else if (gameObject.name.Equals("LeftButton")) index = 101;
+                    else index = 102;
+
+                    if (index - 100 >= GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().Orbs.Count)
+                        return;
+                }
             }
             GameObject g = Instantiate(tooltipPanel, GameManager.gm.Canvas.GetComponent<Transform>());
             myTooltip = g.GetComponent<TooltipUI>();
@@ -34,7 +49,6 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             }
             if (myTooltip.GetComponent<ItemTooltipUI>() != null)
             {
-                int index = int.Parse(gameObject.name);
                 myTooltip.GetComponent<ItemTooltipUI>().ButtonIndex = index;
             }
         }

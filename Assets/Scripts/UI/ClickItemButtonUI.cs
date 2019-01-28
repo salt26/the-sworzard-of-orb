@@ -25,10 +25,11 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
         else if (gm.Turn == 3 && gm.IsSceneLoaded)
         {
             string itemName = gm.player.GetComponent<Inventory>().FindItemNameInButton(GetComponent<Button>());
-            if (!GetComponent<Button>().interactable && itemName != null && ItemManager.im.FindItemInfo(itemName).type == ItemInfo.Type.Orb && 
+            if (itemName != null && ItemManager.im.FindItemInfo(itemName).type == ItemInfo.Type.Orb && 
                 !gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().IsContainOrbIndex(int.Parse(gameObject.name)))
             {
-                GetComponent<Button>().interactable = true;
+                if (!GetComponent<Button>().interactable)
+                    GetComponent<Button>().interactable = true;
             }
             else if(GetComponent<Button>().interactable)
                 GetComponent<Button>().interactable = false;
