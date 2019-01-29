@@ -31,9 +31,11 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
                 {
                     if (gameObject.name.Equals("TopButton")) index = 100;
                     else if (gameObject.name.Equals("LeftButton")) index = 101;
-                    else index = 102;
+                    else if (gameObject.name.Equals("RightButton")) index = 102;
+                    else index = 103;
 
-                    if (index - 100 >= GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().Orbs.Count)
+                    if (!(index == 103 && GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().combineButton.IsInteractable()) && 
+                        index - 100 >= GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().Orbs.Count)
                         return;
                 }
             }
@@ -42,6 +44,8 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             RectTransform r = myTooltip.GetComponent<RectTransform>();
             r.anchorMin = minPos;
             r.anchorMax = maxPos;
+            if (isAltar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
+            else if (isAltar) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
 
             if (myTooltip.GetComponent<WeaponTooltipUI>() != null)
             {

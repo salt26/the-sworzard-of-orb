@@ -8,6 +8,7 @@ public class AltarUI : MonoBehaviour {
     public GameObject itemImage;            // 아이템 이미지 프리팹
     public List<Button> altarButtons;
     public Button combineButton;
+    public List<GameObject> circlePartImages;
 
     /// <summary>
     /// Key는 오브가 들어있는 인벤토리의 위치, Value는 오브 이름
@@ -80,16 +81,34 @@ public class AltarUI : MonoBehaviour {
             Destroy(orbImages[i].Value);
             orbImages.RemoveAt(i);
         }
+        for (i = 0; i < 3; i++)
+        {
+            if (i < orbs.Count)
+            {
+                circlePartImages[i].GetComponent<Image>().color = ColorManager.ExtractRepresentative(orbImages[i].Value.GetComponent<Image>().mainTexture as Texture2D);
+                circlePartImages[i].SetActive(true);
+            }
+            else
+            {
+                circlePartImages[i].SetActive(false);
+            }
+        }
     }
 
     /// <summary>
     /// 제단에 오브를 바치고 true를 반환합니다.
+    /// 이미 바친 오브이면 제단에서 제거하고 true를 반환합니다.
     /// 최대로 바칠 수 있는 개수를 초과하면 오브를 받지 않고 false를 반환합니다.
     /// orb가 null이거나 ItemManager에 등록되지 않은 오브이면 받지 않고 true를 반환합니다.
     /// </summary>
     /// <param name="orb"></param>
     public bool AddOrb(string orb, int inventoryIndex)
     {
+        if (IsContainOrbIndex(inventoryIndex))
+        {
+            RemoveOrb(orbs.FindIndex(p => p.Key == inventoryIndex));
+            return true;
+        }
         if (orbs.Count >= 3)
         {
             Debug.Log("Altar is full!");
@@ -108,11 +127,6 @@ public class AltarUI : MonoBehaviour {
         if (ItemManager.im.FindItemInfo(orb).type != ItemInfo.Type.Orb)
         {
             Debug.LogWarning("Item is not an orb.");
-            return true;
-        }
-        if (IsContainOrbIndex(inventoryIndex))
-        {
-            Debug.LogWarning("This orb is already dedicated.");
             return true;
         }
         orbs.Add(new KeyValuePair<int, string>(inventoryIndex, orb));
@@ -147,6 +161,7 @@ public class AltarUI : MonoBehaviour {
         bool b = id >= 100;
         if (b)
         {
+            combineButton.GetComponent<Image>().sprite = ItemManager.im.GetItemSprite(id);
             combineButton.interactable = true;
             //Debug.Log(ItemManager.im.FindItemInfo(id).name);
         }

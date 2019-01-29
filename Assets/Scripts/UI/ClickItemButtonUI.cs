@@ -25,8 +25,7 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
         else if (gm.Turn == 3 && gm.IsSceneLoaded)
         {
             string itemName = gm.player.GetComponent<Inventory>().FindItemNameInButton(GetComponent<Button>());
-            if (itemName != null && ItemManager.im.FindItemInfo(itemName).type == ItemInfo.Type.Orb && 
-                !gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().IsContainOrbIndex(int.Parse(gameObject.name)))
+            if (itemName != null && ItemManager.im.FindItemInfo(itemName).type == ItemInfo.Type.Orb)
             {
                 if (!GetComponent<Button>().interactable)
                     GetComponent<Button>().interactable = true;
@@ -45,7 +44,7 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
             gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().IsContainOrbIndex(int.Parse(gameObject.name)))
         {
             if (GetComponent<Image>().color == Color.white)
-                GetComponent<Image>().color = new Color(1f, 0.4f, 0.4f, 1f);
+                GetComponent<Image>().color = new Color(0.3f, 0.4f, 1f, 1f);
         }
         else
         {
