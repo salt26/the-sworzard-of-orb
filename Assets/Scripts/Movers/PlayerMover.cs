@@ -160,7 +160,6 @@ public class PlayerMover : Mover {
         }
         else
         {
-            Debug.Log("HELLO");
             // 사정거리 내의 모든 적 확인
             List<Character> enemies = new List<Character>();
             for (int i = 1; i <= c.EquippedWeapon.Range; i++)

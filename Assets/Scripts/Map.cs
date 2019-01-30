@@ -190,7 +190,7 @@ public class Map : MonoBehaviour {
         for (int i = 1; i < step + 1; i++)
         {
             float r = maxR * (0.5f * Mathf.Exp(-0.8f * Mathf.Sqrt(i)));
-            for (int j = 0; j < i * i; j++)
+            for (int j = 0; j < i * i / 2; j++)
             {
                 float x = Random.Range(0f, 1f) * (mapShape.Length - r * 2) + r;
                 float y = Random.Range(0f, 1f) * (mapShape[0].Length - r * 2) + r;
