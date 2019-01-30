@@ -34,7 +34,13 @@ public class PlayerMover : Mover {
                 {
                     StartCoroutine(MoveAnimation(new Vector3(-1f, 0f, 0f)));
                 }
-                else if (gm.map.GetTypeOfTile(x, y) == 0 && gm.map.GetEntityOnTile(x, y) != null){
+                else if (gm.map.GetTypeOfTile(x, y) == 0 && gm.map.GetEntityOnTile(x, y) != null)
+                {
+                    Interaction(new Vector3(-1f, 0f, 0f), false);
+                }
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 &&
+                    gm.map.GetEntityOnTile(x - 1, y) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x - 1, y).GetType()))
+                {
                     Interaction(new Vector3(-1f, 0f, 0f), false);
                 }
             }
@@ -51,6 +57,11 @@ public class PlayerMover : Mover {
                 {
                     Interaction(new Vector3(1f, 0f, 0f), false);
                 }
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 && 
+                    gm.map.GetEntityOnTile(x + 1, y) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x + 1, y).GetType()))
+                {
+                    Interaction(new Vector3(1f, 0f, 0f), false);
+                }
             }
             else if (Input.GetKey(KeyCode.UpArrow))
             {
@@ -64,6 +75,11 @@ public class PlayerMover : Mover {
                 {
                     Interaction(new Vector3(0f, 1f, 0f), false);
                 }
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 &&
+                    gm.map.GetEntityOnTile(x, y + 1) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x, y + 1).GetType()))
+                {
+                    Interaction(new Vector3(0f, 1f, 0f), false);
+                }
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
@@ -74,6 +90,11 @@ public class PlayerMover : Mover {
                     StartCoroutine(MoveAnimation(new Vector3(0f, -1f, 0f)));
                 }
                 else if (gm.map.GetTypeOfTile(x, y) == 0 && gm.map.GetEntityOnTile(x, y) != null)
+                {
+                    Interaction(new Vector3(0f, -1f, 0f), false);
+                }
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 &&
+                    gm.map.GetEntityOnTile(x, y - 1) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x, y - 1).GetType()))
                 {
                     Interaction(new Vector3(0f, -1f, 0f), false);
                 }
@@ -139,6 +160,7 @@ public class PlayerMover : Mover {
         }
         else
         {
+            Debug.Log("HELLO");
             // 사정거리 내의 모든 적 확인
             List<Character> enemies = new List<Character>();
             for (int i = 1; i <= c.EquippedWeapon.Range; i++)
