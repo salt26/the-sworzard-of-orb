@@ -457,9 +457,9 @@ public class EnemyMover : Mover {
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);
             if (i < frame / 2)
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.2f, 0.5f, 0.4f, 1f), (float)i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)i / frame * 2);
             else
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.2f, 0.5f, 0.4f, 1f), (float)(frame - i) / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)(frame - i) / frame * 2);
             yield return null;
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);

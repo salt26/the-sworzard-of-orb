@@ -9,6 +9,7 @@ public class AltarUI : MonoBehaviour {
     public List<Button> altarButtons;
     public Button combineButton;
     public List<GameObject> circlePartImages;
+    public GameObject whitePanel;
 
     /// <summary>
     /// Key는 오브가 들어있는 인벤토리의 위치, Value는 오브 이름
@@ -34,7 +35,7 @@ public class AltarUI : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !whitePanel.activeInHierarchy)
         {
             EscapeAltar();
         }
@@ -42,9 +43,14 @@ public class AltarUI : MonoBehaviour {
 
     public void EscapeAltar()
     {
+        if (whitePanel.activeInHierarchy) return;
         GameManager.gm.NextTurnFromAltar();
         orbs = new List<KeyValuePair<int, string>>();
         UpdateUI();
+        for (int i = 0; i < 3; i++)
+        {
+            circlePartImages[i].GetComponent<Image>().color = ColorManager.ChangeAlpha(Color.black, 0f);
+        }
         combineButton.interactable = false;
         gameObject.SetActive(false);
     }
@@ -85,14 +91,42 @@ public class AltarUI : MonoBehaviour {
         {
             if (i < orbs.Count)
             {
-                circlePartImages[i].GetComponent<Image>().color = ColorManager.ExtractRepresentative(orbImages[i].Value.GetComponent<Image>().mainTexture as Texture2D);
-                circlePartImages[i].SetActive(true);
+                StartCoroutine(CircleOnAnimation(i));
             }
-            else
+            else if (i >= orbs.Count)
             {
-                circlePartImages[i].SetActive(false);
+                StartCoroutine(CircleOffAnimation(i));
             }
         }
+    }
+
+    IEnumerator CircleOnAnimation(int index)
+    {
+        circlePartImages[index].SetActive(true);
+        Color end = ColorManager.ExtractRepresentative(orbImages[index].Value.GetComponent<Image>().mainTexture as Texture2D);
+        float frame = 40f;
+        for (int i = 0; i < frame; i++)
+        {
+            circlePartImages[index].GetComponent<Image>().color = Color.Lerp(circlePartImages[index].GetComponent<Image>().color, end, i / frame);
+            yield return null;
+            if (index >= orbs.Count) yield break;
+        }
+        circlePartImages[index].GetComponent<Image>().color = end;
+    }
+
+    IEnumerator CircleOffAnimation(int index)
+    {
+        Color end = ColorManager.ChangeAlpha(Color.black, 0f);
+        Color start = circlePartImages[index].GetComponent<Image>().color;
+        float frame = 10f;
+        for (int i = (int)(circlePartImages[index].GetComponent<Image>().color.a * frame); i >= 0; i--)
+        {
+            circlePartImages[index].GetComponent<Image>().color = Color.Lerp(end, start, i / frame);
+            yield return null;
+            if (index < orbs.Count) yield break;
+        }
+        circlePartImages[index].GetComponent<Image>().color = end;
+        circlePartImages[index].SetActive(false);
     }
 
     /// <summary>
@@ -104,6 +138,7 @@ public class AltarUI : MonoBehaviour {
     /// <param name="orb"></param>
     public bool AddOrb(string orb, int inventoryIndex)
     {
+        if (whitePanel.activeInHierarchy) return true;
         if (IsContainOrbIndex(inventoryIndex))
         {
             RemoveOrb(orbs.FindIndex(p => p.Key == inventoryIndex));
@@ -142,6 +177,7 @@ public class AltarUI : MonoBehaviour {
     /// <param name="index"></param>
     public void RemoveOrb(int index)
     {
+        if (whitePanel.activeInHierarchy) return;
         if (index < orbs.Count)
         {
             //Debug.Log("Remove orb " + index + " from altar.");
@@ -174,6 +210,7 @@ public class AltarUI : MonoBehaviour {
     /// </summary>
     public void CombineOrb()
     {
+        if (whitePanel.activeInHierarchy) return;
         if (!CheckCombinableness()) return;
         int id = ItemManager.im.FindOrbCombResultID(orbs[0].Value, orbs[1].Value, orbs[2].Value);
         Inventory inv = GameManager.gm.player.GetComponent<Inventory>();
@@ -181,9 +218,33 @@ public class AltarUI : MonoBehaviour {
         inv.AddItem(ItemManager.im.FindItemInfo(id).name);
         orbs = new List<KeyValuePair<int, string>>();
         UpdateUI();
-        combineButton.interactable = false;
 
         // TODO 조합 성공 이펙트 (화면 깜빡임)
+        StartCoroutine(WhiteAnimation());
+    }
+
+    IEnumerator WhiteAnimation()
+    {
+        whitePanel.SetActive(true);
+        whitePanel.GetComponent<Image>().color = ColorManager.ChangeAlpha(whitePanel.GetComponent<Image>().color, 0f);
+        float frame = 12f;
+        for (int i = 0; i < frame; i++)
+        {
+            whitePanel.GetComponent<Image>().color = Color.Lerp(ColorManager.ChangeAlpha(whitePanel.GetComponent<Image>().color, 0f),
+                ColorManager.ChangeAlpha(whitePanel.GetComponent<Image>().color, 0.5f), i / frame);
+            yield return null;
+        }
+        for (int i = 0; i < frame / 4f; i++)
+        {
+            whitePanel.GetComponent<Image>().color = Color.Lerp(ColorManager.ChangeAlpha(whitePanel.GetComponent<Image>().color, 0.5f),
+                ColorManager.ChangeAlpha(whitePanel.GetComponent<Image>().color, 0f), i * 4 / frame);
+            yield return null;
+        }
+
+        whitePanel.GetComponent<Image>().color = ColorManager.ChangeAlpha(whitePanel.GetComponent<Image>().color, 0f);
+        whitePanel.SetActive(false);
+
+        combineButton.interactable = false;
     }
 
     /// <summary>

@@ -42,7 +42,7 @@ public class ItemTooltipUI : TooltipUI {
 
             SetTooltipText(ii);
         }
-        else if (ButtonIndex == 103 && altarUI.combineButton.IsInteractable())
+        else if (ButtonIndex == 103 && altarUI.combineButton.IsInteractable() && !altarUI.whitePanel.activeInHierarchy)
         {
             ItemInfo ii = ItemManager.im.FindItemInfo(
                 ItemManager.im.FindOrbCombResultID(altarUI.Orbs[0].Value, altarUI.Orbs[1].Value, altarUI.Orbs[2].Value));
