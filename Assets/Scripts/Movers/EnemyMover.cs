@@ -24,6 +24,7 @@ public class EnemyMover : Mover {
     private Stack<Vector3> passedCheckpoints;   // 순찰 시 지나온 지점(sub stack)
     [SerializeField]
     private GameObject myTauntedSprite;         // 도발당한 상태일 때 뜨는 !에 대한 레퍼런스
+    private GameObject myDistanceSprite;        // 바닥에 범위를 표시해주는 스프라이트에 대한 레퍼런스
     private delegate int Distance(Vector3 a, Vector3 b);
     private Distance distance;
     private bool isDistanceNone = true;
@@ -31,11 +32,12 @@ public class EnemyMover : Mover {
     public enum DistanceType { None, Manhattan, Chebyshev };
 
     [Header("Public Fields")]
-    public GameObject tauntedSprite;            // 도발당한 상태일 때 뜰 이미지의 오브젝트
+    public GameObject tauntedSprite;            // 도발당한 상태일 때 뜰 이미지의 프리팹
     public DistanceType distanceType = DistanceType.None;
-    public int sightDistance;                   // 순찰 중 플레이어를 발견할 수 있는 최대 택시 거리
-    public int leaveDistance;                   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 택시 거리
+    public int sightDistance;                   // 순찰 중 플레이어를 발견할 수 있는 최대 거리
+    public int leaveDistance;                   // 순찰 경로를 이탈해서 플레이어를 쫓아갈 수 있는 최대 거리
     public List<Vector3> checkpoints;           // TODO 임시로 Inspector에서 설정 가능
+    public GameObject distanceSprite;           // 바닥에 범위를 표시해 줄 스프라이트의 프리팹
 
     public bool Moved
     {
@@ -53,6 +55,7 @@ public class EnemyMover : Mover {
         gm = GameManager.gm;
         isMoving = false;
         myTauntedSprite = null;
+        myDistanceSprite = null;
 
         InitializeCheckpoints(checkpoints);
         movePattern += PatrolCheckpoints;
@@ -129,6 +132,11 @@ public class EnemyMover : Mover {
                             Destroy(myTauntedSprite);
                             myTauntedSprite = null;
                         }
+                        if (myDistanceSprite != null)
+                        {
+                            myDistanceSprite.GetComponent<DistanceSprite>().Disappear();
+                            myDistanceSprite = null;
+                        }
                         destination = Move1Taxi(tauntedPosition);
                         destination = Move(destination);
 
@@ -179,6 +187,7 @@ public class EnemyMover : Mover {
             isTauntedPositionValid = true;
             hasTaunted = true;
             if (myTauntedSprite == null) myTauntedSprite = Instantiate(tauntedSprite, t);
+            if (myDistanceSprite == null) StartCoroutine(SightDistanceAnimation(enemyPos));
         }
 
         // 한 번 경로를 이탈하여 정상 경로로 돌아가던 중 플레이어가 다시 나타난 경우
@@ -188,6 +197,7 @@ public class EnemyMover : Mover {
         {
             hasTaunted = true;
             if (myTauntedSprite == null) myTauntedSprite = Instantiate(tauntedSprite, t);
+            if (myDistanceSprite == null) StartCoroutine(SightDistanceAnimation(enemyPos));
             // TODO 도발 상태가 풀려 돌아가던 중에 플레이어가 다시 최대 공격 범위 안에 들어온 경우, 도발 상태가 되면서 공격은 하는데, 느낌표가 뜨지 않는 버그가 있다.
         }
     }
@@ -438,6 +448,7 @@ public class EnemyMover : Mover {
                 if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
                 else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
                 Attack(VectorUtility.PositionToInt((destination - GetCurrentPosition()).normalized), false);
+                Debug.Log("AttackWithoutMove");
                 isAttacked = true;
             }
         }
@@ -567,6 +578,17 @@ public class EnemyMover : Mover {
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
         gm.map.SetEntityOnTile(null, t.position);
 
+        if (myTauntedSprite != null)
+        {
+            Destroy(myTauntedSprite);
+            myTauntedSprite = null;
+        }
+        if (myDistanceSprite != null)
+        {
+            myDistanceSprite.GetComponent<DistanceSprite>().Disappear();
+            myDistanceSprite = null;
+        }
+
         int gold = EnemyManager.em.FindEnemyInfo(c.name, c.level).gold;
         gm.map.AddGoldOnTile(gold, t.position);
 
@@ -600,5 +622,62 @@ public class EnemyMover : Mover {
     private Vector3 GetCurrentPosition()
     {
         return VectorUtility.PositionToInt(t.position);
+    }
+
+    /// <summary>
+    /// 적의 시야 범위를 바닥에 표시합니다.
+    /// 이 표시는 점점 투명해지다가 사라집니다.
+    /// </summary>
+    /// <param name="enemyPos"></param>
+    /// <returns></returns>
+    IEnumerator SightDistanceAnimation(Vector3 enemyPos)
+    {
+        if (myDistanceSprite != null)
+        {
+            myDistanceSprite.GetComponent<DistanceSprite>().Disappear();
+            myDistanceSprite = null;
+        }
+        Vector3 v = new Vector3(enemyPos.x, enemyPos.y, -0.25f);
+        myDistanceSprite = Instantiate(distanceSprite, v, Quaternion.identity);
+        if (distanceType != DistanceType.None)
+            myDistanceSprite.GetComponent<SpriteRenderer>().sprite =
+                Resources.Load(distanceType.ToString() + sightDistance, typeof(Sprite)) as Sprite;
+        float frame = 40f;
+        for (int i = 0; i < frame; i++)
+        {
+            if (myDistanceSprite == null) break;
+            myDistanceSprite.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, ColorManager.ChangeAlpha(Color.yellow, 0f), i / frame);
+            yield return null;
+        }
+        myDistanceSprite.GetComponent<DistanceSprite>().Disappear(0);
+        myDistanceSprite = null;
+        StartCoroutine(LeaveDistanceAnimation());
+    }
+
+    /// <summary>
+    /// 적의 최대 이동 범위를, 적이 처음 도발당한 위치를 기준으로 표시합니다.
+    /// 이 표시는 점점 선명해지고 자동으로 사라지지 않습니다.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator LeaveDistanceAnimation()
+    {
+        if (myDistanceSprite != null)
+        {
+            myDistanceSprite.GetComponent<DistanceSprite>().Disappear();
+            myDistanceSprite = null;
+        }
+        Vector3 v = new Vector3(tauntedPosition.x, tauntedPosition.y, -0.25f);
+        myDistanceSprite = Instantiate(distanceSprite, v, Quaternion.identity);
+        if (distanceType != DistanceType.None)
+            myDistanceSprite.GetComponent<SpriteRenderer>().sprite =
+                Resources.Load(distanceType.ToString() + leaveDistance, typeof(Sprite)) as Sprite;
+        float frame = 20f;
+        for (int i = 0; i < frame; i++)
+        {
+            if (myDistanceSprite == null) break;
+            myDistanceSprite.GetComponent<SpriteRenderer>().color =
+                Color.Lerp(new Color(0.6f, 0f, 0f, 0f), ColorManager.ChangeAlpha(new Color(0.6f, 0f, 0f, 0f), 1f), i / frame);
+            yield return null;
+        }
     }
 }

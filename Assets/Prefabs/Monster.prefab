@@ -229,6 +229,8 @@ MonoBehaviour:
   sightDistance: 1
   leaveDistance: 2
   checkpoints: []
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!114 &114519151274808870
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -141,7 +141,7 @@ public class Inventory : MonoBehaviour {
         {
             if (ItemManager.im.FindItemInfo(items[index]).Use())
             {
-                Debug.Log("Use item " + index + " from inventory.");
+                //Debug.Log("Use item " + index + " from inventory.");
                 items.RemoveAt(index);
                 UpdateUI();
                 gm.NextTurn();
@@ -161,7 +161,7 @@ public class Inventory : MonoBehaviour {
         else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving &&
             GetComponent<Character>().Alive && index < Items.Count)
         {
-            Debug.Log("Drop item " + index + " from inventory.");
+            //Debug.Log("Drop item " + index + " from inventory.");
             GameManager.gm.map.AddItemOnTile(ItemManager.im.FindItemID(Items[index]), GetComponent<Transform>().position);
             items.RemoveAt(index);
             UpdateUI();
@@ -202,7 +202,7 @@ public class Inventory : MonoBehaviour {
                 int index = indices[i];
                 if (index < Items.Count)
                 {
-                    Debug.Log("Remove item " + index + " from inventory.");
+                    //Debug.Log("Remove item " + index + " from inventory.");
                     items.RemoveAt(index);
                 }
             }

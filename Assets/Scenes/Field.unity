@@ -1134,6 +1134,8 @@ MonoBehaviour:
   sightDistance: 1
   leaveDistance: 2
   checkpoints: []
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!114 &144728521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,6 +2679,8 @@ MonoBehaviour:
   leaveDistance: 2
   checkpoints:
   - {x: 4, y: 5, z: 0}
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!212 &374579137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4475,6 +4479,8 @@ MonoBehaviour:
   - {x: 7, y: 8, z: 0}
   - {x: 2, y: 8, z: 0}
   - {x: 8, y: 0, z: 0}
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!212 &815299969
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5577,6 +5583,8 @@ MonoBehaviour:
   sightDistance: 2
   leaveDistance: 4
   checkpoints: []
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!114 &1054533290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7011,6 +7019,8 @@ MonoBehaviour:
   sightDistance: 2
   leaveDistance: 4
   checkpoints: []
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!212 &1423487765
 SpriteRenderer:
   m_ObjectHideFlags: 0

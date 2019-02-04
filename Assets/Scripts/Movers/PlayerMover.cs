@@ -13,6 +13,8 @@ public class PlayerMover : Mover {
     public List<Sprite> weaponMarkSprite;
     public List<Sprite> characterSprite;
 
+    public GameObject distanceSprite;
+
     // Use this for initialization
     void Start () {
         t = GetComponent<Transform>();
@@ -176,6 +178,13 @@ public class PlayerMover : Mover {
                 float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
                 if (!isCharge) bonus = 1f;
 
+                for (int i = 1; i <= c.EquippedWeapon.Range; i++)
+                {
+                    GameObject g = Instantiate(distanceSprite,
+                        new Vector3(Mathf.RoundToInt(t.position.x + direction.x * i), Mathf.RoundToInt(t.position.y + direction.y * i), -0.25f), Quaternion.identity);
+                    g.GetComponent<SpriteRenderer>().color = new Color(0f, 0.8f, 0f, 1f);
+                    g.GetComponent<DistanceSprite>().Disappear(30);
+                }
                 StartCoroutine(AttackAnimation(direction, enemies, bonus));
             }
             else

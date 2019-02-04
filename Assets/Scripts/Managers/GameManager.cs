@@ -334,7 +334,7 @@ public class GameManager : MonoBehaviour {
                             // 우선 가능한 위치 중에서 랜덤으로 생성하고, 후에 스폰 가능한 위치인지 확인
                             x = Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x));
                             y = Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y));
-                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0 &&
+                            if (map.GetEntityOnTile(x, y) == null && map.GetTypeOfTile(x, y) == 0 && availableTile.Get(x, y) &&
                                 VectorUtility.ChebyshevDistance(new Vector3(x, y, 0f), player.GetComponent<Transform>().position) > 3)
                             {
                                 bool b = true;
@@ -416,6 +416,16 @@ public class GameManager : MonoBehaviour {
                         {
                             c.GetComponent<EnemyMover>().checkpoints.Add(new Vector3(x2, y2, -1f));
                             availableTile.Set(x2, y2);
+                            for (int l = Mathf.Min(x, x2); l <= Mathf.Max(x, x2); l++)
+                            {
+                                availableTile.Set(l, y);
+                                availableTile.Set(l, y2);
+                            }
+                            for (int l = Mathf.Min(y, y2); l <= Mathf.Max(y, y2); l++)
+                            {
+                                availableTile.Set(x, l);
+                                availableTile.Set(x2, l);
+                            }
                         }
                     }
                 }
