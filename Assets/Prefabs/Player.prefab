@@ -151,6 +151,8 @@ MonoBehaviour:
   characterSprite:
   - {fileID: 21300000, guid: 1f20e05925af94f458b946f48bfae685, type: 3}
   - {fileID: 21300000, guid: 806e3fa8596dc964786a10b8e1aaf0e5, type: 3}
+  distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
+    type: 2}
 --- !u!114 &114926819351538088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,8 +168,8 @@ MonoBehaviour:
   name: Alan
   level: 1
   size: 1
-  maxHealth: 120
-  currentHealth: 120
+  maxHealth: 200
+  currentHealth: 200
   weapons:
   - name: Sword
     element:
@@ -177,7 +179,7 @@ MonoBehaviour:
     range: 1
   - name: Spear
     element:
-      fire: 4
+      fire: 5
       ice: 3
       nature: 3
     range: 2
