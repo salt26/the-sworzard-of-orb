@@ -173,13 +173,13 @@ MonoBehaviour:
   weapons:
   - name: Sword
     element:
-      fire: 3
+      fire: 2
       ice: 2
       nature: 2
     range: 1
   - name: Spear
     element:
-      fire: 5
+      fire: 3
       ice: 3
       nature: 3
     range: 2

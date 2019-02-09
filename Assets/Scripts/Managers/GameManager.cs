@@ -290,19 +290,31 @@ public class GameManager : MonoBehaviour {
                         bool canCreate = true;
                         for (int j = 0; j < maxLoop; j++)
                         {
-                            for (int k = 0; k < maxLoop; k++)
+                            if (id == 0)
                             {
-                                quadrant = Random.Range(1, 5);
-                                if (quadrant != randomQuadrant) break;
-                                if (k == maxLoop - 1)
+                                for (int k = 0; k < maxLoop; k++)
                                 {
-                                    Debug.LogWarning("Exceed max loop limit!");
+                                    quadrant = Random.Range(1, 5);
+                                    if (quadrant != randomQuadrant) break;
+                                    if (k == maxLoop - 1)
+                                    {
+                                        Debug.LogWarning("Exceed max loop limit!");
+                                    }
+                                }
+                                v = map.GetACornerPosition(quadrant);
+                                if (map.GetEntityOnTile(v.x, v.y) == null && map.GetTypeOfTile(v.x, v.y) == 0)
+                                {
+                                    break;
                                 }
                             }
-                            v = map.GetACornerPosition(quadrant);
-                            if (map.GetEntityOnTile(v.x, v.y) == null && map.GetTypeOfTile(v.x, v.y) == 0)
+                            else
                             {
-                                break;
+                                v = new Vector2Int(Random.Range(Mathf.RoundToInt(map.BottomLeft.x), Mathf.RoundToInt(map.TopRight.x)),
+                                    Random.Range(Mathf.RoundToInt(map.BottomLeft.y), Mathf.RoundToInt(map.TopRight.y)));
+                                if (map.GetEntityOnTile(v.x, v.y) == null && map.GetTypeOfTile(v.x, v.y) == 0)
+                                {
+                                    break;
+                                }
                             }
                             if (j == maxLoop - 1)
                             {

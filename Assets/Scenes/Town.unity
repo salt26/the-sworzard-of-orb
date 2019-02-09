@@ -6348,6 +6348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactables:
   - {fileID: 114697124652033582, guid: 6101acd7c1e299744a5cc50191e79b35, type: 2}
+  - {fileID: 114808441248064806, guid: 681d967d51fa3334f9c56ef52065d3fc, type: 2}
 --- !u!1 &1363020943
 GameObject:
   m_ObjectHideFlags: 0

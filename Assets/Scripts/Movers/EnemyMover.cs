@@ -602,18 +602,7 @@ public class EnemyMover : Mover {
 
         int gold = EnemyManager.em.FindEnemyInfo(c.name, c.level).gold;
         gm.map.AddGoldOnTile(gold, t.position);
-
-        /*
-        List<KeyValuePair<string, float>> items = EnemyManager.em.FindEnemyInfo(c.name, c.level).items;
-        foreach (KeyValuePair<string, float> itemPair in items)
-        {
-            string itemName = itemPair.Key;
-            GameObject item = ItemManager.im.GetItemPrefab(itemName);
-            
-            if (Random.Range(0f, 1f) < itemPair.Value)
-                gm.map.AddItemOnTile(item, t.position);
-        }
-        */
+        
         List<EnemyDropItemInfo> items = EnemyManager.em.FindEnemyInfo(c.name, c.level).dropItems;
         foreach (EnemyDropItemInfo di in items)
         {
