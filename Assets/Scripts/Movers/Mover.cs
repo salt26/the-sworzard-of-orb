@@ -18,7 +18,7 @@ public class Mover : MonoBehaviour {
         }
     }
 
-    public virtual IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
+    public virtual IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3())
     {
         yield return null;
     }

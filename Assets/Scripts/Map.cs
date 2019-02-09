@@ -106,10 +106,34 @@ public class Map : MonoBehaviour {
         }
         else
         {
-            mapShape = GenerateMapShape(new Vector2Int(21, 21));
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName, GameManager.gm.mapLevel[mapName]);
+            mapShape = GenerateMapShape(new Vector2Int(mi.width, mi.height));
             tiles = GenerateMap(mapShape);
         }
         isReady = true;
+    }
+
+    private int[][] GenerateMapShape(Vector2Int size)
+    {
+        int[][] mapShape = new int[size.y][];
+        for (int i = 0; i < size.y; i++)
+        {
+            mapShape[i] = new int[size.x];
+        }
+
+        int maxLoop = 100;
+        for (int i = 0; i < maxLoop; i++)
+        {
+            mapShape = _MapGenerate(mapShape, 6);
+            if (_IslandChecker(mapShape) && _CornerChecker(mapShape)) break;
+            else
+            {
+                //Debug.Log("Retry map generating...");
+                if (i == maxLoop - 1) Debug.LogError("Exceed max loop limit!");
+            }
+        }
+
+        return mapShape;
     }
 
     private List<List<MapTile>> GenerateMap(int[][] mapShape)
@@ -118,7 +142,7 @@ public class Map : MonoBehaviour {
             return null;
         List<List<MapTile>> tiles = new List<List<MapTile>>();
 
-        MapInfo mi = MapManager.mm.FindMapInfo(mapName);
+        MapInfo mi = MapManager.mm.FindMapInfo(mapName, GameManager.gm.mapLevel[mapName]);
         if (mi == null)
         {
             Debug.LogWarning("Map doesn't exist!");
@@ -156,31 +180,6 @@ public class Map : MonoBehaviour {
             }
         }
         return tiles;
-    }
-
-    private int[][] GenerateMapShape(Vector2Int size)
-    {
-        // TODO 지금은 하드코딩되어 있음
-        // 나중에 size를 받아, 그 안을 걸어다닐 수 있도록 0과 1로 랜덤하게 채워야 함
-        int[][] mapShape = new int[size.y][];
-        for (int i = 0; i < size.y; i++)
-        {
-            mapShape[i] = new int[size.x];
-        }
-
-        int maxLoop = 100;
-        for (int i = 0; i < maxLoop; i++)
-        {
-            mapShape = _MapGenerate(mapShape, 6);
-            if (_IslandChecker(mapShape) && _CornerChecker(mapShape)) break;
-            else
-            {
-                Debug.Log("Retry map generating...");
-                if (i == maxLoop - 1) Debug.LogError("Exceed max loop limit!");
-            }
-        }
-
-        return mapShape;
     }
 
     #region 대륙 생성 및 무결성 검사 메서드
@@ -358,6 +357,8 @@ public class Map : MonoBehaviour {
         Vector2Int v = new Vector2Int(0, 0);
         int maxLoop = 100;
         bool isMaxLoop = false;
+
+        // Stochastic한 방법으로 고르기
         switch (quadrant)
         {
             case 1:
@@ -397,11 +398,71 @@ public class Map : MonoBehaviour {
                 }
                 break;
         }
+
+        // Stochastic한 방법이 실패한 경우
         if (isMaxLoop)
         {
-            Debug.LogError("Exceed max loop limit!");
-            return new Vector2Int(0, 0);
+            Debug.LogWarning("Exceed max loop limit!");
+            v = new Vector2Int(0, 0);
+
+            // Deterministic한 방법으로 고르기
+            switch (quadrant)
+            {
+                case 1:
+                    for (int i = mapShape.Length * 3 / 4; i < mapShape.Length; i++)
+                    {
+                        for (int j = mapShape[0].Length * 3 / 4; j < mapShape[0].Length; j++)
+                        {
+                            if (GetTile(j, i) != null)
+                            {
+                                v = new Vector2Int(j, i);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int i = mapShape.Length * 3 / 4; i < mapShape.Length; i++)
+                    {
+                        for (int j = 0; j < mapShape[0].Length / 4; j++)
+                        {
+                            if (GetTile(j, i) != null)
+                            {
+                                v = new Vector2Int(j, i);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < mapShape.Length / 4; i++)
+                    {
+                        for (int j = 0; j < mapShape[0].Length / 4; j++)
+                        {
+                            if (GetTile(j, i) != null)
+                            {
+                                v = new Vector2Int(j, i);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    for (int i = 0; i < mapShape.Length / 4; i++)
+                    {
+                        for (int j = mapShape[0].Length * 3 / 4; j < mapShape[0].Length; j++)
+                        {
+                            if (GetTile(j, i) != null)
+                            {
+                                v = new Vector2Int(j, i);
+                                break;
+                            }
+                        }
+                    }
+                    break;
+            }
         }
+
         return v;
     }
 

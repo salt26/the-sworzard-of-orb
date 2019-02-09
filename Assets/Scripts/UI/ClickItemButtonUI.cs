@@ -19,7 +19,14 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
         if (gm.Turn == 0 && gm.IsSceneLoaded &&
             !gm.player.GetComponent<Mover>().IsMoving)
         {
-            if (!GetComponent<Button>().interactable)
+            string itemName = gm.player.GetComponent<Inventory>().FindItemNameInButton(GetComponent<Button>());
+            if (itemName != null && ItemManager.im.FindItemInfo(itemName).type == ItemInfo.Type.Orb &&
+                ItemManager.im.FindItemInfo(itemName).usage == ItemInfo.Usage.None)
+            {
+                if (GetComponent<Button>().interactable)
+                    GetComponent<Button>().interactable = false;
+            }
+            else if (!GetComponent<Button>().interactable)
                 GetComponent<Button>().interactable = true;
         }
         else if (gm.Turn == 3 && gm.IsSceneLoaded)

@@ -29,6 +29,7 @@ public class Character : Entity {
     private bool hasDamaged = false;
     //private bool hasHealed = false;
     private int weaponNum = -1;
+    private Vector3 damagedDirection = new Vector3();
 
     public Mover Mover
     {
@@ -103,9 +104,10 @@ public class Character : Entity {
     /// 해당 턴의 모든 대미지 계산이 완료된 후, 반드시 DamagedAnimation()이 호출되어야 합니다.
     /// </summary>
     /// <param name="damage"></param>
-    public void Damaged(int damage)
+    public void Damaged(int damage, Vector3 direction)
     {
         currentHealth -= damage;
+        damagedDirection = direction;
         hasDamaged = true;
     }
 
@@ -117,7 +119,8 @@ public class Character : Entity {
         if (hasDamaged)
         {
             hasDamaged = false;
-            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI));
+            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI, damagedDirection));
+            damagedDirection = new Vector3();
         }
     }
 

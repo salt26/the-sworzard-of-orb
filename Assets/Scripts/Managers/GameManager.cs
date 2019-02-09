@@ -278,7 +278,7 @@ public class GameManager : MonoBehaviour {
         #region 맵 정보(MapInfo)에 따라 개체 생성 후 등록
         if (mapName != null)
         {
-            MapInfo mi = MapManager.mm.FindMapInfo(mapName);
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel[mapName]);
             if (mi != null)
             {
                 foreach (int id in mi.interactablesID)
@@ -382,7 +382,7 @@ public class GameManager : MonoBehaviour {
                                             }
                                             if (k == maxLoop - 1)
                                             {
-                                                Debug.LogWarning("Exceed max loop limit!");
+                                                //Debug.LogWarning("Exceed max loop limit!");
                                                 b2 = false;
                                             }
                                         }
