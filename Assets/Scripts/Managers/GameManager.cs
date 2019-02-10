@@ -150,8 +150,9 @@ public class GameManager : MonoBehaviour {
         {
             restartText.SetActive(false);
             player.GetComponent<Inventory>().RemoveAllItems();   // 가지고 있던 모든 아이템을 잃음
-            player.GetComponent<Inventory>().Gold = 0;
+            player.GetComponent<Inventory>().Gold /= 2;
             player.Revive();
+            mapLevel[map.mapName]--;
             ChangeScene("Town");
             /*
             // 0번 씬에 Manager 오브젝트가 있다고 가정
