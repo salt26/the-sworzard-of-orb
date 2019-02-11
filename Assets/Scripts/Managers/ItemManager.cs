@@ -195,7 +195,8 @@ public class ItemManager : MonoBehaviour {
     private class ItemEffect
     {
         // 이 클래스 안에는 아이템 효과 메서드만 정의되어야 하며,
-        // 이 안의 모든 메서드는 int 인자 하나를 받아 void 타입을 반환하는 static 메서드여야 합니다.
+        // 이 안의 모든 메서드는 int 인자 하나를 받아 bool 타입을 반환하는 static 메서드여야 합니다.
+        // 반환하는 값은 아이템이 성공적으로 사용되었는지 여부입니다.
 
         public static bool Heal(int heal)
         {
