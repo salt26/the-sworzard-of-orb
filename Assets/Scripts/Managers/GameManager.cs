@@ -144,8 +144,7 @@ public class GameManager : MonoBehaviour {
             if (b) NextTurn();
         }
 
-        // TODO 디버깅용 재시작 기능
-        // 최종 버전에서는 없어야 함
+        // 재시작 기능
         if (!player.Alive && Input.GetKeyDown(KeyCode.R))
         {
             restartText.SetActive(false);

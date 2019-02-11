@@ -35,69 +35,21 @@ public class Treasure : Interactable {
                 GameManager.gm.map.AddItemOnTile(1, GetComponent<Transform>().position);
 
             // Small potion
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 if (Random.Range(0f, 1f) < 0.5f)
                     GameManager.gm.map.AddItemOnTile(2, GetComponent<Transform>().position);
             }
 
-            // An orb (lv.1 ~ lv.2)
+            // Random orb (lv.1 ~ lv.2)
             float r = Random.Range(0f, 1f);
-            if (r < 0.2f)
+            if (r < 0.8f)
             {
-                GameManager.gm.map.AddItemOnTile(100, GetComponent<Transform>().position);
-            }
-            else if (r < 0.4f)
-            {
-                GameManager.gm.map.AddItemOnTile(101, GetComponent<Transform>().position);
-            }
-            else if(r < 0.6f)
-            {
-                GameManager.gm.map.AddItemOnTile(102, GetComponent<Transform>().position);
-            }
-            else if (r < 0.8f)
-            {
-                GameManager.gm.map.AddItemOnTile(103, GetComponent<Transform>().position);
-            }
-            else if (r < 0.82f)
-            {
-                GameManager.gm.map.AddItemOnTile(104, GetComponent<Transform>().position);
-            }
-            else if (r < 0.84f)
-            {
-                GameManager.gm.map.AddItemOnTile(105, GetComponent<Transform>().position);
-            }
-            else if (r < 0.86f)
-            {
-                GameManager.gm.map.AddItemOnTile(106, GetComponent<Transform>().position);
-            }
-            else if (r < 0.88f)
-            {
-                GameManager.gm.map.AddItemOnTile(107, GetComponent<Transform>().position);
-            }
-            else if (r < 0.9f)
-            {
-                GameManager.gm.map.AddItemOnTile(108, GetComponent<Transform>().position);
-            }
-            else if (r < 0.92f)
-            {
-                GameManager.gm.map.AddItemOnTile(109, GetComponent<Transform>().position);
-            }
-            else if (r < 0.94f)
-            {
-                GameManager.gm.map.AddItemOnTile(110, GetComponent<Transform>().position);
-            }
-            else if (r < 0.96f)
-            {
-                GameManager.gm.map.AddItemOnTile(111, GetComponent<Transform>().position);
-            }
-            else if (r < 0.98f)
-            {
-                GameManager.gm.map.AddItemOnTile(112, GetComponent<Transform>().position);
+                GameManager.gm.map.AddItemOnTile(3, GetComponent<Transform>().position);
             }
             else
             {
-                GameManager.gm.map.AddItemOnTile(113, GetComponent<Transform>().position);
+                GameManager.gm.map.AddItemOnTile(4, GetComponent<Transform>().position);
             }
 
             foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())

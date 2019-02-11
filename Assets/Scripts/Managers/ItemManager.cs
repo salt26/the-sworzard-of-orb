@@ -183,8 +183,7 @@ public class ItemManager : MonoBehaviour {
             Debug.LogWarning("There is no effect method named '" + effectName + "'!");
             return false;
         }
-        mi.Invoke(null, new object[] { param });
-        return true;
+        return (bool)mi.Invoke(null, new object[] { param });
     }
 
 
@@ -198,9 +197,27 @@ public class ItemManager : MonoBehaviour {
         // 이 클래스 안에는 아이템 효과 메서드만 정의되어야 하며,
         // 이 안의 모든 메서드는 int 인자 하나를 받아 void 타입을 반환하는 static 메서드여야 합니다.
 
-        public static void Heal(int heal)
+        public static bool Heal(int heal)
         {
             GameManager.gm.player.Healed(heal);
+            return true;
+        }
+
+        public static bool Transform(int level)
+        {
+            Inventory inv = GameManager.gm.player.GetComponent<Inventory>();
+
+            List<ItemInfo> l = new List<ItemInfo>();
+            foreach (KeyValuePair<int, ItemInfo> p in ItemManager.im.itemInfo)
+            {
+                // TODO 레벨에 맞는 오브만 골라서 리스트 만들기
+                if (p.Value.type == ItemInfo.Type.Orb && p.Value.level == level)
+                {
+                    l.Add(p.Value);
+                }
+            }
+
+            return inv.AddItem(l[Random.Range(0, l.Count)].name);
         }
     }
     
