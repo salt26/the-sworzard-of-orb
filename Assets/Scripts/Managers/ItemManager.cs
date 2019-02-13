@@ -28,6 +28,8 @@ public class ItemManager : MonoBehaviour {
 
     public const float sellDiscount = 0.6f; // 아이템 구매 가격에 이 비율이 곱해진 것이 판매 가격
 
+    public delegate void Effect(Character target);
+
     public GameObject Gold
     {
         get
@@ -178,7 +180,7 @@ public class ItemManager : MonoBehaviour {
     public bool InvokeItemEffect(string effectName, int param)
     {
         if (effectName == null || effectName.Equals("")) return false;
-        MethodInfo mi = typeof(ItemEffect).GetMethod(effectName);
+        MethodInfo mi = typeof(ItemEffect).GetMethod(effectName, BindingFlags.Public | BindingFlags.Static);
         if (mi == null)
         {
             Debug.LogWarning("There is no item effect method named '" + effectName + "'!");
@@ -187,16 +189,16 @@ public class ItemManager : MonoBehaviour {
         return (bool)mi.Invoke(null, new object[] { param });
     }
 
-    public Action GetOrbEffect(string effectName, int param)
+    public Effect GetOrbEffect(string effectName, int param)
     {
         if (effectName == null) return null;
-        MethodInfo mi = typeof(OrbEffect).GetMethod(effectName);
+        MethodInfo mi = typeof(OrbEffect).GetMethod(effectName, BindingFlags.Public | BindingFlags.Static);
         if (mi == null)
         {
             Debug.LogWarning("There is no orb effect method named '" + effectName + "'!");
             return null;
         }
-        return () => mi.Invoke(null, new object[] { param });
+        return (Character target) => mi.Invoke(null, new object[] { param, target });
     }
 
 
@@ -241,19 +243,20 @@ public class ItemManager : MonoBehaviour {
 
     private class OrbEffect
     {
-        public static void Stun(int probability)
+        public static void Stun(int probability, Character target)
         {
-
+            Debug.Log("Stun " + probability + " to " + target.name);
         }
 
-        public static void Intoxicate(int poisonDamage)
+        public static void Intoxicate(int poisonDamage, Character target)
         {
-
+            Debug.Log("Intoxicate " + poisonDamage + " to " + target.name);
+            target.poisonDamage = poisonDamage;
         }
 
-        public static void Flurry(int splashDamage)
+        public static void Flurry(int splashDamage, Character target)
         {
-
+            Debug.Log("Flurry " + splashDamage + " to " + target.name);
         }
     }
 
@@ -330,7 +333,7 @@ public class ItemInfo
                 GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+                    GameManager.gm.player.armor.armorEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
                 }
                 return true;
             }

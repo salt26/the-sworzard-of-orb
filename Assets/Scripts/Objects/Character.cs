@@ -115,6 +115,16 @@ public class Character : Entity {
     }
 
     /// <summary>
+    /// 공격자의 무기에 적용되어 있던 effects를 이 대상에게 적용합니다.
+    /// </summary>
+    /// <param name="effects"></param>
+    public void DamagedWithEffects(ItemManager.Effect effects)
+    {
+        if (effects != null && effects.GetInvocationList().Length > 0)
+            effects(this);
+    }
+
+    /// <summary>
     /// 대미지 계산이 완료된 후, 피격 애니메이션을 재생하기 위해 호출됩니다.
     /// </summary>
     public void DamagedAnimation()

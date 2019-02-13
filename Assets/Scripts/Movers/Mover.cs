@@ -25,7 +25,12 @@ public class Mover : MonoBehaviour {
 
     public IEnumerator PoisonedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
-        int frame = 16;
+        yield return null;
+        while (IsMoving)
+        {
+            yield return null;
+        }
+        int frame = 30;
 
         for (int i = 0; i < frame; i++)
         {

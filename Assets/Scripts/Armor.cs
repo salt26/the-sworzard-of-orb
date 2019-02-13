@@ -6,7 +6,7 @@ using UnityEngine;
 public class Armor {
 
     public Element element;
-    public List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
+    public ItemManager.Effect armorEffect;
 
     /// <summary>
     /// 유효 방어구 속성을 반환합니다.

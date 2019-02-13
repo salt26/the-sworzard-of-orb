@@ -522,6 +522,7 @@ public class EnemyMover : Mover {
             if (i == frame / 3)
             {
                 player.Damaged(damage, direction);
+                player.DamagedWithEffects(GetComponent<Character>().EquippedWeapon.afterAttackEffect);
                 isMoved = true;
             }
 
