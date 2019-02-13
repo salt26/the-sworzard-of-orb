@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System;
 
 /// <summary>
 /// 각종 아이템의 정보를 들고 있습니다.
@@ -174,16 +175,28 @@ public class ItemManager : MonoBehaviour {
     /// </summary>
     /// <param name="effectName">효과 메서드 이름</param>
     /// <param name="param">효과의 수치 인자</param>
-    public bool InvokeEffect(string effectName, int param)
+    public bool InvokeItemEffect(string effectName, int param)
     {
         if (effectName == null || effectName.Equals("")) return false;
         MethodInfo mi = typeof(ItemEffect).GetMethod(effectName);
         if (mi == null)
         {
-            Debug.LogWarning("There is no effect method named '" + effectName + "'!");
+            Debug.LogWarning("There is no item effect method named '" + effectName + "'!");
             return false;
         }
         return (bool)mi.Invoke(null, new object[] { param });
+    }
+
+    public Action GetOrbEffect(string effectName, int param)
+    {
+        if (effectName == null) return null;
+        MethodInfo mi = typeof(OrbEffect).GetMethod(effectName);
+        if (mi == null)
+        {
+            Debug.LogWarning("There is no orb effect method named '" + effectName + "'!");
+            return null;
+        }
+        return () => mi.Invoke(null, new object[] { param });
     }
 
 
@@ -218,10 +231,32 @@ public class ItemManager : MonoBehaviour {
                 }
             }
 
-            return inv.AddItem(l[Random.Range(0, l.Count)].name);
+            return inv.AddItem(l[UnityEngine.Random.Range(0, l.Count)].name);
         }
     }
-    
+
+    #endregion
+
+    #region 오브 효과(Effect) 메서드
+
+    private class OrbEffect
+    {
+        public static void Stun(int probability)
+        {
+
+        }
+
+        public static void Intoxicate(int poisonDamage)
+        {
+
+        }
+
+        public static void Flurry(int splashDamage)
+        {
+
+        }
+    }
+
     #endregion
 }
 
@@ -271,7 +306,7 @@ public class ItemInfo
     {
         if (type == Type.Consumable)
         {
-            return ItemManager.im.InvokeEffect(effectName, effectParam);
+            return ItemManager.im.InvokeItemEffect(effectName, effectParam);
         }
         else
         {
@@ -283,7 +318,9 @@ public class ItemInfo
                 GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+                    //GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+                    GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+                    
                 }
                 return true;
             }

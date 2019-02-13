@@ -179,9 +179,9 @@ MonoBehaviour:
     range: 1
   - name: Spear
     element:
-      fire: 3
-      ice: 3
-      nature: 3
+      fire: 4
+      ice: 4
+      nature: 4
     range: 2
   armor:
     element:
@@ -191,6 +191,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   statusUI: {fileID: 0}
   oldHealth: 0
+  poisonDamage: 0
 --- !u!114 &114983017880003552
 MonoBehaviour:
   m_ObjectHideFlags: 1
