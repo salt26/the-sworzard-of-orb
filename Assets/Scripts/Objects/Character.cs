@@ -23,6 +23,8 @@ public class Character : Entity {
 
     [HideInInspector]
     public int oldHealth;       // 플레이어가 자신의 턴을 넘길 때 남아있던 체력
+    [HideInInspector]
+    public int poisonDamage;
 
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
@@ -91,6 +93,7 @@ public class Character : Entity {
             healthBar.value = currentHealth;
         }
         oldHealth = currentHealth;
+        poisonDamage = 0;
         ToggleWeapon();
         
         if (statusUI != null)
@@ -122,6 +125,18 @@ public class Character : Entity {
             StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI, damagedDirection));
             damagedDirection = new Vector3();
         }
+    }
+
+    /// <summary>
+    /// 중독 효과의 대미지를 받을 때 호출됩니다.
+    /// 대미지 계산이 완료된 후 중독 애니메이션까지 재생됩니다.
+    /// </summary>
+    public void Poisoned()
+    {
+        oldHealth = currentHealth;
+        currentHealth -= poisonDamage;
+        poisonDamage = 0;
+        StartCoroutine(Mover.PoisonedAnimation(oldHealth, healthBar, statusUI));
     }
 
     public void Healed(int heal)

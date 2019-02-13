@@ -242,7 +242,7 @@ public class ItemInfo
 
     public int price;       // 상점에서 구매할 때의 가격
 
-    public string effectName;
+    public string effectName = "None";
     public int effectParam;
     
     /// <summary>
@@ -281,12 +281,20 @@ public class ItemInfo
             {
                 GameManager.gm.player.EquippedWeapon.element += stat;
                 GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
+                if (effectName != null && !effectName.Equals("None"))
+                {
+                    GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+                }
                 return true;
             }
             else if (usage == Usage.Armor)
             {
                 GameManager.gm.player.armor.element += stat;
                 GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
+                if (effectName != null && !effectName.Equals("None"))
+                {
+                    GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+                }
                 return true;
             }
             else

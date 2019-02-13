@@ -464,6 +464,14 @@ public class GameManager : MonoBehaviour {
 
         if (oldTurn == 0)
         {
+            // 플레이어의 턴이 끝남
+
+            // 중독 효과의 대미지 처리
+            if (player.poisonDamage > 0)
+            {
+                player.Poisoned();
+            }
+
             // 턴을 넘길 때의 플레이어의 현재 체력을 기억
             player.oldHealth = player.currentHealth;
             foreach (Character e in enemies)
@@ -473,9 +481,17 @@ public class GameManager : MonoBehaviour {
         }
         else if (oldTurn == 1)
         {
-            // 턴을 넘길 때의 각 적의 현재 체력을 기억
+            // 적들의 턴이 끝남
+
             foreach (Character e in enemies)
             {
+                // 중독 효과의 대미지 처리
+                if (e.poisonDamage > 0)
+                {
+                    e.Poisoned();
+                }
+
+                // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
             }
             player.DamagedAnimation();

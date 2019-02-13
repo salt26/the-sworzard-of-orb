@@ -9,6 +9,7 @@ public class Weapon {
     public string name;
     public Element element;
     public int range;
+    public List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
     public delegate void WeaponEffect(int param);
     //public WeaponEffect afterAttackEffect;
 
