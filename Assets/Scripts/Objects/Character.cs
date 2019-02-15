@@ -25,6 +25,8 @@ public class Character : Entity {
     public int oldHealth;       // 플레이어가 자신의 턴을 넘길 때 남아있던 체력
     [HideInInspector]
     public int poisonDamage;
+    [HideInInspector]
+    public bool hasStuned;
 
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
@@ -94,6 +96,7 @@ public class Character : Entity {
         }
         oldHealth = currentHealth;
         poisonDamage = 0;
+        hasStuned = false;
         ToggleWeapon();
         
         if (statusUI != null)

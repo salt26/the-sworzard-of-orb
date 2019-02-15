@@ -107,6 +107,12 @@ public class EnemyMover : Mover {
         }
         else if (gm.Turn == 1 && !isMoving && !isMoved)
         {
+            if (c.hasStuned)
+            {
+                c.hasStuned = false;
+                isMoved = true;
+                return;
+            }
             Vector3 playerPos = VectorUtility.PositionToInt(gm.player.GetComponent<Transform>().position);
             Vector3 destination;
 
@@ -515,20 +521,30 @@ public class EnemyMover : Mover {
         for (int i = 0; i < frame; i++)
         {
             if (i < frame / 3)
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
+            {
+                //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
+                if (!direction.Equals(new Vector3()))
+                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)i / frame * 2);
+            }
             else
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
+            {
+                //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
+                if (!direction.Equals(new Vector3()))
+                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)(frame - i) / frame * 2);
+            }
 
             if (i == frame / 3)
             {
                 player.Damaged(damage, direction);
-                player.DamagedWithEffects(GetComponent<Character>().EquippedWeapon.afterAttackEffect);
+                player.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
                 isMoved = true;
             }
 
             yield return null;
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        if (!direction.Equals(new Vector3()))
+            t.position = origin;
         isMoving = false;
     }
 
@@ -537,7 +553,7 @@ public class EnemyMover : Mover {
         isMoving = true;
         int frame = 16;
 
-        GetComponent<Character>().SelectThisCharacter();
+        c.SelectThisCharacter();
         Vector3 originalPosition = t.position;
 
         for (int i = 0; i < frame; i++)
@@ -560,7 +576,7 @@ public class EnemyMover : Mover {
                 healthBar.value = f;
             if (statusUI != null)
             {
-                statusUI.UpdateAll(GetComponent<Character>(), (int)f);
+                statusUI.UpdateAll(c, (int)f);
             }
 
             yield return null;
@@ -569,7 +585,7 @@ public class EnemyMover : Mover {
             healthBar.value = c.currentHealth;
         if (statusUI != null)
         {
-            statusUI.UpdateAll (GetComponent<Character>(), c.currentHealth);
+            statusUI.UpdateAll(c, c.currentHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         if (!direction.Equals(new Vector3()))
@@ -583,7 +599,7 @@ public class EnemyMover : Mover {
     /// </summary>
     public override void Death()
     {
-        if (GetComponent<Character>().Equals(gm.SelectedCharacter))
+        if (c.Equals(gm.SelectedCharacter))
         {
             gm.SelectCharacter(null);
         }

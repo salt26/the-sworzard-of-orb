@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
-using System;
 
 /// <summary>
 /// 각종 아이템의 정보를 들고 있습니다.
@@ -233,7 +232,7 @@ public class ItemManager : MonoBehaviour {
                 }
             }
 
-            return inv.AddItem(l[UnityEngine.Random.Range(0, l.Count)].name);
+            return inv.AddItem(l[Random.Range(0, l.Count)].name);
         }
     }
 
@@ -245,12 +244,15 @@ public class ItemManager : MonoBehaviour {
     {
         public static void Stun(int probability, Character target)
         {
-            Debug.Log("Stun " + probability + " to " + target.name);
+            if (Random.Range(0f, 1f) < probability / 100f)
+            {
+                Debug.Log(target.name + " stunned!");
+                target.hasStuned = true;
+            }
         }
 
         public static void Intoxicate(int poisonDamage, Character target)
         {
-            Debug.Log("Intoxicate " + poisonDamage + " to " + target.name);
             target.poisonDamage = poisonDamage;
         }
 

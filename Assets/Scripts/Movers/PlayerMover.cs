@@ -26,6 +26,12 @@ public class PlayerMover : Mover {
 	void Update () {
 		if (gm.Turn == 0 && gm.IsSceneLoaded && !isMoving)
         {
+            if (c.hasStuned)
+            {
+                c.hasStuned = false;
+                gm.NextTurn();
+                return;
+            }
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -40,7 +46,7 @@ public class PlayerMover : Mover {
                 {
                     Interaction(new Vector3(-1f, 0f, 0f), false);
                 }
-                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 &&
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && c.EquippedWeapon.Range == 2 &&
                     gm.map.GetEntityOnTile(x - 1, y) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x - 1, y).GetType()))
                 {
                     Interaction(new Vector3(-1f, 0f, 0f), false);
@@ -59,7 +65,7 @@ public class PlayerMover : Mover {
                 {
                     Interaction(new Vector3(1f, 0f, 0f), false);
                 }
-                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 && 
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && c.EquippedWeapon.Range == 2 && 
                     gm.map.GetEntityOnTile(x + 1, y) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x + 1, y).GetType()))
                 {
                     Interaction(new Vector3(1f, 0f, 0f), false);
@@ -77,7 +83,7 @@ public class PlayerMover : Mover {
                 {
                     Interaction(new Vector3(0f, 1f, 0f), false);
                 }
-                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 &&
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && c.EquippedWeapon.Range == 2 &&
                     gm.map.GetEntityOnTile(x, y + 1) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x, y + 1).GetType()))
                 {
                     Interaction(new Vector3(0f, 1f, 0f), false);
@@ -95,7 +101,7 @@ public class PlayerMover : Mover {
                 {
                     Interaction(new Vector3(0f, -1f, 0f), false);
                 }
-                else if (gm.map.GetTypeOfTile(x, y) == 1 && GetComponent<Character>().EquippedWeapon.Range == 2 &&
+                else if (gm.map.GetTypeOfTile(x, y) == 1 && c.EquippedWeapon.Range == 2 &&
                     gm.map.GetEntityOnTile(x, y - 1) != null && typeof(Character).IsAssignableFrom(gm.map.GetEntityOnTile(x, y - 1).GetType()))
                 {
                     Interaction(new Vector3(0f, -1f, 0f), false);
@@ -205,9 +211,17 @@ public class PlayerMover : Mover {
         for (int i = 0; i < frame; i++)
         {
             if (i < frame / 3)
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
+            {
+                //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
+                if (!direction.Equals(new Vector3()))
+                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)i / frame * 2);
+            }
             else
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
+            {
+                //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
+                if (!direction.Equals(new Vector3()))
+                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)(frame - i) / frame * 2);
+            }
 
             if (i == frame / 3)
             {
@@ -215,7 +229,7 @@ public class PlayerMover : Mover {
                 {
                     enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, bonusDamage), direction);
                     //enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Attack()) - enemy.armor.Defense()));
-                    enemy.DamagedWithEffects(GetComponent<Character>().EquippedWeapon.afterAttackEffect);
+                    enemy.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
                 }
 
                 gm.NextTurn();
@@ -223,7 +237,9 @@ public class PlayerMover : Mover {
 
             yield return null;
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        if (!direction.Equals(new Vector3()))
+            t.position = origin;
         isMoving = false;
     }
 
@@ -253,7 +269,7 @@ public class PlayerMover : Mover {
                 healthBar.value = f;
             if (statusUI != null)
             {
-                statusUI.UpdateAll(GetComponent<Character>(), (int)f);
+                statusUI.UpdateAll(c, (int)f);
             }
 
             yield return null;
@@ -262,7 +278,7 @@ public class PlayerMover : Mover {
             healthBar.value = c.currentHealth;
         if (statusUI != null)
         {
-            statusUI.UpdateAll(GetComponent<Character>(), c.currentHealth);
+            statusUI.UpdateAll(c, c.currentHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         if (!direction.Equals(new Vector3()))
