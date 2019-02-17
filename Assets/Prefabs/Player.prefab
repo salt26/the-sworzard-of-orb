@@ -192,6 +192,7 @@ MonoBehaviour:
   statusUI: {fileID: 0}
   oldHealth: 0
   poisonDamage: 0
+  hasStuned: 0
 --- !u!114 &114983017880003552
 MonoBehaviour:
   m_ObjectHideFlags: 1

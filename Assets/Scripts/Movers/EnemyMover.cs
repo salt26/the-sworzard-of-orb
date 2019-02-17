@@ -524,13 +524,13 @@ public class EnemyMover : Mover {
             {
                 //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
                 if (!direction.Equals(new Vector3()))
-                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)i / frame * 2);
+                    t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)i / frame * 2);
             }
             else
             {
                 //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
                 if (!direction.Equals(new Vector3()))
-                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)(frame - i) / frame * 2);
+                    t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)(frame - i) / frame * 2);
             }
 
             if (i == frame / 3)

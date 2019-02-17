@@ -33,7 +33,7 @@ public class PlayerMover : Mover {
                 return;
             }
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 int x = Mathf.RoundToInt(t.position.x - 1f), y = Mathf.RoundToInt(t.position.y);
 
@@ -52,7 +52,7 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(-1f, 0f, 0f), false);
                 }
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
                 int x = Mathf.RoundToInt(t.position.x + 1f), y = Mathf.RoundToInt(t.position.y);
 
@@ -71,7 +71,7 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(1f, 0f, 0f), false);
                 }
             }
-            else if (Input.GetKey(KeyCode.UpArrow))
+            else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
                 int x = Mathf.RoundToInt(t.position.x), y = Mathf.RoundToInt(t.position.y + 1f);
 
@@ -89,7 +89,7 @@ public class PlayerMover : Mover {
                     Interaction(new Vector3(0f, 1f, 0f), false);
                 }
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 int x = Mathf.RoundToInt(t.position.x), y = Mathf.RoundToInt(t.position.y - 1f);
 
@@ -214,13 +214,13 @@ public class PlayerMover : Mover {
             {
                 //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
                 if (!direction.Equals(new Vector3()))
-                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)i / frame * 2);
+                    t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)i / frame * 2);
             }
             else
             {
                 //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
                 if (!direction.Equals(new Vector3()))
-                    t.position = Vector3.Lerp(origin, origin + 0.2f * direction, (float)(frame - i) / frame * 2);
+                    t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)(frame - i) / frame * 2);
             }
 
             if (i == frame / 3)

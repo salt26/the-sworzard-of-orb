@@ -224,9 +224,12 @@ public class GameManager : MonoBehaviour {
         {
             map.mapName = mapName;
             mapAutoGeneration = true;
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel[mapName]);
+            map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringUtility.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
+            map.GetComponent<AudioSource>().Play();
         }
         map.Initialize(mapAutoGeneration);
-        
+
         AvailableTile availableTile = new AvailableTile(map.MapSize, map.BottomLeft);    // 맵의 각 타일 위에 새 개체를 놓을 수 있는지 확인
 
         for (int i = (int)map.BottomLeft.x; i <= (int)map.TopRight.x; i++)

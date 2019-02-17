@@ -75,6 +75,7 @@ public class MapInfo
     public int height;
     public List<GameObject> tilePrefab;
     public Color backgroundColor;
+    public string backgroundMusic;
     public List<int> enemiesID = new List<int>();
     public List<int> interactablesID = new List<int>();
 }
