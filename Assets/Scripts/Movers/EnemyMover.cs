@@ -502,7 +502,7 @@ public class EnemyMover : Mover {
             if (!isCharge) bonus = 1f;
             StartCoroutine(AttackAnimation(direction, player,
                 //Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Attack()) - player.armor.Defense())));
-                player.armor.ComputeDamage(c.EquippedWeapon, bonus)));
+                player.armor.ComputeDamage(c.EquippedWeapon, bonus), (bonus > 1f)));
         }
         else
         {
@@ -512,7 +512,7 @@ public class EnemyMover : Mover {
     }
 
     // TODO direction은 현재 사용하지 않음.
-    IEnumerator AttackAnimation(Vector3 direction, Character player, int damage)
+    IEnumerator AttackAnimation(Vector3 direction, Character player, int damage, bool isCritical)
     {
         isMoving = true;
         int frame = 20;
@@ -535,7 +535,7 @@ public class EnemyMover : Mover {
 
             if (i == frame / 3)
             {
-                player.Damaged(damage, direction);
+                player.Damaged(damage, direction, isCritical);
                 player.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
                 isMoved = true;
             }
@@ -548,13 +548,19 @@ public class EnemyMover : Mover {
         isMoving = false;
     }
 
-    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3())
+    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3(), bool isCritical = false)
     {
         isMoving = true;
         int frame = 16;
 
         c.SelectThisCharacter();
         Vector3 originalPosition = t.position;
+
+        if (!direction.Equals(new Vector3()))
+        {
+            GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
+            g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, isCritical);
+        }
 
         for (int i = 0; i < frame; i++)
         {

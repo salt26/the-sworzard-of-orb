@@ -10,6 +10,9 @@ public class Mover : MonoBehaviour {
 
     protected Character c;
 
+    [SerializeField]
+    protected GameObject damageNumber;
+
     public bool IsMoving
     {
         get
@@ -18,7 +21,7 @@ public class Mover : MonoBehaviour {
         }
     }
 
-    public virtual IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3())
+    public virtual IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3(), bool isCritical = false)
     {
         yield return null;
     }

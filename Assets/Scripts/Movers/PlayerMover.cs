@@ -227,7 +227,7 @@ public class PlayerMover : Mover {
             {
                 foreach (Character enemy in enemies)
                 {
-                    enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, bonusDamage), direction);
+                    enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, bonusDamage), direction, (bonusDamage > 1f));
                     //enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Attack()) - enemy.armor.Defense()));
                     enemy.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
                 }
@@ -243,12 +243,18 @@ public class PlayerMover : Mover {
         isMoving = false;
     }
 
-    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3())
+    public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3(), bool isCritical = false)
     {
         isMoving = true;
         int frame = 16;
         Vector3 originalPosition = t.position;
         DamagedScreen damagedScreen = GameManager.gm.Canvas.GetComponent<UIInfo>().DamagedPanel;
+
+        if (!direction.Equals(new Vector3()))
+        {
+            GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
+            g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, isCritical);
+        }
 
         for (int i = 0; i < frame; i++)
         {

@@ -207,7 +207,10 @@ MonoBehaviour:
       nature: 0
   healthBar: {fileID: 114519151274808870}
   statusUI: {fileID: 0}
+  canvas: {fileID: 1012289520869148}
   oldHealth: 0
+  poisonDamage: 0
+  hasStuned: 0
 --- !u!114 &114267566674906548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,6 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageNumber: {fileID: 1333834462180064, guid: 591e346fe4845204187a0680d2daf22a,
+    type: 2}
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}

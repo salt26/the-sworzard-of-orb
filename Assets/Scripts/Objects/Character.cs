@@ -20,6 +20,7 @@ public class Character : Entity {
     [Header("Reference")]
     public Slider healthBar;
     public StatusUI statusUI;
+    public GameObject canvas;
 
     [HideInInspector]
     public int oldHealth;       // 플레이어가 자신의 턴을 넘길 때 남아있던 체력
@@ -34,6 +35,7 @@ public class Character : Entity {
     //private bool hasHealed = false;
     private int weaponNum = -1;
     private Vector3 damagedDirection = new Vector3();
+    private bool isCriticalDamage = false;
 
     public Mover Mover
     {
@@ -110,10 +112,11 @@ public class Character : Entity {
     /// 해당 턴의 모든 대미지 계산이 완료된 후, 반드시 DamagedAnimation()이 호출되어야 합니다.
     /// </summary>
     /// <param name="damage"></param>
-    public void Damaged(int damage, Vector3 direction)
+    public void Damaged(int damage, Vector3 direction, bool isCritical)
     {
         currentHealth -= damage;
         damagedDirection = direction;
+        isCriticalDamage = isCritical;
         hasDamaged = true;
     }
 
@@ -135,7 +138,7 @@ public class Character : Entity {
         if (hasDamaged)
         {
             hasDamaged = false;
-            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI, damagedDirection));
+            StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI, damagedDirection, isCriticalDamage));
             damagedDirection = new Vector3();
         }
     }
