@@ -13,6 +13,7 @@ public class UIInfo : MonoBehaviour {
     public StatusUI playerStatusUI;
     public Text goldText;
     public List<Button> itemButtons;
+    public DamagedScreen DamagedPanel;
 
     [Header("GM")]
     public Image turnMark;

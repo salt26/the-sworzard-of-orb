@@ -248,6 +248,7 @@ public class PlayerMover : Mover {
         isMoving = true;
         int frame = 16;
         Vector3 originalPosition = t.position;
+        DamagedScreen damagedScreen = GameManager.gm.Canvas.GetComponent<UIInfo>().DamagedPanel;
 
         for (int i = 0; i < frame; i++)
         {
@@ -262,6 +263,11 @@ public class PlayerMover : Mover {
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (float)(frame - i) / frame * 2);
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (float)(frame - i) / frame * 2);
+            }
+
+            if (c.currentHealth <= c.maxHealth / 3)
+            {
+                damagedScreen.StartEffect();
             }
 
             float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
