@@ -271,9 +271,13 @@ public class PlayerMover : Mover {
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (float)(frame - i) / frame * 2);
             }
 
-            if (c.currentHealth <= c.maxHealth / 3)
+            if (c.currentHealth <= c.maxHealth / 6)
             {
-                damagedScreen.StartEffect();
+                damagedScreen.StartEffect(true);
+            }
+            else if (c.currentHealth <= c.maxHealth / 3)
+            {
+                damagedScreen.StartEffect(false);
             }
 
             float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));

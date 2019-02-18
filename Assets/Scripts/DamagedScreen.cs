@@ -16,25 +16,27 @@ public class DamagedScreen : MonoBehaviour {
         stop = false;
 	}
 	
-	public void StartEffect()
+	public void StartEffect(bool isDangerous)
     {
         if (isAnimating) return;
         stop = true;
-        StartCoroutine(DamagedEffect());
+        StartCoroutine(DamagedEffect(isDangerous));
     }
 
-    IEnumerator DamagedEffect()
+    IEnumerator DamagedEffect(bool isDangerous)
     {
         isAnimating = true;
 
         float frame1 = 8f, frame2 = 32f;
         Color originColor = screen.color;
+        Color destColor = new Color(1f, 1f, 1f, 0.5f);
+        if (isDangerous) destColor = new Color(1f, 1f, 1f, 1f);
 
         for (int i = 0; i < frame1 + frame2; i++)
         {
             if (i < frame1)
             {
-                screen.color = Color.Lerp(originColor, new Color(1f, 1f, 1f, 1f), i / frame1);
+                screen.color = Color.Lerp(originColor, destColor, i / frame1);
             }
             else
             {
@@ -43,7 +45,7 @@ public class DamagedScreen : MonoBehaviour {
                     isAnimating = false;
                     stop = false;
                 }
-                screen.color = Color.Lerp(new Color(1f, 1f, 1f, 0f), new Color(1f, 1f, 1f, 1f), (frame1 + frame2 - i) / frame2);
+                screen.color = Color.Lerp(new Color(1f, 1f, 1f, 0f), destColor, (frame1 + frame2 - i) / frame2);
                 if (!isAnimating && stop)
                 {
                     stop = false;

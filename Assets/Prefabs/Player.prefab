@@ -208,7 +208,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f050f5a7580da194b8c407eecc5e3f39, type: 3}
   characterSprite:
   - {fileID: 21300000, guid: 62719de1c3acc7d41b442d70ebf94fde, type: 3}
-  - {fileID: 21300000, guid: 806e3fa8596dc964786a10b8e1aaf0e5, type: 3}
+  - {fileID: 21300000, guid: 5d589fd8f1dbedb46871197b803f3fe8, type: 3}
   distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
     type: 2}
 --- !u!114 &114926819351538088
