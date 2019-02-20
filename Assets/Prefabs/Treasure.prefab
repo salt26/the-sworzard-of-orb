@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 1673152786485688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 1}
   m_Children:
   - {fileID: 224136278795760644}
   m_Father: {fileID: 0}
@@ -138,7 +138,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32, z: 0.2}
+  m_Size: {x: 0.4, y: 0.4, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114005503509502600
 MonoBehaviour:
@@ -256,7 +256,10 @@ MonoBehaviour:
       nature: 0
   healthBar: {fileID: 114005503509502600}
   statusUI: {fileID: 0}
+  canvas: {fileID: 1054608039915104}
   oldHealth: 0
+  poisonDamage: 0
+  hasStuned: 0
 --- !u!114 &114643015861376058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -316,6 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39784306a36472d47909c6643c26c54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageNumber: {fileID: 1333834462180064, guid: 591e346fe4845204187a0680d2daf22a,
+    type: 2}
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}
@@ -465,7 +470,7 @@ RectTransform:
   m_GameObject: {fileID: 1054608039915104}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.005, y: 0.005, z: 1}
+  m_LocalScale: {x: 0.00625, y: 0.00625, z: 1}
   m_Children:
   - {fileID: 224583762318430140}
   m_Father: {fileID: 4364970901883842}

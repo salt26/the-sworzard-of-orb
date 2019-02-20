@@ -464,7 +464,7 @@ public class EnemyMover : Mover {
     IEnumerator MoveAnimation(Vector3 destination)
     {
         isMoving = true;
-        int frame = 20;
+        int frame = 18;
         Vector3 origin = t.position;
 
         // 애니메이션이 시작하기 전에 이동 판정 완료
@@ -517,12 +517,18 @@ public class EnemyMover : Mover {
     IEnumerator AttackAnimation(Vector3 direction, Character player, int damage, bool isCritical)
     {
         isMoving = true;
-        int frame = 20;
+        int frame = 20;     // int이어야 동작함. float이면 동작하지 않음
+        float frame2 = 6;
         Vector3 origin = t.position;
+
+        for (int i = 0; i < frame2; i++)
+        {
+            yield return null;
+        }
 
         for (int i = 0; i < frame; i++)
         {
-            if (i < frame / 3)
+            if (i < frame / 2)
             {
                 //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
                 if (!direction.Equals(new Vector3()))
@@ -535,7 +541,7 @@ public class EnemyMover : Mover {
                     t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)(frame - i) / frame * 2);
             }
 
-            if (i == frame / 3)
+            if (i == frame / 2)
             {
                 player.Damaged(damage, direction, isCritical);
                 player.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
@@ -553,7 +559,7 @@ public class EnemyMover : Mover {
     public override IEnumerator DamagedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3(), bool isCritical = false)
     {
         isMoving = true;
-        int frame = 16;
+        float frame = 16, frame2 = 0;
 
         c.SelectThisCharacter();
         Vector3 originalPosition = t.position;
@@ -566,27 +572,30 @@ public class EnemyMover : Mover {
             g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, dt);
         }
 
-        for (int i = 0; i < frame; i++)
+        for (int i = 0; i < frame + frame2; i++)
         {
             if (i < frame / 2)
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (float)i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), i / frame * 2);
                 if (!direction.Equals(new Vector3()))
-                    t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (float)i / frame * 2);
+                    t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, i / frame * 2);
             }
             else
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (float)(frame - i) / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (frame + frame2 - i) / (frame / 2 + frame2));
                 if (!direction.Equals(new Vector3()))
-                    t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (float)(frame - i) / frame * 2);
+                    t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (frame + frame2 - i) / (frame / 2 + frame2));
             }
-            
-            float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
-            if (healthBar != null)
-                healthBar.value = f;
-            if (statusUI != null)
+
+            if (i < frame)
             {
-                statusUI.UpdateAll(c, (int)f);
+                float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - (i / frame), 2f));
+                if (healthBar != null)
+                    healthBar.value = f;
+                if (statusUI != null)
+                {
+                    statusUI.UpdateAll(c, (int)f);
+                }
             }
 
             yield return null;
@@ -600,6 +609,13 @@ public class EnemyMover : Mover {
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         if (!direction.Equals(new Vector3()))
             t.position = originalPosition;
+        /*
+        for (int i = 0; i < frame3; i++)
+        {
+            yield return null;
+        }
+        */
+
         isMoving = false;
     }
 
