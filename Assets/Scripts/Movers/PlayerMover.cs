@@ -138,13 +138,15 @@ public class PlayerMover : Mover {
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, Mathf.Sqrt(Mathf.Sqrt((float)i / frame)));
+            /*
             if (i < frame / 2)
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)i / frame * 2);
             else
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)(frame - i) / frame * 2);
+                */
             yield return null;
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         t.position = destination;
         isMoving = false;
         gm.map.PickUpItemsOnTile(GetComponent<Inventory>(), t.position);
@@ -249,11 +251,13 @@ public class PlayerMover : Mover {
         int frame = 16;
         Vector3 originalPosition = t.position;
         DamagedScreen damagedScreen = GameManager.gm.Canvas.GetComponent<UIInfo>().DamagedPanel;
+        DamageNumber.DamageType dt = DamageNumber.DamageType.Normal;
+        if (isCritical) dt = DamageNumber.DamageType.Critical;
 
         if (!direction.Equals(new Vector3()))
         {
             GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
-            g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, isCritical);
+            g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, dt);
         }
 
         for (int i = 0; i < frame; i++)

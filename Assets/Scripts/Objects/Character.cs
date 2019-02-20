@@ -114,6 +114,7 @@ public class Character : Entity {
     /// <param name="damage"></param>
     public void Damaged(int damage, Vector3 direction, bool isCritical)
     {
+        if (!Alive) return;
         currentHealth -= damage;
         damagedDirection = direction;
         isCriticalDamage = isCritical;
@@ -149,6 +150,7 @@ public class Character : Entity {
     /// </summary>
     public void Poisoned()
     {
+        if (!Alive) return;
         oldHealth = currentHealth;
         currentHealth -= poisonDamage;
         poisonDamage = 0;
@@ -157,12 +159,13 @@ public class Character : Entity {
 
     public void Healed(int heal)
     {
+        if (!Alive) return;
         oldHealth = currentHealth;
         currentHealth += heal;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
 
         // TODO Heal 애니메이션 새로 만들기
-        StartCoroutine(Mover.DamagedAnimation(oldHealth, healthBar, statusUI));
+        StartCoroutine(Mover.HealedAnimation(oldHealth, healthBar, statusUI));
     }
 
     public void DeathCheck()

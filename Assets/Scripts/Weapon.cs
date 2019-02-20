@@ -45,7 +45,7 @@ public class Weapon {
     {
         Element e = new Element(element.Fire, element.Ice, element.Nature);
         if (Range > 1) e = e * new Vector3(1f / Range, 1f / Range, 1f / Range);
-        return e.Sum();
+        return Mathf.Clamp(e.Sum(), 0, 99);
     }
 
 
@@ -56,6 +56,6 @@ public class Weapon {
     public int Attack()
     {
         // TODO
-        return BaseAttack() + ValidElement().Sum();
+        return Mathf.Clamp(BaseAttack() + ValidElement().Sum(), 0, 999);
     }
 }

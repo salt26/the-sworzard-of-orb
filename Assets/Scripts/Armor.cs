@@ -24,7 +24,7 @@ public class Armor {
     public int Defense()
     {
         // TODO
-        return BaseDefense() + ValidElement().Sum();
+        return Mathf.Clamp(BaseDefense() + ValidElement().Sum(), 0, 999);
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class Armor {
     /// <returns></returns>
     public int BaseDefense()
     {
-        return element.Sum();
+        return Mathf.Clamp(element.Sum(), 0, 99);
     }
 
     /// <summary>
@@ -46,11 +46,11 @@ public class Armor {
     {
         //Mathf.Max(0, (int)(bonusDamage * otherWeapon.Attack()) - Defense())
 
-        int baseDamage = Mathf.Max(0, (int)(bonusDamage * otherWeapon.BaseAttack()) - BaseDefense());
-        int fire = Mathf.Max(0, otherWeapon.ValidElement().Fire - ValidElement().Fire);
-        int ice = Mathf.Max(0, otherWeapon.ValidElement().Ice - ValidElement().Ice);
-        int nature = Mathf.Max(0, otherWeapon.ValidElement().Nature - ValidElement().Nature);
+        int baseDamage = Mathf.Clamp((int)(bonusDamage * otherWeapon.BaseAttack()) - BaseDefense(), 0, 999);
+        int fire = Mathf.Clamp(otherWeapon.ValidElement().Fire - ValidElement().Fire, 0, 99);
+        int ice = Mathf.Clamp(otherWeapon.ValidElement().Ice - ValidElement().Ice, 0, 99);
+        int nature = Mathf.Clamp(otherWeapon.ValidElement().Nature - ValidElement().Nature, 0, 99);
 
-        return baseDamage + fire + ice + nature;
+        return Mathf.Clamp(baseDamage + fire + ice + nature, 0, 999);
     }
 }

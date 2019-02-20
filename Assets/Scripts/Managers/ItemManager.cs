@@ -253,7 +253,7 @@ public class ItemManager : MonoBehaviour {
 
         public static void Intoxicate(int poisonDamage, Character target)
         {
-            target.poisonDamage = poisonDamage;
+            target.poisonDamage += poisonDamage;
         }
 
         public static void Flurry(int splashDamage, Character target)

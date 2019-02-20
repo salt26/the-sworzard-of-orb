@@ -473,13 +473,15 @@ public class EnemyMover : Mover {
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);
+            /*
             if (i < frame / 2)
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)i / frame * 2);
             else
                 GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)(frame - i) / frame * 2);
+                */
             yield return null;
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         t.position = destination;
         isMoving = false;
         Attack(VectorUtility.PositionToInt((destination - origin).normalized), true); // TODO 택시 거리 1칸이 보장되지 않음
@@ -555,11 +557,13 @@ public class EnemyMover : Mover {
 
         c.SelectThisCharacter();
         Vector3 originalPosition = t.position;
+        DamageNumber.DamageType dt = DamageNumber.DamageType.Normal;
+        if (isCritical) dt = DamageNumber.DamageType.Critical;
 
         if (!direction.Equals(new Vector3()))
         {
             GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
-            g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, isCritical);
+            g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, dt);
         }
 
         for (int i = 0; i < frame; i++)

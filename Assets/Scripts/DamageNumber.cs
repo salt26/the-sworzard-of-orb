@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DamageNumber : MonoBehaviour {
 
+    public enum DamageType { Normal, Critical, Poison, Flurry, Heal }
     public List<GameObject> exponents;       // (10 ^ (index)) 이미지 그룹의 parent
 
     public List<GameObject> criticalMarks;  // (10 ^ (index)) 이미지 그룹의 크리티컬 마크
@@ -37,13 +38,12 @@ public class DamageNumber : MonoBehaviour {
         isInitialized = false;
     }
 	
-	public void Initialize(int damage, bool isCritical)
+	public void Initialize(int damage, DamageType damageType)
     {
         if (isInitialized) return;
         isInitialized = true;
-        
-        string critical = "N";
-        if (isCritical) critical = "C";
+
+        string type = damageType.ToString().Substring(0, 1);
 
         if (damage < 0)
         {
@@ -59,7 +59,7 @@ public class DamageNumber : MonoBehaviour {
         if (damage == 0) {
             exp = 0;
             numbers[0][0].GetComponent<Image>().sprite = 
-                Resources.Load("DamageNumber/" + critical + 0, typeof(Sprite)) as Sprite;
+                Resources.Load("DamageNumber/" + type + 0, typeof(Sprite)) as Sprite;
             numbers[0][0].SetActive(true);
             exponents[0].SetActive(true);
         }
@@ -71,13 +71,13 @@ public class DamageNumber : MonoBehaviour {
                 int n = (damage % (int)Mathf.Pow(10, i + 1)) / (int)Mathf.Pow(10, i);
 
                 g.GetComponent<Image>().sprite =
-                    Resources.Load("DamageNumber/" + critical + n, typeof(Sprite)) as Sprite;
+                    Resources.Load("DamageNumber/" + type + n, typeof(Sprite)) as Sprite;
                 g.SetActive(true);
             }
             exponents[exp].SetActive(true);
         }
 
-        if (isCritical)
+        if (damageType == DamageType.Critical)
         {
             criticalMarks[exp].SetActive(true);
         }
