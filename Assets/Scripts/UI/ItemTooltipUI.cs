@@ -30,7 +30,7 @@ public class ItemTooltipUI : TooltipUI {
             else
             {
                 itemTooltipText.resizeTextMaxSize = 36;
-                itemTooltipText.text = StringManager.sm.Translate(ii.tooltip);
+                itemTooltipText.text = StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString());
             }
         }
         else if (ButtonIndex >= 100 && ButtonIndex != 103 &&
@@ -75,6 +75,6 @@ public class ItemTooltipUI : TooltipUI {
             itemTooltipText.text += StringManager.sm.Translate("Armor only") + "\n";
         }
         //itemTooltipText.text += StringManager.sm.Translate(ii.effectName) + " " + ii.effectParam + "\n";   // TODO 예쁘게 보이게
-        itemTooltipText.text += "\n" + StringManager.sm.Translate(ii.tooltip);
+        itemTooltipText.text += "\n" + StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString());
     }
 }

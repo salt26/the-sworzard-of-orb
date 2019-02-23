@@ -85,6 +85,7 @@ Ingredient 재료
 Weapon_only 무기_전용
 Armor_only 방어구_전용
 # Map name
+Town 마을
 Green 그린
 Blue 블루
 Red 레드
@@ -119,3 +120,4 @@ Goodbye~ 잘_있어라~
 HP_: 체_:
 Atk: 공_:
 Def: 방_:
+Press_'R'_to_revive! R_키를_눌러_부활하세요!

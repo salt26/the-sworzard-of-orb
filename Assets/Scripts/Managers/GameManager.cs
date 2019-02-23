@@ -228,6 +228,7 @@ public class GameManager : MonoBehaviour {
             map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringManager.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
             map.GetComponent<AudioSource>().Play();
         }
+        StringManager.sm.RefreshTexts();
         map.Initialize(mapAutoGeneration);
 
         AvailableTile availableTile = new AvailableTile(map.MapSize, map.BottomLeft);    // 맵의 각 타일 위에 새 개체를 놓을 수 있는지 확인
@@ -573,6 +574,11 @@ public class GameManager : MonoBehaviour {
 
         if (selectedCharacter != null)
             mySelectedBorder = Instantiate(selectedBorderPrefab, c.GetComponent<Transform>());
+    }
+
+    public void RefreshRestartText()
+    {
+        restartText.GetComponent<Text>().text = StringManager.sm.Translate("Press 'R' to revive!");
     }
 }
 

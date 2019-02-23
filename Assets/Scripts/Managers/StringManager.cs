@@ -13,8 +13,9 @@ public class StringManager : MonoBehaviour {
     public enum Language { English = 0, Korean = 1 };
     
     private Language languageSetting = Language.Korean;
-    private delegate void AfterSetLanguage();
-    private AfterSetLanguage afterSetLanguage;
+    public delegate void AfterSetLanguage();
+    private static AfterSetLanguage afterSetLanguage;
+    private bool ready = false;     // Start가 호출된 후에 afterSetLanguage를 호출할 수 있음
     
     /// <summary>
     /// Key는 영어로 된 원래 문자열, Value는 언어 번호를 인덱스로 하는 번역 문자열 목록입니다.
@@ -34,12 +35,16 @@ public class StringManager : MonoBehaviour {
         set
         {
             languageSetting = value;
-            afterSetLanguage();
+            RefreshTexts();
         }
     }
     
     void Awake()
     {
+        if (sm != null)
+        {
+            return;
+        }
         sm = this;
     }
 
@@ -48,6 +53,9 @@ public class StringManager : MonoBehaviour {
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().playerStatusUI.RefreshText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().enemyStatusUI.RefreshText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().RefreshMenuTexts;
+        afterSetLanguage += MapManager.mm.RefreshMapText;
+        afterSetLanguage += GameManager.gm.RefreshRestartText;
+        ready = true;
         afterSetLanguage();
     }
 
@@ -117,6 +125,17 @@ public class StringManager : MonoBehaviour {
         else
         {
             return original;
+        }
+    }
+
+    /// <summary>
+    /// 각종 UI 텍스트를 현재 언어 설정에 맞게 새로고침합니다.
+    /// </summary>
+    public void RefreshTexts()
+    {
+        if (ready)
+        {
+            afterSetLanguage();
         }
     }
 }

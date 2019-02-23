@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour {
 
@@ -63,7 +64,20 @@ public class MapManager : MonoBehaviour {
         return null;
     }
 
-    
+    public void RefreshMapText()
+    {
+        string mapName;
+        if (GameManager.gm.map == null || GameManager.gm.map.mapName == null || GameManager.gm.map.mapName == "")
+        {
+            mapName = StringManager.sm.Translate(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            mapName = GameManager.gm.map.mapName;
+        }
+        if (mapText != null)
+            mapText.text = StringManager.sm.Translate(mapName);
+    }
 }
 
 [System.Serializable]

@@ -100,7 +100,7 @@ public class Map : MonoBehaviour {
                 tiles[(int)p.y - (int)bottomLeft.y][(int)p.x - (int)bottomLeft.x] = t;
             }
             if (MapManager.mm.mapText != null)
-                MapManager.mm.mapText.text = SceneManager.GetActiveScene().name;    // TODO
+                MapManager.mm.mapText.text = StringManager.sm.Translate(SceneManager.GetActiveScene().name);    // TODO
             if (Camera.main != null)
                 Camera.main.backgroundColor = MapManager.mm.townBackgroundColor;
         }
