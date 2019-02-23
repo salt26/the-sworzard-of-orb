@@ -150,7 +150,7 @@ public class Map : MonoBehaviour {
         }
 
         if (MapManager.mm.mapText != null)
-            MapManager.mm.mapText.text = mi.name;
+            MapManager.mm.mapText.text = StringManager.sm.Translate(mi.name);
 
         if (Camera.main != null)
             Camera.main.backgroundColor = mi.backgroundColor;

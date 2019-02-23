@@ -209,7 +209,7 @@ public class Character : Entity {
             // TODO 적은 무기 변경 불가
             weaponNum = 0;
             GetComponent<SpriteRenderer>().sprite = 
-                Resources.Load("Monsters/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
+                Resources.Load("Monsters/" + StringManager.ToPascalCase(name), typeof(Sprite)) as Sprite;
             return;
         }
         weaponNum++;

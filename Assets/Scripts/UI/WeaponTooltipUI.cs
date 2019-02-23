@@ -22,9 +22,9 @@ public class WeaponTooltipUI : TooltipUI {
         {
             weaponReference = GameManager.gm.player.EquippedWeapon;
         }
-        weaponNameText.text = weaponReference.name;
-        fireText.text = StringUtility.Padding(weaponReference.element.Fire);
-        iceText.text = StringUtility.Padding(weaponReference.element.Ice);
-        natureText.text = StringUtility.Padding(weaponReference.element.Nature);
+        weaponNameText.text = StringManager.sm.Translate(weaponReference.name);
+        fireText.text = StringManager.Padding(weaponReference.element.Fire);
+        iceText.text = StringManager.Padding(weaponReference.element.Ice);
+        natureText.text = StringManager.Padding(weaponReference.element.Nature);
     }
 }

@@ -1,0 +1,121 @@
+﻿# Translation Data
+# (@English name) (@locale0 name)[ (@locale1 name)...]
+#
+# locale0: English
+# locale1: Korean
+#
+# Item name
+No_item 없는_아이템
+Large_potion 대형_물약
+Small_potion 소형_물약
+Random_orb_1 무작위_오브_1
+Random_orb_2 무작위_오브_2
+# Item tooltip
+It's_not_a_bug,_it's_a_feature. 버그가_아니라_기능입니다!
+Restore_@_health. 체력을_@_회복합니다.
+Transform_into_a_random_level_@_orb. 무작위_@단계_오브로_변합니다.
+# Item effect
+Heal 회복
+Transform 변화
+# Orb name
+Red_orb 빨강_오브
+Blue_orb 파랑_오브
+Green_orb 초록_오브
+Black_orb 검정_오브
+Fire_orb 불_오브
+Water_orb 물_오브
+Nature_orb 자연_오브
+Poison_orb 독_오브
+Lightning_orb 번개_오브
+Wind_orb 바람_오브
+Light_orb 빛_오브
+Fire_shield_orb 불_방어_오브
+Water_shield_orb 물_방어_오브
+Nature_shield_orb 자연_방어_오브
+Lava_orb 용암_오브
+Glacier_orb 빙하_오브
+Forest_orb 숲_오브
+Venom_orb 맹독_오브
+Thunder_orb 천둥_오브
+Storm_orb 폭풍_오브
+Hardening_orb 담금질_오브
+Impregnability_orb 난공불락_오브
+Growth_orb 성장_오브
+Spine_orb 가시_오브
+Photosynthesis_orb 광합성_오브	
+# Orb tooltip
+A_common_reddish_orb 붉은_빛이_도는_오브
+A_common_blue_orb 푸른_빛이_도는_오브
+A_common_green_orb 초록_빛이_도는_오브
+A_common_dark_orb 어두운_힘이_느껴지는_오브
+A_burning_orb 뜨겁게_타오르는_오브
+A_cold_orb 순수하게_차가운_오브
+A_vigorous_orb 생명의_활기를_담은_오브
+A_dangerous_orb 위험한_향기가_나는_오브
+A_shocking_orb 닿으면_기절할_듯한_오브
+A_dispersing_orb 잡으려_하면_사라지는_오브
+A_dazzling_orb 눈부시게_밝은_오브
+A_fireproof_orb 열기를_흡수하는_오브
+An_waterproof_orb 물을_흡수하는_오브
+An_adaptive_orb 환경에_잘_적응하는_오브
+An_orb_that_can_fuse_a_rock 돌조차_녹여버리는_오브
+An_orb_that_can_freeze_the_whole_body 뼛속까지_얼려버리는_오브
+An_orb_that_keeps_the_origin_of_life 태초의_생명을_간직한_오브
+An_orb_that_invokes_a_fear_of_death 죽음을_경험하게_하는_오브
+An_orb_that_shakes_the_air 천공을_울리는_오브
+An_orb_that_swirls_like_a_maelstrom 혼란에_휘말리게_하는_오브
+An_orb_that_tests_the_limitations 한계를_시험하는_오브
+An_orb_that_grants_an_iron_protection 철벽처럼_단단한_오브
+An_orb_that_is_full_of_spirit 기운이_넘치는_오브
+An_orb_that_is_hunger_for_retaliation 복수에_굶주린_오브
+An_orb_that_grants_unlimited_sustainability 무한한_동력을_가진_오브
+# Orb effect
+Intoxicate 중독
+Stun 기절
+Flurry 폭풍_칼날
+FireAmp 용암의_힘
+WaterAmp 빙하의_힘
+NatureAmp 숲의_힘
+AllAmp 담금질의_힘
+Healthier 체력_증가
+Reflect 반사
+Regenerate 재생
+# Orb usage
+Ingredient 재료
+Weapon_only 무기_전용
+Armor_only 방어구_전용
+# Map name
+Green 그린
+Blue 블루
+Red 레드
+# Monster name
+Fire_pudding 불_푸딩
+Ice_pudding 얼음_푸딩
+Nature_pudding 자연_푸딩
+Goblin_pudding 고블린_푸딩
+Devil_pudding 악마_푸딩
+Flame_elemental 불꽃_정령
+Frost_elemental 서리_정령
+Tree_elemental 나무_정령
+Treasure_mimic 미믹
+# Monster weapon name
+Incinerator 소각로
+Extinguisher 소화기
+Root 뿌리
+Steal 도둑질
+Corruption 타락화
+Spark 불똥
+Dry_ice 드라이아이스
+Spiky_vine 뾰족한_덩굴
+Surprise 기습
+# Player
+Hyacinth 히아신스
+Magic_sword 마력의_검
+Magic_spear 마력의_창
+# UI text
+Lv. 레벨_
+Menu 메뉴
+Goodbye~ 잘_있어라~
+HP_: 체_:
+Atk: 공_:
+Def: 방_:

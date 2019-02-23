@@ -43,7 +43,7 @@ public class StatusUI : MonoBehaviour {
 
         if (healthText != null && !Folded)
         {
-            healthText.text = "체: <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + currentHealth + "</color> / " + maxHealth;
+            healthText.text = "" + StringManager.sm.Translate("HP :") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + currentHealth + "</color> / " + maxHealth;
         }
     }
 
@@ -54,12 +54,12 @@ public class StatusUI : MonoBehaviour {
 
         if (attackBaseText != null)
         {
-            attackBaseText.text = "공: <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringUtility.Padding(weapon.BaseAttack()) + "</color>";
+            attackBaseText.text = "" + StringManager.sm.Translate("Atk:") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringManager.Padding(weapon.BaseAttack()) + "</color>";
         }
 
         if (attackFireText != null/* && weapon.ValidElement().Fire > 0*/)
         {
-            attackFireText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + StringUtility.Padding(weapon.ValidElement().Fire) + "</color>";
+            attackFireText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + StringManager.Padding(weapon.ValidElement().Fire) + "</color>";
         }
         else
         {
@@ -68,7 +68,7 @@ public class StatusUI : MonoBehaviour {
 
         if (attackIceText != null/* && weapon.ValidElement().Ice > 0*/)
         {
-            attackIceText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + StringUtility.Padding(weapon.ValidElement().Ice) + "</color>";
+            attackIceText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + StringManager.Padding(weapon.ValidElement().Ice) + "</color>";
         }
         else
         {
@@ -77,7 +77,7 @@ public class StatusUI : MonoBehaviour {
 
         if (attackNatureText != null/* && weapon.ValidElement().Nature > 0*/)
         {
-            attackNatureText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + StringUtility.Padding(weapon.ValidElement().Nature) + "</color>";
+            attackNatureText.text = "+<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + StringManager.Padding(weapon.ValidElement().Nature) + "</color>";
         }
         else
         {
@@ -92,22 +92,29 @@ public class StatusUI : MonoBehaviour {
 
         if (defenseBaseText != null)
         {
-            defenseBaseText.text = "방: <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringUtility.Padding(armor.BaseDefense()) + "</color>";
+            defenseBaseText.text = "" + StringManager.sm.Translate("Def:") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringManager.Padding(armor.BaseDefense()) + "</color>";
         }
 
         if (defenseFireText != null)
         {
-            defenseFireText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + StringUtility.Padding(armor.ValidElement().Fire) + "</color>";
+            defenseFireText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" + StringManager.Padding(armor.ValidElement().Fire) + "</color>";
         }
 
         if (defenseIceText != null)
         {
-            defenseIceText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + StringUtility.Padding(armor.ValidElement().Ice) + "</color>";
+            defenseIceText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" + StringManager.Padding(armor.ValidElement().Ice) + "</color>";
         }
 
         if (defenseNatureText != null)
         {
-            defenseNatureText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + StringUtility.Padding(armor.ValidElement().Nature) + "</color>";
+            defenseNatureText.text = "/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" + StringManager.Padding(armor.ValidElement().Nature) + "</color>";
         }
+    }
+
+    public void RefreshText()
+    {
+        healthText.text = "" + StringManager.sm.Translate("HP :") + healthText.text.Substring(healthText.text.IndexOf(':') + 1);
+        attackBaseText.text = "" + StringManager.sm.Translate("Atk:") + attackBaseText.text.Substring(attackBaseText.text.IndexOf(':') + 1);
+        defenseBaseText.text = "" + StringManager.sm.Translate("Def:") + defenseBaseText.text.Substring(defenseBaseText.text.IndexOf(':') + 1);
     }
 }

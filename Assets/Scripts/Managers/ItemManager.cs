@@ -152,8 +152,8 @@ public class ItemManager : MonoBehaviour {
         ItemInfo ii = FindItemInfo(name);
         if (ii == null) return null;
         else if (ii.type == ItemInfo.Type.Consumable)
-            return Resources.Load("Items/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
-        else return Resources.Load("Items/Orbs/" + StringUtility.ToPascalCase(name), typeof(Sprite)) as Sprite;
+            return Resources.Load("Items/" + StringManager.ToPascalCase(name), typeof(Sprite)) as Sprite;
+        else return Resources.Load("Items/Orbs/" + StringManager.ToPascalCase(name), typeof(Sprite)) as Sprite;
     }
 
     /// <summary>
@@ -167,8 +167,8 @@ public class ItemManager : MonoBehaviour {
         ItemInfo ii = FindItemInfo(id);
         if (ii == null) return null;
         else if (ii.type == ItemInfo.Type.Consumable)
-            return Resources.Load("Items/" + StringUtility.ToPascalCase(ii.name), typeof(Sprite)) as Sprite;
-        else return Resources.Load("Items/Orbs/" + StringUtility.ToPascalCase(ii.name), typeof(Sprite)) as Sprite;
+            return Resources.Load("Items/" + StringManager.ToPascalCase(ii.name), typeof(Sprite)) as Sprite;
+        else return Resources.Load("Items/Orbs/" + StringManager.ToPascalCase(ii.name), typeof(Sprite)) as Sprite;
     }
 
     /// <summary>

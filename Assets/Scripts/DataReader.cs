@@ -10,20 +10,24 @@ public class DataReader : MonoBehaviour {
         ItemManager im = GetComponent<ItemManager>();
         EnemyManager em = GetComponent<EnemyManager>();
         MapManager mm = GetComponent<MapManager>();
+        StringManager sm = GetComponent<StringManager>();
         im.itemInfo = new Dictionary<int, ItemInfo>();
         im.orbRecipe = new Dictionary<OrbIngredient, int>();
         em.enemyInfo = new Dictionary<int, EnemyInfo>();
         mm.mapInfo = new Dictionary<int, MapInfo>();
+        sm.dictionary = new Dictionary<string, List<string>>();
 
         TextAsset itemData = Resources.Load("Data/Item") as TextAsset;
         TextAsset orbData = Resources.Load("Data/Orb") as TextAsset;
         TextAsset monsterData = Resources.Load("Data/Monster") as TextAsset;
         TextAsset mapData = Resources.Load("Data/Map") as TextAsset;
+        TextAsset translationData = Resources.Load("Data/Translation") as TextAsset;
         
         string[] itemLine = itemData.text.Split('\n');
         string[] orbLine = orbData.text.Split('\n');
         string[] monsterLine = monsterData.text.Split('\n');
         string[] mapLine = mapData.text.Split('\n');
+        string[] translationLine = translationData.text.Split('\n');
         
         #region Parse Item.txt
         foreach (string l in itemLine)
@@ -36,14 +40,14 @@ public class DataReader : MonoBehaviour {
             ItemInfo ii = new ItemInfo();
 
             // token[0] : id
-            ii.name = StringUtility.ReplaceUnderbar(token[1]);
+            ii.name = StringManager.ReplaceUnderbar(token[1]);
             ii.type = ItemInfo.Type.Consumable;
-            ii.tooltip = StringUtility.ReplaceUnderbar(token[2]);
+            ii.tooltip = StringManager.ReplaceUnderbar(token[2]);
             ii.price = int.Parse(token[3]);
 
             if (token.Length == 6)
             {
-                ii.effectName = StringUtility.ToPascalCase(token[4]);
+                ii.effectName = StringManager.ToPascalCase(token[4]);
                 ii.effectParam = int.Parse(token[5]);
             }
             im.itemInfo.Add(int.Parse(token[0]), ii);
@@ -61,9 +65,9 @@ public class DataReader : MonoBehaviour {
             ItemInfo ii = new ItemInfo();
 
             // token[0] : id
-            ii.name = StringUtility.ReplaceUnderbar(token[1]);
+            ii.name = StringManager.ReplaceUnderbar(token[1]);
             ii.type = ItemInfo.Type.Orb;
-            ii.tooltip = StringUtility.ReplaceUnderbar(token[2]);
+            ii.tooltip = StringManager.ReplaceUnderbar(token[2]);
             ii.level = int.Parse(token[3]);
             switch (int.Parse(token[4]))
             {
@@ -88,7 +92,7 @@ public class DataReader : MonoBehaviour {
                 if (!token[9].Equals("|"))
                 {
                     // 특수 효과가 있는 경우
-                    ii.effectName = StringUtility.ToPascalCase(token[9]);
+                    ii.effectName = StringManager.ToPascalCase(token[9]);
                     ii.effectParam = int.Parse(token[10]);
                     if (token.Length == 15)
                     {
@@ -132,7 +136,7 @@ public class DataReader : MonoBehaviour {
                 ei = new EnemyInfo();
 
                 enemyID = int.Parse(token[0]);
-                ei.name = StringUtility.ReplaceUnderbar(token[1]);
+                ei.name = StringManager.ReplaceUnderbar(token[1]);
                 switch (int.Parse(token[2]))
                 {
                     case 0:
@@ -157,7 +161,7 @@ public class DataReader : MonoBehaviour {
 
                 // token[0] : '|'
                 Weapon w = new Weapon();
-                w.name = StringUtility.ReplaceUnderbar(token[1]);
+                w.name = StringManager.ReplaceUnderbar(token[1]);
                 w.element = new Element(int.Parse(token[2]), int.Parse(token[3]), int.Parse(token[4]));
                 ei.weaponDelta = new Element(int.Parse(token[5]), int.Parse(token[6]), int.Parse(token[7]));
                 w.range = int.Parse(token[8]);
@@ -241,12 +245,12 @@ public class DataReader : MonoBehaviour {
             MapInfo mi = new MapInfo();
 
             // token[0] : id
-            mi.name = StringUtility.ReplaceUnderbar(token[1]);
+            mi.name = StringManager.ReplaceUnderbar(token[1]);
             mi.level = int.Parse(token[2]);
             mi.width = int.Parse(token[3]);
             mi.height = int.Parse(token[4]);
             mi.backgroundColor = new Color(float.Parse(token[5]), float.Parse(token[6]), float.Parse(token[7]));
-            mi.backgroundMusic = StringUtility.ReplaceUnderbar(token[8]);
+            mi.backgroundMusic = StringManager.ReplaceUnderbar(token[8]);
 
             if (!token[9].Equals("|")) Error("Map");
 
@@ -274,7 +278,25 @@ public class DataReader : MonoBehaviour {
             mm.mapInfo.Add(int.Parse(token[0]), mi);
         }
         #endregion
-        
+
+        #region Parse Translation.txt
+        foreach (string l in translationLine)
+        {
+            if (l.StartsWith("#")) continue;
+            string[] token = l.Split(' ');
+
+            List<string> ti = new List<string>();
+
+            // token[0] : id
+            for (int j = 0; j < token.Length; j++)
+            {
+                ti.Add(StringManager.ReplaceUnderbar(token[j]));
+            }
+
+            sm.dictionary.Add(StringManager.ReplaceUnderbar(token[0]), ti);
+        }
+        #endregion
+
     }
 
     private void Error(string data)

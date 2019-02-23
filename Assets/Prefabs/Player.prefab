@@ -229,13 +229,13 @@ MonoBehaviour:
   maxHealth: 200
   currentHealth: 200
   weapons:
-  - name: Sword
+  - name: Magic sword
     element:
       fire: 2
       ice: 2
       nature: 2
     range: 1
-  - name: Spear
+  - name: Magic spear
     element:
       fire: 4
       ice: 4

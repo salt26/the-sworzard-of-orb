@@ -26,12 +26,34 @@ public class UIInfo : MonoBehaviour {
     public StatusUI enemyStatusUI;
 
     [Header("ETC")]
-    public GameObject menuUI;
+    public List<GameObject> menuUis;
     public GameObject altarPanel;
+    public Text menuText;
+    public Text languageText;
+    public Text goodbyeText;
 
     public void MenuUI()
     {
-        menuUI.SetActive(!menuUI.activeInHierarchy);
+        foreach (GameObject g in menuUis)
+        {
+            g.SetActive(!g.activeInHierarchy);
+        }
+    }
+
+    public void ToggleLanguage()
+    {
+        StringManager.Language l = StringManager.sm.LanguageSetting;
+        switch (l)
+        {
+            case StringManager.Language.English:
+                StringManager.sm.LanguageSetting = StringManager.Language.Korean;
+                languageText.text = "English";
+                break;
+            case StringManager.Language.Korean:
+                StringManager.sm.LanguageSetting = StringManager.Language.English;
+                languageText.text = "한국어";
+                break;
+        }
     }
 
     public void QuitGame()
@@ -41,5 +63,11 @@ public class UIInfo : MonoBehaviour {
 #else
         Application.Quit();
 #endif
+    }
+
+    public void RefreshMenuTexts()
+    {
+        menuText.text = StringManager.sm.Translate("Menu");
+        goodbyeText.text = StringManager.sm.Translate("Goodbye~");
     }
 }

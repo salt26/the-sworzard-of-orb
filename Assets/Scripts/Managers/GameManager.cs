@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour {
             map.mapName = mapName;
             mapAutoGeneration = true;
             MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel[mapName]);
-            map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringUtility.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
+            map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringManager.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
             map.GetComponent<AudioSource>().Play();
         }
         map.Initialize(mapAutoGeneration);
