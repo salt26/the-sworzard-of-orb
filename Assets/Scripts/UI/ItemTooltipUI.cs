@@ -29,7 +29,7 @@ public class ItemTooltipUI : TooltipUI {
             }
             else
             {
-                itemTooltipText.resizeTextMaxSize = 36;
+                //itemTooltipText.resizeTextMaxSize = 24;
                 itemTooltipText.text = StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString());
             }
         }
@@ -59,9 +59,9 @@ public class ItemTooltipUI : TooltipUI {
 
     private void SetTooltipText(ItemInfo ii)
     {
-        itemTooltipText.resizeTextMaxSize = 28;
+        //itemTooltipText.resizeTextMaxSize = 28;
 
-        itemTooltipText.text = StringManager.sm.Translate("Lv.") + ii.level + " " + ii.stat + "\n";
+        itemTooltipText.text = StringManager.sm.Translate("Lv.@").Replace("@", ii.level.ToString()) + " " + ii.stat + "\n";
         if (ii.usage == ItemInfo.Usage.None)
         {
             itemTooltipText.text += StringManager.sm.Translate("Ingredient") + "\n";

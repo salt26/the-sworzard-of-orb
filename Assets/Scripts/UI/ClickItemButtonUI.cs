@@ -40,6 +40,11 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
             else if(GetComponent<Button>().interactable)
                 GetComponent<Button>().interactable = false;
         }
+        else if (gm.Turn == 4 && gm.IsSceneLoaded)
+        {
+            if (!GetComponent<Button>().interactable)
+                GetComponent<Button>().interactable = true;
+        }
         else
         {
             if (GetComponent<Button>().interactable)

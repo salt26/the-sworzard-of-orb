@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 
 public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
+    public enum UIType { Inventory, Altar, Shop, Repurchase }
     public GameObject tooltipPanel;
     public Vector2 minPos;          // 각 원소는 0 이상 1 이하
     public Vector2 maxPos;          // 각 원소는 0 이상 1 이하, minPos보다 커야 함
 
     private TooltipUI myTooltip = null;
     [SerializeField]
-    private bool isAltar;
+    private UIType type;
 
     public void OnPointerEnter(PointerEventData e)
     {
@@ -21,13 +22,13 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             int index = -1;
             if (tooltipPanel.GetComponent<ItemTooltipUI>() != null)
             {
-                if (!isAltar)
+                if (type == UIType.Inventory)
                 {
                     index = int.Parse(gameObject.name);
                     if (index >= GameManager.gm.player.GetComponent<Inventory>().Items.Count)
                         return;
                 }
-                else
+                else if (type == UIType.Altar)
                 {
                     if (gameObject.name.Equals("TopButton")) index = 100;
                     else if (gameObject.name.Equals("LeftButton")) index = 101;
@@ -44,8 +45,8 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             RectTransform r = myTooltip.GetComponent<RectTransform>();
             r.anchorMin = minPos;
             r.anchorMax = maxPos;
-            if (isAltar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
-            else if (isAltar) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
+            if (type == UIType.Altar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
+            else if (type == UIType.Altar) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
 
             if (myTooltip.GetComponent<WeaponTooltipUI>() != null)
             {

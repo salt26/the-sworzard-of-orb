@@ -48,7 +48,8 @@ public class GameManager : MonoBehaviour {
     private bool isSceneLoaded = false;
     
     [SerializeField]
-    private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 2이면 턴이 넘어가는 중, 3이면 Altar에서 조합하는 중
+    private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 
+                        // 2이면 턴이 넘어가는 중, 3이면 Altar에서 조합하는 중, 4이면 Shop에 있는 중
 
     public int Turn
     {
@@ -173,6 +174,15 @@ public class GameManager : MonoBehaviour {
         {
             if (mapLevel.ContainsKey(mapName)) mapLevel[mapName]++;
             else mapLevel.Add(mapName, 1);
+        }
+        if (sceneName.Equals("Town"))
+        {
+            // 마을로 이동할 때, 상점에 새 재고가 들어옴
+            int orbID = Random.Range(100, 104);
+            string randomOrb = ItemManager.im.FindItemInfo(orbID).name;
+            Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems = new List<string>
+                { "Small potion", "Small potion", "Large potion",
+                    randomOrb, "Random orb 1", "Random orb 2" };
         }
         StartCoroutine(LoadScene(sceneName, mapName));
     }
@@ -556,6 +566,29 @@ public class GameManager : MonoBehaviour {
     {
         if (turn != 3) return;
         //Debug.Log("NextTurnFromAltar");
+        turn = 1;
+        turnNumber++;
+        turnMark.sprite = enemyTurn;
+        turnMark.color = enemyTurnColor;
+    }
+
+    /// <summary>
+    /// Shop과 상호작용하여 아이템을 사고 파는 상태로 턴이 넘어갑니다.
+    /// </summary>
+    public void ShopTurn()
+    {
+        if (turn != 0) return;
+        //Debug.Log("ShopTurn");
+        turn = 4;
+    }
+
+    /// <summary>
+    /// Shop에서의 매매를 마치고 턴을 넘깁니다.
+    /// </summary>
+    public void NextTurnFromShop()
+    {
+        if (turn != 4) return;
+        //Debug.Log("NextTurnFromShop");
         turn = 1;
         turnNumber++;
         turnMark.sprite = enemyTurn;

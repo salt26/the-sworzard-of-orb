@@ -26,15 +26,16 @@ public class UIInfo : MonoBehaviour {
     public StatusUI enemyStatusUI;
 
     [Header("ETC")]
-    public List<GameObject> menuUis;
+    public List<GameObject> menuUI;
     public GameObject altarPanel;
+    public GameObject shopPanel;
     public Text menuText;
     public Text languageText;
     public Text goodbyeText;
 
     public void MenuUI()
     {
-        foreach (GameObject g in menuUis)
+        foreach (GameObject g in menuUI)
         {
             g.SetActive(!g.activeInHierarchy);
         }

@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour {
 
     public int maxItemNumber;   // 보관 가능한 최대 아이템 수
-
-    // TODO 나중에 inspector에서 안 보이게 하기
-    [SerializeField]
+    
     private List<string> items = new List<string>();
     
     private int gold = 0;
@@ -51,6 +49,7 @@ public class Inventory : MonoBehaviour {
         { 
             b.onClick.AddListener(delegate { UseItem(itemButtons.IndexOf(b)); });
             b.onClick.AddListener(delegate { DedicateItem(itemButtons.IndexOf(b)); });
+            b.onClick.AddListener(delegate { SellItem(itemButtons.IndexOf(b)); });
         }
     }
 
@@ -225,6 +224,25 @@ public class Inventory : MonoBehaviour {
             // 그리고 인벤토리의 이 버튼이 하이라이트되며 비활성화되어야 함 (이건 ClickItemButtonUI.cs에서)
             //Debug.Log("DedicateItem " + index);
             gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().AddOrb(Items[index], index);
+        }
+    }
+
+    /// <summary>
+    /// 인벤토리의 index 위치에 있는 아이템을 상점에 판매합니다.
+    /// 상점과 상호작용하는 중에만 동작합니다.
+    /// </summary>
+    /// <param name="index"></param>
+    public void SellItem(int index)
+    {
+        GameManager gm = GameManager.gm;
+        if (gm == null) return;
+        else if (gm.Turn == 4 && gm.IsSceneLoaded && index < Items.Count)
+        {
+            // 아이템이 제단에 올라가서, 제단 버튼 위에 Instantiate되어야 함
+            // 그리고 인벤토리의 이 버튼이 하이라이트되며 비활성화되어야 함 (이건 ClickItemButtonUI.cs에서)
+            //Debug.Log("SellItem " + index);
+            if (gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().SellItem(Items[index]))
+                RemoveItem(new List<int> { index });
         }
     }
 

@@ -114,10 +114,12 @@ Hyacinth 히아신스
 Magic_sword 마력의_검
 Magic_spear 마력의_창
 # UI text
-Lv. 레벨_
+Lv.@ @단계
 Menu 메뉴
 Goodbye~ 잘_있어라~
 HP_: 체_:
 Atk: 공_:
 Def: 방_:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
+Repurchase 재구매
+Sold_out 품절
