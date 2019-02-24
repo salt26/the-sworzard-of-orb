@@ -4,7 +4,7 @@
 # @: Effect param value
 #
 0 No_item It's_not_a_bug,_it's_a_feature. 0
-1 Large_potion Restore_@_health. 10 Heal 100
-2 Small_potion Restore_@_health. 4 Heal 40
-3 Random_orb_1 Transform_into_a_random_level_@_orb. 10 Transform 1
-4 Random_orb_2 Transform_into_a_random_level_@_orb. 40 Transform 2
+1 Large_potion Restore_@_health. 15 Heal 100
+2 Small_potion Restore_@_health. 5 Heal 40
+3 Random_orb_1 Transform_into_a_random_level_@_orb. 15 Transform 1
+4 Random_orb_2 Transform_into_a_random_level_@_orb. 50 Transform 2

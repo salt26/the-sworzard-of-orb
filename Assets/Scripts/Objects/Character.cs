@@ -191,8 +191,9 @@ public class Character : Entity {
     {
         if (!alive && type == Type.Player)
         {
+            currentHealth = 0;
             alive = true;
-            currentHealth = maxHealth;
+            Healed(maxHealth);
             foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
                 sr.enabled = true;
 

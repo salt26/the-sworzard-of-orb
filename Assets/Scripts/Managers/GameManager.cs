@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -113,6 +114,21 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        GameObject g = GameObject.Find("MapEntityInfo");
+        if (g != null)
+        {
+            Shop shop = (Shop)g.GetComponent<MapEntityInfo>().interactables.Find(
+                i => i != null && i.GetType().Equals(typeof(Shop)));
+            if (shop != null)
+            {
+                g.GetComponent<MapEntityInfo>().interactables.Remove(shop);
+                Destroy(shop.gameObject);
+            }
+        }
+        foreach (MapInfo mi in MapManager.mm.mapInfo.Values) {
+            if (!mapLevel.Keys.ToList().Contains(mi.name))
+                mapLevel.Add(mi.name, 0);
+        }
         Initialize();
         isSceneLoaded = true;
     }
@@ -152,7 +168,11 @@ public class GameManager : MonoBehaviour {
             player.GetComponent<Inventory>().RemoveAllItems();   // 가지고 있던 모든 아이템을 잃음
             player.GetComponent<Inventory>().Gold /= 2;
             player.Revive();
-            mapLevel[map.mapName]--;
+            //mapLevel[map.mapName]--;
+            foreach (string s in mapLevel.Keys.ToList())
+            {
+                mapLevel[s]--;
+            }
             ChangeScene("Town");
             /*
             // 0번 씬에 Manager 오브젝트가 있다고 가정
@@ -172,7 +192,14 @@ public class GameManager : MonoBehaviour {
         player.Healed(player.maxHealth);
         if (mapName != null)
         {
-            if (mapLevel.ContainsKey(mapName)) mapLevel[mapName]++;
+            if (mapLevel.ContainsKey(mapName))
+            {
+                //mapLevel[mapName]++;
+                foreach (string s in mapLevel.Keys.ToList())
+                {
+                    mapLevel[s]++;
+                }
+            }
             else mapLevel.Add(mapName, 1);
         }
         if (sceneName.Equals("Town"))

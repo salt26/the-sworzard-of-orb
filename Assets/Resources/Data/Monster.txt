@@ -9,17 +9,17 @@
 # Distance type: 0 - Manhattan / 1 - Chebyshev / else - None
 #
 0 Fire_pudding 0 1 35
-| Incinerator 4 0 0 2 0 0 1
+| Incinerator 4 0 0 1 0 0 1
 | 0 0 1 2 0 0
 | 1 1 2 1
 | 100 1 0.2
 1 Ice_pudding 0 1 35
-| Extinguisher 0 4 0 0 2 0 1
+| Extinguisher 0 4 0 0 1 0 1
 | 1 0 0 0 2 0
 | 1 1 2 1
 | 101 1 0.2
 2 Nature_pudding 0 1 35
-| Root 0 0 4 0 0 2 1
+| Root 0 0 4 0 0 1 1
 | 0 1 0 0 0 2
 | 1 1 2 1
 | 102 1 0.2
@@ -27,12 +27,12 @@
 | Steal 1 1 2 0 0 1 1
 | 0 1 0 1 1 2
 | 1 2 4 2
-| 103 1 0.30 | 2 2 0.6
+| 103 1 0.3 | 2 2 0.6
 4 Devil_pudding 1 1 60
 | Corruption 1 1 1 1 1 1 1
 | 0 0 0 1 1 1
 | 1 2 4 2
-| 103 1 0.30 | 2 2 0.5
+| 103 1 0.3 | 2 2 0.6
 5 Flame_elemental 1 1 45
 | Spark 3 2 3 2 1 1 1
 | 1 0 0 1 0 1
@@ -52,4 +52,4 @@
 | Surprise 0 0 0 0 2 2 1
 | 0 1 1 2 0 0
 | 0 2 4 7
-| 4 1 1 | 1 2 0.8 | 2 1 0.4
+| 4 1 1 | 1 2 0.6 | 2 1 0.4

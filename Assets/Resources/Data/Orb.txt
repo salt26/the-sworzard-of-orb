@@ -3,20 +3,20 @@
 #
 # Usage: 0 - Cannot use / 1 - Weapon only / 2 - Armor only
 #
-100 Red_orb A_common_reddish_orb 1 0 1 0 0 10
-101 Blue_orb A_common_blue_orb 1 0 0 1 0 10
-102 Green_orb A_common_green_orb 1 0 0 0 1 10
-103 Black_orb A_common_dark_orb 1 0 0 0 0 10
-104 Fire_orb A_burning_orb 2 1 3 0 0 30 | 100 100 100
-105 Water_orb A_cold_orb 2 1 0 3 0 30 | 101 101 101
-106 Nature_orb A_vigorous_orb 2 1 0 0 3 30 | 102 102 102
-107 Poison_orb A_dangerous_orb 2 1 1 1 0 30 Intoxicate 3 | 100 101 103
-108 Lightning_orb A_shocking_orb 2 1 1 0 1 30 Stun 5 | 100 102 103
-109 Wind_orb A_dispersing_orb 2 1 0 1 1 30 Flurry 4 | 101 102 103
-110 Light_orb A_dazzling_orb 2 1 1 1 1 30 | 100 101 102
-111 Fire_shield_orb A_fireproof_orb 2 2 2 0 0 30 | 100 100 103
-112 Water_shield_orb An_waterproof_orb 2 2 0 2 0 30 | 101 101 103
-113 Nature_shield_orb An_adaptive_orb 2 2 0 0 2 30 | 102 102 103
+100 Red_orb A_common_reddish_orb 1 0 1 0 0 15
+101 Blue_orb A_common_blue_orb 1 0 0 1 0 15
+102 Green_orb A_common_green_orb 1 0 0 0 1 15
+103 Black_orb A_common_dark_orb 1 0 0 0 0 15
+104 Fire_orb A_burning_orb 2 1 3 0 0 40 | 100 100 100
+105 Water_orb A_cold_orb 2 1 0 3 0 40 | 101 101 101
+106 Nature_orb A_vigorous_orb 2 1 0 0 3 40 | 102 102 102
+107 Poison_orb A_dangerous_orb 2 1 1 1 0 40 Intoxicate 3 | 100 101 103
+108 Lightning_orb A_shocking_orb 2 1 1 0 1 40 Stun 5 | 100 102 103
+109 Wind_orb A_dispersing_orb 2 1 0 1 1 40 Flurry 4 | 101 102 103
+110 Light_orb A_dazzling_orb 2 1 1 1 1 40 | 100 101 102
+111 Fire_shield_orb A_fireproof_orb 2 2 2 0 0 40 | 100 100 103
+112 Water_shield_orb An_waterproof_orb 2 2 0 2 0 40 | 101 101 103
+113 Nature_shield_orb An_adaptive_orb 2 2 0 0 2 40 | 102 102 103
 114 Lava_orb An_orb_that_can_fuse_a_rock 3 1 3 0 0 100 FireAmp 50 | 104 104 104
 115 Glacier_orb An_orb_that_can_freeze_the_whole_body 3 1 0 3 0 100 WaterAmp 50 | 105 105 105
 116 Forest_orb An_orb_that_keeps_the_origin_of_life 3 1 0 0 3 100 NatureAmp 50 | 106 106 106
