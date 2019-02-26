@@ -27,6 +27,10 @@ public class Character : Entity {
     [HideInInspector]
     public int poisonDamage;
     [HideInInspector]
+    public int gustDamage;
+    [HideInInspector]
+    public Vector3 gustDirection;
+    [HideInInspector]
     public bool hasStuned;
 
     private Mover mover;
@@ -155,6 +159,19 @@ public class Character : Entity {
         currentHealth -= poisonDamage;
         poisonDamage = 0;
         StartCoroutine(Mover.PoisonedAnimation(oldHealth, healthBar, statusUI));
+    }
+
+    /// <summary>
+    /// 돌풍 효과의 대미지를 받을 때 호출됩니다.
+    /// 대미지 계산이 완료된 후 돌풍 피격 애니메이션까지 재생됩니다.
+    /// </summary>
+    public void Gusted()
+    {
+        if (!Alive || gustDamage == 0) return;
+        oldHealth = currentHealth;
+        currentHealth -= gustDamage;
+        gustDamage = 0;
+        StartCoroutine(Mover.GustedAnimation(oldHealth, healthBar, statusUI, gustDirection));
     }
 
     public void Healed(int heal)

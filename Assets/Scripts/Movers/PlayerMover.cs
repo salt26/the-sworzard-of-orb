@@ -120,6 +120,7 @@ public class PlayerMover : Mover {
             {
                 // TODO 디버그용 오브 생성 코드
                 gm.map.AddItemOnTile(Random.Range(104, 114), t.position);
+                gm.map.AddItemOnTile(Random.Range(3, 5), t.position);
                 gm.NextTurn();
             }
         }
@@ -251,6 +252,7 @@ public class PlayerMover : Mover {
         isMoving = true;
         float frame = 16, frame2 = 0, frame3 = 10;
         Vector3 originalPosition = t.position;
+        Color originalColor = GetComponent<SpriteRenderer>().color;
         DamagedScreen damagedScreen = GameManager.gm.Canvas.GetComponent<UIInfo>().DamagedPanel;
         DamageNumber.DamageType dt = DamageNumber.DamageType.Normal;
         if (isCritical) dt = DamageNumber.DamageType.Critical;
@@ -265,13 +267,13 @@ public class PlayerMover : Mover {
         {
             if (i < frame / 2)
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, new Color(0.7f, 0f, 0f, 0.6f), i / frame * 2);
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, i / frame * 2);
             }
             else
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (frame + frame2 - i) / (frame / 2 + frame2));
+                GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, new Color(0.7f, 0f, 0f, 0.6f), (frame + frame2 - i) / (frame / 2 + frame2));
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (frame + frame2 - i) / (frame / 2 + frame2));
             }
@@ -304,7 +306,7 @@ public class PlayerMover : Mover {
         {
             statusUI.UpdateAll(c, c.currentHealth);
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        GetComponent<SpriteRenderer>().color = originalColor;
         if (!direction.Equals(new Vector3()))
             t.position = originalPosition;
 

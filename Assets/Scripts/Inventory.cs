@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour {
     {
         get
         {
-            return items;
+            return items.Clone();
         }
     }
 
@@ -138,10 +138,20 @@ public class Inventory : MonoBehaviour {
         else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving &&
             GetComponent<Character>().Alive && index < Items.Count)
         {
-            if (ItemManager.im.FindItemInfo(items[index]).Use())
+            if (ItemManager.im.FindItemInfo(Items[index]).Use())
             {
                 //Debug.Log("Use item " + index + " from inventory.");
-                items.RemoveAt(index);
+                if ("Transform".Equals(ItemManager.im.FindItemInfo(items[index]).effectName))
+                {
+                    items.RemoveAt(index);
+                    string newOrb = Items[Items.Count - 1];
+                    items.RemoveAt(Items.Count - 1);
+                    items.Insert(index, newOrb);
+                }
+                else
+                {
+                    items.RemoveAt(index);
+                }
                 UpdateUI();
                 gm.NextTurn();
             }
@@ -238,8 +248,6 @@ public class Inventory : MonoBehaviour {
         if (gm == null) return;
         else if (gm.Turn == 4 && gm.IsSceneLoaded && index < Items.Count)
         {
-            // 아이템이 제단에 올라가서, 제단 버튼 위에 Instantiate되어야 함
-            // 그리고 인벤토리의 이 버튼이 하이라이트되며 비활성화되어야 함 (이건 ClickItemButtonUI.cs에서)
             //Debug.Log("SellItem " + index);
             if (gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().SellItem(Items[index]))
                 RemoveItem(new List<int> { index });

@@ -226,7 +226,7 @@ public class ItemManager : MonoBehaviour {
             List<ItemInfo> l = new List<ItemInfo>();
             foreach (KeyValuePair<int, ItemInfo> p in ItemManager.im.itemInfo)
             {
-                // TODO 레벨에 맞는 오브만 골라서 리스트 만들기
+                // 레벨에 맞는 오브만 골라서 리스트 만들기
                 if (p.Value.type == ItemInfo.Type.Orb && p.Value.level == level)
                 {
                     l.Add(p.Value);
@@ -279,7 +279,8 @@ public class ItemManager : MonoBehaviour {
                 {
                     // 진행 방향에 플레이어가 있을 경우
                     Character enemy = (Character)e;
-                    enemy.Damaged(splashDamage, d, false);
+                    enemy.gustDamage += splashDamage;
+                    enemy.gustDirection = d;
                 }
             }
         }

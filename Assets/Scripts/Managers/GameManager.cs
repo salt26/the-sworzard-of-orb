@@ -503,9 +503,53 @@ public class GameManager : MonoBehaviour {
         int oldTurn = turn;
         turn = 2;   // 임시 턴 (피격 애니메이션 재생 중 키 입력으로 한 턴에 여러 번 행동하는 것을 방지)
 
+        /* 페이즈 1: 일반 피격 애니메이션 재생 */
         if (oldTurn == 0)
         {
             // 플레이어의 턴이 끝남
+            foreach (Character e in enemies)
+            {
+                e.DamagedAnimation();
+            }
+        }
+        else if (oldTurn == 1)
+        {
+            // 적들의 턴이 끝남
+            player.DamagedAnimation();
+        }
+
+        while (true)
+        {
+            ready = true;
+            foreach (Character e in enemies)
+            {
+                if (e.Alive && e.Mover.IsMoving)
+                {
+                    ready = false;
+                    break;
+                }
+            }
+            if (player.Alive && player.Mover.IsMoving) ready = false;
+
+            if (ready) break;
+            else yield return null;
+        }
+
+        /* 페이즈 2: 특수 효과(중독, 돌풍) 대미지 애니메이션 처리 */
+        if (oldTurn == 0)
+        {
+            // 플레이어의 턴이 끝남
+            foreach (Character e in enemies)
+            {
+                // 돌풍 효과의 대미지 처리
+                if (e.gustDamage > 0)
+                {
+                    e.Gusted();
+                }
+
+                // 턴을 넘길 때의 각 적의 현재 체력을 기억
+                e.oldHealth = e.currentHealth;
+            }
 
             // 중독 효과의 대미지 처리
             if (player.poisonDamage > 0)
@@ -515,10 +559,6 @@ public class GameManager : MonoBehaviour {
 
             // 턴을 넘길 때의 플레이어의 현재 체력을 기억
             player.oldHealth = player.currentHealth;
-            foreach (Character e in enemies)
-            {
-                e.DamagedAnimation();
-            }
         }
         else if (oldTurn == 1)
         {
@@ -535,7 +575,6 @@ public class GameManager : MonoBehaviour {
                 // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
             }
-            player.DamagedAnimation();
         }
 
         while (true)

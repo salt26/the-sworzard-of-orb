@@ -31,9 +31,13 @@ public class StatusUI : MonoBehaviour {
 
     public void UpdateAll(Character character, int currentHealth)
     {
-        UpdateAttackText(character.EquippedWeapon);
-        UpdateDefenseText(character.armor);
-        UpdateHealthText(currentHealth, character.maxHealth);
+        if (GameManager.gm.player.Equals(character) ||
+            (GameManager.gm.SelectedCharacter != null && GameManager.gm.SelectedCharacter.Equals(character)))
+        {
+            UpdateAttackText(character.EquippedWeapon);
+            UpdateDefenseText(character.armor);
+            UpdateHealthText(currentHealth, character.maxHealth);
+        }
     }
 
     public void UpdateHealthText(int currentHealth, int maxHealth)

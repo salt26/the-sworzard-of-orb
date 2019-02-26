@@ -606,7 +606,6 @@ public class EnemyMover : Mover {
             yield return null;
         }
         */
-
         isMoving = false;
     }
 
