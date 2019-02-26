@@ -161,7 +161,7 @@ public class ShopUI : MonoBehaviour {
         }
         if (purchaseItems[index] == null)
         {
-            Debug.LogWarning("Item is null.");
+            Debug.Log("Item is null.");
             return;
         }
         ItemInfo ii = ItemManager.im.FindItemInfo(purchaseItems[index]);

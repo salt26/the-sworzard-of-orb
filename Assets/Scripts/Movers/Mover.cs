@@ -28,17 +28,16 @@ public class Mover : MonoBehaviour {
 
     public IEnumerator HealedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
-        yield return null;
-        while (IsMoving)
-        {
-            yield return null;
-        }
+        isMoving = true;
         int frame = 30;
         Color original = GetComponent<SpriteRenderer>().color;
 
         if (c.currentHealth == oldHealth)
         {
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            isMoving = false;
+
+            // 여기서도 코루틴이 종료될 수 있음에 주의!
             yield break;
         }
 
@@ -73,6 +72,7 @@ public class Mover : MonoBehaviour {
             statusUI.UpdateAll(GetComponent<Character>(), c.currentHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        isMoving = false;
     }
 
     public IEnumerator PoisonedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
