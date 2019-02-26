@@ -34,9 +34,11 @@ public class Mover : MonoBehaviour {
             yield return null;
         }
         int frame = 30;
+        Color original = GetComponent<SpriteRenderer>().color;
 
         if (c.currentHealth == oldHealth)
         {
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             yield break;
         }
 
@@ -47,7 +49,7 @@ public class Mover : MonoBehaviour {
         {
             if (i < frame / 2)
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0f, 0.7f, 0.2f, 0.6f), (float)i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0f, 0.7f, 0.2f, 0.6f), (float)i / frame * 2);
             }
             else
             {
@@ -81,6 +83,7 @@ public class Mover : MonoBehaviour {
             yield return null;
         }
         int frame = 30;
+        Color original = GetComponent<SpriteRenderer>().color;
 
         GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
         g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, DamageNumber.DamageType.Poison);
@@ -89,7 +92,7 @@ public class Mover : MonoBehaviour {
         {
             if (i < frame / 2)
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0.7f, 0.6f), (float)i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0.7f, 0f, 0.7f, 0.6f), (float)i / frame * 2);
             }
             else
             {

@@ -215,6 +215,7 @@ public class ItemManager : MonoBehaviour {
         public static bool Heal(int heal)
         {
             GameManager.gm.player.Healed(heal);
+            GameManager.gm.player.poisonDamage = 0;
             return true;
         }
 
@@ -254,11 +255,33 @@ public class ItemManager : MonoBehaviour {
         public static void Intoxicate(int poisonDamage, Character target)
         {
             target.poisonDamage += poisonDamage;
+            target.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.5f, 0.8f, 1f);
         }
 
         public static void Flurry(int splashDamage, Character target)
         {
-            Debug.Log("Flurry " + splashDamage + " to " + target.name);
+            // Flurry 효과는 몬스터의 무기에 적용할 수 없음 (플레이어가 한 명이므로)
+            //Debug.Log("Flurry " + splashDamage + " to " + target.name);
+
+            Vector3 pos = VectorUtility.PositionToInt(target.GetComponent<Transform>().position);
+            Vector3[] direction = new Vector3[4] {
+                new Vector3(1f, 0f, 0f), new Vector3(-1f, 0f, 0f),
+                new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f) };
+            foreach (Vector3 d in direction)
+            {
+                GameObject g = Instantiate(GameManager.gm.player.GetComponent<PlayerMover>().distanceSprite,
+                    new Vector3(pos.x + d.x, pos.y + d.y, -0.25f), Quaternion.identity);
+                g.GetComponent<SpriteRenderer>().color = new Color(0f, 0.8f, 0.8f, 0.8f);
+                g.GetComponent<DistanceSprite>().Disappear(60);
+
+                Entity e = GameManager.gm.map.GetEntityOnTile(pos + d);
+                if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Enemy)
+                {
+                    // 진행 방향에 플레이어가 있을 경우
+                    Character enemy = (Character)e;
+                    enemy.Damaged(splashDamage, d, false);
+                }
+            }
         }
     }
 

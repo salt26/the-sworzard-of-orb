@@ -31,13 +31,15 @@ public class Treasure : Interactable {
             GameManager.gm.map.AddGoldOnTile(5, GetComponent<Transform>().position);
 
             // Large potion
+            /*
             if (Random.Range(0f, 1f) < 0.8f)
                 GameManager.gm.map.AddItemOnTile(1, GetComponent<Transform>().position);
+                */
 
             // Small potion
             for (int i = 0; i < 2; i++)
             {
-                if (Random.Range(0f, 1f) < 0.5f)
+                if (Random.Range(0f, 1f) < 0.8f)
                     GameManager.gm.map.AddItemOnTile(2, GetComponent<Transform>().position);
             }
 

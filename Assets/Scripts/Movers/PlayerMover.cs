@@ -123,7 +123,8 @@ public class PlayerMover : Mover {
                 gm.NextTurn();
             }
         }
-	}
+        
+    }
 
     IEnumerator MoveAnimation(Vector3 direction)
     {

@@ -473,15 +473,8 @@ public class EnemyMover : Mover {
         for (int i = 0; i < frame; i++)
         {
             t.position = Vector3.Lerp(origin, destination, (float)i / frame);
-            /*
-            if (i < frame / 2)
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)i / frame * 2);
-            else
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.4f, 0.7f, 0.6f, 1f), (float)(frame - i) / frame * 2);
-                */
             yield return null;
         }
-        //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         t.position = destination;
         isMoving = false;
         Attack(VectorUtility.PositionToInt((destination - origin).normalized), true); // TODO 택시 거리 1칸이 보장되지 않음
@@ -530,13 +523,11 @@ public class EnemyMover : Mover {
         {
             if (i < frame / 2)
             {
-                //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)i / frame * 2);
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)i / frame * 2);
             }
             else
             {
-                //GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.9f, 1f, 0.2f, 1f), (float)(frame - i) / frame * 2);
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(origin, origin + 0.15f * direction, (float)(frame - i) / frame * 2);
             }
@@ -550,7 +541,6 @@ public class EnemyMover : Mover {
 
             yield return null;
         }
-        //GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         if (!direction.Equals(new Vector3()))
             t.position = origin;
         isMoving = false;
@@ -563,6 +553,7 @@ public class EnemyMover : Mover {
 
         c.SelectThisCharacter();
         Vector3 originalPosition = t.position;
+        Color originalColor = GetComponent<SpriteRenderer>().color;
         DamageNumber.DamageType dt = DamageNumber.DamageType.Normal;
         if (isCritical) dt = DamageNumber.DamageType.Critical;
 
@@ -576,13 +567,13 @@ public class EnemyMover : Mover {
         {
             if (i < frame / 2)
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), i / frame * 2);
+                GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, new Color(0.7f, 0f, 0f, 0.6f), i / frame * 2);
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, i / frame * 2);
             }
             else
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0.7f, 0f, 0f, 0.6f), (frame + frame2 - i) / (frame / 2 + frame2));
+                GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, new Color(0.7f, 0f, 0f, 0.6f), (frame + frame2 - i) / (frame / 2 + frame2));
                 if (!direction.Equals(new Vector3()))
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (frame + frame2 - i) / (frame / 2 + frame2));
             }
@@ -606,7 +597,7 @@ public class EnemyMover : Mover {
         {
             statusUI.UpdateAll(c, c.currentHealth);
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        GetComponent<SpriteRenderer>().color = originalColor;
         if (!direction.Equals(new Vector3()))
             t.position = originalPosition;
         /*

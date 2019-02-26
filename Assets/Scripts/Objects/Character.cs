@@ -163,7 +163,7 @@ public class Character : Entity {
         oldHealth = currentHealth;
         currentHealth += heal;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        
+
         StartCoroutine(Mover.HealedAnimation(oldHealth, healthBar, statusUI));
     }
 

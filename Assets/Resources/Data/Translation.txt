@@ -12,11 +12,12 @@ Random_orb_1 무작위_오브_1
 Random_orb_2 무작위_오브_2
 # Item tooltip
 It's_not_a_bug,_it's_a_feature. 버그가_아니라_기능입니다!
-Restore_@_health. 체력을_@_회복합니다.
+Restore_@_health._Cure_poison. 체력을_@_회복합니다._중독을_치료합니다.
 Transform_into_a_random_level_@_orb. 무작위_@단계_오브로_변합니다.
 # Item effect
 Heal 회복
 Transform 변화
+#
 # Orb name
 Red_orb 빨강_오브
 Blue_orb 파랑_오브
@@ -72,7 +73,7 @@ An_orb_that_grants_unlimited_sustainability 무한한_동력을_가진_오브
 # Orb effect
 Intoxicate 중독
 Stun 기절
-Flurry 폭풍_칼날
+Flurry 돌풍
 FireAmp 용암의_힘
 WaterAmp 빙하의_힘
 NatureAmp 숲의_힘
@@ -84,11 +85,13 @@ Regenerate 재생
 Ingredient 재료
 Weapon_only 무기_전용
 Armor_only 방어구_전용
+#
 # Map name
 Town 마을
 Green 그린
 Blue 블루
 Red 레드
+#
 # Monster name
 Fire_pudding 불_푸딩
 Ice_pudding 얼음_푸딩
@@ -109,10 +112,12 @@ Spark 불똥
 Dry_ice 드라이아이스
 Spiky_vine 뾰족한_덩굴
 Surprise 기습
+#
 # Player
 Hyacinth 히아신스
 Magic_sword 마력의_검
 Magic_spear 마력의_창
+#
 # UI text
 Lv.@ @단계
 Menu 메뉴
