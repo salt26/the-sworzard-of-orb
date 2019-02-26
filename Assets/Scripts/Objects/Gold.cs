@@ -16,12 +16,12 @@ public class Gold : Item {
         }
         set
         {
-            if (value >= 2)
+            if (value >= 5)
             {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load("NewGolds2", typeof(Sprite)) as Sprite;
                 quantity = value;
             }
-            else if (value == 1)
+            else if (value >= 1)
             {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load("NewGolds", typeof(Sprite)) as Sprite;
                 quantity = value;

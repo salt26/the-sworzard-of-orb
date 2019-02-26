@@ -11,45 +11,45 @@
 0 Fire_pudding 0 1 35
 | Incinerator 4 0 0 1 0 0 1
 | 0 0 1 2 0 0
-| 1 1 2 1
+| 1 1 2 3
 | 100 1 0.2
 1 Ice_pudding 0 1 35
 | Extinguisher 0 4 0 0 1 0 1
 | 1 0 0 0 2 0
-| 1 1 2 1
+| 1 1 2 3
 | 101 1 0.2
 2 Nature_pudding 0 1 35
 | Root 0 0 4 0 0 1 1
 | 0 1 0 0 0 2
-| 1 1 2 1
+| 1 1 2 3
 | 102 1 0.2
 3 Goblin_pudding 1 1 30
 | Steal 1 1 2 0 0 1 1
 | 0 1 0 1 1 2
-| 1 2 4 2
+| 1 2 4 5
 | 103 1 0.3 | 2 2 0.6
 4 Devil_pudding 1 1 60
 | Corruption 1 1 1 1 1 1 1
 | 0 0 0 1 1 1
-| 1 2 4 2
+| 1 2 4 5
 | 103 1 0.3 | 2 2 0.6
 5 Flame_elemental 1 1 45
-| Spark 3 2 3 2 1 1 1
+| Spark 3 2 3 2 0 1 1
 | 1 0 0 1 0 1
-| 1 2 4 2
+| 1 2 4 5
 | 1 1 0.6
 6 Frost_elemental 1 1 45
-| Dry_ice 3 3 2 1 2 1 1
+| Dry_ice 3 3 2 1 2 0 1
 | 0 1 0 1 1 0
-| 1 2 4 2
+| 1 2 4 5
 | 1 1 0.6
 7 Tree_elemental 1 1 45
-| Spiky_vine 2 3 3 1 1 2 1
+| Spiky_vine 2 3 3 0 1 2 1
 | 0 0 1 0 1 1
-| 1 2 4 2
+| 1 2 4 5
 | 1 1 0.6
 8 Treasure_mimic 1 1 50
 | Surprise 0 0 0 0 2 2 1
 | 0 1 1 2 0 0
-| 0 2 4 7
+| 0 2 4 10
 | 4 1 1 | 1 2 0.6 | 2 1 0.4
