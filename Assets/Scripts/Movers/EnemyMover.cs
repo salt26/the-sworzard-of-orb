@@ -505,8 +505,7 @@ public class EnemyMover : Mover {
             isMoved = true;
         }
     }
-
-    // TODO direction은 현재 사용하지 않음.
+    
     IEnumerator AttackAnimation(Vector3 direction, Character player, int damage, bool isCritical)
     {
         isMoving = true;

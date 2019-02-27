@@ -12,9 +12,12 @@ public class Armor {
     /// 유효 방어구 속성을 반환합니다.
     /// </summary>
     /// <returns></returns>
-    public Element ValidElement()
+    public Element ValidElement
     {
-        return new Element(element.Fire, element.Ice, element.Nature);
+        get
+        {
+            return new Element(element.Fire, element.Ice, element.Nature);
+        }
     }
     
     /// <summary>
@@ -24,7 +27,7 @@ public class Armor {
     public int Defense()
     {
         // TODO
-        return Mathf.Clamp(BaseDefense() + ValidElement().Sum(), 0, 999);
+        return Mathf.Clamp(BaseDefense() + ValidElement.Sum(), 0, 999);
     }
 
     /// <summary>
@@ -47,9 +50,9 @@ public class Armor {
         //Mathf.Max(0, (int)(bonusDamage * otherWeapon.Attack()) - Defense())
 
         int baseDamage = Mathf.Clamp((int)(bonusDamage * otherWeapon.BaseAttack()) - BaseDefense(), 0, 999);
-        int fire = Mathf.Clamp(otherWeapon.ValidElement().Fire - ValidElement().Fire, 0, 99);
-        int ice = Mathf.Clamp(otherWeapon.ValidElement().Ice - ValidElement().Ice, 0, 99);
-        int nature = Mathf.Clamp(otherWeapon.ValidElement().Nature - ValidElement().Nature, 0, 99);
+        int fire = Mathf.Clamp(otherWeapon.ValidElement.Fire - ValidElement.Fire, 0, 99);
+        int ice = Mathf.Clamp(otherWeapon.ValidElement.Ice - ValidElement.Ice, 0, 99);
+        int nature = Mathf.Clamp(otherWeapon.ValidElement.Nature - ValidElement.Nature, 0, 99);
 
         return Mathf.Clamp(baseDamage + fire + ice + nature, 0, 999);
     }
