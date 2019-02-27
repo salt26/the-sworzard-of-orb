@@ -77,7 +77,7 @@ Flurry 돌풍
 FireAmp 용암의_힘
 WaterAmp 빙하의_힘
 NatureAmp 숲의_힘
-AllAmp 담금질의_힘
+AllAmp 만물의_힘
 Healthier 체력_증가
 Reflect 반사
 Regenerate 재생

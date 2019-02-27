@@ -344,13 +344,30 @@ public class ItemInfo
             else if (usage == Usage.Weapon)
             {
                 GameManager.gm.player.EquippedWeapon.element += stat;
-                GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    //GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
-                    GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
-                    
+                    bool isAmp = false;
+                    if (effectName.Equals("FireAmp") || effectName.Equals("AllAmp"))
+                    {
+                        GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
+                        isAmp = true;
+                    }
+                    if (effectName.Equals("IceAmp") || effectName.Equals("AllAmp"))
+                    {
+                        GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
+                        isAmp = true;
+                    }
+                    if (effectName.Equals("NatureAmp") || effectName.Equals("AllAmp"))
+                    {
+                        GameManager.gm.player.EquippedWeapon.NatureAmpBonus += effectParam / 100f;
+                        isAmp = true;
+                    }
+                    if (!isAmp)
+                    {
+                        GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+                    }
                 }
+                GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
                 return true;
             }
             else if (usage == Usage.Armor)

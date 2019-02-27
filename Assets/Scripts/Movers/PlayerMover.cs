@@ -120,7 +120,6 @@ public class PlayerMover : Mover {
             {
                 // TODO 디버그용 오브 생성 코드
                 gm.map.AddItemOnTile(Random.Range(104, 114), t.position);
-                gm.map.AddItemOnTile(Random.Range(3, 5), t.position);
                 gm.NextTurn();
             }
         }
