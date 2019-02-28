@@ -119,7 +119,7 @@ public class PlayerMover : Mover {
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(104, 114), t.position);
+                gm.map.AddItemOnTile(Random.Range(122, 125), t.position);
                 gm.NextTurn();
             }
         }
@@ -234,7 +234,6 @@ public class PlayerMover : Mover {
                     //enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Attack()) - enemy.armor.Defense()));
                     enemy.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
                 }
-
                 gm.NextTurn();
             }
 
@@ -277,11 +276,11 @@ public class PlayerMover : Mover {
                     t.position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (frame + frame2 - i) / (frame / 2 + frame2));
             }
 
-            if (c.currentHealth <= c.maxHealth / 6)
+            if (c.currentHealth <= c.MaxHealth / 6)
             {
                 damagedScreen.StartEffect(true);
             }
-            else if (c.currentHealth <= c.maxHealth / 3)
+            else if (c.currentHealth <= c.MaxHealth / 3)
             {
                 damagedScreen.StartEffect(false);
             }

@@ -36,7 +36,7 @@ public class StatusUI : MonoBehaviour {
         {
             UpdateAttackText(character.EquippedWeapon);
             UpdateDefenseText(character.armor);
-            UpdateHealthText(currentHealth, character.maxHealth);
+            UpdateHealthText(currentHealth, character.MaxHealth);
         }
     }
 

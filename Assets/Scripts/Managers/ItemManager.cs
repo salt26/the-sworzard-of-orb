@@ -284,6 +284,42 @@ public class ItemManager : MonoBehaviour {
                 }
             }
         }
+
+        public static void Reflect(int percentDamage, Character target)
+        {
+            if (target.trueOldHealth > target.currentHealth)
+            {
+                Debug.Log("Reflect");
+                float damage = (target.trueOldHealth - target.currentHealth) * (percentDamage / 100f);
+                Vector3 pos = VectorUtility.PositionToInt(target.GetComponent<Transform>().position);
+                Vector3[] direction = new Vector3[4] {
+                    new Vector3(1f, 0f, 0f), new Vector3(-1f, 0f, 0f),
+                    new Vector3(0f, 1f, 0f), new Vector3(0f, -1f, 0f) };
+                foreach (Vector3 d in direction)
+                {
+                    GameObject g = Instantiate(GameManager.gm.player.GetComponent<PlayerMover>().distanceSprite,
+                        new Vector3(pos.x + d.x, pos.y + d.y, -0.25f), Quaternion.identity);
+                    g.GetComponent<SpriteRenderer>().color = new Color(0f, 0.8f, 0.8f, 0.8f);
+                    g.GetComponent<DistanceSprite>().Disappear(60);
+
+                    Entity e = GameManager.gm.map.GetEntityOnTile(pos + d);
+                    if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type != target.type)
+                    {
+                        // 진행 방향에 적이 있을 경우
+                        Character opponent = (Character)e;
+                        opponent.hasReflected = true;
+                        opponent.reflectDamage += damage;
+                        opponent.reflectDirection = d;
+                    }
+                }
+            }
+        }
+
+        public static void Regenerate(int heal, Character target)
+        {
+            Debug.Log("Regenerate");
+
+        }
     }
 
     #endregion
@@ -346,23 +382,23 @@ public class ItemInfo
                 GameManager.gm.player.EquippedWeapon.element += stat;
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    bool isAmp = false;
+                    bool isNotAfter = false;
                     if (effectName.Equals("FireAmp") || effectName.Equals("AllAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
-                        isAmp = true;
+                        isNotAfter = true;
                     }
                     if (effectName.Equals("IceAmp") || effectName.Equals("AllAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
-                        isAmp = true;
+                        isNotAfter = true;
                     }
                     if (effectName.Equals("NatureAmp") || effectName.Equals("AllAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.NatureAmpBonus += effectParam / 100f;
-                        isAmp = true;
+                        isNotAfter = true;
                     }
-                    if (!isAmp)
+                    if (!isNotAfter)
                     {
                         GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
                     }
@@ -376,7 +412,18 @@ public class ItemInfo
                 GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    GameManager.gm.player.armor.armorEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+                    if (effectName.Equals("Healthier"))
+                    {
+                        GameManager.gm.player.bonusMaxHealth += effectParam;
+                        GameManager.gm.player.healthBar.maxValue += effectParam;
+                        GameManager.gm.player.statusUI.UpdateHealthText(GameManager.gm.player.currentHealth,
+                            GameManager.gm.player.MaxHealth);
+                        GameManager.gm.player.Healed(effectParam);
+                    }
+                    else
+                    {
+                        GameManager.gm.player.armor.armorEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+                    }
                 }
                 return true;
             }

@@ -12,7 +12,8 @@ public class Character : Entity {
     public new string name;
     public int level = 1;
     public int size = 1;            // 크기(충돌 판정이 이루어지는 타일 수)
-    public int maxHealth;
+    [SerializeField]
+    private int maxHealth;
     public int currentHealth;       // TODO private로 바꾸기
     public List<Weapon> weapons;    // 무기의 속성과 공격력
     public Armor armor;             // 방어구의 속성과 방어력
@@ -29,9 +30,19 @@ public class Character : Entity {
     [HideInInspector]
     public int gustDamage;
     [HideInInspector]
+    public int bonusMaxHealth;
+    [HideInInspector]
+    public int trueOldHealth;   // 전 턴에 남아있던 체력 (반사 효과 구현에 필요)
+    [HideInInspector]
+    public float reflectDamage;
+    [HideInInspector]
     public Vector3 gustDirection;
     [HideInInspector]
+    public Vector3 reflectDirection;
+    [HideInInspector]
     public bool hasStuned;
+    [HideInInspector]
+    public bool hasReflected;
 
     private Mover mover;
     private bool alive = true;  // 살아 있는 동안 true
@@ -54,6 +65,14 @@ public class Character : Entity {
         get
         {
             return alive;
+        }
+    }
+
+    public int MaxHealth
+    {
+        get
+        {
+            return maxHealth + bonusMaxHealth;
         }
     }
 
@@ -95,14 +114,19 @@ public class Character : Entity {
             ((EnemyMover)mover).leaveDistance = ei.leaveDistance;
         }
         currentHealth = maxHealth;
+        bonusMaxHealth = 0;
         if (healthBar != null)
         {
             healthBar.maxValue = maxHealth;
             healthBar.value = currentHealth;
         }
         oldHealth = currentHealth;
+        trueOldHealth = currentHealth;
         poisonDamage = 0;
+        gustDamage = 0;
+        reflectDamage = 0;
         hasStuned = false;
+        hasReflected = false;
         ToggleWeapon();
         
         if (statusUI != null)
@@ -133,6 +157,18 @@ public class Character : Entity {
     {
         if (effects != null && effects.GetInvocationList().Length > 0)
             effects(this);
+    }
+
+    /// <summary>
+    /// 턴이 끝난 캐릭터의 방어구에 적용되어 있던 effects를 자기 자신에게 적용합니다.
+    /// </summary>
+    /// <param name="effects"></param>
+    public void DefendWithEffects(ItemManager.Effect effects)
+    {
+        if (effects != null && effects.GetInvocationList().Length > 0)
+        {
+            effects(this);
+        }
     }
 
     /// <summary>
@@ -174,12 +210,28 @@ public class Character : Entity {
         StartCoroutine(Mover.GustedAnimation(oldHealth, healthBar, statusUI, gustDirection));
     }
 
+    /// <summary>
+    /// 반사 효과의 대미지를 받을 때 호출됩니다.
+    /// 대미지 계산이 완료된 후 반사 피격 애니메이션까지 재생됩니다.
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="direction"></param>
+    public void Reflected()
+    {
+        if (!Alive || !hasReflected) return;
+        oldHealth = currentHealth;
+        currentHealth -= (int)reflectDamage;
+        reflectDamage = 0;
+        hasReflected = false;
+        StartCoroutine(Mover.ReflectedAnimation(oldHealth, healthBar, statusUI, reflectDirection));
+    }
+
     public void Healed(int heal)
     {
         if (!Alive) return;
         oldHealth = currentHealth;
         currentHealth += heal;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        if (currentHealth > MaxHealth) currentHealth = MaxHealth;
 
         StartCoroutine(Mover.HealedAnimation(oldHealth, healthBar, statusUI));
     }
@@ -210,7 +262,7 @@ public class Character : Entity {
         {
             currentHealth = 0;
             alive = true;
-            Healed(maxHealth);
+            Healed(MaxHealth);
             foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
                 sr.enabled = true;
 

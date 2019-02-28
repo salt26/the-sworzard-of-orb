@@ -43,7 +43,7 @@ Hardening_orb 담금질_오브
 Impregnability_orb 난공불락_오브
 Growth_orb 성장_오브
 Spine_orb 가시_오브
-Photosynthesis_orb 광합성_오브	
+Photosynthesis_orb 광합성_오브
 # Orb tooltip
 A_common_reddish_orb 붉은_빛이_도는_오브
 A_common_blue_orb 푸른_빛이_도는_오브

@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour {
     /// <param name="sceneName"></param>
     public void ChangeScene(string sceneName, string mapName = null)
     {
-        player.Healed(player.maxHealth);
+        player.Healed(player.MaxHealth);
         if (mapName != null)
         {
             if (mapLevel.ContainsKey(mapName))
@@ -535,7 +535,7 @@ public class GameManager : MonoBehaviour {
             else yield return null;
         }
 
-        /* 페이즈 2: 특수 효과(중독, 돌풍) 대미지 애니메이션 처리 */
+        /* 페이즈 2: 무기 특수 효과(중독, 돌풍) 대미지 애니메이션 처리 */
         if (oldTurn == 0)
         {
             // 플레이어의 턴이 끝남
@@ -546,9 +546,6 @@ public class GameManager : MonoBehaviour {
                 {
                     e.Gusted();
                 }
-
-                // 턴을 넘길 때의 각 적의 현재 체력을 기억
-                e.oldHealth = e.currentHealth;
             }
 
             // 중독 효과의 대미지 처리
@@ -557,13 +554,10 @@ public class GameManager : MonoBehaviour {
                 player.Poisoned();
             }
 
-            // 턴을 넘길 때의 플레이어의 현재 체력을 기억
-            player.oldHealth = player.currentHealth;
         }
         else if (oldTurn == 1)
         {
             // 적들의 턴이 끝남
-
             foreach (Character e in enemies)
             {
                 // 중독 효과의 대미지 처리
@@ -571,10 +565,52 @@ public class GameManager : MonoBehaviour {
                 {
                     e.Poisoned();
                 }
+            }
+        }
+        
+        while (true)
+        {
+            ready = true;
+            foreach (Character e in enemies)
+            {
+                if (e.Alive && e.Mover.IsMoving)
+                {
+                    ready = false;
+                    break;
+                }
+            }
+            if (player.Alive && player.Mover.IsMoving) ready = false;
+
+            if (ready) break;
+            else yield return null;
+        }
+
+        /* 페이즈 3: 방어구 특수 효과(반사, 재생) 대미지 애니메이션 처리 */
+        if (oldTurn == 0)
+        {
+            foreach (Character e in enemies)
+            {
+                e.DefendWithEffects(e.armor.armorEffect);
 
                 // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
             }
+            player.Reflected();
+            // 턴을 넘길 때의 플레이어의 현재 체력을 기억
+            player.oldHealth = player.currentHealth;
+            player.trueOldHealth = player.currentHealth;
+        }
+        else if (oldTurn == 1)
+        {
+            player.DefendWithEffects(player.armor.armorEffect);
+            foreach (Character e in enemies)
+            {
+                e.Reflected();
+                // 턴을 넘길 때의 각 적의 현재 체력을 기억
+                e.oldHealth = e.currentHealth;
+                e.trueOldHealth = e.currentHealth;
+            }
+            player.oldHealth = player.currentHealth;
         }
 
         while (true)

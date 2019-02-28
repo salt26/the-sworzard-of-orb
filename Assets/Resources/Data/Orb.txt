@@ -25,6 +25,6 @@
 119 Storm_orb An_orb_that_swirls_like_a_maelstrom 3 1 0 3 3 100 Flurry 16 | 109 109 109
 120 Hardening_orb An_orb_that_tests_the_limitations 3 1 1 1 1 100 AllAmp 40 | 104 105 106
 121 Impregnability_orb An_orb_that_grants_an_iron_protection 3 2 3 3 3 100 | 111 112 113
-122 Growth_orb An_orb_that_is_full_of_spirit 3 2 2 2 0 100 Healthier 25 | 110 111 112
-123 Spine_orb An_orb_that_is_hunger_for_retaliation 3 2 2 0 2 100 Reflect 20 | 110 111 113
+122 Growth_orb An_orb_that_is_full_of_spirit 3 2 2 2 0 100 Healthier 50 | 110 111 112
+123 Spine_orb An_orb_that_is_hunger_for_retaliation 3 2 2 0 2 100 Reflect 25 | 110 111 113
 124 Photosynthesis_orb An_orb_that_grants_unlimited_sustainability 3 2 0 2 2 100 Regenerate 2 | 110 112 113

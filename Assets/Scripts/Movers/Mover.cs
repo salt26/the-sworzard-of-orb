@@ -78,7 +78,7 @@ public class Mover : MonoBehaviour {
     public IEnumerator PoisonedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
         isMoving = true;
-        int frame = 30;
+        int frame = 25;
         Color original = GetComponent<SpriteRenderer>().color;
 
         GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
@@ -100,7 +100,7 @@ public class Mover : MonoBehaviour {
                 healthBar.value = f;
             if (statusUI != null)
             {
-                statusUI.UpdateAll(GetComponent<Character>(), (int)f);
+                statusUI.UpdateAll(c, (int)f);
             }
 
             yield return null;
@@ -109,7 +109,7 @@ public class Mover : MonoBehaviour {
             healthBar.value = c.currentHealth;
         if (statusUI != null)
         {
-            statusUI.UpdateAll(GetComponent<Character>(), c.currentHealth);
+            statusUI.UpdateAll(c, c.currentHealth);
         }
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         isMoving = false;
@@ -168,6 +168,54 @@ public class Mover : MonoBehaviour {
             yield return null;
         }
         
+        isMoving = false;
+    }
+
+    public IEnumerator ReflectedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, Vector3 direction = new Vector3())
+    {
+        isMoving = true;
+        int frame = 25;
+        Vector3 originalPosition = GetComponent<Transform>().position;
+        Color originalColor = GetComponent<SpriteRenderer>().color;
+
+        GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
+        g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, DamageNumber.DamageType.Poison);
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (i < frame / 2)
+            {
+                GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, new Color(0.7f, 0.7f, 0f, 0.8f), (float)i / frame * 2);
+                if (!direction.Equals(new Vector3()))
+                    GetComponent<Transform>().position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (float)i / frame * 2);
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, new Color(0.7f, 0.7f, 0f, 0.8f), (float)(frame - i) / frame * 2);
+                if (!direction.Equals(new Vector3()))
+                    GetComponent<Transform>().position = Vector3.Lerp(originalPosition, originalPosition + 0.2f * direction, (float)(frame - i) / frame * 2);
+            }
+
+            float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
+            if (healthBar != null)
+                healthBar.value = f;
+            if (statusUI != null)
+            {
+                statusUI.UpdateAll(c, (int)f);
+            }
+
+            yield return null;
+        }
+        if (healthBar != null)
+            healthBar.value = c.currentHealth;
+        if (statusUI != null)
+        {
+            statusUI.UpdateAll(c, c.currentHealth);
+        }
+        GetComponent<SpriteRenderer>().color = originalColor;
+        if (!direction.Equals(new Vector3()))
+            GetComponent<Transform>().position = originalPosition;
+
         isMoving = false;
     }
 
