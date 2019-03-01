@@ -20,13 +20,11 @@ public class GameManager : MonoBehaviour {
     public Map map;
     public List<Character> enemies = new List<Character>();
     public List<Interactable> interactables = new List<Interactable>();
-    
+
     [HideInInspector]
-    public Image turnMark;
-    public Sprite myTurn;
-    public Color myTurnColor;
-    public Sprite enemyTurn;
-    public Color enemyTurnColor;
+    public GameObject monsterNumberMark;
+    [HideInInspector]
+    public Text monsterNumberText;
 
     [HideInInspector]
     public Image weaponMark;
@@ -106,7 +104,8 @@ public class GameManager : MonoBehaviour {
         player.statusUI = UIObject.GetComponent<UIInfo>().playerStatusUI;
         player.GetComponent<Inventory>().goldText = UIObject.GetComponent<UIInfo>().goldText;
         player.GetComponent<Inventory>().itemButtons = UIObject.GetComponent<UIInfo>().itemButtons;
-        turnMark = UIObject.GetComponent<UIInfo>().turnMark;
+        monsterNumberMark = UIObject.GetComponent<UIInfo>().monsterNumberMark;
+        monsterNumberText = UIObject.GetComponent<UIInfo>().monsterNumberText;
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
         restartText = UIObject.GetComponent<UIInfo>().restartText;
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
@@ -194,7 +193,7 @@ public class GameManager : MonoBehaviour {
             int orbID = Random.Range(100, 104);
             string randomOrb = ItemManager.im.FindItemInfo(orbID).name;
             Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems = new List<string>
-                { "Small potion", "Small potion", "Large potion",
+                { "Small potion", "Large potion", "Return scroll",
                     randomOrb, "Random orb 1", "Random orb 2" };
         }
         StartCoroutine(LoadScene(sceneName, mapName));
@@ -250,6 +249,11 @@ public class GameManager : MonoBehaviour {
             MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel);
             map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringManager.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
             map.GetComponent<AudioSource>().Play();
+            monsterNumberMark.SetActive(true);
+        }
+        else
+        {
+            monsterNumberMark.SetActive(false);
         }
         StringManager.sm.RefreshTexts();
         map.Initialize(mapAutoGeneration);
@@ -471,6 +475,14 @@ public class GameManager : MonoBehaviour {
             }
         }
         #endregion
+        
+        int monsterNumber = 0;
+        foreach (Character e in enemies)
+        {
+            if (e.type != Character.Type.Enemy || !e.Alive) continue;
+            monsterNumber++;
+        }
+        monsterNumberText.text = monsterNumber.ToString();
     }
 
     /// <summary>
@@ -628,18 +640,15 @@ public class GameManager : MonoBehaviour {
             e.DeathCheck();
         }
 
+        int monsterNumber = 0;
+        foreach (Character e in enemies)
+        {
+            if (e.type != Character.Type.Enemy || !e.Alive) continue;
+            monsterNumber++;
+        }
+        monsterNumberText.text = monsterNumber.ToString();
+
         turn = (oldTurn + 1) % 2;
-        if (turn == 0)
-        {
-            turnMark.sprite = myTurn;
-            turnMark.color = myTurnColor;
-        }
-        else
-        {
-            turnNumber++;
-            turnMark.sprite = enemyTurn;
-            turnMark.color = enemyTurnColor;
-        }
     }
 
     /// <summary>
@@ -661,8 +670,6 @@ public class GameManager : MonoBehaviour {
         //Debug.Log("NextTurnFromAltar");
         turn = 1;
         turnNumber++;
-        turnMark.sprite = enemyTurn;
-        turnMark.color = enemyTurnColor;
     }
 
     /// <summary>
@@ -684,8 +691,6 @@ public class GameManager : MonoBehaviour {
         //Debug.Log("NextTurnFromShop");
         turn = 1;
         turnNumber++;
-        turnMark.sprite = enemyTurn;
-        turnMark.color = enemyTurnColor;
     }
 
     /// <summary>

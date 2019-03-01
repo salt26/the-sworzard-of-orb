@@ -10,13 +10,16 @@ Large_potion 대형_물약
 Small_potion 소형_물약
 Random_orb_1 무작위_오브_1
 Random_orb_2 무작위_오브_2
+Return_scroll 귀환_두루마리
 # Item tooltip
 It's_not_a_bug,_it's_a_feature. 버그가_아니라_기능입니다!
-Restore_@_health._Cure_poison. 체력을_@_회복합니다._중독을_치료합니다.
+Restore_@_health._Cure_poison. 체력을_@_회복합니다._중독_상태에서_벗어납니다.
 Transform_into_a_random_level_@_orb. 무작위_@단계_오브로_변합니다.
+Escape_to_Town_immediately._Keep_other_items_in_inventory. 즉시_마을로_탈출합니다._인벤토리의_다른_아이템들을_보존합니다.
 # Item effect
 Heal 회복
 Transform 변화
+Return 귀환
 #
 # Orb name
 Red_orb 빨강_오브
@@ -119,7 +122,7 @@ Surprise 기습
 Snowball 눈덩이
 Ice_fist 얼음_주먹
 Fire_fist 불_주먹
-Nature_fist 자연_주먹
+Nature_fist 야생_주먹
 #
 # Player
 Hyacinth 히아신스

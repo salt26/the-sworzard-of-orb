@@ -26,6 +26,12 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
                 if (GetComponent<Button>().interactable)
                     GetComponent<Button>().interactable = false;
             }
+            else if (itemName != null && ItemManager.im.FindItemInfo(itemName).type == ItemInfo.Type.Consumable &&
+                !ItemManager.im.InvokeItemUsage(ItemManager.im.FindItemInfo(itemName).effectName, ItemManager.im.FindItemInfo(itemName).effectParam))
+            {
+                if (GetComponent<Button>().interactable)
+                    GetComponent<Button>().interactable = false;
+            }
             else if (!GetComponent<Button>().interactable)
                 GetComponent<Button>().interactable = true;
         }

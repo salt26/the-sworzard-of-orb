@@ -70,6 +70,7 @@ public class Inventory : MonoBehaviour {
     /// <param name="item"></param>
     public bool AddItem(string item)
     {
+        // 만약 이 메서드가 false를 반환하는 경우가 추가된다면, ItemEffect의 TransformWithNoEffect도 바꾸기!
         if (items.Count >= maxItemNumber)
         {
             // TODO 인벤토리가 가득 찬 경우 처리하기

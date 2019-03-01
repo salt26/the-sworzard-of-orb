@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Reflection;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 각종 아이템의 정보를 들고 있습니다.
@@ -188,6 +189,24 @@ public class ItemManager : MonoBehaviour {
         return (bool)mi.Invoke(null, new object[] { param });
     }
 
+    /// <summary>
+    /// 아이템의 효과를 발동시키지 않고 반환값만 받습니다.
+    /// </summary>
+    /// <param name="effectName"></param>
+    /// <param name="param"></param>
+    /// <returns></returns>
+    public bool InvokeItemUsage(string effectName, int param)
+    {
+        if (effectName == null || effectName.Equals("")) return false;
+        MethodInfo mi = typeof(ItemEffect).GetMethod(effectName + "WithNoEffect", BindingFlags.Public | BindingFlags.Static);
+        if (mi == null)
+        {
+            Debug.LogWarning("There is no item effect method named '" + effectName + "'!");
+            return false;
+        }
+        return (bool)mi.Invoke(null, new object[] { param });
+    }
+
     public Effect GetOrbEffect(string effectName, int param)
     {
         if (effectName == null) return null;
@@ -208,14 +227,29 @@ public class ItemManager : MonoBehaviour {
     /// </summary>
     private class ItemEffect
     {
-        // 이 클래스 안에는 아이템 효과 메서드만 정의되어야 하며,
+        // 이 클래스 안에는 아이템 효과 메서드(+아이템 사용 가능 조건만 반환하는 메서드)만 정의되어야 하며,
         // 이 안의 모든 메서드는 int 인자 하나를 받아 bool 타입을 반환하는 static 메서드여야 합니다.
         // 반환하는 값은 아이템이 성공적으로 사용되었는지 여부입니다.
 
         public static bool Heal(int heal)
         {
-            GameManager.gm.player.Healed(heal);
-            GameManager.gm.player.poisonDamage = 0;
+            Character player = GameManager.gm.player;
+            if (player.currentHealth == player.MaxHealth && player.poisonDamage == 0)
+            {
+                return false;
+            }
+            player.Healed(heal);
+            player.poisonDamage = 0;
+            return true;
+        }
+
+        public static bool HealWithNoEffect(int heal)
+        {
+            Character player = GameManager.gm.player;
+            if (player.currentHealth == player.MaxHealth && player.poisonDamage == 0)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -234,6 +268,36 @@ public class ItemManager : MonoBehaviour {
             }
 
             return inv.AddItem(l[Random.Range(0, l.Count)].name);
+        }
+
+        public static bool TransformWithNoEffect(int level)
+        {
+            Inventory inv = GameManager.gm.player.GetComponent<Inventory>();
+
+            if (inv.Items.Count >= inv.maxItemNumber)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool Return(int anyInt = 0)
+        {
+            if (!GameManager.gm.IsSceneLoaded || SceneManager.GetActiveScene().name.Equals("Town"))
+            {
+                return false;
+            }
+            GameManager.gm.ChangeScene("Town", null);
+            return true;
+        }
+
+        public static bool ReturnWithNoEffect(int anyInt = 0)
+        {
+            if (!GameManager.gm.IsSceneLoaded || SceneManager.GetActiveScene().name.Equals("Town"))
+            {
+                return false;
+            }
+            return true;
         }
     }
 

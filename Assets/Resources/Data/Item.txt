@@ -8,3 +8,4 @@
 2 Small_potion Restore_@_health._Cure_poison. 5 Heal 40
 3 Random_orb_1 Transform_into_a_random_level_@_orb. 18 Transform 1
 4 Random_orb_2 Transform_into_a_random_level_@_orb. 60 Transform 2
+5 Return_scroll Escape_to_Town_immediately._Keep_other_items_in_inventory. 30 Return 0

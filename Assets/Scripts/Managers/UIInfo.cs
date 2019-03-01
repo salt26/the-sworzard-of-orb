@@ -16,7 +16,8 @@ public class UIInfo : MonoBehaviour {
     public DamagedScreen DamagedPanel;
 
     [Header("GM")]
-    public Image turnMark;
+    public GameObject monsterNumberMark;
+    public Text monsterNumberText;
     public Image weaponMark;
     public GameObject restartText;
     public GameObject loadingPanel;
