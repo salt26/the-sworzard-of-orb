@@ -34,6 +34,8 @@ public class Character : Entity {
     [HideInInspector]
     public int trueOldHealth;   // 전 턴에 남아있던 체력 (반사 효과 구현에 필요)
     [HideInInspector]
+    public int regeneratedHealth;
+    [HideInInspector]
     public float reflectDamage;
     [HideInInspector]
     public Vector3 gustDirection;
@@ -236,9 +238,20 @@ public class Character : Entity {
         StartCoroutine(Mover.HealedAnimation(oldHealth, healthBar, statusUI));
     }
 
+    public void Regenerated()
+    {
+        if (!Alive || regeneratedHealth == 0) return;
+        oldHealth = currentHealth;
+        currentHealth += regeneratedHealth;
+        regeneratedHealth = 0;
+        if (currentHealth > MaxHealth) currentHealth = MaxHealth;
+
+        StartCoroutine(Mover.RegeneratedAnimation(oldHealth, healthBar, statusUI));
+    }
+
     public void DeathCheck()
     {
-        if (currentHealth <= 0 && alive)
+        if (currentHealth <= 0 && Alive)
         {
             // 죽음
             // TODO 죽는 애니메이션과 스프라이트

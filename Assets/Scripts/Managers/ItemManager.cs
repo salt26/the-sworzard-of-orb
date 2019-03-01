@@ -289,7 +289,6 @@ public class ItemManager : MonoBehaviour {
         {
             if (target.trueOldHealth > target.currentHealth)
             {
-                Debug.Log("Reflect");
                 float damage = (target.trueOldHealth - target.currentHealth) * (percentDamage / 100f);
                 Vector3 pos = VectorUtility.PositionToInt(target.GetComponent<Transform>().position);
                 Vector3[] direction = new Vector3[4] {
@@ -317,8 +316,7 @@ public class ItemManager : MonoBehaviour {
 
         public static void Regenerate(int heal, Character target)
         {
-            Debug.Log("Regenerate");
-
+            target.regeneratedHealth += heal;
         }
     }
 

@@ -15,12 +15,15 @@ public class PlayerMover : Mover {
 
     public GameObject distanceSprite;
 
+    private bool hasTurnEndPressed;
+
     // Use this for initialization
     void Start () {
         t = GetComponent<Transform>();
         c = GetComponent<Character>();
         gm = GameManager.gm;
         isMoving = false;
+        hasTurnEndPressed = false;
 	}
 	
 	void Update () {
@@ -109,21 +112,37 @@ public class PlayerMover : Mover {
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                gm.NextTurn();
+                //gm.NextTurn();
+                StartCoroutine(DelayedNextTurn());
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
                 c.ToggleWeapon();
-                gm.NextTurn();
+                //gm.NextTurn();
+                StartCoroutine(DelayedNextTurn());
             }
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
                 gm.map.AddItemOnTile(Random.Range(122, 125), t.position);
-                gm.NextTurn();
+                //gm.NextTurn();
+                StartCoroutine(DelayedNextTurn());
             }
         }
         
+    }
+
+    IEnumerator DelayedNextTurn()
+    {
+        if (hasTurnEndPressed) yield break;
+        hasTurnEndPressed = true;
+        float frame = 2f;
+        for (int i = 0; i < frame; i++)
+        {
+            yield return null;
+        }
+        gm.NextTurn();
+        hasTurnEndPressed = false;
     }
 
     IEnumerator MoveAnimation(Vector3 direction)

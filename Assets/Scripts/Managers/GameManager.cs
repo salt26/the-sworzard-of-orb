@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour {
         }
         foreach (MapInfo mi in MapManager.mm.mapInfo.Values) {
             if (!mapLevel.Keys.ToList().Contains(mi.name))
-                mapLevel.Add(mi.name, 0);
+                mapLevel.Add(mi.name, 5);
         }
         Initialize();
         isSceneLoaded = true;
@@ -494,14 +494,14 @@ public class GameManager : MonoBehaviour {
     public void NextTurn()
     {
         if (turn > 1) return;
-        StartCoroutine(NextTurnWithDelay());
-    }
-
-    IEnumerator NextTurnWithDelay()
-    {
-        bool ready;
         int oldTurn = turn;
         turn = 2;   // 임시 턴 (피격 애니메이션 재생 중 키 입력으로 한 턴에 여러 번 행동하는 것을 방지)
+        StartCoroutine(NextTurnWithDelay(oldTurn));
+    }
+
+    IEnumerator NextTurnWithDelay(int oldTurn)
+    {
+        bool ready;
 
         /* 페이즈 1: 일반 피격 애니메이션 재생 */
         if (oldTurn == 0)
@@ -596,6 +596,10 @@ public class GameManager : MonoBehaviour {
                 e.oldHealth = e.currentHealth;
             }
             player.Reflected();
+            foreach (Character e in enemies)
+            {
+                e.Regenerated();
+            }
             // 턴을 넘길 때의 플레이어의 현재 체력을 기억
             player.oldHealth = player.currentHealth;
             player.trueOldHealth = player.currentHealth;
@@ -610,6 +614,7 @@ public class GameManager : MonoBehaviour {
                 e.oldHealth = e.currentHealth;
                 e.trueOldHealth = e.currentHealth;
             }
+            player.Regenerated();
             player.oldHealth = player.currentHealth;
         }
 

@@ -29,7 +29,7 @@ public class Mover : MonoBehaviour {
     public IEnumerator HealedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
         isMoving = true;
-        int frame = 30;
+        int frame = 25;
         Color original = GetComponent<SpriteRenderer>().color;
 
         if (c.currentHealth == oldHealth)
@@ -216,6 +216,55 @@ public class Mover : MonoBehaviour {
         if (!direction.Equals(new Vector3()))
             GetComponent<Transform>().position = originalPosition;
 
+        isMoving = false;
+    }
+
+    public IEnumerator RegeneratedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
+    {
+        isMoving = true;
+        int frame = 6;
+        Color original = GetComponent<SpriteRenderer>().color;
+
+        if (c.currentHealth == oldHealth)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            isMoving = false;
+
+            // 여기서도 코루틴이 종료될 수 있음에 주의!
+            yield break;
+        }
+
+        GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
+        g.GetComponent<DamageNumber>().Initialize(c.currentHealth - oldHealth, DamageNumber.DamageType.Heal);
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (i < frame / 2)
+            {
+                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0.5f, 1f, 0.8f, 1f), (float)i / frame * 2);
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0.5f, 1f, 0.8f, 1f), (float)(frame - i) / frame * 2);
+            }
+
+            float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
+            if (healthBar != null)
+                healthBar.value = f;
+            if (statusUI != null)
+            {
+                statusUI.UpdateAll(GetComponent<Character>(), (int)f);
+            }
+
+            yield return null;
+        }
+        if (healthBar != null)
+            healthBar.value = c.currentHealth;
+        if (statusUI != null)
+        {
+            statusUI.UpdateAll(GetComponent<Character>(), c.currentHealth);
+        }
+        GetComponent<SpriteRenderer>().color = original;
         isMoving = false;
     }
 
