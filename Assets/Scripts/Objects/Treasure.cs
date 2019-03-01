@@ -21,7 +21,7 @@ public class Treasure : Interactable {
             GetComponent<EnemyMover>().enabled = true;
             GetComponent<Character>().enabled = true;
             GetComponent<Character>().statusUI = GameManager.gm.Canvas.GetComponent<UIInfo>().enemyStatusUI;
-            GetComponent<Character>().level = GameManager.gm.mapLevel[GameManager.gm.map.mapName];
+            GetComponent<Character>().level = GameManager.gm.mapLevel;
             GameManager.gm.interactables.Remove(this);
             GameManager.gm.enemies.Add(GetComponent<Character>());
             GameManager.gm.map.SetEntityOnTile(GetComponent<Character>(), GetComponent<Transform>().position);

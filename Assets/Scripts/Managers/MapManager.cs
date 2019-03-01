@@ -12,7 +12,10 @@ public class MapManager : MonoBehaviour {
     
     public Color townBackgroundColor;
     
+    [HideInInspector]
     public Text mapText;
+    [HideInInspector]
+    public Text levelText;
 
     void Awake()
     {
@@ -21,6 +24,11 @@ public class MapManager : MonoBehaviour {
         {
             GameObject g = GameObject.Find("MapText");
             if (g != null) mapText = g.GetComponent<Text>();
+        }
+        if (levelText == null)
+        {
+            GameObject g = GameObject.Find("LevelText");
+            if (g != null) levelText = g.GetComponent<Text>();
         }
     }
 
@@ -73,10 +81,15 @@ public class MapManager : MonoBehaviour {
         }
         else
         {
-            mapName = GameManager.gm.map.mapName;
+            mapName = StringManager.sm.Translate(GameManager.gm.map.mapName);
         }
         if (mapText != null)
-            mapText.text = StringManager.sm.Translate(mapName);
+            mapText.text = mapName;
+        if (levelText != null)
+        {
+            levelText.text = StringManager.sm.Translate("Lv.@").Replace("@", GameManager.gm.mapLevel.ToString());
+        }
+        
     }
 }
 

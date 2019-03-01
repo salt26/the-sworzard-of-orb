@@ -101,12 +101,14 @@ public class Map : MonoBehaviour {
             }
             if (MapManager.mm.mapText != null)
                 MapManager.mm.mapText.text = StringManager.sm.Translate(SceneManager.GetActiveScene().name);    // TODO
+            if (MapManager.mm.levelText != null)
+                MapManager.mm.levelText.text = StringManager.sm.Translate("Lv.@").Replace("@", GameManager.gm.mapLevel.ToString());
             if (Camera.main != null)
                 Camera.main.backgroundColor = MapManager.mm.townBackgroundColor;
         }
         else
         {
-            MapInfo mi = MapManager.mm.FindMapInfo(mapName, GameManager.gm.mapLevel[mapName]);
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName, GameManager.gm.mapLevel);
             mapShape = GenerateMapShape(new Vector2Int(mi.width, mi.height));
             tiles = GenerateMap(mapShape);
         }
@@ -142,7 +144,7 @@ public class Map : MonoBehaviour {
             return null;
         List<List<MapTile>> tiles = new List<List<MapTile>>();
 
-        MapInfo mi = MapManager.mm.FindMapInfo(mapName, GameManager.gm.mapLevel[mapName]);
+        MapInfo mi = MapManager.mm.FindMapInfo(mapName, GameManager.gm.mapLevel);
         if (mi == null)
         {
             Debug.LogWarning("Map doesn't exist!");
@@ -151,6 +153,8 @@ public class Map : MonoBehaviour {
 
         if (MapManager.mm.mapText != null)
             MapManager.mm.mapText.text = StringManager.sm.Translate(mi.name);
+        if (MapManager.mm.levelText != null)
+            MapManager.mm.levelText.text = StringManager.sm.Translate("Lv.@").Replace("@", GameManager.gm.mapLevel.ToString());
 
         if (Camera.main != null)
             Camera.main.backgroundColor = mi.backgroundColor;

@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
     public GameObject mySelectedBorder;
 
     [HideInInspector]
-    public Dictionary<string, int> mapLevel = new Dictionary<string, int>();
+    public int mapLevel = 1;
 
     [Header("Debugging")]
     public int turnNumber = 0;
@@ -125,10 +125,7 @@ public class GameManager : MonoBehaviour {
                 Destroy(shop.gameObject);
             }
         }
-        foreach (MapInfo mi in MapManager.mm.mapInfo.Values) {
-            if (!mapLevel.Keys.ToList().Contains(mi.name))
-                mapLevel.Add(mi.name, 0);
-        }
+        mapLevel = 1;
         Initialize();
         isSceneLoaded = true;
     }
@@ -169,10 +166,7 @@ public class GameManager : MonoBehaviour {
             player.GetComponent<Inventory>().Gold /= 2;
             player.Revive();
             //mapLevel[map.mapName]--;
-            foreach (string s in mapLevel.Keys.ToList())
-            {
-                mapLevel[s]--;
-            }
+            mapLevel--;
             ChangeScene("Town");
             /*
             // 0번 씬에 Manager 오브젝트가 있다고 가정
@@ -190,17 +184,9 @@ public class GameManager : MonoBehaviour {
     public void ChangeScene(string sceneName, string mapName = null)
     {
         player.Healed(player.MaxHealth);
-        if (mapName != null)
+        if (mapName == null && sceneName.Equals("Town"))
         {
-            if (mapLevel.ContainsKey(mapName))
-            {
-                //mapLevel[mapName]++;
-                foreach (string s in mapLevel.Keys.ToList())
-                {
-                    mapLevel[s]++;
-                }
-            }
-            else mapLevel.Add(mapName, 1);
+            mapLevel++;
         }
         if (sceneName.Equals("Town"))
         {
@@ -261,7 +247,7 @@ public class GameManager : MonoBehaviour {
         {
             map.mapName = mapName;
             mapAutoGeneration = true;
-            MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel[mapName]);
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel);
             map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringManager.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
             map.GetComponent<AudioSource>().Play();
         }
@@ -319,7 +305,7 @@ public class GameManager : MonoBehaviour {
         #region 맵 정보(MapInfo)에 따라 개체 생성 후 등록
         if (mapName != null)
         {
-            MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel[mapName]);
+            MapInfo mi = MapManager.mm.FindMapInfo(mapName, mapLevel);
             if (mi != null)
             {
                 foreach (int id in mi.interactablesID)
@@ -456,7 +442,7 @@ public class GameManager : MonoBehaviour {
                         g = Instantiate(EnemyManager.em.monsterPrefab, new Vector3(x, y, -1f), Quaternion.identity);
                         Character c = g.GetComponent<Character>();
                         c.name = ei.name;
-                        c.level = mapLevel[mapName];
+                        c.level = mapLevel;
                         //Debug.Log("GM creates an enemy. (call first)");
                         enemies.Add(c);
                         map.SetEntityOnTile(c, g.GetComponent<Transform>().position);
