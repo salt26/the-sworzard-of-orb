@@ -132,6 +132,7 @@ public class PlayerMover : Mover {
         
     }
 
+    // 스페이스 바(또는 C키)를 연타할 때 한 턴 안에 Regeneration 효과가 두 번 이상 발동할 수 있던 문제를 해결하기 위한 장치
     IEnumerator DelayedNextTurn()
     {
         if (hasTurnEndPressed) yield break;

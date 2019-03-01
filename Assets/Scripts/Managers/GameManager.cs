@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour {
         }
         foreach (MapInfo mi in MapManager.mm.mapInfo.Values) {
             if (!mapLevel.Keys.ToList().Contains(mi.name))
-                mapLevel.Add(mi.name, 5);
+                mapLevel.Add(mi.name, 0);
         }
         Initialize();
         isSceneLoaded = true;
