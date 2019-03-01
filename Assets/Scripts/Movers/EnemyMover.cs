@@ -443,7 +443,13 @@ public class EnemyMover : Mover {
     private bool AttackWithoutMove()
     {
         bool isAttacked = false;
-        List<Vector3> melee = new List<Vector3>() { new Vector3(-1f, 0f, 0f), new Vector3(1f, 0f, 0f), new Vector3(0f, -1f, 0f), new Vector3(0f, 1f, 0f) };
+        List<Vector3> melee = new List<Vector3>();
+        for (int i = 0; i <= c.EquippedWeapon.Range; i++) {
+            melee.Add(new Vector3(-1f * i, 0f, 0f));
+            melee.Add(new Vector3(1f * i, 0f, 0f));
+            melee.Add(new Vector3(0f, -1f * i, 0f));
+            melee.Add(new Vector3(0f, 1f * i, 0f));
+        }
         foreach (Vector3 v in melee)
         {
             Vector3 destination = GetCurrentPosition() + v;
@@ -456,6 +462,7 @@ public class EnemyMover : Mover {
                 Attack(VectorUtility.PositionToInt((destination - GetCurrentPosition()).normalized), false);
                 // Debug.Log("AttackWithoutMove");
                 isAttacked = true;
+                break;
             }
         }
         return isAttacked;
@@ -487,19 +494,25 @@ public class EnemyMover : Mover {
     /// <param name="isCharge"></param>
     private void Attack(Vector3 direction, bool isCharge)
     {
-        // 플레이어가 진행 방향에 있는지 체크
-        Entity e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x), Mathf.RoundToInt(t.position.y + direction.y));
-        if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Player)
+        bool attacked = false;
+        for (int i = 1; i <= c.EquippedWeapon.Range; i++)
         {
-            // 진행 방향에 플레이어가 있을 경우
-            Character player = (Character)e;
-            float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
-            if (!isCharge) bonus = 1f;
-            StartCoroutine(AttackAnimation(direction, player,
-                //Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Attack()) - player.armor.Defense())));
-                player.armor.ComputeDamage(c.EquippedWeapon, bonus), (bonus > 1f)));
+            // 플레이어가 진행 방향에 있는지 체크
+            Entity e = gm.map.GetEntityOnTile(Mathf.RoundToInt(t.position.x + direction.x * i), Mathf.RoundToInt(t.position.y + direction.y * i));
+            if (e != null && e.GetType().Equals(typeof(Character)) && ((Character)e).type == Character.Type.Player)
+            {
+                // 진행 방향에 플레이어가 있을 경우
+                attacked = true;
+                Character player = (Character)e;
+                float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
+                if (!isCharge) bonus = 1f;
+                StartCoroutine(AttackAnimation(direction, player,
+                    //Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Attack()) - player.armor.Defense())));
+                    player.armor.ComputeDamage(c.EquippedWeapon, bonus), (bonus > 1f)));
+                break;
+            }
         }
-        else
+        if (!attacked)
         {
             // 진행 방향에 아무것도 없거나 플레이어가 아닌 Entity가 있을 경우
             isMoved = true;

@@ -3940,7 +3940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c37b454b1269cd49aebf90cb59a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townBackgroundColor: {r: 0.49019608, g: 0.7176471, b: 0.36078432, a: 1}
+  townBackgroundColor: {r: 0.105882354, g: 0.5764706, b: 0.8235294, a: 1}
   mapText: {fileID: 0}
   levelText: {fileID: 0}
 --- !u!114 &1349403486
