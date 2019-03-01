@@ -10,6 +10,7 @@ public class AltarUI : MonoBehaviour {
     public Button combineButton;
     public List<GameObject> circlePartImages;
     public GameObject whitePanel;
+    public List<GameObject> recipePanels;
 
     /// <summary>
     /// Key는 오브가 들어있는 인벤토리의 위치, Value는 오브 이름
@@ -97,6 +98,35 @@ public class AltarUI : MonoBehaviour {
             {
                 StartCoroutine(CircleOffAnimation(i));
             }
+        }
+
+        int orbLevel = 0;
+        for (i = 0; i < orbs.Count; i++)
+        {
+            int l = ItemManager.im.FindItemInfo(Orbs[i].Value).level;
+            if (orbLevel == 0) {
+                orbLevel = l;
+            }
+            else if (orbLevel != l)
+            {
+                orbLevel = -1;
+                break;
+            }
+        }
+        if (orbLevel == 1)
+        {
+            recipePanels[0].SetActive(true);
+            recipePanels[1].SetActive(false);
+        }
+        else if (orbLevel == 2)
+        {
+            recipePanels[0].SetActive(false);
+            recipePanels[1].SetActive(true);
+        }
+        else
+        {
+            recipePanels[0].SetActive(false);
+            recipePanels[1].SetActive(false);
         }
     }
 
