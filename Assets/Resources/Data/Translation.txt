@@ -98,10 +98,14 @@ Ice_pudding 얼음_푸딩
 Nature_pudding 자연_푸딩
 Goblin_pudding 고블린_푸딩
 Devil_pudding 악마_푸딩
+Yeti_pudding 예티_푸딩
 Flame_elemental 불꽃_정령
 Frost_elemental 서리_정령
 Tree_elemental 나무_정령
 Treasure_mimic 미믹
+Ice_golem 얼음_골렘
+Fire_golem 불_골렘
+Nature_golem 자연_골렘
 # Monster weapon name
 Incinerator 소각로
 Extinguisher 소화기
@@ -112,6 +116,10 @@ Spark 불똥
 Dry_ice 드라이아이스
 Spiky_vine 뾰족한_덩굴
 Surprise 기습
+Snowball 눈덩이
+Ice_fist 얼음_주먹
+Fire_fist 불_주먹
+Nature_fist 자연_주먹
 #
 # Player
 Hyacinth 히아신스
