@@ -285,7 +285,7 @@ public class GameManager : MonoBehaviour {
         Vector2Int v = map.GetACornerPosition(randomQuadrant);
         if (!mapAutoGeneration)
         {
-            player.GetComponent<Transform>().position = new Vector3(0f, 2f, -1f);
+            player.GetComponent<Transform>().position = new Vector3(2f, 2f, -1f);
         }
         else
         {
