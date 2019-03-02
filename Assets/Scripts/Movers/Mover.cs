@@ -12,6 +12,9 @@ public class Mover : MonoBehaviour {
 
     [SerializeField]
     protected GameObject damageNumber;
+    [SerializeField]
+    protected GameObject stunEffect;
+    protected GameObject myStunMark;
 
     public bool IsMoving
     {
@@ -223,11 +226,9 @@ public class Mover : MonoBehaviour {
     {
         isMoving = true;
         int frame = 6;
-        Color original = GetComponent<SpriteRenderer>().color;
 
         if (c.currentHealth == oldHealth)
         {
-            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             isMoving = false;
 
             // 여기서도 코루틴이 종료될 수 있음에 주의!
@@ -239,15 +240,6 @@ public class Mover : MonoBehaviour {
 
         for (int i = 0; i < frame; i++)
         {
-            if (i < frame / 2)
-            {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0.5f, 1f, 0.8f, 1f), (float)i / frame * 2);
-            }
-            else
-            {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0.5f, 1f, 0.8f, 1f), (float)(frame - i) / frame * 2);
-            }
-
             float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
             if (healthBar != null)
                 healthBar.value = f;
@@ -264,7 +256,6 @@ public class Mover : MonoBehaviour {
         {
             statusUI.UpdateAll(GetComponent<Character>(), c.currentHealth);
         }
-        GetComponent<SpriteRenderer>().color = original;
         isMoving = false;
     }
 

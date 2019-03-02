@@ -203,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageNumber: {fileID: 1333834462180064, guid: 591e346fe4845204187a0680d2daf22a,
     type: 2}
+  stunEffect: {fileID: 1622563344259132, guid: 59d69f1972e5d0f4496e86474a0c742b, type: 2}
   weaponMarkSprite:
   - {fileID: 21300000, guid: 3e5dfcfe7f1667a4f842828e5fed42ce, type: 3}
   - {fileID: 21300000, guid: f050f5a7580da194b8c407eecc5e3f39, type: 3}

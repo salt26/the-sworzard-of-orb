@@ -32,7 +32,7 @@ public class PlayerMover : Mover {
             if (c.hasStuned)
             {
                 c.hasStuned = false;
-                gm.NextTurn();
+                StartCoroutine(StunedAnimation());
                 return;
             }
             // TODO 맵을 보고 갈 수 있는 지형인지 확인할 것
@@ -124,7 +124,7 @@ public class PlayerMover : Mover {
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(100, 104), t.position);
+                gm.map.AddItemOnTile(Random.Range(118, 119), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
             }
@@ -333,7 +333,32 @@ public class PlayerMover : Mover {
             yield return null;
         }
 
+        isMoving = false;
+    }
+    
+    public IEnumerator StunedAnimation()
+    {
+        isMoving = true;
+        int frame = 25;
 
+        if (myStunMark != null)
+        {
+            Destroy(myStunMark);
+            myStunMark = null;
+        }
+        myStunMark = Instantiate(stunEffect, c.GetComponent<Transform>());
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (i == frame * 2 / 3)
+                gm.NextTurn();
+            yield return null;
+        }
+        if (myStunMark != null)
+        {
+            Destroy(myStunMark);
+            myStunMark = null;
+        }
         isMoving = false;
     }
 

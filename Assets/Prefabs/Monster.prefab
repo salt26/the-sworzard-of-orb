@@ -210,7 +210,15 @@ MonoBehaviour:
   canvas: {fileID: 1012289520869148}
   oldHealth: 0
   poisonDamage: 0
+  gustDamage: 0
+  bonusMaxHealth: 0
+  trueOldHealth: 0
+  regeneratedHealth: 0
+  reflectDamage: 0
+  gustDirection: {x: 0, y: 0, z: 0}
+  reflectDirection: {x: 0, y: 0, z: 0}
   hasStuned: 0
+  hasReflected: 0
 --- !u!114 &114267566674906548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -224,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageNumber: {fileID: 1333834462180064, guid: 591e346fe4845204187a0680d2daf22a,
     type: 2}
+  stunEffect: {fileID: 1622563344259132, guid: 59d69f1972e5d0f4496e86474a0c742b, type: 2}
   hasTaunted: 0
   isTauntedPositionValid: 0
   tauntedPosition: {x: 0, y: 0, z: 0}

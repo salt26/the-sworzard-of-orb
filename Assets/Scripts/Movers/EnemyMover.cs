@@ -110,7 +110,7 @@ public class EnemyMover : Mover {
             if (c.hasStuned)
             {
                 c.hasStuned = false;
-                isMoved = true;
+                StartCoroutine(StunedAnimation());
                 return;
             }
             Vector3 playerPos = VectorUtility.PositionToInt(gm.player.GetComponent<Transform>().position);
@@ -618,6 +618,32 @@ public class EnemyMover : Mover {
             yield return null;
         }
         */
+        isMoving = false;
+    }
+    
+    public IEnumerator StunedAnimation()
+    {
+        isMoving = true;
+        int frame = 25;
+
+        if (myStunMark != null)
+        {
+            Destroy(myStunMark);
+            myStunMark = null;
+        }
+        myStunMark = Instantiate(stunEffect, c.GetComponent<Transform>());
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (i == frame * 2 / 3)
+                isMoved = true;
+            yield return null;
+        }
+        if (myStunMark != null)
+        {
+            Destroy(myStunMark);
+            myStunMark = null;
+        }
         isMoving = false;
     }
 
