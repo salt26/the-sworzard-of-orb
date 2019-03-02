@@ -503,6 +503,7 @@ public class EnemyMover : Mover {
                 // 진행 방향에 플레이어가 있을 경우
                 attacked = true;
                 Character player = (Character)e;
+                c.attackSum += player.armor.ComputeDamage(c.EquippedWeapon, isCharge);
                 StartCoroutine(AttackAnimation(direction, player,
                     //Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Attack()) - player.armor.Defense())));
                     player.armor.ComputeDamage(c.EquippedWeapon, isCharge), isCharge));

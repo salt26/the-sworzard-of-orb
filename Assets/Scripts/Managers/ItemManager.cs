@@ -464,6 +464,11 @@ public class ItemInfo
                         GameManager.gm.player.EquippedWeapon.chargeBonus += effectParam / 100f;
                         isNotAfter = true;
                     }
+                    if (effectName.Equals("Drain"))
+                    {
+                        GameManager.gm.player.EquippedWeapon.drainedPercent += effectParam / 100f;
+                        isNotAfter = true;
+                    }
                     if (!isNotAfter)
                     {
                         GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
