@@ -11,20 +11,20 @@
 105 Water_orb A_cold_orb 2 1 0 3 0 40 | 101 101 101
 106 Nature_orb A_vigorous_orb 2 1 0 0 3 40 | 102 102 102
 107 Poison_orb A_dangerous_orb 2 1 1 1 0 40 Intoxicate 3 | 100 101 103
-108 Lightning_orb A_shocking_orb 2 1 1 0 1 40 Stun 5 | 100 102 103
-109 Wind_orb A_dispersing_orb 2 1 0 1 1 40 Flurry 4 | 101 102 103
+108 Lightning_orb A_shocking_orb 2 1 1 0 1 40 Stun 10 | 100 102 103
+109 Wind_orb A_dispersing_orb 2 1 0 1 1 40 Flurry 3 | 101 102 103
 110 Light_orb A_dazzling_orb 2 1 1 1 1 40 | 100 101 102
-111 Fire_shield_orb A_fireproof_orb 2 2 2 0 0 40 | 100 100 103
-112 Water_shield_orb An_waterproof_orb 2 2 0 2 0 40 | 101 101 103
-113 Nature_shield_orb An_adaptive_orb 2 2 0 0 2 40 | 102 102 103
+111 Fire_shield_orb A_fireproof_orb 2 2 3 0 0 40 | 100 100 103
+112 Water_shield_orb An_waterproof_orb 2 2 0 3 0 40 | 101 101 103
+113 Nature_shield_orb An_adaptive_orb 2 2 0 0 3 40 | 102 102 103
 114 Lava_orb An_orb_that_can_fuse_a_rock 3 1 3 0 0 100 FireAmp 50 | 104 104 104
 115 Glacier_orb An_orb_that_can_freeze_the_whole_body 3 1 0 3 0 100 WaterAmp 50 | 105 105 105
 116 Forest_orb An_orb_that_keeps_the_origin_of_life 3 1 0 0 3 100 NatureAmp 50 | 106 106 106
 117 Venom_orb An_orb_that_invokes_a_fear_of_death 3 1 3 3 0 100 Intoxicate 12 | 107 107 107
-118 Thunder_orb An_orb_that_shakes_the_air 3 1 3 0 3 100 Stun 20 | 108 108 108
-119 Storm_orb An_orb_that_swirls_like_a_maelstrom 3 1 0 3 3 100 Flurry 16 | 109 109 109
+118 Thunder_orb An_orb_that_shakes_the_air 3 1 3 0 3 100 Stun 35 | 108 108 108
+119 Storm_orb An_orb_that_swirls_like_a_maelstrom 3 1 0 3 3 100 Flurry 12 | 109 109 109
 120 Hardening_orb An_orb_that_tests_the_limitations 3 1 1 1 1 100 AllAmp 40 | 104 105 106
-121 Impregnability_orb An_orb_that_grants_an_iron_protection 3 2 3 3 3 100 | 111 112 113
-122 Growth_orb An_orb_that_is_full_of_spirit 3 2 2 2 0 100 Healthier 50 | 110 111 112
-123 Spine_orb An_orb_that_is_hunger_for_retaliation 3 2 2 0 2 100 Reflect 25 | 110 111 113
-124 Photosynthesis_orb An_orb_that_grants_unlimited_sustainability 3 2 0 2 2 100 Regenerate 2 | 110 112 113
+121 Impregnability_orb An_orb_that_grants_an_iron_protection 3 2 5 5 5 100 | 111 112 113
+122 Growth_orb An_orb_that_is_full_of_spirit 3 2 3 3 0 100 Healthier 50 | 110 111 112
+123 Spine_orb An_orb_that_is_hunger_for_retaliation 3 2 3 0 3 100 Reflect 25 | 110 111 113
+124 Photosynthesis_orb An_orb_that_grants_unlimited_sustainability 3 2 0 3 3 100 Regenerate 3 | 110 112 113
