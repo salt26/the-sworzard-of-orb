@@ -8,15 +8,21 @@ public class StatusUI : MonoBehaviour {
     private bool isFolded = false;   // 접혀 있는 동안 true가 됩니다.
 
     [Header("Reference")]
+    public Text nameText;
     public Text healthText;
+    public Text healthPointText;
+    public Text attackText;
     public Text attackBaseText;
     public Text attackFireText;
     public Text attackIceText;
     public Text attackNatureText;
+    public Text defenseText;
     public Text defenseBaseText;
     public Text defenseFireText;
     public Text defenseIceText;
     public Text defenseNatureText;
+
+    private string characterName = null;
 
     /// <summary>
     /// UI가 접혀 있는 동안 true가 됩니다.
@@ -34,9 +40,20 @@ public class StatusUI : MonoBehaviour {
         if (GameManager.gm.player.Equals(character) ||
             (GameManager.gm.SelectedCharacter != null && GameManager.gm.SelectedCharacter.Equals(character)))
         {
+            UpdateNameText(character.name);
             UpdateAttackText(character.EquippedWeapon);
             UpdateDefenseText(character.armor);
             UpdateHealthText(currentHealth, character.MaxHealth);
+        }
+    }
+
+    public void UpdateNameText(string name)
+    {
+        if (name == null) return;
+        if (nameText != null && !Folded)
+        {
+            nameText.text = StringManager.sm.Translate(name);
+            characterName = name;
         }
     }
 
@@ -45,9 +62,9 @@ public class StatusUI : MonoBehaviour {
         if (maxHealth <= 0) return;
         if (currentHealth < 0) currentHealth = 0;
 
-        if (healthText != null && !Folded)
+        if (healthPointText != null && !Folded)
         {
-            healthText.text = "" + StringManager.sm.Translate("HP :") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + currentHealth + "</color> / " + maxHealth;
+            healthPointText.text = "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + currentHealth + "</color> / " + maxHealth;
         }
     }
 
@@ -58,7 +75,7 @@ public class StatusUI : MonoBehaviour {
 
         if (attackBaseText != null)
         {
-            attackBaseText.text = "" + StringManager.sm.Translate("Atk:") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringManager.Padding(weapon.BaseAttack()) + "</color>";
+            attackBaseText.text = "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringManager.Padding(weapon.BaseAttack()) + "</color>";
         }
 
         if (attackFireText != null/* && weapon.ValidElement.Fire > 0*/)
@@ -96,7 +113,7 @@ public class StatusUI : MonoBehaviour {
 
         if (defenseBaseText != null)
         {
-            defenseBaseText.text = "" + StringManager.sm.Translate("Def:") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringManager.Padding(armor.BaseDefense()) + "</color>";
+            defenseBaseText.text = "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" + StringManager.Padding(armor.BaseDefense()) + "</color>";
         }
 
         if (defenseFireText != null)
@@ -117,8 +134,10 @@ public class StatusUI : MonoBehaviour {
 
     public void RefreshText()
     {
-        healthText.text = "" + StringManager.sm.Translate("HP :") + healthText.text.Substring(healthText.text.IndexOf(':') + 1);
-        attackBaseText.text = "" + StringManager.sm.Translate("Atk:") + attackBaseText.text.Substring(attackBaseText.text.IndexOf(':') + 1);
-        defenseBaseText.text = "" + StringManager.sm.Translate("Def:") + defenseBaseText.text.Substring(defenseBaseText.text.IndexOf(':') + 1);
+        if (characterName != null)
+            nameText.text = StringManager.sm.Translate(characterName);
+        healthText.text = "" + StringManager.sm.Translate("HP :");
+        attackText.text = "" + StringManager.sm.Translate("Atk:");
+        defenseText.text = "" + StringManager.sm.Translate("Def:");
     }
 }

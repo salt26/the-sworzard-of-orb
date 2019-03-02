@@ -22,6 +22,8 @@ public class UIInfo : MonoBehaviour {
     public GameObject restartText;
     public GameObject loadingPanel;
     public GameObject enemyStatusUIGroup;
+    public GameObject turnLimitMark;
+    public Text turnLimitText;
 
     [Header("Enemy")]
     public StatusUI enemyStatusUI;

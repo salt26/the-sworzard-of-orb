@@ -237,6 +237,7 @@ MonoBehaviour:
       nature: 3
     range: 1
     chargeBonus: 1.5
+    drainedPercent: 0
   - name: Magic spear
     element:
       fire: 5
@@ -244,6 +245,7 @@ MonoBehaviour:
       nature: 5
     range: 2
     chargeBonus: 1.5
+    drainedPercent: 0
   armor:
     element:
       fire: 1
@@ -258,6 +260,7 @@ MonoBehaviour:
   bonusMaxHealth: 0
   trueOldHealth: 0
   regeneratedHealth: 0
+  attackSum: 0
   reflectDamage: 0
   gustDirection: {x: 0, y: 0, z: 0}
   reflectDirection: {x: 0, y: 0, z: 0}
