@@ -122,7 +122,7 @@ public class PlayerMover : Mover {
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(100, 104), t.position);
+                gm.map.AddItemOnTile(Random.Range(125, 126), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
             }
@@ -210,6 +210,10 @@ public class PlayerMover : Mover {
                     g.GetComponent<SpriteRenderer>().color = new Color(0f, 0.8f, 0f, 1f);
                     g.GetComponent<DistanceSprite>().Disappear(30);
                 }
+                foreach (Character enemy in enemies)
+                {
+                    c.attackSum += enemy.armor.ComputeDamage(c.EquippedWeapon, isCharge);
+                }
                 StartCoroutine(AttackAnimation(direction, enemies, isCharge));
             }
             else
@@ -219,8 +223,7 @@ public class PlayerMover : Mover {
             }
         }
     }
-
-    // TODO direction은 현재 사용하지 않음.
+    
     IEnumerator AttackAnimation(Vector3 direction, List<Character> enemies, bool isCharge)
     {
         isMoving = true;

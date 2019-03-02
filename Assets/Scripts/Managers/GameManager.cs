@@ -533,7 +533,49 @@ public class GameManager : MonoBehaviour {
             else yield return null;
         }
 
-        /* 페이즈 2: 무기 특수 효과(중독, 돌풍) 대미지 애니메이션 처리 */
+        /* 페이즈 2: 무기 특수 효과(흡수) 대미지 애니메이션 처리 */
+        if (oldTurn == 0)
+        {
+            // 흡수 효과의 회복 처리
+            if (player.EquippedWeapon.drainedPercent > 0f && player.attackSum > 0)
+            {
+                player.Drained();
+            }
+            player.attackSum = 0;
+
+        }
+        else if (oldTurn == 1)
+        {
+            // 적들의 턴이 끝남
+            foreach (Character e in enemies)
+            {
+                // 흡수 효과의 회복 처리
+                if (e.EquippedWeapon.drainedPercent > 0f && e.attackSum > 0)
+                {
+                    e.Drained();
+                }
+                e.attackSum = 0;
+            }
+        }
+
+        while (true)
+        {
+            ready = true;
+            foreach (Character e in enemies)
+            {
+                if (e.Alive && e.Mover.IsMoving)
+                {
+                    ready = false;
+                    break;
+                }
+            }
+            if (player.Alive && player.Mover.IsMoving) ready = false;
+
+            if (ready) break;
+            else yield return null;
+        }
+
+        /* 페이즈 3: 무기 특수 효과(중독, 돌풍) 대미지 애니메이션 처리 */
         if (oldTurn == 0)
         {
             // 플레이어의 턴이 끝남
@@ -583,7 +625,7 @@ public class GameManager : MonoBehaviour {
             else yield return null;
         }
 
-        /* 페이즈 3: 방어구 특수 효과(반사, 재생) 대미지 애니메이션 처리 */
+        /* 페이즈 4: 방어구 특수 효과(반사, 재생) 대미지 애니메이션 처리 */
         if (oldTurn == 0)
         {
             foreach (Character e in enemies)

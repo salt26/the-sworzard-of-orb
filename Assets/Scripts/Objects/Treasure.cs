@@ -14,7 +14,7 @@ public class Treasure : Interactable {
         if (hasinteracted) return;
         
         hasinteracted = true;
-        if (Random.Range(0, 3) == 0)
+        if (Random.Range(0, 4) == 0)
         {
             canvas.SetActive(true);
             GetComponent<BoxCollider>().enabled = true;

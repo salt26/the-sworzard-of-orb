@@ -36,6 +36,8 @@ public class Character : Entity {
     [HideInInspector]
     public int regeneratedHealth;
     [HideInInspector]
+    public int attackSum;
+    [HideInInspector]
     public float reflectDamage;
     [HideInInspector]
     public Vector3 gustDirection;
@@ -127,6 +129,7 @@ public class Character : Entity {
         poisonDamage = 0;
         gustDamage = 0;
         reflectDamage = 0;
+        attackSum = 0;
         hasStuned = false;
         hasReflected = false;
         ToggleWeapon();
@@ -210,6 +213,15 @@ public class Character : Entity {
         currentHealth -= gustDamage;
         gustDamage = 0;
         StartCoroutine(Mover.GustedAnimation(oldHealth, healthBar, statusUI, gustDirection));
+    }
+
+    public void Drained()
+    {
+        if (!Alive) return;
+        oldHealth = currentHealth;
+        currentHealth += (int)(EquippedWeapon.drainedPercent * attackSum);
+        if (currentHealth > MaxHealth) currentHealth = MaxHealth;
+        StartCoroutine(Mover.HealedAnimation(oldHealth, healthBar, statusUI, true));
     }
 
     /// <summary>

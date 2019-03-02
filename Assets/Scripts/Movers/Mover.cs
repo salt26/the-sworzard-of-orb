@@ -29,15 +29,18 @@ public class Mover : MonoBehaviour {
         yield return null;
     }
 
-    public IEnumerator HealedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
+    public IEnumerator HealedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null, bool isDrain = false)
     {
         isMoving = true;
         int frame = 25;
+        if (isDrain) frame = 6;
         Color original = GetComponent<SpriteRenderer>().color;
+        Color afterColor = new Color(1f, 1f, 1f, 1f);
+        if (isDrain) afterColor = original;
 
         if (c.currentHealth == oldHealth)
         {
-            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            GetComponent<SpriteRenderer>().color = afterColor;
             isMoving = false;
 
             // 여기서도 코루틴이 종료될 수 있음에 주의!
@@ -49,13 +52,16 @@ public class Mover : MonoBehaviour {
 
         for (int i = 0; i < frame; i++)
         {
-            if (i < frame / 2)
+            if (!isDrain)
             {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0f, 0.7f, 0.2f, 0.6f), (float)i / frame * 2);
-            }
-            else
-            {
-                GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0f, 0.7f, 0.2f, 0.6f), (float)(frame - i) / frame * 2);
+                if (i < frame / 2)
+                {
+                    GetComponent<SpriteRenderer>().color = Color.Lerp(original, new Color(0f, 0.7f, 0.2f, 0.6f), (float)i / frame * 2);
+                }
+                else
+                {
+                    GetComponent<SpriteRenderer>().color = Color.Lerp(afterColor, new Color(0f, 0.7f, 0.2f, 0.6f), (float)(frame - i) / frame * 2);
+                }
             }
 
             float f = Mathf.Lerp(c.currentHealth, oldHealth, Mathf.Pow(1 - ((float)i / frame), 2f));
@@ -74,7 +80,7 @@ public class Mover : MonoBehaviour {
         {
             statusUI.UpdateAll(GetComponent<Character>(), c.currentHealth);
         }
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        GetComponent<SpriteRenderer>().color = afterColor;
         isMoving = false;
     }
 
