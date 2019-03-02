@@ -47,6 +47,7 @@ Impregnability_orb 난공불락_오브
 Growth_orb 성장_오브
 Spine_orb 가시_오브
 Photosynthesis_orb 광합성_오브
+Bloodsucking_orb 흡혈_오브
 # Orb tooltip
 A_common_reddish_orb 붉은_빛이_도는_오브
 A_common_blue_orb 푸른_빛이_도는_오브
@@ -73,6 +74,7 @@ An_orb_that_grants_an_iron_protection 철벽처럼_단단한_오브
 An_orb_that_is_full_of_spirit 기운이_넘치는_오브
 An_orb_that_is_hunger_for_retaliation 복수에_굶주린_오브
 An_orb_that_grants_unlimited_sustainability 무한한_동력을_가진_오브
+A_vampiric_orb 체력을_착취하는_오브
 # Orb effect
 Intoxicate 중독
 Stun 기절
@@ -80,10 +82,11 @@ Flurry 돌풍
 FireAmp 용암의_힘
 WaterAmp 빙하의_힘
 NatureAmp 숲의_힘
-AllAmp 만물의_힘
+Sharpen 날카로워짐
 Healthier 체력_증가
 Reflect 반사
 Regenerate 재생
+Drain 흡수
 # Orb usage
 Ingredient 재료
 Weapon_only 무기_전용

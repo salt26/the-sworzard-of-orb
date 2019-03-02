@@ -9,7 +9,6 @@ public class EnemyMover : Mover {
     Transform t;
     
     private bool isMoved;       // 이동이 끝나면 true
-    private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
 
     // TODO SerializeField는 디버깅 용도로 넣은 것
     [SerializeField]
@@ -504,11 +503,9 @@ public class EnemyMover : Mover {
                 // 진행 방향에 플레이어가 있을 경우
                 attacked = true;
                 Character player = (Character)e;
-                float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
-                if (!isCharge) bonus = 1f;
                 StartCoroutine(AttackAnimation(direction, player,
                     //Mathf.Max(0, (int)(bonus * c.EquippedWeapon.Attack()) - player.armor.Defense())));
-                    player.armor.ComputeDamage(c.EquippedWeapon, bonus), (bonus > 1f)));
+                    player.armor.ComputeDamage(c.EquippedWeapon, isCharge), isCharge));
                 break;
             }
         }

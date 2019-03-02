@@ -45,11 +45,14 @@ public class Armor {
     /// <param name="otherWeapon">상대 무기</param>
     /// <param name="bonusDamage">곱해질 추가 대미지</param>
     /// <returns></returns>
-    public int ComputeDamage(Weapon otherWeapon, float bonusDamage = 1f)
+    public int ComputeDamage(Weapon otherWeapon, bool isCharge)
     {
         //Mathf.Max(0, (int)(bonusDamage * otherWeapon.Attack()) - Defense())
-
-        int baseDamage = Mathf.Clamp((int)(bonusDamage * otherWeapon.BaseAttack()) - BaseDefense(), 0, 999);
+        int baseDamage;
+        if (isCharge)
+            baseDamage = Mathf.Clamp((int)(otherWeapon.chargeBonus * otherWeapon.BaseAttack()) - BaseDefense(), 0, 999);
+        else
+            baseDamage = Mathf.Clamp(otherWeapon.BaseAttack() - BaseDefense(), 0, 999);
         int fire = Mathf.Clamp(otherWeapon.ValidElement.Fire - ValidElement.Fire, 0, 99);
         int ice = Mathf.Clamp(otherWeapon.ValidElement.Ice - ValidElement.Ice, 0, 99);
         int nature = Mathf.Clamp(otherWeapon.ValidElement.Nature - ValidElement.Nature, 0, 99);

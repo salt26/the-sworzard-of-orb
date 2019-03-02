@@ -311,7 +311,6 @@ public class ItemManager : MonoBehaviour {
         {
             if (Random.Range(0f, 1f) < probability / 100f)
             {
-                Debug.Log(target.name + " stunned!");
                 target.hasStuned = true;
             }
         }
@@ -445,19 +444,24 @@ public class ItemInfo
                 if (effectName != null && !effectName.Equals("None"))
                 {
                     bool isNotAfter = false;
-                    if (effectName.Equals("FireAmp") || effectName.Equals("AllAmp"))
+                    if (effectName.Equals("FireAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
                         isNotAfter = true;
                     }
-                    if (effectName.Equals("IceAmp") || effectName.Equals("AllAmp"))
+                    if (effectName.Equals("IceAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
                         isNotAfter = true;
                     }
-                    if (effectName.Equals("NatureAmp") || effectName.Equals("AllAmp"))
+                    if (effectName.Equals("NatureAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.NatureAmpBonus += effectParam / 100f;
+                        isNotAfter = true;
+                    }
+                    if (effectName.Equals("Sharpen"))
+                    {
+                        GameManager.gm.player.EquippedWeapon.chargeBonus += effectParam / 100f;
                         isNotAfter = true;
                     }
                     if (!isNotAfter)

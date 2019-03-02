@@ -10,7 +10,8 @@ public class Weapon {
     public Element element;
     public int range;
     public ItemManager.Effect afterAttackEffect;
-    
+    public float chargeBonus;       // 돌진 시 곱해지는 추가 대미지
+
     private float[] pureAmpBonus = new float[3] { 0f, 0f, 0f };  // Amp 효과로 인한 원소 스탯 증가 비율
 
     public int Range
@@ -115,6 +116,10 @@ public class Weapon {
         }
     }
 
+    public Weapon()
+    {
+        chargeBonus = 1.5f;
+    }
 
     /// <summary>
     /// 기본 공격력인 속성 합을 반환합니다.

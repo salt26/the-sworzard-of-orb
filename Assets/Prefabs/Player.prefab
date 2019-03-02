@@ -236,12 +236,14 @@ MonoBehaviour:
       ice: 3
       nature: 3
     range: 1
+    chargeBonus: 1.5
   - name: Magic spear
     element:
       fire: 5
       ice: 5
       nature: 5
     range: 2
+    chargeBonus: 1.5
   armor:
     element:
       fire: 1

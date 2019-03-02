@@ -8,8 +8,6 @@ public class PlayerMover : Mover {
     GameManager gm;
     Transform t;
     
-    private const float bonusDamage = 1.5f;     // 돌진 시 곱해지는 추가 대미지
-    
     public List<Sprite> weaponMarkSprite;
     public List<Sprite> characterSprite;
 
@@ -124,7 +122,7 @@ public class PlayerMover : Mover {
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(118, 119), t.position);
+                gm.map.AddItemOnTile(Random.Range(100, 104), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
             }
@@ -204,8 +202,6 @@ public class PlayerMover : Mover {
             if (enemies.Count > 0)
             {
                 // 진행 방향으로 사정거리 내에 적이 있을 경우
-                float bonus = bonusDamage;         // 돌진 시 추가 대미지 적용
-                if (!isCharge) bonus = 1f;
 
                 for (int i = 1; i <= c.EquippedWeapon.Range; i++)
                 {
@@ -214,7 +210,7 @@ public class PlayerMover : Mover {
                     g.GetComponent<SpriteRenderer>().color = new Color(0f, 0.8f, 0f, 1f);
                     g.GetComponent<DistanceSprite>().Disappear(30);
                 }
-                StartCoroutine(AttackAnimation(direction, enemies, bonus));
+                StartCoroutine(AttackAnimation(direction, enemies, isCharge));
             }
             else
             {
@@ -225,7 +221,7 @@ public class PlayerMover : Mover {
     }
 
     // TODO direction은 현재 사용하지 않음.
-    IEnumerator AttackAnimation(Vector3 direction, List<Character> enemies, float bonusDamage)
+    IEnumerator AttackAnimation(Vector3 direction, List<Character> enemies, bool isCharge)
     {
         isMoving = true;
         int frame = 20;     // int이어야 동작함. float이면 동작하지 않음
@@ -250,7 +246,7 @@ public class PlayerMover : Mover {
             {
                 foreach (Character enemy in enemies)
                 {
-                    enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, bonusDamage), direction, (bonusDamage > 1f));
+                    enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, isCharge), direction, isCharge);
                     //enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Attack()) - enemy.armor.Defense()));
                     enemy.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
                 }
