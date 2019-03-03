@@ -9,7 +9,7 @@ public class Treasure : Interactable {
 
     private bool hasinteracted = false;
 
-    public override void Interact()
+    public override void Interact(bool isCharge = false)
     {
         if (hasinteracted) return;
         

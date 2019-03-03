@@ -122,7 +122,7 @@ public class PlayerMover : Mover {
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(125, 126), t.position);
+                gm.map.AddItemOnTile(Random.Range(115, 116), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
             }
@@ -184,7 +184,7 @@ public class PlayerMover : Mover {
         if (e != null && typeof(Interactable).IsAssignableFrom(e.GetType()))
         {
             // 진행 방향에 상호작용 가능한 대상이 있을 경우
-            ((Interactable)e).Interact();
+            ((Interactable)e).Interact(isCharge);
             gm.NextTurn();
         }
         else

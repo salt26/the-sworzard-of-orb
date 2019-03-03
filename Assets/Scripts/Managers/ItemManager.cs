@@ -449,7 +449,7 @@ public class ItemInfo
                         GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
                         isNotAfter = true;
                     }
-                    if (effectName.Equals("IceAmp"))
+                    if (effectName.Equals("WaterAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
                         isNotAfter = true;

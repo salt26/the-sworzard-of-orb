@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactable : Entity {
 
-    public virtual void Interact()
+    public virtual void Interact(bool isCharge = false)
     {
 
     }

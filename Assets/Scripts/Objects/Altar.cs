@@ -12,7 +12,7 @@ public class Altar : Interactable {
         altarPanel = GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel;
     }
 
-    public override void Interact()
+    public override void Interact(bool isCharge = false)
     {
         GameManager.gm.AltarTurn();
         altarPanel.SetActive(true);

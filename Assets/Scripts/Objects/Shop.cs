@@ -11,7 +11,7 @@ public class Shop : Interactable {
         shopPanel = GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel;
     }
 
-    public override void Interact()
+    public override void Interact(bool isCharge = false)
     {
         GameManager.gm.ShopTurn();
         shopPanel.SetActive(true);
