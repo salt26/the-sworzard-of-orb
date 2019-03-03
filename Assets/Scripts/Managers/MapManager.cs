@@ -103,6 +103,7 @@ public class MapInfo
     public List<GameObject> tilePrefab;
     public Color backgroundColor;
     public string backgroundMusic;
+    public int turnLimit;
     public List<int> enemiesID = new List<int>();
     public List<int> interactablesID = new List<int>();
 }

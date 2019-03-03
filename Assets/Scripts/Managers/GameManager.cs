@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour {
     private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 
                         // 2이면 턴이 넘어가는 중, 3이면 Altar에서 조합하는 중, 4이면 Shop에 있는 중
 
+    private int turnLimit;      // 최대 턴 제한
+
     public int Turn
     {
         get
@@ -79,6 +81,24 @@ public class GameManager : MonoBehaviour {
         get
         {
             return UIObject.gameObject;
+        }
+    }
+
+    private int TurnNumber
+    {
+        set
+        {
+            turnNumber = value;
+        }
+    }
+
+    public int RemainedTurn
+    {
+        get
+        {
+            // 남은 턴 제한 (-1이면 턴 제한이 없는 맵, 0이 되면 플레이어 사망)
+            if (turnLimit == -1) return -1;
+            else return turnLimit - turnNumber;
         }
     }
     
@@ -183,6 +203,7 @@ public class GameManager : MonoBehaviour {
     public void ChangeScene(string sceneName, string mapName = null)
     {
         player.Healed(player.MaxHealth);
+        turnLimit = -1;
         if (mapName == null && sceneName.Equals("Town"))
         {
             mapLevel++;
@@ -250,10 +271,37 @@ public class GameManager : MonoBehaviour {
             map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringManager.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
             map.GetComponent<AudioSource>().Play();
             monsterNumberMark.SetActive(true);
+            turnNumber = 0;
+            turnLimit = mi.turnLimit;
+            if (turnLimit >= 0)
+            {
+                Canvas.GetComponent<UIInfo>().turnLimitMark.SetActive(true);
+                Canvas.GetComponent<UIInfo>().turnLimitText.gameObject.SetActive(true);
+                Canvas.GetComponent<UIInfo>().turnLimitText.text = RemainedTurn.ToString();
+
+                int ind = Canvas.GetComponent<UIInfo>().turnLimitSprites.Count - 1;
+                if (turnLimit == 0) ind = 0;
+
+                Canvas.GetComponent<UIInfo>().turnLimitMark.GetComponent<Image>().sprite =
+                    Canvas.GetComponent<UIInfo>().turnLimitSprites[ind];
+                Canvas.GetComponent<UIInfo>().turnLimitMark.GetComponent<Image>().color =
+                    Canvas.GetComponent<UIInfo>().turnLimitColors[ind];
+                Canvas.GetComponent<UIInfo>().turnLimitText.color =
+                    Canvas.GetComponent<UIInfo>().turnLimitColors[ind];
+            }
+            else
+            {
+                Canvas.GetComponent<UIInfo>().turnLimitMark.SetActive(false);
+                Canvas.GetComponent<UIInfo>().turnLimitText.gameObject.SetActive(false);
+            }
         }
         else
         {
             monsterNumberMark.SetActive(false);
+            turnNumber = 0;
+            turnLimit = -1;
+            Canvas.GetComponent<UIInfo>().turnLimitMark.SetActive(false);
+            Canvas.GetComponent<UIInfo>().turnLimitText.gameObject.SetActive(false);
         }
         StringManager.sm.RefreshTexts();
         map.Initialize(mapAutoGeneration);
@@ -675,6 +723,33 @@ public class GameManager : MonoBehaviour {
             else yield return null;
         }
 
+        /* 페이즈 5: 제한 턴 초과에 의한 대미지 애니메이션 처리 */
+        if (oldTurn == 0)
+        {
+            if (RemainedTurn == 0)
+            {
+                player.Damaged(player.MaxHealth, new Vector3(0f, 0f, 0f), true);
+                player.DamagedAnimation();
+
+                // 턴을 넘길 때의 플레이어의 현재 체력을 기억
+                player.oldHealth = player.currentHealth;
+                player.trueOldHealth = player.currentHealth;
+            }
+        }
+        else if (oldTurn == 1)
+        {
+
+        }
+
+        while (true)
+        {
+            ready = true;
+            if (player.Alive && player.Mover.IsMoving) ready = false;
+
+            if (ready) break;
+            else yield return null;
+        }
+
         // 사망 여부 확인
         player.DeathCheck();
         foreach (Character e in enemies)
@@ -691,6 +766,31 @@ public class GameManager : MonoBehaviour {
         monsterNumberText.text = monsterNumber.ToString();
 
         turn = (oldTurn + 1) % 2;
+
+        if (turn == 1)
+        {
+            turnNumber++;
+            UIInfo ui = Canvas.GetComponent<UIInfo>();
+            if (turnLimit > 0 && RemainedTurn >= 0)
+            {
+                ui.turnLimitText.text = RemainedTurn.ToString();
+                if (RemainedTurn > 0)
+                {
+                    ui.turnLimitMark.GetComponent<Image>().sprite =
+                        ui.turnLimitSprites[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
+                    ui.turnLimitMark.GetComponent<Image>().color =
+                        ui.turnLimitColors[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
+                    ui.turnLimitText.color =
+                        ui.turnLimitColors[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
+                }
+                else
+                {
+                    ui.turnLimitMark.GetComponent<Image>().sprite = ui.turnLimitSprites[0];
+                    ui.turnLimitMark.GetComponent<Image>().color = ui.turnLimitColors[0];
+                    ui.turnLimitText.color = ui.turnLimitColors[0];
+                }
+            }
+        }
     }
 
     /// <summary>

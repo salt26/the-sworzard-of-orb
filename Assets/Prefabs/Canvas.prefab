@@ -9786,7 +9786,19 @@ MonoBehaviour:
   loadingPanel: {fileID: 1420133379684684}
   enemyStatusUIGroup: {fileID: 1046082658070082}
   turnLimitMark: {fileID: 1630774498029202}
+  turnLimitSprites:
+  - {fileID: 21300000, guid: 4f49f274c1676f94f90e44069f2684bf, type: 3}
+  - {fileID: 21300000, guid: 06c5e0863be0404419ad638c9ca4db74, type: 3}
+  - {fileID: 21300000, guid: 1bf232ee5e6f47a4ebb049c4e099da9b, type: 3}
+  - {fileID: 21300000, guid: f47efa9040e2d7746b8b8582111fe3a5, type: 3}
+  - {fileID: 21300000, guid: fa1351977042dbe40a0d5004ecc440ee, type: 3}
   turnLimitText: {fileID: 114920918050284758}
+  turnLimitColors:
+  - {r: 0.90588236, g: 0, b: 0, a: 1}
+  - {r: 0.90588236, g: 0, b: 0, a: 1}
+  - {r: 0.90588236, g: 0.377451, b: 0, a: 1}
+  - {r: 0.90588236, g: 0.754902, b: 0, a: 1}
+  - {r: 0.6745098, g: 0.90588236, b: 0, a: 1}
   enemyStatusUI: {fileID: 114649925671892730}
   menuUI:
   - {fileID: 1083346518560790}

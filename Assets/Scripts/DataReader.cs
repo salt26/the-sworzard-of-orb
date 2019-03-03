@@ -251,12 +251,13 @@ public class DataReader : MonoBehaviour {
             mi.height = int.Parse(token[4]);
             mi.backgroundColor = new Color(float.Parse(token[5]), float.Parse(token[6]), float.Parse(token[7]));
             mi.backgroundMusic = StringManager.ReplaceUnderbar(token[8]);
+            mi.turnLimit = int.Parse(token[9]);
 
-            if (!token[9].Equals("|")) Error("Map");
+            if (!token[10].Equals("|")) Error("Map");
 
-            int i = 10;
+            int i = 11;
             mi.tilePrefab = new List<GameObject>();
-            for (i = 10; i < token.Length; i++)
+            for (i = 11; i < token.Length; i++)
             {
                 if (token[i].Equals("|")) break;
                 MapTile mt = GetComponent<TileManager>().tiles[int.Parse(token[i])];

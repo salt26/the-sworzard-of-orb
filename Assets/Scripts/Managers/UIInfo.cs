@@ -23,7 +23,9 @@ public class UIInfo : MonoBehaviour {
     public GameObject loadingPanel;
     public GameObject enemyStatusUIGroup;
     public GameObject turnLimitMark;
+    public List<Sprite> turnLimitSprites;
     public Text turnLimitText;
+    public List<Color> turnLimitColors;
 
     [Header("Enemy")]
     public StatusUI enemyStatusUI;
