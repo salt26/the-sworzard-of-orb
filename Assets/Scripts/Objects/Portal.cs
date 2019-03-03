@@ -16,7 +16,7 @@ public class Portal : Interactable {
         {
             // 전장에서 포탈에 돌진 상호작용한 경우
             GameManager.gm.MessageTurn("Charge interaction",
-                "If you intend to escape to Town? If you click 'Yes', you'll move to Town. If you click 'No', you can stay here.",
+                "Do you intend to escape to Town? If so, click 'Yes'. If you click 'No', you can stay here.",
                 delegate { GameManager.gm.ChangeScene(sceneName, mapName); }, null, null);
         }
         else if (mapName == null && GameManager.gm.MonsterNumber > 0 && !GameManager.gm.hasIgnoreReturnMessage)

@@ -165,6 +165,8 @@ MonoBehaviour:
       ice: 0
       nature: 0
     range: 0
+    chargeBonus: 1.5
+    drainedPercent: 0
   weaponNameText: {fileID: 114565680894688178}
   fireText: {fileID: 114698421124082558}
   iceText: {fileID: 114355256638522696}
@@ -181,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8495562, g: 0.9056604, b: 0.37166253, a: 1}
+  m_Color: {r: 0.8495562, g: 0.9056604, b: 0.37166253, a: 0.9019608}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

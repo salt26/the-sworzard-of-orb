@@ -134,9 +134,9 @@ Magic_spear 마력의_창
 #
 # Message text
 Escape_to_Town? 마을로_도망칠까요?
-You_had_better_hunt_monsters_as_many_as_possible._If_you_click_'Yes',_you'll_move_to_Town._If_you_click_'No',_you_can_stay_here. 몬스터를_가능한_많이_잡고_가는_것이_좋을_겁니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
+You_had_better_hunt_monsters_as_many_as_possible._If_you_click_'Yes',_you'll_move_to_Town._If_you_click_'No',_you_can_stay_here. 몬스터를_가능한_한_많이_잡고_가는_것이_좋습니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
 Charge_interaction 돌진_상호작용
-If_you_intend_to_escape_to_Town?_If_you_click_'Yes',_you'll_move_to_Town._If_you_click_'No',_you_can_stay_here. 마을로_빨려들어갈_듯한_느낌이_듭니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
+Do_you_intend_to_escape_to_Town?_If_so,_click_'Yes'._If_you_click_'No',_you_can_stay_here. 마을로_빨려들어갈_듯한_느낌이_듭니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
 Visit_our_shop! 우리_상점에_들러보세요!
 You_can_drop_in_at_our_shop_and_buy_something_new._If_you_want_to_leave_without_visiting_our_shop,_click_'No'._(From_Shop_Host) 우리_상점에서_새로운_아이템을_살_수_있어요._만약_상점을_방문하지_않고_그냥_떠날_거라면,_'아니오'를_누르세요._-상점주인-
 #

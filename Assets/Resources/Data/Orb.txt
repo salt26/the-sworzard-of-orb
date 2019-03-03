@@ -28,4 +28,4 @@
 122 Growth_orb An_orb_that_is_full_of_spirit 3 2 3 3 0 100 Healthier 50 | 110 111 112
 123 Spine_orb An_orb_that_is_hunger_for_retaliation 3 2 3 0 3 100 Reflect 25 | 110 111 113
 124 Photosynthesis_orb An_orb_that_grants_unlimited_sustainability 3 2 0 3 3 100 Regenerate 3 | 110 112 113
-125 Bloodsucking_orb A_vampiric_orb 2 1 0 0 0 40 Drain 20 | 103 103 103
+125 Bloodsucking_orb A_vampiric_orb 2 1 0 0 0 40 Drain 15 | 103 103 103

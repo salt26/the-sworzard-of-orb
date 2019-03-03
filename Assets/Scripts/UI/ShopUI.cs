@@ -9,6 +9,8 @@ public class ShopUI : MonoBehaviour {
     public List<Button> purchaseButtons;
     public List<Button> repurchaseButtons;
     public Text repurchaseText;
+    public Image hostImage;
+    public List<Sprite> hostSprites;
 
     /// <summary>
     /// 상점에서 판매하는 아이템 목록. index는 구입 버튼 위치.
@@ -43,6 +45,7 @@ public class ShopUI : MonoBehaviour {
     {
         GameManager.gm.NextTurnFromShop();
         repurchaseItems = new List<string>();
+        hostImage.sprite = hostSprites[1];
         UpdateRepurchaseUI();
         gameObject.SetActive(false);
     }
@@ -109,6 +112,7 @@ public class ShopUI : MonoBehaviour {
         repurchaseItems.Add(item);
         GameManager.gm.player.GetComponent<Inventory>().Gold += ItemManager.im.FindItemInfo(item).SellPrice;
         UpdateRepurchaseUI();
+        hostImage.sprite = hostSprites[2];
         return true;
     }
 
@@ -122,6 +126,7 @@ public class ShopUI : MonoBehaviour {
         if (inv.Items.Count >= inv.maxItemNumber)
         {
             Debug.Log("Inventory is full!");
+            hostImage.sprite = hostSprites[0];
             return;
         }
         if (repurchaseItems[index] == null)
@@ -138,11 +143,13 @@ public class ShopUI : MonoBehaviour {
         if (inv.Gold < ii.SellPrice)
         {
             Debug.Log("Not enough gold!");
+            hostImage.sprite = hostSprites[0];
             return;
         }
         inv.Gold -= ii.SellPrice;
         inv.AddItem(ii.name);
         repurchaseItems.RemoveAt(index);
+        hostImage.sprite = hostSprites[1];
         UpdateRepurchaseUI();
     }
 
@@ -157,6 +164,7 @@ public class ShopUI : MonoBehaviour {
         if (inv.Items.Count >= inv.maxItemNumber)
         {
             Debug.Log("Inventory is full!");
+            hostImage.sprite = hostSprites[0];
             return;
         }
         if (purchaseItems[index] == null)
@@ -173,11 +181,13 @@ public class ShopUI : MonoBehaviour {
         if (inv.Gold < ii.BuyPrice)
         {
             Debug.Log("Not enough gold!");
+            hostImage.sprite = hostSprites[0];
             return;
         }
         inv.Gold -= ii.BuyPrice;
         inv.AddItem(ii.name);
         purchaseItems.RemoveAt(index);
+        hostImage.sprite = hostSprites[2];
         purchaseItems.Insert(index, null);
     }
 
