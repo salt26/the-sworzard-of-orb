@@ -80,7 +80,7 @@ Intoxicate 중독
 Stun 기절
 Flurry 돌풍
 FireAmp 용암의_힘
-WaterAmp 빙하의_힘
+IceAmp 빙하의_힘
 NatureAmp 숲의_힘
 Sharpen 날카로워짐
 Healthier 체력_증가
@@ -131,6 +131,7 @@ Nature_fist 야생_주먹
 Hyacinth 히아신스
 Magic_sword 마력의_검
 Magic_spear 마력의_창
+Armor 방어구
 #
 # Message text
 Escape_to_Town? 마을로_도망칠까요?
@@ -147,6 +148,9 @@ Goodbye~ 잘_있어라~
 HP_: 체_:
 Atk: 공_:
 Def: 방_:
+Range: 사정거리:
+Charge_bonus: 돌진_보너스:
+Drain: 흡수:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
 Repurchase 재구매
 Sold_out 품절

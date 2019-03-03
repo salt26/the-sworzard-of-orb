@@ -444,12 +444,13 @@ public class ItemInfo
                 if (effectName != null && !effectName.Equals("None"))
                 {
                     bool isNotAfter = false;
+                    GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
                     if (effectName.Equals("FireAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
                         isNotAfter = true;
                     }
-                    if (effectName.Equals("WaterAmp"))
+                    if (effectName.Equals("IceAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
                         isNotAfter = true;
@@ -483,6 +484,7 @@ public class ItemInfo
                 GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
                 if (effectName != null && !effectName.Equals("None"))
                 {
+                    GameManager.gm.player.armor.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
                     if (effectName.Equals("Healthier"))
                     {
                         GameManager.gm.player.bonusMaxHealth += effectParam;

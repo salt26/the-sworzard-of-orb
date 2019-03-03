@@ -12,6 +12,7 @@ public class Weapon {
     public ItemManager.Effect afterAttackEffect;
     public float chargeBonus;       // 돌진 시 곱해지는 추가 대미지
     public float drainedPercent;
+    public List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
 
     private float[] pureAmpBonus = new float[3] { 0f, 0f, 0f };  // Amp 효과로 인한 원소 스탯 증가 비율
 

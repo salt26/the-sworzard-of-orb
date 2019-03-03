@@ -299,6 +299,7 @@ public class GameManager : MonoBehaviour {
             map.GetComponent<AudioSource>().clip = Resources.Load("Audios/" + StringManager.ToPascalCase(mi.backgroundMusic), typeof(AudioClip)) as AudioClip;
             map.GetComponent<AudioSource>().Play();
             monsterNumberMark.SetActive(true);
+            monsterNumberText.gameObject.SetActive(true);
             turnNumber = 0;
             turnLimit = mi.turnLimit;
             if (turnLimit >= 0)
@@ -326,6 +327,7 @@ public class GameManager : MonoBehaviour {
         else
         {
             monsterNumberMark.SetActive(false);
+            monsterNumberText.gameObject.SetActive(false);
             turnNumber = 0;
             turnLimit = -1;
             Canvas.GetComponent<UIInfo>().turnLimitMark.SetActive(false);
