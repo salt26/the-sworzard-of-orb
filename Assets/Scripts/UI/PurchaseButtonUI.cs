@@ -44,6 +44,10 @@ public class PurchaseButtonUI : MonoBehaviour {
                 costText.text = ItemManager.im.FindItemInfo(shopUI.purchaseItems[index]).BuyPrice.ToString();
             }
             nameText.text = StringManager.sm.Translate(itemName);
+            if (!GetComponent<Button>().interactable)
+            {
+                GetComponent<Button>().interactable = true;
+            }
         }
         else
         {
@@ -54,6 +58,10 @@ public class PurchaseButtonUI : MonoBehaviour {
             {
                 Destroy(myItem.Value);
                 myItem = new KeyValuePair<string, GameObject>(null, null);
+            }
+            if (GetComponent<Button>().interactable)
+            {
+                GetComponent<Button>().interactable = false;
             }
         }
 	}

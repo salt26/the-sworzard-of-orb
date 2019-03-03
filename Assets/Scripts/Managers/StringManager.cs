@@ -54,6 +54,7 @@ public class StringManager : MonoBehaviour {
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().enemyStatusUI.RefreshText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().RefreshMenuTexts;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RefreshRepurchaseText;
+        afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().messagePanel.GetComponent<MessageUI>().RefreshMessageText;
         afterSetLanguage += MapManager.mm.RefreshMapText;
         afterSetLanguage += GameManager.gm.RefreshRestartText;
         ready = true;
@@ -118,6 +119,10 @@ public class StringManager : MonoBehaviour {
     public string Translate(string original)
     {
         Language language = languageSetting;
+        if (original == null)
+        {
+            return "";
+        }
         if (dictionary.ContainsKey(original) &&
             dictionary[original] != null && dictionary[original].Count > (int)language)
         {

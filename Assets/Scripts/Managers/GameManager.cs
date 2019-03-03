@@ -43,12 +43,20 @@ public class GameManager : MonoBehaviour {
     [Header("Debugging")]
     public int turnNumber = 0;
 
+    [HideInInspector]
+    public bool hasShopVisited = false;
+    [HideInInspector]
+    public bool hasIgnoreShopMessage = false;
+    [HideInInspector]
+    public bool hasIgnoreReturnMessage = false;
+
     private GameObject UIObject;
     private bool isSceneLoaded = false;
     
     [SerializeField]
     private int turn;   // 0이면 플레이어의 이동 턴, 1이면 적들의 이동 턴, 
-                        // 2이면 턴이 넘어가는 중, 3이면 Altar에서 조합하는 중, 4이면 Shop에 있는 중
+                        // 2이면 턴이 넘어가는 중, 3이면 Altar에서 조합하는 중,
+                        // 4이면 Shop에 있는 중, 5이면 Message가 떠 있는 중
 
     private int turnLimit;      // 최대 턴 제한
 
@@ -57,6 +65,24 @@ public class GameManager : MonoBehaviour {
         get
         {
             return turn;
+        }
+    }
+
+    /// <summary>
+    /// 현재 맵에 살아있는 몬스터 수를 반환합니다.
+    /// </summary>
+    public int MonsterNumber
+    {
+        get
+        {
+            if (!IsSceneLoaded) return 0;
+            int monsterNumber = 0;
+            foreach (Character e in enemies)
+            {
+                if (e.type != Character.Type.Enemy || !e.Alive) continue;
+                monsterNumber++;
+            }
+            return monsterNumber;
         }
     }
 
@@ -129,6 +155,8 @@ public class GameManager : MonoBehaviour {
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
         restartText = UIObject.GetComponent<UIInfo>().restartText;
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
+        hasIgnoreReturnMessage = false;
+        hasIgnoreShopMessage = false;
 	}
 
     void Start()
@@ -303,6 +331,7 @@ public class GameManager : MonoBehaviour {
             Canvas.GetComponent<UIInfo>().turnLimitMark.SetActive(false);
             Canvas.GetComponent<UIInfo>().turnLimitText.gameObject.SetActive(false);
         }
+        hasShopVisited = false;
         StringManager.sm.RefreshTexts();
         map.Initialize(mapAutoGeneration);
 
@@ -524,13 +553,7 @@ public class GameManager : MonoBehaviour {
         }
         #endregion
         
-        int monsterNumber = 0;
-        foreach (Character e in enemies)
-        {
-            if (e.type != Character.Type.Enemy || !e.Alive) continue;
-            monsterNumber++;
-        }
-        monsterNumberText.text = monsterNumber.ToString();
+        monsterNumberText.text = MonsterNumber.ToString();
     }
 
     /// <summary>
@@ -756,14 +779,8 @@ public class GameManager : MonoBehaviour {
         {
             e.DeathCheck();
         }
-
-        int monsterNumber = 0;
-        foreach (Character e in enemies)
-        {
-            if (e.type != Character.Type.Enemy || !e.Alive) continue;
-            monsterNumber++;
-        }
-        monsterNumberText.text = monsterNumber.ToString();
+        
+        monsterNumberText.text = MonsterNumber.ToString();
 
         turn = (oldTurn + 1) % 2;
 
@@ -821,6 +838,7 @@ public class GameManager : MonoBehaviour {
     {
         if (turn != 0) return;
         //Debug.Log("ShopTurn");
+        hasShopVisited = true;
         turn = 4;
     }
 
@@ -831,6 +849,46 @@ public class GameManager : MonoBehaviour {
     {
         if (turn != 4) return;
         //Debug.Log("NextTurnFromShop");
+        turn = 1;
+        turnNumber++;
+    }
+
+    /// <summary>
+    /// 메시지를 띄우고, 메시지가 띄워진 상태로 턴이 넘어갑니다.
+    /// OK 메시지를 띄웁니다.
+    /// header와 body에는 영어 원문을 넣어야 합니다.
+    /// </summary>
+    public void MessageTurn(string header, string body, UnityEngine.Events.UnityAction onOKClick = null,
+        UnityEngine.Events.UnityAction<bool> onShowToggle = null)
+    {
+        if (turn != 0) return;
+        turn = 5;
+
+        Canvas.GetComponent<UIInfo>().messagePanel.SetActive(true);
+        Canvas.GetComponent<UIInfo>().messagePanel.GetComponent<MessageUI>().Initialize(
+            header, body, onOKClick, onShowToggle);
+    }
+
+    /// <summary>
+    /// 메시지를 띄우고, 메시지가 띄워진 상태로 턴이 넘어갑니다.
+    /// 확인 또는 취소 메시지를 띄웁니다.
+    /// header와 body에는 영어 원문을 넣어야 합니다.
+    /// </summary>
+    public void MessageTurn(string header, string body,
+        UnityEngine.Events.UnityAction onYesClick, UnityEngine.Events.UnityAction onNoClick, 
+        UnityEngine.Events.UnityAction<bool> onShowToggle = null)
+    {
+        if (turn != 0) return;
+        turn = 5;
+
+        Canvas.GetComponent<UIInfo>().messagePanel.SetActive(true);
+        Canvas.GetComponent<UIInfo>().messagePanel.GetComponent<MessageUI>().Initialize(
+            header, body, onYesClick, onNoClick, onShowToggle);
+    }
+
+    public void NextTurnFromMessage()
+    {
+        if (turn != 5) return;
         turn = 1;
         turnNumber++;
     }

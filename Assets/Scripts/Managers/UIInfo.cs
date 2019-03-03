@@ -26,6 +26,7 @@ public class UIInfo : MonoBehaviour {
     public List<Sprite> turnLimitSprites;
     public Text turnLimitText;
     public List<Color> turnLimitColors;
+    public GameObject messagePanel;
 
     [Header("Enemy")]
     public StatusUI enemyStatusUI;

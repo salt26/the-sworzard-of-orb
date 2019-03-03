@@ -3830,6 +3830,9 @@ MonoBehaviour:
   mySelectedBorder: {fileID: 0}
   mapLevel: 0
   turnNumber: 0
+  hasShopVisited: 0
+  hasIgnoreShopMessage: 0
+  hasIgnoreReturnMessage: 0
   turn: 0
 --- !u!114 &1349403480
 MonoBehaviour:

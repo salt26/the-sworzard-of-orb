@@ -132,6 +132,12 @@ Hyacinth 히아신스
 Magic_sword 마력의_검
 Magic_spear 마력의_창
 #
+# Message text
+Escape_to_Town? 히오스_당하시겠습니까?
+If_click_'Yes',_you'll_move_to_Town._If_click_'No',_you_can_stay_here. 빨려들어갈_듯한_느낌이_듭니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
+Visit_our_shop! 우리_상점에_들러보세요!
+You_can_drop_in_at_our_shop_and_buy_something_new._If_you_leave_without_visiting_our_shop,_click_'No'._-From_Shop_Host- 우리_상점에서_새로운_아이템을_살_수_있어요._만약_상점을_방문하지_않고_그냥_떠날_거라면,_'아니오'를_누르세요._-상점주인-
+#
 # UI text
 Lv.@ @단계
 Menu 메뉴
@@ -142,3 +148,7 @@ Def: 방_:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
 Repurchase 재구매
 Sold_out 품절
+Yes 예
+No 아니오
+OK 확인
+Don't_show_this_message. 이_메시지를_다시_보지_않습니다.
