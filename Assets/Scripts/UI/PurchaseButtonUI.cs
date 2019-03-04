@@ -13,6 +13,14 @@ public class PurchaseButtonUI : MonoBehaviour {
     private int index = -1;
     private KeyValuePair<string, GameObject> myItem = new KeyValuePair<string, GameObject>(null, null);
 
+    public string ItemName
+    {
+        get
+        {
+            return myItem.Key;
+        }
+    }
+
     private void Start()
     {
         index = shopUI.purchaseButtons.FindIndex(b => b.Equals(GetComponent<Button>()));

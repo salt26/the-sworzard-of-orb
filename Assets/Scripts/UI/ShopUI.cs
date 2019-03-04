@@ -28,6 +28,14 @@ public class ShopUI : MonoBehaviour {
     /// </summary>
     private List<KeyValuePair<string, GameObject>> repurchaseItemImages = new List<KeyValuePair<string, GameObject>>();
 
+    public List<string> RepurchaseItems
+    {
+        get
+        {
+            return repurchaseItems.Clone();
+        }
+    }
+
     // Use this for initialization
     void Start () {
 		
