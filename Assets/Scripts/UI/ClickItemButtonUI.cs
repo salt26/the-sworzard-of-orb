@@ -16,7 +16,7 @@ public class ClickItemButtonUI : MonoBehaviour, IPointerClickHandler {
 
     void Update()
     {
-        if (gm.Turn == 0 && gm.IsSceneLoaded &&
+        if (gm.Turn == 0 && gm.IsSceneLoaded && gm.player != null &&
             !gm.player.GetComponent<Mover>().IsMoving)
         {
             string itemName = gm.player.GetComponent<Inventory>().FindItemNameInButton(GetComponent<Button>());
