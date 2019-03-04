@@ -156,6 +156,8 @@ Charge_bonus: 돌진_보너스:
 Drain: 흡수:
 Effect: 효과:
 Sell_price: 판매_가격:
+Buy_price: 구매_가격:
+Repurchase_price: 재구매_가격:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
 Repurchase 재구매
 Sold_out 품절

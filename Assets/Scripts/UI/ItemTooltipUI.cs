@@ -11,10 +11,12 @@ public class ItemTooltipUI : TooltipUI {
     public Text itemTooltipText;
 
     private AltarUI altarUI;
+    private ShopUI shopUI;
 
     void Start()
     {
         altarUI = GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>();
+        shopUI = GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>();
     }
 
     // Update is called once per frame
@@ -53,6 +55,28 @@ public class ItemTooltipUI : TooltipUI {
             itemNameText.color = new Color(0.35f, 0.15f, 0.35f);
 
             SetTooltipText(ii);
+        }
+        else if (ButtonIndex >= 200 && ButtonIndex < 300)
+        {
+            ItemInfo ii = ItemManager.im.FindItemInfo(shopUI.purchaseButtons[ButtonIndex - 200].GetComponent<PurchaseButtonUI>().ItemName);
+            if (ii != null)
+            {
+                itemNameText.text = StringManager.sm.Translate(ii.name);
+                itemNameText.color = new Color(0.35f, 0.15f, 0.35f);
+
+                SetTooltipText(ii);
+            }
+        }
+        else if (ButtonIndex >= 300 && shopUI.RepurchaseItems.Count > ButtonIndex - 300)
+        {
+            ItemInfo ii = ItemManager.im.FindItemInfo(shopUI.RepurchaseItems[ButtonIndex - 300]);
+            if (ii != null)
+            {
+                itemNameText.text = StringManager.sm.Translate(ii.name);
+                itemNameText.color = new Color(0.35f, 0.27f, 0.2f);
+
+                SetTooltipText(ii);
+            }
         }
         else
         {
@@ -104,6 +128,11 @@ public class ItemTooltipUI : TooltipUI {
             }
         }
         itemTooltipText.text += "\n" + StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString()) + "\n";
-        itemTooltipText.text += StringManager.sm.Translate("Sell price:") + " " + ii.SellPrice;
+        if (ButtonIndex >= 200 && ButtonIndex < 300)
+            itemTooltipText.text += StringManager.sm.Translate("Buy price:") + " " + ii.BuyPrice;
+        else if (ButtonIndex >= 300)
+            itemTooltipText.text += StringManager.sm.Translate("Repurchase price:") + " " + ii.SellPrice;
+        else
+            itemTooltipText.text += StringManager.sm.Translate("Sell price:") + " " + ii.SellPrice;
     }
 }

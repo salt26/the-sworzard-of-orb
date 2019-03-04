@@ -39,6 +39,18 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
                         index - 100 >= GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().Orbs.Count)
                         return;
                 }
+                else if (type == UIType.Shop)
+                {
+                    index = int.Parse(gameObject.name.Substring(gameObject.name.Length - 1)) - 1 + 200;
+                    if (GetComponent<PurchaseButtonUI>().ItemName == null) return;
+                }
+                else if (type == UIType.Repurchase)
+                {
+                    index = int.Parse(gameObject.name.Substring(0, 1)) + 300;
+                    if (GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RepurchaseItems.Count <= index - 300 || 
+                        GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RepurchaseItems[index - 300] == null)
+                        return;
+                }
             }
             GameObject g = Instantiate(tooltipPanel, GameManager.gm.Canvas.GetComponent<Transform>());
             myTooltip = g.GetComponent<TooltipUI>();
@@ -47,6 +59,8 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             r.anchorMax = maxPos;
             if (type == UIType.Altar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
             else if (type == UIType.Altar) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
+            else if (type == UIType.Shop) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
+            else if (type == UIType.Repurchase) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
 
             if (myTooltip.GetComponent<WeaponTooltipUI>() != null)
             {
