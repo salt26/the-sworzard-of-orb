@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour {
         }
 
         // 재시작 기능
+        /*
         if (!player.Alive && Input.GetKeyDown(KeyCode.R))
         {
             restartText.SetActive(false);
@@ -215,13 +216,8 @@ public class GameManager : MonoBehaviour {
             //mapLevel[map.mapName]--;
             mapLevel--;
             ChangeScene("Town");
-            /*
-            // 0번 씬에 Manager 오브젝트가 있다고 가정
-            //SceneManager.LoadSceneAsync("Scenes/Town");
-            Destroy(UIObject);
-            Destroy(this.gameObject);
-            */
         }
+        */
 	}
 
     /// <summary>
