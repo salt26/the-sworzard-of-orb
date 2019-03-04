@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour {
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
         hasIgnoreReturnMessage = false;
         hasIgnoreShopMessage = false;
+        Debug.Log(player.MaxHealth);
 	}
 
     void Start()
@@ -179,6 +180,7 @@ public class GameManager : MonoBehaviour {
 
     void FixedUpdate () {
         if (!isSceneLoaded) return;
+        if (isSceneLoaded) Debug.Log(gm.player);
 
         if (UIObject.GetComponent<UIInfo>().enemyStatusUIGroup.activeInHierarchy && selectedCharacter == null)
         {
