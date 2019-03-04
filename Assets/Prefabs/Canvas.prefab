@@ -3174,7 +3174,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.5975, y: 0}
-  maxPos: {x: 0.7275, y: 0.23}
+  maxPos: {x: 0.7675, y: 0.23}
   type: 0
 --- !u!114 &114017871397318052
 MonoBehaviour:
@@ -3512,7 +3512,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.44125, y: 0.0555}
-  maxPos: {x: 0.57125, y: 0.2855}
+  maxPos: {x: 0.61125, y: 0.2855}
   type: 0
 --- !u!114 &114067325449582240
 MonoBehaviour:
@@ -3660,7 +3660,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.41, y: 0}
-  maxPos: {x: 0.54, y: 0.23}
+  maxPos: {x: 0.58, y: 0.23}
   type: 0
 --- !u!114 &114118231601890416
 MonoBehaviour:
@@ -3981,7 +3981,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.5975, y: 0.0555}
-  maxPos: {x: 0.7275, y: 0.2855}
+  maxPos: {x: 0.7675, y: 0.2855}
   type: 0
 --- !u!114 &114159386318924376
 MonoBehaviour:
@@ -4142,7 +4142,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.44125, y: 0}
-  maxPos: {x: 0.57125, y: 0.23}
+  maxPos: {x: 0.61125, y: 0.23}
   type: 0
 --- !u!114 &114182450655281806
 MonoBehaviour:
@@ -4511,7 +4511,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.535, y: 0.0555}
-  maxPos: {x: 0.665, y: 0.2855}
+  maxPos: {x: 0.705, y: 0.2855}
   type: 0
 --- !u!114 &114225553662357862
 MonoBehaviour:
@@ -4597,7 +4597,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.50375, y: 0.0555}
-  maxPos: {x: 0.63375, y: 0.2855}
+  maxPos: {x: 0.67375, y: 0.2855}
   type: 0
 --- !u!114 &114239409402691612
 MonoBehaviour:
@@ -4665,8 +4665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
-  minPos: {x: 0.23, y: 0.68}
-  maxPos: {x: 0.36, y: 0.91}
+  minPos: {x: 0.72, y: 0.5}
+  maxPos: {x: 0.89, y: 0.91}
   type: 1
 --- !u!114 &114261160046526086
 MonoBehaviour:
@@ -5395,7 +5395,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.4725, y: 0.0555}
-  maxPos: {x: 0.6025, y: 0.2855}
+  maxPos: {x: 0.6425, y: 0.2855}
   type: 0
 --- !u!114 &114340425982667036
 MonoBehaviour:
@@ -5497,8 +5497,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
-  minPos: {x: 0.23, y: 0.68}
-  maxPos: {x: 0.36, y: 0.91}
+  minPos: {x: 0.72, y: 0.5}
+  maxPos: {x: 0.89, y: 0.91}
   type: 1
 --- !u!114 &114349854880046750
 MonoBehaviour:
@@ -5747,8 +5747,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
-  minPos: {x: 0.23, y: 0.68}
-  maxPos: {x: 0.36, y: 0.91}
+  minPos: {x: 0.72, y: 0.5}
+  maxPos: {x: 0.89, y: 0.91}
   type: 1
 --- !u!114 &114377885575574472
 MonoBehaviour:
@@ -6610,7 +6610,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.50375, y: 0}
-  maxPos: {x: 0.63375, y: 0.23}
+  maxPos: {x: 0.67375, y: 0.23}
   type: 0
 --- !u!114 &114498838968412518
 MonoBehaviour:
@@ -7424,7 +7424,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.4725, y: 0}
-  maxPos: {x: 0.6025, y: 0.23}
+  maxPos: {x: 0.6425, y: 0.23}
   type: 0
 --- !u!114 &114599716921552548
 MonoBehaviour:
@@ -7440,7 +7440,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.535, y: 0}
-  maxPos: {x: 0.665, y: 0.23}
+  maxPos: {x: 0.705, y: 0.23}
   type: 0
 --- !u!114 &114606163864047750
 MonoBehaviour:
@@ -8216,7 +8216,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.56625, y: 0.0555}
-  maxPos: {x: 0.69625, y: 0.2855}
+  maxPos: {x: 0.73625, y: 0.2855}
   type: 0
 --- !u!114 &114693825445562742
 MonoBehaviour:
@@ -8594,7 +8594,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.56625, y: 0}
-  maxPos: {x: 0.69625, y: 0.23}
+  maxPos: {x: 0.73625, y: 0.23}
   type: 0
 --- !u!114 &114717766858614490
 MonoBehaviour:
@@ -8967,7 +8967,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.41, y: 0.0555}
-  maxPos: {x: 0.54, y: 0.2855}
+  maxPos: {x: 0.58, y: 0.2855}
   type: 0
 --- !u!114 &114770801761218212
 MonoBehaviour:
@@ -9243,7 +9243,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.62875, y: 0.0555}
-  maxPos: {x: 0.75875, y: 0.2855}
+  maxPos: {x: 0.79875, y: 0.2855}
   type: 0
 --- !u!114 &114812358350432868
 MonoBehaviour:
@@ -9815,7 +9815,7 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
   minPos: {x: 0.62875, y: 0}
-  maxPos: {x: 0.75875, y: 0.23}
+  maxPos: {x: 0.79875, y: 0.23}
   type: 0
 --- !u!114 &114853087422564850
 MonoBehaviour:
@@ -10890,8 +10890,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPanel: {fileID: 1071274011936262, guid: d91e1f25ccfe1ed47807a6c6178e167f,
     type: 2}
-  minPos: {x: 0.23, y: 0.68}
-  maxPos: {x: 0.36, y: 0.91}
+  minPos: {x: 0.72, y: 0.5}
+  maxPos: {x: 0.89, y: 0.91}
   type: 1
 --- !u!114 &114951476394806448
 MonoBehaviour:
@@ -12888,8 +12888,8 @@ RectTransform:
   m_Father: {fileID: 224915889422561240}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07, y: 0.22}
-  m_AnchorMax: {x: 0.25, y: 0.9}
+  m_AnchorMin: {x: 0.05, y: 0.22}
+  m_AnchorMax: {x: 0.23, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
@@ -15407,8 +15407,8 @@ RectTransform:
   m_Father: {fileID: 224915889422561240}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07, y: 0.22}
-  m_AnchorMax: {x: 0.25, y: 0.9}
+  m_AnchorMin: {x: 0.05, y: 0.22}
+  m_AnchorMax: {x: 0.23, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}

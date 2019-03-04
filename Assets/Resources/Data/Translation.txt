@@ -4,6 +4,9 @@
 # locale0: English
 # locale1: Korean
 #
+# Item type
+Orb 오브
+Consumable 소비
 # Item name
 No_item 없는_아이템
 Large_potion 대형_물약
@@ -151,6 +154,8 @@ Def: 방_:
 Range: 사정거리:
 Charge_bonus: 돌진_보너스:
 Drain: 흡수:
+Effect: 효과:
+Sell_price: 판매_가격:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
 Repurchase 재구매
 Sold_out 품절
