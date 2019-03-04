@@ -4846,7 +4846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPanel: {fileID: 1877842148029082, guid: f395d255fffd56442a4fc7d6398acd0c,
     type: 2}
-  minPos: {x: 0.05, y: 0}
+  minPos: {x: 0, y: 0}
   maxPos: {x: 0.235, y: 0.27}
   type: 0
 --- !u!114 &114303433001911860
@@ -7411,7 +7411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPanel: {fileID: 1834803164482278, guid: 2e40c52843e4d9f42870e89105656015,
     type: 2}
-  minPos: {x: 0.05, y: 0}
+  minPos: {x: 0, y: 0}
   maxPos: {x: 0.235, y: 0.27}
   type: 0
 --- !u!114 &114644083506701284
