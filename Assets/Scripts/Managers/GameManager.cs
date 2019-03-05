@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour {
         turnLimit = -1;
         if (mapName == null && sceneName.Equals("Town"))
         {
-            mapLevel++;
+            mapLevel += (int)(Mathf.Log((mapLevel / 5 + 1)) / Mathf.Log(2)) + 1;
         }
         if (sceneName.Equals("Town"))
         {
@@ -909,7 +909,8 @@ public class GameManager : MonoBehaviour {
 
     public void RefreshRestartText()
     {
-        restartText.GetComponent<Text>().text = StringManager.sm.Translate("Press 'R' to revive!");
+        restartText.GetComponent<Text>().text = StringManager.sm.Translate("You died!") + "\n" +
+            StringManager.sm.Translate("Press \"Goodbye~\" to quit game.");
     }
 }
 

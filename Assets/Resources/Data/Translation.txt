@@ -159,6 +159,8 @@ Sell_price: 판매_가격:
 Buy_price: 구매_가격:
 Repurchase_price: 재구매_가격:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
+You_died! 당신은_죽었습니다!
+Press_"Goodbye~"_to_quit_game. "잘_있어라~"를_눌러_종료하세요.
 Repurchase 재구매
 Sold_out 품절
 Yes 예
