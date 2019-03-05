@@ -7,7 +7,7 @@ public class Armor {
 
     public Element element;
     public ItemManager.Effect armorEffect;
-    public List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
+    public Dictionary<string, int> effects = new Dictionary<string, int>();
 
     /// <summary>
     /// 유효 방어구 속성을 반환합니다.

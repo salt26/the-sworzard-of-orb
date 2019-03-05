@@ -138,7 +138,7 @@ Armor 방어구
 #
 # Message text
 Escape_to_Town? 마을로_도망칠까요?
-You_had_better_hunt_monsters_as_many_as_possible._If_you_click_'Yes',_you'll_move_to_Town._If_you_click_'No',_you_can_stay_here. 몬스터를_가능한_한_많이_잡고_가는_것이_좋습니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
+You_had_better_hunt_monsters_as_many_as_possible._If_you_click_'Yes',_you'll_move_to_Town._If_you_click_'No',_you_can_stay_here. 몬스터를_가능한_한_많이_잡고_가는_것이_좋을 겁니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
 Charge_interaction 돌진_상호작용
 Do_you_intend_to_escape_to_Town?_If_so,_click_'Yes'._If_you_click_'No',_you_can_stay_here. 마을로_빨려들어갈_듯한_느낌이_듭니다._'예'를_누르면_마을로_이동합니다._'아니오'를_누르면_여기에_머무릅니다.
 Visit_our_shop! 우리_상점에_들러보세요!
@@ -152,8 +152,16 @@ HP_: 체_:
 Atk: 공_:
 Def: 방_:
 Range: 사정거리:
+Element_for_calc: 계산상의_속성:
+# contains tab('\t') character
+FireAmp:			 용암의_힘:		
+IceAmp:			 빙하의_힘:		
+NatureAmp:		 숲의_힘:			
+Normal_attack:	 평타_공격력:	
 Charge_bonus: 돌진_보너스:
+Charge_attack:	 돌진_공격력:	
 Drain: 흡수:
+Defense: 방어력:
 Effect: 효과:
 Sell_price: 판매_가격:
 Buy_price: 구매_가격:
@@ -167,3 +175,5 @@ Yes 예
 No 아니오
 OK 확인
 Don't_show_this_message. 이_메시지를_다시_보지_않습니다.
+The_number_of_live_monsters 살아있는_몬스터_수
+@_turns_left_before_you_die 사망까지_@턴_남음

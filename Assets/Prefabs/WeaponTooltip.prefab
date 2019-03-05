@@ -219,6 +219,7 @@ MonoBehaviour:
     range: 0
     chargeBonus: 1.5
     drainedPercent: 0
+    stunEffectInTooltip: 0
   weaponNameText: {fileID: 114565680894688178}
   statText: {fileID: 114217183962081700}
   fireText: {fileID: 114698421124082558}
@@ -394,7 +395,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2c8ec35b229ad11428136580ddaa11c5, type: 3}
-    m_FontSize: 26
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -483,8 +484,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 91, y: -43}
-  m_SizeDelta: {x: 182, y: 107}
+  m_AnchoredPosition: {x: -16, y: -49}
+  m_SizeDelta: {x: 0, y: 4}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224174396889195032
 RectTransform:
@@ -519,8 +520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 91, y: -150}
-  m_SizeDelta: {x: 182, y: 43}
+  m_AnchoredPosition: {x: -16, y: -53}
+  m_SizeDelta: {x: 0, y: 35}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224395883664334180
 RectTransform:
@@ -537,8 +538,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 91, y: -0}
-  m_SizeDelta: {x: 182, y: 43}
+  m_AnchoredPosition: {x: -16, y: -9}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224466348862633422
 RectTransform:
@@ -598,5 +599,5 @@ RectTransform:
   m_AnchorMin: {x: 0.05, y: 0}
   m_AnchorMax: {x: 0.235, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 193}
+  m_SizeDelta: {x: 0, y: 97}
   m_Pivot: {x: 1, y: 0}

@@ -444,7 +444,22 @@ public class ItemInfo
                 if (effectName != null && !effectName.Equals("None"))
                 {
                     bool isNotAfter = false;
-                    GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+
+                    if (GameManager.gm.player.EquippedWeapon.effects.ContainsKey(effectName))
+                    {
+                        GameManager.gm.player.EquippedWeapon.effects[effectName] += effectParam;
+                    }
+                    else
+                    {
+                        GameManager.gm.player.EquippedWeapon.effects.Add(effectName, effectParam);
+                    }
+
+                    if (effectName.Equals("Stun"))
+                    {
+                        GameManager.gm.player.EquippedWeapon.stunEffectInTooltip = 1f - 
+                            ((1 - GameManager.gm.player.EquippedWeapon.stunEffectInTooltip) * (1 - (effectParam / 100f)));
+                    }
+
                     if (effectName.Equals("FireAmp"))
                     {
                         GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
@@ -484,7 +499,15 @@ public class ItemInfo
                 GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    GameManager.gm.player.armor.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
+                    if (GameManager.gm.player.armor.effects.ContainsKey(effectName))
+                    {
+                        GameManager.gm.player.armor.effects[effectName] += effectParam;
+                    }
+                    else
+                    {
+                        GameManager.gm.player.armor.effects.Add(effectName, effectParam);
+                    }
+
                     if (effectName.Equals("Healthier"))
                     {
                         GameManager.gm.player.bonusMaxHealth += effectParam;

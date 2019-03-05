@@ -24,6 +24,15 @@ public class ArmorTooltipUI : TooltipUI
             "</color>/<color=#18B300>" + StringManager.Padding(armorReference.element.Nature) + "</color>)";
         string effectText = "";
 
+        effectText += StringManager.sm.Translate("Defense:") + " <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" +
+            StringManager.Padding(armorReference.BaseDefense()) +
+            "</color> / <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" +
+            StringManager.Padding(armorReference.ValidElement.Fire) +
+            "</color> / <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" +
+            StringManager.Padding(armorReference.ValidElement.Ice) +
+            "</color> / <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" +
+            StringManager.Padding(armorReference.ValidElement.Nature) + "</color>\n\n";
+
         foreach (KeyValuePair<string, int> p in armorReference.effects)
         {
             if (p.Key.Equals("Reflect"))
@@ -37,7 +46,7 @@ public class ArmorTooltipUI : TooltipUI
         }
         if (effectText.Length > 0)
         {
-            armorEffectText.text = effectText.Substring(0, effectText.Length - 1);
+            armorEffectText.text = effectText.TrimEnd(new char[] { '\n' });
             armorEffectText.gameObject.SetActive(true);
         }
         else

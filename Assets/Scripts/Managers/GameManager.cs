@@ -232,7 +232,9 @@ public class GameManager : MonoBehaviour {
         turnLimit = -1;
         if (mapName == null && sceneName.Equals("Town"))
         {
-            mapLevel += (int)(Mathf.Log((mapLevel / 5 + 1)) / Mathf.Log(2)) + 1;
+            int increase = (int)(Mathf.Log((mapLevel / 5 + 1)) / Mathf.Log(2)) + 1;
+            mapLevel += increase;
+            MapManager.mm.levelText.color = ColorManager.cm.levelColors[(increase - 1) % ColorManager.cm.levelColors.Count];
         }
         if (sceneName.Equals("Town"))
         {
@@ -554,6 +556,8 @@ public class GameManager : MonoBehaviour {
         #endregion
         
         monsterNumberText.text = MonsterNumber.ToString();
+        if (MonsterNumber == 0) monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
+        else monsterNumberText.color = ColorManager.cm.monsterNumberColors[1];
     }
 
     /// <summary>
@@ -781,6 +785,8 @@ public class GameManager : MonoBehaviour {
         }
         
         monsterNumberText.text = MonsterNumber.ToString();
+        if (MonsterNumber == 0) monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
+        else monsterNumberText.color = ColorManager.cm.monsterNumberColors[1];
 
         turn = (oldTurn + 1) % 2;
 

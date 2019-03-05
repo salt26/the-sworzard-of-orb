@@ -122,7 +122,7 @@ public class PlayerMover : Mover {
             else if (Input.GetKeyDown(KeyCode.O))
             {
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(104, 126), t.position);
+                gm.map.AddItemOnTile(Random.Range(104, 117), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
             }

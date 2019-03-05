@@ -10,6 +10,8 @@ public class ColorManager : MonoBehaviour {
     public Color fireColor;
     public Color iceColor;
     public Color natureColor;
+    public List<Color> monsterNumberColors;
+    public List<Color> levelColors;
 
     void Awake()
     {

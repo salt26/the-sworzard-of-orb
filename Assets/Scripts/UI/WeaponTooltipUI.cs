@@ -25,26 +25,52 @@ public class WeaponTooltipUI : TooltipUI {
             weaponReference = GameManager.gm.player.EquippedWeapon;
         }
         weaponNameText.text = StringManager.sm.Translate(weaponReference.name);
-        statText.text = "(<color=#F13E00>" + StringManager.Padding(weaponReference.element.Fire) +
-            "</color>/<color=#007CF1>" + StringManager.Padding(weaponReference.element.Ice) +
-            "</color>/<color=#18B300>" + StringManager.Padding(weaponReference.element.Nature) + "</color>)";
+        statText.text = "(<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" +
+            StringManager.Padding(weaponReference.element.Fire) +
+            "</color>/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" +
+            StringManager.Padding(weaponReference.element.Ice) +
+            "</color>/<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" +
+            StringManager.Padding(weaponReference.element.Nature) + "</color>)";
         string effectText = "";
         effectText += StringManager.sm.Translate("Range:") + " " + weaponReference.Range + '\n';
-        effectText += StringManager.sm.Translate("Charge bonus:") + " " + (int)(weaponReference.chargeBonus * 100) + "%\n";
+        if (weaponReference.Range > 1)
+            effectText += StringManager.sm.Translate("Element for calc:") + " (" +
+                StringManager.Padding(weaponReference.OriginalElement.Fire / weaponReference.Range) + "/" +
+                StringManager.Padding(weaponReference.OriginalElement.Ice / weaponReference.Range) + "/" +
+                StringManager.Padding(weaponReference.OriginalElement.Nature / weaponReference.Range) + ")\n";
         if (weaponReference.PureAmpElement.Fire != 0)
-            effectText += StringManager.sm.Translate("FireAmp") + ": 0 + " + weaponReference.PureAmpElement.Fire + " + 0 + 0\n";
+            effectText += StringManager.sm.Translate("FireAmp:\t\t\t") + " 0 + " + StringManager.Padding(weaponReference.PureAmpElement.Fire) + " +  0 +  0\n";
         if (weaponReference.PureAmpElement.Ice != 0)
-            effectText += StringManager.sm.Translate("IceAmp") + ": 0 + 0 + " + weaponReference.PureAmpElement.Ice + " + 0\n";
+            effectText += StringManager.sm.Translate("IceAmp:\t\t\t") + " 0 +  0 + " + StringManager.Padding(weaponReference.PureAmpElement.Ice) + " +  0\n";
         if (weaponReference.PureAmpElement.Nature != 0)
-            effectText += StringManager.sm.Translate("NatureAmp") + ": 0 + 0 + 0 + " + weaponReference.PureAmpElement.Nature + "\n";
+            effectText += StringManager.sm.Translate("NatureAmp:\t\t") + " 0 +  0 +  0 + " + StringManager.Padding(weaponReference.PureAmpElement.Nature) + "\n";
+        effectText += StringManager.sm.Translate("Normal attack:\t") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" +
+            StringManager.Padding(weaponReference.BaseAttack()) +
+            "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" +
+            StringManager.Padding(weaponReference.ValidElement.Fire) +
+            "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" +
+            StringManager.Padding(weaponReference.ValidElement.Ice) +
+            "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" +
+            StringManager.Padding(weaponReference.ValidElement.Nature) + "</color>\n\n";
+        effectText += StringManager.sm.Translate("Charge bonus:") + " " + (int)(weaponReference.chargeBonus * 100) + "%\n";
+        effectText += StringManager.sm.Translate("Charge attack:\t") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" +
+            StringManager.Padding((int)(weaponReference.BaseAttack() * weaponReference.chargeBonus)) +
+            "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" +
+            StringManager.Padding(weaponReference.ValidElement.Fire) +
+            "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.iceColor) + ">" +
+            StringManager.Padding(weaponReference.ValidElement.Ice) +
+            "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" +
+            StringManager.Padding(weaponReference.ValidElement.Nature) + "</color>\n\n";
+        if (weaponReference.stunEffectInTooltip > 0f)
+            effectText += StringManager.sm.Translate("Stun") + ": " + Mathf.RoundToInt(weaponReference.stunEffectInTooltip * 10000) / 100f + "%\n";
 
         foreach (KeyValuePair<string, int> p in weaponReference.effects)
         {
-            if (p.Key.Equals("Drain") || p.Key.Equals("Stun"))
+            if (p.Key.Equals("Drain"))
             {
                 effectText += StringManager.sm.Translate(p.Key) + ": " + p.Value + "%\n";
             }
-            else if (p.Key.EndsWith("Amp") || p.Key.Equals("Sharpen"))
+            else if (p.Key.EndsWith("Amp") || p.Key.Equals("Sharpen") || p.Key.Equals("Stun"))
             {
 
             }
@@ -53,6 +79,6 @@ public class WeaponTooltipUI : TooltipUI {
                 effectText += StringManager.sm.Translate(p.Key) + ": " + p.Value + "\n";
             }
         }
-        weaponEffectText.text = effectText.Substring(0, effectText.Length - 1);
+        weaponEffectText.text = effectText.TrimEnd(new char[] { '\n' });
     }
 }

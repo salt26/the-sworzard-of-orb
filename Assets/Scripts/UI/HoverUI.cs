@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
-    public enum UIType { Inventory, Altar, Shop, Repurchase }
+    public enum UIType { Inventory, Altar, Shop, Repurchase, Turn, MonsterNumber }
     public GameObject tooltipPanel;
     public Vector2 minPos;          // 각 원소는 0 이상 1 이하
     public Vector2 maxPos;          // 각 원소는 0 이상 1 이하, minPos보다 커야 함
@@ -17,6 +17,11 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 
     public void OnPointerEnter(PointerEventData e)
     {
+        if (myTooltip != null)
+        {
+            myTooltip.Disappear();
+            myTooltip = null;
+        }
         if (myTooltip == null)
         {
             int index = -1;
@@ -69,6 +74,35 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             if (myTooltip.GetComponent<ItemTooltipUI>() != null)
             {
                 myTooltip.GetComponent<ItemTooltipUI>().ButtonIndex = index;
+                if (type == UIType.Inventory)
+                {
+                    myTooltip.GetComponent<RectTransform>().pivot = new Vector2(0f, 0f);
+                }
+                else if (type == UIType.Altar)
+                {
+                    myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 1f);
+                }
+                else if (type == UIType.Shop)
+                {
+                    myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 1f);
+                }
+                else if (type == UIType.Repurchase)
+                {
+                    myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 1f);
+                }
+            }
+            if (myTooltip.GetComponent<NormalTooltipUI>() != null)
+            {
+                myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 1f);
+                if (type == UIType.MonsterNumber)
+                {
+                    myTooltip.GetComponent<NormalTooltipUI>().content = "The number of live monsters";
+                }
+                else if (type == UIType.Turn)
+                {
+                    myTooltip.GetComponent<NormalTooltipUI>().content = "@ turns left before you die";
+                    myTooltip.GetComponent<NormalTooltipUI>().param = GameManager.gm.RemainedTurn;
+                }
             }
         }
     }
