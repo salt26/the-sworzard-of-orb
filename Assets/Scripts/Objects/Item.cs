@@ -9,6 +9,7 @@ public class Item : MonoBehaviour {
 
     public new string name; // 아이템 이름(Primary key)
 
+    /*
     public bool Use()
     {
         ItemInfo ii = ItemManager.im.FindItemInfo(name);
@@ -16,6 +17,7 @@ public class Item : MonoBehaviour {
             return ii.Use();
         else return false;
     }
+    */
 
     public virtual void Initialize(string itemName)
     {

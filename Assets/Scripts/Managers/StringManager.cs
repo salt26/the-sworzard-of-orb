@@ -14,7 +14,7 @@ public class StringManager : MonoBehaviour {
     
     private Language languageSetting = Language.Korean;
     public delegate void AfterSetLanguage();
-    private static AfterSetLanguage afterSetLanguage;
+    private AfterSetLanguage afterSetLanguage;
     private bool ready = false;     // Start가 호출된 후에 afterSetLanguage를 호출할 수 있음
     
     /// <summary>

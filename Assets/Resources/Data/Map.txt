@@ -1,9 +1,9 @@
 ﻿# Map Generation Data
 # (Map ID) (@Name) (level) (Width) (Height) (Background color R) (Background color G) (Background color B) (@Background music) (Turn limit) | (Tile ID1) (Tile ID2) ... | (Monster ID1) (Monster ID2) ...[ | (Interactable ID1) (Interactable ID2) ...]
 #
-0 Green 1 13 13 0.2745098 0.4470588 1 Melody_of_walk 150 | 1 1 1 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 5 | 2 2 8 2 2 8 11 | 0
-1 Blue 1 13 13 0 0.7294118 1 Melody_of_ice 150 | 10 10 10 10 10 10 10 10 11 11 12 | 1 1 7 1 1 7 10 | 0
-2 Red 1 13 13 0.3607843 0.02745098 0.02745098 Melody_of_abyss 150 | 20 20 20 20 20 20 20 20 20 20 20 20 20 21 21 21 21 22 22 | 0 0 6 0 0 6 9 | 0
+0 Green 1 13 13 0.2745098 0.4470588 1 Melody_of_walk 150 | 1 1 1 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 5 | 2 2 8 2 2 11 | 0
+1 Blue 1 13 13 0 0.7294118 1 Melody_of_ice 150 | 10 10 10 10 10 10 10 10 11 11 12 | 1 1 7 1 1 10 | 0
+2 Red 1 13 13 0.3607843 0.02745098 0.02745098 Melody_of_abyss 150 | 20 20 20 20 20 20 20 20 20 20 20 20 20 21 21 21 21 22 22 | 0 0 6 0 0 9 | 0
 #
 10 Green 3 15 15 0.2745098 0.4470588 1 Melody_of_walk 200 | 1 1 1 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 5 | 2 2 2 5 2 2 2 8 2 8 | 0
 11 Blue 3 15 15 0 0.7294118 1 Melody_of_ice 200 | 10 10 10 10 10 10 10 10 11 11 12 | 1 1 1 4 1 1 1 7 1 7 | 0

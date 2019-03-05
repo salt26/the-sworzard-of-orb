@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using UnityEngine.SceneManagement;
 
 public class UIInfo : MonoBehaviour {
 
@@ -39,6 +37,11 @@ public class UIInfo : MonoBehaviour {
     public Text languageText;
     public Text goodbyeText;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     public void MenuUI()
     {
         foreach (GameObject g in menuUI)
@@ -65,11 +68,15 @@ public class UIInfo : MonoBehaviour {
 
     public void QuitGame()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        ColorManager.cm = null;
+        EnemyManager.em = null;
+        ItemManager.im = null;
+        MapManager.mm = null;
+        StringManager.sm = null;
+        Destroy(GameManager.gm.gameObject);
+        GameManager.gm = null;
+        SceneManager.LoadScene("Scenes/Title");
+        Destroy(gameObject);
     }
 
     public void RefreshMenuTexts()

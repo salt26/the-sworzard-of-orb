@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour {
     public bool hasIgnoreShopMessage = false;
     [HideInInspector]
     public bool hasIgnoreReturnMessage = false;
+    [HideInInspector]
+    public bool hasIgnoreWeaponOrbMessage = false;
 
     private GameObject UIObject;
     private bool isSceneLoaded = false;
@@ -110,11 +112,39 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 턴 수를 변경하면서 UI를 변경해야 할 때 사용.
+    /// 턴 수를 0으로 초기화할 때는 이것 대신 turnNumber를 설정해야 함
+    /// </summary>
     private int TurnNumber
     {
+        get
+        {
+            return turnNumber;
+        }
         set
         {
             turnNumber = value;
+            UIInfo ui = Canvas.GetComponent<UIInfo>();
+            if (turnLimit > 0 && RemainedTurn >= 0)
+            {
+                ui.turnLimitText.text = RemainedTurn.ToString();
+                if (RemainedTurn > 0)
+                {
+                    ui.turnLimitMark.GetComponent<Image>().sprite =
+                        ui.turnLimitSprites[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
+                    ui.turnLimitMark.GetComponent<Image>().color =
+                        ui.turnLimitColors[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
+                    ui.turnLimitText.color =
+                        ui.turnLimitColors[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
+                }
+                else
+                {
+                    ui.turnLimitMark.GetComponent<Image>().sprite = ui.turnLimitSprites[0];
+                    ui.turnLimitMark.GetComponent<Image>().color = ui.turnLimitColors[0];
+                    ui.turnLimitText.color = ui.turnLimitColors[0];
+                }
+            }
         }
     }
 
@@ -157,7 +187,7 @@ public class GameManager : MonoBehaviour {
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
         hasIgnoreReturnMessage = false;
         hasIgnoreShopMessage = false;
-        Debug.Log(player.MaxHealth);
+        hasIgnoreWeaponOrbMessage = false;
 	}
 
     void Start()
@@ -180,7 +210,6 @@ public class GameManager : MonoBehaviour {
 
     void FixedUpdate () {
         if (!isSceneLoaded) return;
-        if (isSceneLoaded) Debug.Log(gm.player);
 
         if (UIObject.GetComponent<UIInfo>().enemyStatusUIGroup.activeInHierarchy && selectedCharacter == null)
         {
@@ -300,8 +329,8 @@ public class GameManager : MonoBehaviour {
             map.GetComponent<AudioSource>().Play();
             monsterNumberMark.SetActive(true);
             monsterNumberText.gameObject.SetActive(true);
-            turnNumber = 0;
             turnLimit = mi.turnLimit;
+            turnNumber = 0;
             if (turnLimit >= 0)
             {
                 Canvas.GetComponent<UIInfo>().turnLimitMark.SetActive(true);
@@ -793,27 +822,7 @@ public class GameManager : MonoBehaviour {
 
         if (turn == 1)
         {
-            turnNumber++;
-            UIInfo ui = Canvas.GetComponent<UIInfo>();
-            if (turnLimit > 0 && RemainedTurn >= 0)
-            {
-                ui.turnLimitText.text = RemainedTurn.ToString();
-                if (RemainedTurn > 0)
-                {
-                    ui.turnLimitMark.GetComponent<Image>().sprite =
-                        ui.turnLimitSprites[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
-                    ui.turnLimitMark.GetComponent<Image>().color =
-                        ui.turnLimitColors[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
-                    ui.turnLimitText.color =
-                        ui.turnLimitColors[(RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1];
-                }
-                else
-                {
-                    ui.turnLimitMark.GetComponent<Image>().sprite = ui.turnLimitSprites[0];
-                    ui.turnLimitMark.GetComponent<Image>().color = ui.turnLimitColors[0];
-                    ui.turnLimitText.color = ui.turnLimitColors[0];
-                }
-            }
+            TurnNumber++;
         }
     }
 
@@ -835,7 +844,7 @@ public class GameManager : MonoBehaviour {
         if (turn != 3) return;
         //Debug.Log("NextTurnFromAltar");
         turn = 1;
-        turnNumber++;
+        TurnNumber++;
     }
 
     /// <summary>
@@ -857,7 +866,7 @@ public class GameManager : MonoBehaviour {
         if (turn != 4) return;
         //Debug.Log("NextTurnFromShop");
         turn = 1;
-        turnNumber++;
+        TurnNumber++;
     }
 
     /// <summary>
@@ -893,11 +902,26 @@ public class GameManager : MonoBehaviour {
             header, body, onYesClick, onNoClick, onShowToggle);
     }
 
+    /// <summary>
+    /// 메시지를 닫고 나서 적의 턴이 되며, 턴 수를 증가시킵니다.
+    /// 메시지가 닫힐 때 기본적으로 호출됩니다.
+    /// </summary>
     public void NextTurnFromMessage()
     {
         if (turn != 5) return;
         turn = 1;
-        turnNumber++;
+        TurnNumber++;
+    }
+
+    /// <summary>
+    /// 메시지를 닫고 나서 플레이어의 턴이 됩니다.
+    /// 턴 수를 증가시키지 않습니다.
+    /// 사용하려면 NextTurnFromMessage()보다 일찍 호출해야 합니다.
+    /// </summary>
+    public void SameTurnFromMessage()
+    {
+        if (turn != 5) return;
+        turn = 0;
     }
 
     /// <summary>

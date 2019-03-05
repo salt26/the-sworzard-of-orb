@@ -145,6 +145,8 @@ You_had_better_hunt_monsters_as_many_as_possible._Do_you_intend_to_escape_to_Tow
 Leave_without_shopping? 그냥_가실_건가요?
 Please_visit_our_shop!_You_can_drop_in_at_our_shop_and_buy_something_new._If_you_want_to_leave_without_visiting_our_shop,_click_'Yes'. 상점에_들러보세요!_우리_상점에서_새로운_아이템을_살_수_있어요._만약_상점을_방문하지_않고_그냥_떠날_거라면,_'예'를_누르세요.
 From_Shop_Host -상점주인-
+Upgrade_your_weapon? 무기를_강화할까요?
+When_you_use_'weapon_only'_orb,_your_CURRENT_EQUIPPED_WEAPON_is_enhanced._Click_'Yes'_to_proceed._If_you_want_to_enchant_another_weapon,_click_'No'_and_press_'C'_key. 무기_전용_오브를_사용하면_'지금_장착한_무기'가_강화됩니다._계속하려면_'예'를_누르십시오._만약_다른_무기를_강화하고_싶다면,_'아니오'를_누르고_'C'키를_누르십시오.
 #
 # UI text
 Lv.@ @단계

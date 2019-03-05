@@ -46,7 +46,6 @@ public class MessageUI : MonoBehaviour {
             GameManager.gm.NextTurnFromMessage();
             gameObject.SetActive(false);
         });
-        //yesButton.onClick.AddListener(delegate { UseItem(itemButtons.IndexOf(b)); });
 
         if (onNoClick != null)
             noButton.onClick.AddListener(onNoClick);

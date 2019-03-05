@@ -139,7 +139,7 @@ public class Inventory : MonoBehaviour {
         else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving &&
             GetComponent<Character>().Alive && index < Items.Count)
         {
-            if (ItemManager.im.FindItemInfo(Items[index]).Use())
+            if (ItemManager.im.FindItemInfo(Items[index]).Use(index))
             {
                 //Debug.Log("Use item " + index + " from inventory.");
                 if ("Transform".Equals(ItemManager.im.FindItemInfo(items[index]).effectName))

@@ -449,7 +449,7 @@ public class ItemInfo
         }
     }
 
-    public bool Use()
+    public bool Use(int index = -1)
     {
         if (type == Type.Consumable)
         {
@@ -461,58 +461,26 @@ public class ItemInfo
             if (usage == Usage.None) return false;
             else if (usage == Usage.Weapon)
             {
-                GameManager.gm.player.EquippedWeapon.element += stat;
-                if (effectName != null && !effectName.Equals("None"))
+                if (!GameManager.gm.hasIgnoreWeaponOrbMessage && index != -1)
                 {
-                    bool isNotAfter = false;
-
-                    if (GameManager.gm.player.EquippedWeapon.effects.ContainsKey(effectName))
-                    {
-                        GameManager.gm.player.EquippedWeapon.effects[effectName] += effectParam;
-                    }
-                    else
-                    {
-                        GameManager.gm.player.EquippedWeapon.effects.Add(effectName, effectParam);
-                    }
-
-                    if (effectName.Equals("Stun"))
-                    {
-                        GameManager.gm.player.EquippedWeapon.stunEffectInTooltip = 1f - 
-                            ((1 - GameManager.gm.player.EquippedWeapon.stunEffectInTooltip) * (1 - (effectParam / 100f)));
-                    }
-
-                    if (effectName.Equals("FireAmp"))
-                    {
-                        GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
-                        isNotAfter = true;
-                    }
-                    if (effectName.Equals("IceAmp"))
-                    {
-                        GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
-                        isNotAfter = true;
-                    }
-                    if (effectName.Equals("NatureAmp"))
-                    {
-                        GameManager.gm.player.EquippedWeapon.NatureAmpBonus += effectParam / 100f;
-                        isNotAfter = true;
-                    }
-                    if (effectName.Equals("Sharpen"))
-                    {
-                        GameManager.gm.player.EquippedWeapon.chargeBonus += effectParam / 100f;
-                        isNotAfter = true;
-                    }
-                    if (effectName.Equals("Drain"))
-                    {
-                        GameManager.gm.player.EquippedWeapon.drainedPercent += effectParam / 100f;
-                        isNotAfter = true;
-                    }
-                    if (!isNotAfter)
-                    {
-                        GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
-                    }
+                    GameManager.gm.MessageTurn("Upgrade your weapon?",
+                        "When you use 'weapon only' orb, your CURRENT EQUIPPED WEAPON is enhanced. " +
+                        "Click 'Yes' to proceed. If you want to enchant another weapon, click 'No' and press 'C' key.",
+                        delegate {
+                            GameManager.gm.hasIgnoreWeaponOrbMessage = true;
+                            GameManager.gm.SameTurnFromMessage();
+                            GameManager.gm.player.GetComponent<Inventory>().UseItem(index);
+                        }, 
+                        delegate {
+                            GameManager.gm.SameTurnFromMessage();
+                        }, null);
+                    return false;
                 }
-                GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
-                return true;
+                else
+                {
+                    UseWeaponOnlyOrb();
+                    return true;
+                }
             }
             else if (usage == Usage.Armor)
             {
@@ -549,6 +517,61 @@ public class ItemInfo
                 return false;
             }
         }
+    }
+
+    private void UseWeaponOnlyOrb()
+    {
+        GameManager.gm.player.EquippedWeapon.element += stat;
+        if (effectName != null && !effectName.Equals("None"))
+        {
+            bool isNotAfter = false;
+
+            if (GameManager.gm.player.EquippedWeapon.effects.ContainsKey(effectName))
+            {
+                GameManager.gm.player.EquippedWeapon.effects[effectName] += effectParam;
+            }
+            else
+            {
+                GameManager.gm.player.EquippedWeapon.effects.Add(effectName, effectParam);
+            }
+
+            if (effectName.Equals("Stun"))
+            {
+                GameManager.gm.player.EquippedWeapon.stunEffectInTooltip = 1f -
+                    ((1 - GameManager.gm.player.EquippedWeapon.stunEffectInTooltip) * (1 - (effectParam / 100f)));
+            }
+
+            if (effectName.Equals("FireAmp"))
+            {
+                GameManager.gm.player.EquippedWeapon.FireAmpBonus += effectParam / 100f;
+                isNotAfter = true;
+            }
+            if (effectName.Equals("IceAmp"))
+            {
+                GameManager.gm.player.EquippedWeapon.IceAmpBonus += effectParam / 100f;
+                isNotAfter = true;
+            }
+            if (effectName.Equals("NatureAmp"))
+            {
+                GameManager.gm.player.EquippedWeapon.NatureAmpBonus += effectParam / 100f;
+                isNotAfter = true;
+            }
+            if (effectName.Equals("Sharpen"))
+            {
+                GameManager.gm.player.EquippedWeapon.chargeBonus += effectParam / 100f;
+                isNotAfter = true;
+            }
+            if (effectName.Equals("Drain"))
+            {
+                GameManager.gm.player.EquippedWeapon.drainedPercent += effectParam / 100f;
+                isNotAfter = true;
+            }
+            if (!isNotAfter)
+            {
+                GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+            }
+        }
+        GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);
     }
 }
 
