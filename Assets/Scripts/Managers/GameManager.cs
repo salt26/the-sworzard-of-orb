@@ -700,7 +700,7 @@ public class GameManager : MonoBehaviour {
             else yield return null;
         }
 
-        /* 페이즈 4: 방어구 특수 효과(반사, 재생) 대미지 애니메이션 처리 */
+        /* 페이즈 4: 방어구 특수 효과(반사, 재생, 탈바꿈) 대미지 애니메이션 처리 */
         if (oldTurn == 0)
         {
             foreach (Character e in enemies)
@@ -725,6 +725,7 @@ public class GameManager : MonoBehaviour {
             foreach (Character e in enemies)
             {
                 e.Reflected();
+                e.DefendWithEffects(e.armor.activeArmorEffect);
                 // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
                 e.trueOldHealth = e.currentHealth;

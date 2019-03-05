@@ -120,7 +120,15 @@ public class MessageUI : MonoBehaviour {
         noButton.GetComponentInChildren<Text>().text = StringManager.sm.Translate("No");
         okButton.GetComponentInChildren<Text>().text = StringManager.sm.Translate("OK");
         headerText.text = StringManager.sm.Translate(header);
-        bodyText.text = StringManager.sm.Translate(body);
+        bodyText.text = "";
+        if (body != null)
+        {
+            foreach (string s in body.Split('\n'))
+            {
+                bodyText.text += StringManager.sm.Translate(s) + '\n';
+            }
+            bodyText.text = bodyText.text.TrimEnd(new char[] { '\n' });
+        }
         showText.text = StringManager.sm.Translate("Don't show this message.");
     }
 }

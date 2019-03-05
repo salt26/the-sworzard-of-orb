@@ -112,6 +112,11 @@ public class Character : Entity {
             armor = ei.armor.Clone();
             weapons[0].element += ei.weaponDelta * (level - 1);
             armor.element += ei.armorDelta * (level - 1);
+
+            if (ei.name.Equals("Fire golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 1);
+            else if (ei.name.Equals("Ice golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 2);
+            else if (ei.name.Equals("Nature golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 0);
+
             //Debug.Log(name + "(Lv." + level + "): W" + weapons[0].element + ", A" + armor.element);
             ((EnemyMover)mover).distanceType = ei.distanceType;
             ((EnemyMover)mover).sightDistance = ei.sightDistance;
@@ -134,6 +139,51 @@ public class Character : Entity {
         hasReflected = false;
         ToggleWeapon();
         
+        if (statusUI != null)
+        {
+            statusUI.UpdateAll(this, currentHealth);
+        }
+    }
+
+    /// <summary>
+    /// 적 캐릭터의 현재 체력은 유지한 채 다른 정보들을 newName에 맞게 다시 초기화합니다.
+    /// </summary>
+    public void ReInitialize(string newName)
+    {
+        if (type != Type.Enemy) return;
+
+        name = newName;
+        EnemyInfo ei = EnemyManager.em.FindEnemyInfo(name, level);
+        size = ei.size;
+        maxHealth = ei.maxHealth;
+        weapons = new List<Weapon> { ei.weapon.Clone() };
+        armor = ei.armor.Clone();
+        weapons[0].element += ei.weaponDelta * (level - 1);
+        armor.element += ei.armorDelta * (level - 1);
+
+        if (ei.name.Equals("Fire golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 1);
+        else if (ei.name.Equals("Ice golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 2);
+        else if (ei.name.Equals("Nature golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 0);
+        
+        ((EnemyMover)mover).distanceType = ei.distanceType;
+        ((EnemyMover)mover).sightDistance = ei.sightDistance;
+        ((EnemyMover)mover).leaveDistance = ei.leaveDistance;
+        
+        if (healthBar != null)
+        {
+            healthBar.maxValue = maxHealth;
+            healthBar.value = currentHealth;
+        }
+        oldHealth = currentHealth;
+        trueOldHealth = currentHealth;
+        poisonDamage = 0;
+        gustDamage = 0;
+        reflectDamage = 0;
+        attackSum = 0;
+        hasStuned = false;
+        hasReflected = false;
+        ToggleWeapon();
+
         if (statusUI != null)
         {
             statusUI.UpdateAll(this, currentHealth);

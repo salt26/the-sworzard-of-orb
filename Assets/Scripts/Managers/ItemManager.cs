@@ -381,6 +381,27 @@ public class ItemManager : MonoBehaviour {
         {
             target.regeneratedHealth += heal;
         }
+
+        public static void Disguise(int element, Character target)
+        {
+            // 골렘 몬스터의 방어구 효과입니다.
+            EnemyInfo ei;
+            switch (element)
+            {
+                case 0:
+                    ei = EnemyManager.em.FindEnemyInfo("Fire golem", GameManager.gm.mapLevel);
+                    break;
+                case 1:
+                    ei = EnemyManager.em.FindEnemyInfo("Ice golem", GameManager.gm.mapLevel);
+                    break;
+                case 2:
+                    ei = EnemyManager.em.FindEnemyInfo("Nature golem", GameManager.gm.mapLevel);
+                    break;
+                default:
+                    return;
+            }
+            target.ReInitialize(ei.name);
+        }
     }
 
     #endregion

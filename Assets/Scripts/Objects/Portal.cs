@@ -16,7 +16,7 @@ public class Portal : Interactable {
         {
             // 전장에서 포탈에 돌진 상호작용한 경우
             GameManager.gm.MessageTurn("Charge interaction",
-                "Do you intend to escape to Town? If so, click 'Yes'. If you click 'No', you can stay here.",
+                "You had better hunt monsters as many as possible. Do you intend to escape to Town? If so, click 'Yes'. If you click 'No', you can stay here.",
                 delegate { GameManager.gm.ChangeScene(sceneName, mapName); }, null, null);
         }
         else if (mapName == null && GameManager.gm.MonsterNumber > 0 && !GameManager.gm.hasIgnoreReturnMessage)
@@ -30,9 +30,9 @@ public class Portal : Interactable {
         else if (SceneManager.GetActiveScene().name.Equals("Town") && GameManager.gm.mapLevel > 1 &&
             !GameManager.gm.hasShopVisited && !GameManager.gm.hasIgnoreShopMessage)
         {
-            GameManager.gm.MessageTurn("Visit our shop!",
-                "You can drop in at our shop and buy something new. If you want to leave without visiting our shop, click 'No'. (From Shop Host)",
-                null, delegate { GameManager.gm.ChangeScene(sceneName, mapName); },
+            GameManager.gm.MessageTurn("Leave without shopping?",
+                "Please visit our shop! You can drop in at our shop and buy something new. If you want to leave without visiting our shop, click 'Yes'.\nFrom Shop Host",
+                delegate { GameManager.gm.ChangeScene(sceneName, mapName); }, null,
                 (value) => GameManager.gm.hasIgnoreShopMessage = value);
         }
         else

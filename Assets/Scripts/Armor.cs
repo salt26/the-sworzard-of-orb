@@ -7,6 +7,7 @@ public class Armor {
 
     public Element element;
     public ItemManager.Effect armorEffect;
+    public ItemManager.Effect activeArmorEffect;    // 해당 캐릭터의 턴이 끝날 때 발동, 몬스터만 사용
     public Dictionary<string, int> effects = new Dictionary<string, int>();
 
     /// <summary>
