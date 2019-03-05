@@ -3833,6 +3833,7 @@ MonoBehaviour:
   hasShopVisited: 0
   hasIgnoreShopMessage: 0
   hasIgnoreReturnMessage: 0
+  hasIgnoreWeaponOrbMessage: 0
   turn: 0
 --- !u!114 &1349403480
 MonoBehaviour:
