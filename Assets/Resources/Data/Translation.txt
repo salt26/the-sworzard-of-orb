@@ -147,6 +147,13 @@ Please_visit_our_shop!_You_can_drop_in_at_our_shop_and_buy_something_new._If_you
 From_Shop_Host -상점주인-
 Upgrade_your_weapon? 무기를_강화할까요?
 When_you_use_'weapon_only'_orb,_your_CURRENT_EQUIPPED_WEAPON_is_enhanced._Click_'Yes'_to_proceed._If_you_want_to_enchant_another_weapon,_click_'No'_and_press_'C'_key. 무기_전용_오브를_사용하면_'지금_장착한_무기'가_강화됩니다._계속하려면_'예'를_누르십시오._만약_다른_무기를_강화하고_싶다면,_'아니오'를_누르고_'C'키를_누르십시오.
+# Shop host speech
+Thank_you._I'll_take_it. 고마워요._이건_제가_가져갈게요.
+Please_check_if_your_inventory_is_full. 인벤토리가_꽉_찼는지_확인해_보세요.
+Not_enough_gold... 골드가_부족하네요...
+I'll_return_it_to_you. 필요하다면_돌려드릴게요.
+That_would_be_useful_for_you. 그_물건은_분명_유용할_거에요.
+Welcome! 어서_오세요!
 #
 # UI text
 Lv.@ @단계
@@ -157,7 +164,7 @@ Atk: 공_:
 Def: 방_:
 Range: 사정거리:
 Element_for_calc: 계산상의_속성:
-# contains tab('\t') character
+# below texts may contain tab('\t') character
 FireAmp:			 용암의_힘:		
 IceAmp:			 빙하의_힘:		
 NatureAmp:		 숲의_힘:			

@@ -15,5 +15,6 @@ public class Shop : Interactable {
     {
         GameManager.gm.ShopTurn();
         shopPanel.SetActive(true);
+        shopPanel.GetComponent<ShopUI>().EnterShop();
     }
 }

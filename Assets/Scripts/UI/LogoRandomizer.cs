@@ -13,7 +13,7 @@ public class LogoRandomizer : MonoBehaviour {
         imageComponent = GetComponent<Image>();
         currentOrbImageIndex = Random.Range(0, orbs.Count);
         imageComponent.sprite = orbs[currentOrbImageIndex];
-        StartCoroutine(orbRandomizer());
+        StartCoroutine(OrbRandomizer());
 	}
 	
 	// Update is called once per frame
@@ -21,7 +21,7 @@ public class LogoRandomizer : MonoBehaviour {
 
 	}
 
-    IEnumerator orbRandomizer()
+    IEnumerator OrbRandomizer()
     {
         int prev = currentOrbImageIndex;
         while(prev == currentOrbImageIndex)
@@ -30,8 +30,8 @@ public class LogoRandomizer : MonoBehaviour {
         }
         imageComponent.sprite = orbs[currentOrbImageIndex];
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
-        StartCoroutine(orbRandomizer());
+        StartCoroutine(OrbRandomizer());
     }
 }
