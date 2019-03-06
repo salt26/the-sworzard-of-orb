@@ -94,6 +94,11 @@ public class GameManager : MonoBehaviour {
         {
             return isSceneLoaded;
         }
+        set
+        {
+            // UIInfo의 QuitGame()에서만 사용할 것!
+            isSceneLoaded = value;
+        }
     }
 
     public Character SelectedCharacter

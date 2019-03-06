@@ -68,6 +68,7 @@ public class UIInfo : MonoBehaviour {
 
     public void QuitGame()
     {
+        GameManager.gm.IsSceneLoaded = false;
         ColorManager.cm = null;
         EnemyManager.em = null;
         ItemManager.im = null;

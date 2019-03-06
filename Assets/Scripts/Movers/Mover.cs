@@ -87,7 +87,7 @@ public class Mover : MonoBehaviour {
     public IEnumerator PoisonedAnimation(int oldHealth, Slider healthBar = null, StatusUI statusUI = null)
     {
         isMoving = true;
-        int frame = 25;
+        int frame = 10;
         Color original = GetComponent<SpriteRenderer>().color;
 
         GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
