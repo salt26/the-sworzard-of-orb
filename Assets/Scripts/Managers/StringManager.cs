@@ -53,7 +53,7 @@ public class StringManager : MonoBehaviour {
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().playerStatusUI.RefreshText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().enemyStatusUI.RefreshText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().RefreshMenuTexts;
-        afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RefreshRepurchaseText;
+        afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RefreshShopText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().messagePanel.GetComponent<MessageUI>().RefreshMessageText;
         afterSetLanguage += MapManager.mm.RefreshMapText;
         afterSetLanguage += GameManager.gm.RefreshRestartText;

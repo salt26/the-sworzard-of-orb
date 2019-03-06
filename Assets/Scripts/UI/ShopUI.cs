@@ -11,6 +11,8 @@ public class ShopUI : MonoBehaviour {
     public Text repurchaseText;
     public Image hostImage;
     public List<Sprite> hostSprites;
+    public GameObject bubbleImage;
+    public Text bubbleText;
 
     /// <summary>
     /// 상점에서 판매하는 아이템 목록. index는 구입 버튼 위치.
@@ -27,6 +29,11 @@ public class ShopUI : MonoBehaviour {
     /// 재구매하는 아이템의 이미지 목록. Key는 아이템 이름, Value는 이미지 오브젝트.
     /// </summary>
     private List<KeyValuePair<string, GameObject>> repurchaseItemImages = new List<KeyValuePair<string, GameObject>>();
+
+    //private int currentHostFace = 0;    // 0: 무표정, 1: 말하는 중, 2: 웃음
+    private bool stopSpeaking = false;
+    private bool isSpeaking = false;
+    private string originalBubbleString = "";
 
     public List<string> RepurchaseItems
     {
@@ -49,11 +56,22 @@ public class ShopUI : MonoBehaviour {
         }
     }
 
+    public void EnterShop()
+    {
+        StartCoroutine(Speech("Welcome!", 2));
+    }
+
     public void EscapeShop()
     {
         GameManager.gm.NextTurnFromShop();
         repurchaseItems = new List<string>();
+        originalBubbleString = "";
+        bubbleText.text = "";
         hostImage.sprite = hostSprites[1];
+        bubbleImage.SetActive(false);
+        if (isSpeaking) stopSpeaking = true;
+        else stopSpeaking = false;
+        isSpeaking = false;
         UpdateRepurchaseUI();
         gameObject.SetActive(false);
     }
@@ -120,7 +138,7 @@ public class ShopUI : MonoBehaviour {
         repurchaseItems.Add(item);
         GameManager.gm.player.GetComponent<Inventory>().Gold += ItemManager.im.FindItemInfo(item).SellPrice;
         UpdateRepurchaseUI();
-        hostImage.sprite = hostSprites[2];
+        StartCoroutine(Speech("Thank you. I'll take it.", 2));
         return true;
     }
 
@@ -134,7 +152,7 @@ public class ShopUI : MonoBehaviour {
         if (inv.Items.Count >= inv.maxItemNumber)
         {
             Debug.Log("Inventory is full!");
-            hostImage.sprite = hostSprites[0];
+            StartCoroutine(Speech("Please check if your inventory is full.", 0));
             return;
         }
         if (repurchaseItems[index] == null)
@@ -151,13 +169,13 @@ public class ShopUI : MonoBehaviour {
         if (inv.Gold < ii.SellPrice)
         {
             Debug.Log("Not enough gold!");
-            hostImage.sprite = hostSprites[0];
+            StartCoroutine(Speech("Not enough gold...", 0));
             return;
         }
         inv.Gold -= ii.SellPrice;
         inv.AddItem(ii.name);
         repurchaseItems.RemoveAt(index);
-        hostImage.sprite = hostSprites[1];
+        StartCoroutine(Speech("I'll return it to you.", 1));
         UpdateRepurchaseUI();
     }
 
@@ -172,7 +190,7 @@ public class ShopUI : MonoBehaviour {
         if (inv.Items.Count >= inv.maxItemNumber)
         {
             Debug.Log("Inventory is full!");
-            hostImage.sprite = hostSprites[0];
+            StartCoroutine(Speech("Please check if your inventory is full.", 0));
             return;
         }
         if (purchaseItems[index] == null)
@@ -189,18 +207,54 @@ public class ShopUI : MonoBehaviour {
         if (inv.Gold < ii.BuyPrice)
         {
             Debug.Log("Not enough gold!");
-            hostImage.sprite = hostSprites[0];
+            StartCoroutine(Speech("Not enough gold...", 0));
             return;
         }
         inv.Gold -= ii.BuyPrice;
         inv.AddItem(ii.name);
         purchaseItems.RemoveAt(index);
-        hostImage.sprite = hostSprites[2];
+        StartCoroutine(Speech("That would be useful for you.", 2));
         purchaseItems.Insert(index, null);
     }
 
-    public void RefreshRepurchaseText()
+    public void RefreshShopText()
     {
         repurchaseText.text = StringManager.sm.Translate("Repurchase");
+        bubbleText.text = StringManager.sm.Translate(originalBubbleString);
+    }
+
+    IEnumerator Speech(string word, int startHostFace, int endHostFace = 1)
+    {
+        if (startHostFace < 0 || startHostFace >= hostSprites.Count || endHostFace < 0 || endHostFace >= hostSprites.Count)
+            yield break;
+        if (isSpeaking)
+            stopSpeaking = true;
+        yield return null;
+        isSpeaking = true;
+
+        originalBubbleString = word;
+        bubbleText.text = StringManager.sm.Translate(originalBubbleString);
+        if (!bubbleImage.activeInHierarchy)
+        {
+            bubbleImage.SetActive(true);
+        }
+        hostImage.sprite = hostSprites[startHostFace];
+        float frame = 150f;
+
+        for (int i = 0; i < frame; i++)
+        {
+            if (stopSpeaking)
+            {
+                stopSpeaking = false;
+                break;
+            }
+
+            yield return null;
+        }
+        originalBubbleString = "";
+        bubbleText.text = "";
+        hostImage.sprite = hostSprites[endHostFace];
+        bubbleImage.SetActive(false);
+        isSpeaking = false;
     }
 }

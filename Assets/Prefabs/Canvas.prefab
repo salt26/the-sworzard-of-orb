@@ -1989,7 +1989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1581417416705428
 GameObject:
   m_ObjectHideFlags: 1
@@ -5240,6 +5240,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f68ee5029f868de488d83a131e4c5c5f, type: 3}
   - {fileID: 21300000, guid: 93c195bdf60df1d4e9381bc0f59e3285, type: 3}
   - {fileID: 21300000, guid: 1dd2e5f9c5e3fac48af0a69c06569b46, type: 3}
+  bubbleImage: {fileID: 1577463559567812}
+  bubbleText: {fileID: 114543761501338976}
   purchaseItems: []
 --- !u!114 &114339058571974556
 MonoBehaviour:
@@ -6678,7 +6680,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\rPlease check if your inventory is full."
+  m_Text: 
 --- !u!114 &114546719829545940
 MonoBehaviour:
   m_ObjectHideFlags: 1
