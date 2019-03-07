@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 
 public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
-    public enum UIType { Inventory, Altar, Shop, Repurchase, Turn, MonsterNumber }
+    public enum UIType { Inventory, Altar, Shop, Repurchase, Turn, MonsterNumber, Recipe }
     public GameObject tooltipPanel;
     public Vector2 minPos;          // 각 원소는 0 이상 1 이하
     public Vector2 maxPos;          // 각 원소는 0 이상 1 이하, minPos보다 커야 함
+    public int itemIDInRecipe;      // type이 Recipe인 경우에만 작동
 
     private TooltipUI myTooltip = null;
     [SerializeField]
@@ -56,6 +57,11 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
                         GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RepurchaseItems[index - 300] == null)
                         return;
                 }
+                else if (type == UIType.Recipe)
+                {
+                    if (ItemManager.im.FindItemInfo(itemIDInRecipe) == null) return;
+                    index = itemIDInRecipe + 400;
+                }
             }
             GameObject g = Instantiate(tooltipPanel, GameManager.gm.Canvas.GetComponent<Transform>());
             myTooltip = g.GetComponent<TooltipUI>();
@@ -63,7 +69,7 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             r.anchorMin = minPos;
             r.anchorMax = maxPos;
             if (type == UIType.Altar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
-            else if (type == UIType.Altar) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
+            else if (type == UIType.Altar || type == UIType.Recipe) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
             else if (type == UIType.Shop) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
             else if (type == UIType.Repurchase) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
 
@@ -78,7 +84,7 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
                 {
                     myTooltip.GetComponent<RectTransform>().pivot = new Vector2(0f, 0f);
                 }
-                else if (type == UIType.Altar)
+                else if (type == UIType.Altar || type == UIType.Recipe)
                 {
                     myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 1f);
                 }

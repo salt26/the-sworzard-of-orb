@@ -27,16 +27,6 @@ public class ItemTooltipUI : TooltipUI {
             ItemInfo ii = ItemManager.im.FindItemInfo(GameManager.gm.player.GetComponent<Inventory>().Items[ButtonIndex]);
             itemNameText.text = StringManager.sm.Translate(ii.name);
             SetTooltipText(ii);
-            /*
-            if (ii.type == ItemInfo.Type.Orb) {
-                SetTooltipText(ii);
-            }
-            else
-            {
-                //itemTooltipText.resizeTextMaxSize = 24;
-                itemTooltipText.text = StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString());
-            }
-            */
         }
         else if (ButtonIndex >= 100 && ButtonIndex != 103 &&
             ButtonIndex - 100 < altarUI.Orbs.Count)
@@ -67,13 +57,24 @@ public class ItemTooltipUI : TooltipUI {
                 SetTooltipText(ii);
             }
         }
-        else if (ButtonIndex >= 300 && shopUI.RepurchaseItems.Count > ButtonIndex - 300)
+        else if (ButtonIndex >= 300 && ButtonIndex < 400 && shopUI.RepurchaseItems.Count > ButtonIndex - 300)
         {
             ItemInfo ii = ItemManager.im.FindItemInfo(shopUI.RepurchaseItems[ButtonIndex - 300]);
             if (ii != null)
             {
                 itemNameText.text = StringManager.sm.Translate(ii.name);
                 itemNameText.color = new Color(0.35f, 0.27f, 0.2f);
+
+                SetTooltipText(ii);
+            }
+        }
+        else if (ButtonIndex >= 400)
+        {
+            ItemInfo ii = ItemManager.im.FindItemInfo(ButtonIndex - 400);
+            if (ii != null)
+            {
+                itemNameText.text = StringManager.sm.Translate(ii.name);
+                itemNameText.color = new Color(0.35f, 0.15f, 0.35f);
 
                 SetTooltipText(ii);
             }
@@ -130,7 +131,7 @@ public class ItemTooltipUI : TooltipUI {
         itemTooltipText.text += "\n" + StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString()) + "\n";
         if (ButtonIndex >= 200 && ButtonIndex < 300)
             itemTooltipText.text += StringManager.sm.Translate("Buy price:") + " " + ii.BuyPrice;
-        else if (ButtonIndex >= 300)
+        else if (ButtonIndex >= 300 && ButtonIndex < 400)
             itemTooltipText.text += StringManager.sm.Translate("Repurchase price:") + " " + ii.SellPrice;
         else
             itemTooltipText.text += StringManager.sm.Translate("Sell price:") + " " + ii.SellPrice;

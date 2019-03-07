@@ -4025,9 +4025,13 @@ MonoBehaviour:
   weaponMark: {fileID: 0}
   restartText: {fileID: 0}
   loadingPanel: {fileID: 0}
+  loadingTipText: {fileID: 0}
+  loadingText: {fileID: 0}
+  tips: []
   selectedCharacter: {fileID: 0}
   mySelectedBorder: {fileID: 0}
   mapLevel: 0
+  tipIndex: 0
   turnNumber: 0
   hasShopVisited: 0
   hasIgnoreShopMessage: 0
