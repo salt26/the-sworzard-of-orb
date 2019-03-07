@@ -111,7 +111,7 @@ public class ShopUI : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리에서 아이템을 상점에 판매하고 true를 반환합니다.
+    /// 가방에서 아이템을 상점에 판매하고 true를 반환합니다.
     /// 판매한 아이템은 재구매 목록에 추가됩니다.
     /// 만약 item이 null이거나 ItemManager에 등록되지 않았으면 판매하지 않고 false를 반환합니다.
     /// </summary>
@@ -195,7 +195,7 @@ public class ShopUI : MonoBehaviour {
         }
         if (purchaseItems[index] == null)
         {
-            Debug.Log("Item is null.");
+            Debug.LogWarning("Item is null.");
             return;
         }
         ItemInfo ii = ItemManager.im.FindItemInfo(purchaseItems[index]);

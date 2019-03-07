@@ -13,7 +13,7 @@ public class AltarUI : MonoBehaviour {
     public List<GameObject> recipePanels;
 
     /// <summary>
-    /// Key는 오브가 들어있는 인벤토리의 위치, Value는 오브 이름
+    /// Key는 오브가 들어있는 가방의 위치, Value는 오브 이름
     /// </summary>
     private List<KeyValuePair<int, string>> orbs = new List<KeyValuePair<int, string>>();
     private List<KeyValuePair<string, GameObject>> orbImages = new List<KeyValuePair<string, GameObject>>();
@@ -177,6 +177,7 @@ public class AltarUI : MonoBehaviour {
         if (orbs.Count >= 3)
         {
             Debug.Log("Altar is full!");
+            GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("Altar is full!");
             return false;
         }
         if (orb == null)
@@ -229,14 +230,13 @@ public class AltarUI : MonoBehaviour {
         {
             combineButton.GetComponent<Image>().sprite = ItemManager.im.GetItemSprite(id);
             combineButton.interactable = true;
-            //Debug.Log(ItemManager.im.FindItemInfo(id).name);
         }
         return b;
     }
 
     /// <summary>
     /// 제단에 바친 세 오브를 조합하여 새로운 오브를 만듭니다.
-    /// 재료로 쓰인 오브는 사라지고 새 오브가 인벤토리에 추가됩니다.
+    /// 재료로 쓰인 오브는 사라지고 새 오브가 가방에 추가됩니다.
     /// </summary>
     public void CombineOrb()
     {
@@ -278,7 +278,7 @@ public class AltarUI : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리의 index 위치에 놓인 오브가 제단에 바쳐져 있으면 true를 반환합니다.
+    /// 가방의 index 위치에 놓인 오브가 제단에 바쳐져 있으면 true를 반환합니다.
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>

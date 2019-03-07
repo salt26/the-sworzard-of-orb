@@ -17,10 +17,11 @@ public class UIInfo : MonoBehaviour {
     public GameObject monsterNumberMark;
     public Text monsterNumberText;
     public Image weaponMark;
-    public GameObject restartText;
+    public GameObject notiPanel;
     public GameObject loadingPanel;
     public Text loadingTipText;
     public Text loadingText;
+    public GameObject tooltipParent;
     public GameObject enemyStatusUIGroup;
     public GameObject turnLimitMark;
     public List<Sprite> turnLimitSprites;

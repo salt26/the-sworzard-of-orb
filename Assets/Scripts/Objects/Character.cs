@@ -116,8 +116,7 @@ public class Character : Entity {
             if (ei.name.Equals("Fire golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 1);
             else if (ei.name.Equals("Ice golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 2);
             else if (ei.name.Equals("Nature golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 0);
-
-            //Debug.Log(name + "(Lv." + level + "): W" + weapons[0].element + ", A" + armor.element);
+            
             ((EnemyMover)mover).distanceType = ei.distanceType;
             ((EnemyMover)mover).sightDistance = ei.sightDistance;
             ((EnemyMover)mover).leaveDistance = ei.leaveDistance;
