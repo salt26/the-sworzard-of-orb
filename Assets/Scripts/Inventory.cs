@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리에 들어 있던 모든 아이템을 잃습니다.
+    /// 가방에 들어 있던 모든 아이템을 잃습니다.
     /// </summary>
     public void RemoveAllItems()
     {
@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리에 아이템을 넣고 true를 반환합니다.
+    /// 가방에 아이템을 넣고 true를 반환합니다.
     /// 최대 보관 가능 개수를 초과하면 아이템을 더 넣지 않고 false를 반환합니다.
     /// item이 null이거나 ItemManager에 등록되지 않은 아이템이면 넣지 않고 true를 반환합니다.
     /// </summary>
@@ -73,8 +73,9 @@ public class Inventory : MonoBehaviour {
         // 만약 이 메서드가 false를 반환하는 경우가 추가된다면, ItemEffect의 TransformWithNoEffect도 바꾸기!
         if (items.Count >= maxItemNumber)
         {
-            // TODO 인벤토리가 가득 찬 경우 처리하기
+            // TODO 가방이 가득 찬 경우 처리하기
             Debug.Log("Inventory is full!");
+            GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("Inventory is full!");
             return false;
         }
         if (item == null)
@@ -127,7 +128,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리의 index 위치에 들어 있는 아이템을 사용합니다.
+    /// 가방의 index 위치에 들어 있는 아이템을 사용합니다.
     /// 사용한 아이템은 사라지며, 플레이어의 턴이 상대에게 넘어갑니다.
     /// 플레이어의 턴일 때에만 동작합니다.
     /// </summary>
@@ -141,7 +142,6 @@ public class Inventory : MonoBehaviour {
         {
             if (ItemManager.im.FindItemInfo(Items[index]).Use(index))
             {
-                //Debug.Log("Use item " + index + " from inventory.");
                 if ("Transform".Equals(ItemManager.im.FindItemInfo(items[index]).effectName))
                 {
                     items.RemoveAt(index);
@@ -160,7 +160,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리의 index 위치에 들어 있는 아이템을 플레이어 위치에 드랍하고 턴을 넘깁니다.
+    /// 가방의 index 위치에 들어 있는 아이템을 플레이어 위치에 드랍하고 턴을 넘깁니다.
     /// 플레이어의 턴이고 제단과 상호작용하지 않을 때에만 작동합니다.
     /// </summary>
     /// <param name="index"></param>
@@ -171,7 +171,7 @@ public class Inventory : MonoBehaviour {
         else if (gm.Turn == 0 && gm.IsSceneLoaded && !GetComponent<Mover>().IsMoving &&
             GetComponent<Character>().Alive && index < Items.Count)
         {
-            //Debug.Log("Drop item " + index + " from inventory.");
+            GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("Item dropped.");
             GameManager.gm.map.AddItemOnTile(ItemManager.im.FindItemID(Items[index]), GetComponent<Transform>().position);
             items.RemoveAt(index);
             UpdateUI();
@@ -180,7 +180,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리의 itemButton이 놓인 위치에 들어 있는 아이템을 플레이어 위치에 드랍하고 턴을 넘깁니다.
+    /// 가방의 itemButton이 놓인 위치에 들어 있는 아이템을 플레이어 위치에 드랍하고 턴을 넘깁니다.
     /// 플레이어의 턴이고 제단과 상호작용하지 않을 때에만 작동합니다.
     /// </summary>
     /// <param name="itemButton"></param>
@@ -194,7 +194,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// indices의 각 원소를 위치로 하여, 인벤토리의 해당 위치에 들어 있는 아이템들을 삭제합니다.
+    /// indices의 각 원소를 위치로 하여, 가방의 해당 위치에 들어 있는 아이템들을 삭제합니다.
     /// </summary>
     /// <param name="indices"></param>
     public void RemoveItem(List<int> indices)
@@ -212,7 +212,6 @@ public class Inventory : MonoBehaviour {
                 int index = indices[i];
                 if (index < Items.Count)
                 {
-                    //Debug.Log("Remove item " + index + " from inventory.");
                     items.RemoveAt(index);
                 }
             }
@@ -221,7 +220,7 @@ public class Inventory : MonoBehaviour {
     }
 
     /// <summary>
-    /// 인벤토리의 index 위치에 있는 오브 아이템을 제단에 바칩니다.
+    /// 가방의 index 위치에 있는 오브 아이템을 제단에 바칩니다.
     /// 제단과 상호작용하는 중에만 동작합니다.
     /// </summary>
     /// <param name="index"></param>
@@ -232,14 +231,13 @@ public class Inventory : MonoBehaviour {
         else if (gm.Turn == 3 && gm.IsSceneLoaded && index < Items.Count)
         {
             // 아이템이 제단에 올라가서, 제단 버튼 위에 Instantiate되어야 함
-            // 그리고 인벤토리의 이 버튼이 하이라이트되며 비활성화되어야 함 (이건 ClickItemButtonUI.cs에서)
-            //Debug.Log("DedicateItem " + index);
+            // 그리고 가방의 이 버튼이 하이라이트되며 비활성화되어야 함 (이건 ClickItemButtonUI.cs에서)
             gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().AddOrb(Items[index], index);
         }
     }
 
     /// <summary>
-    /// 인벤토리의 index 위치에 있는 아이템을 상점에 판매합니다.
+    /// 가방의 index 위치에 있는 아이템을 상점에 판매합니다.
     /// 상점과 상호작용하는 중에만 동작합니다.
     /// </summary>
     /// <param name="index"></param>
@@ -249,7 +247,6 @@ public class Inventory : MonoBehaviour {
         if (gm == null) return;
         else if (gm.Turn == 4 && gm.IsSceneLoaded && index < Items.Count)
         {
-            //Debug.Log("SellItem " + index);
             if (gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().SellItem(Items[index]))
                 RemoveItem(new List<int> { index });
         }

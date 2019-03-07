@@ -459,7 +459,6 @@ public class EnemyMover : Mover {
                 if (destination.x < GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = false;
                 else if (destination.x > GetCurrentPosition().x) GetComponent<SpriteRenderer>().flipX = true;
                 Attack(VectorUtility.PositionToInt((destination - GetCurrentPosition()).normalized), false);
-                // Debug.Log("AttackWithoutMove");
                 isAttacked = true;
                 break;
             }

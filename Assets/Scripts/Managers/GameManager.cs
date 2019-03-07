@@ -29,10 +29,6 @@ public class GameManager : MonoBehaviour {
     [HideInInspector]
     public Image weaponMark;
     [HideInInspector]
-    public GameObject notiPanel;
-    [HideInInspector]
-    public Text notiText;
-    [HideInInspector]
     public GameObject loadingPanel;
     [HideInInspector]
     public Text loadingTipText;
@@ -198,8 +194,6 @@ public class GameManager : MonoBehaviour {
         monsterNumberMark = UIObject.GetComponent<UIInfo>().monsterNumberMark;
         monsterNumberText = UIObject.GetComponent<UIInfo>().monsterNumberText;
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
-        notiPanel = UIObject.GetComponent<UIInfo>().notiPanel;
-        notiText = UIObject.GetComponent<UIInfo>().notiText;
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
         loadingTipText = UIObject.GetComponent<UIInfo>().loadingTipText;
         loadingText = UIObject.GetComponent<UIInfo>().loadingText;
@@ -577,7 +571,6 @@ public class GameManager : MonoBehaviour {
                                     else break;
                                 }
                             }
-                            //Debug.Log(j);
                             if (j == maxLoop - 1)
                             {
                                 Debug.LogWarning("Exceed max loop limit!");
@@ -867,7 +860,6 @@ public class GameManager : MonoBehaviour {
     public void AltarTurn()
     {
         if (turn != 0) return;
-        //Debug.Log("AltarTurn");
         turn = 3;
     }
 
@@ -877,7 +869,6 @@ public class GameManager : MonoBehaviour {
     public void NextTurnFromAltar()
     {
         if (turn != 3) return;
-        //Debug.Log("NextTurnFromAltar");
         turn = 1;
         TurnNumber++;
     }
@@ -888,7 +879,6 @@ public class GameManager : MonoBehaviour {
     public void ShopTurn()
     {
         if (turn != 0) return;
-        //Debug.Log("ShopTurn");
         hasShopVisited = true;
         turn = 4;
     }
@@ -899,7 +889,6 @@ public class GameManager : MonoBehaviour {
     public void NextTurnFromShop()
     {
         if (turn != 4) return;
-        //Debug.Log("NextTurnFromShop");
         turn = 1;
         TurnNumber++;
     }
@@ -977,12 +966,6 @@ public class GameManager : MonoBehaviour {
     {
         loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
         loadingText.text = StringManager.sm.Translate("Loading...");
-    }
-
-    public void RefreshNotiText()
-    {
-        notiText.text = StringManager.sm.Translate("You died!") + "\n" +
-            StringManager.sm.Translate("Press \"Goodbye~\" to quit game.");
     }
 }
 

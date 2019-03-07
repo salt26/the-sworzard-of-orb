@@ -324,7 +324,6 @@ public class ItemManager : MonoBehaviour {
         public static void Flurry(int splashDamage, Character target)
         {
             // Flurry 효과는 몬스터의 무기에 적용할 수 없음 (플레이어가 한 명이므로)
-            //Debug.Log("Flurry " + splashDamage + " to " + target.name);
 
             Vector3 pos = VectorUtility.PositionToInt(target.GetComponent<Transform>().position);
             Vector3[] direction = new Vector3[4] {

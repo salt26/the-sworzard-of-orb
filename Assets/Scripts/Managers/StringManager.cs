@@ -56,7 +56,7 @@ public class StringManager : MonoBehaviour {
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().RefreshShopText;
         afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().messagePanel.GetComponent<MessageUI>().RefreshMessageText;
         afterSetLanguage += MapManager.mm.RefreshMapText;
-        afterSetLanguage += GameManager.gm.RefreshNotiText;
+        afterSetLanguage += GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().RefreshNotiText;
         ready = true;
         afterSetLanguage();
     }
@@ -69,7 +69,6 @@ public class StringManager : MonoBehaviour {
     public static string ReplaceUnderbar(string original)
     {
         string r = original.Replace('_', ' ');
-        //Debug.Log("ReplaceUnderbar " + original + " -> " + r);
         return r;
     }
 
@@ -87,7 +86,6 @@ public class StringManager : MonoBehaviour {
         {
             r += s.Substring(0, 1).ToUpper() + s.Substring(1);
         }
-        //Debug.Log("ToPascalCase " + original + " -> " + r);
         return r;
     }
 

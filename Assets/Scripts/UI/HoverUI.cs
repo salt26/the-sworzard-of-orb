@@ -63,7 +63,7 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
                     index = itemIDInRecipe + 400;
                 }
             }
-            GameObject g = Instantiate(tooltipPanel, GameManager.gm.Canvas.GetComponent<Transform>());
+            GameObject g = Instantiate(tooltipPanel, GameManager.gm.Canvas.GetComponent<UIInfo>().tooltipParent.GetComponent<Transform>());
             myTooltip = g.GetComponent<TooltipUI>();
             RectTransform r = myTooltip.GetComponent<RectTransform>();
             r.anchorMin = minPos;
