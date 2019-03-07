@@ -101,6 +101,7 @@ Town 마을
 Green 그린
 Blue 블루
 Red 레드
+Tutorial 튜토리얼
 #
 # Monster name
 Fire_pudding 불_푸딩
@@ -169,7 +170,7 @@ Flurry_gives_true_damage(ignores_defense)_to_nearby_enemies_of_directly_attacked
 Stun_makes_directly_attacked_enemy_to_skip_next_turn_by_certain_probablity. 기절_효과는_무기로_공격받은_적이_일정_확률로_행동을_하지_못하게_만듭니다.
 Reflect_gives_nearby_enemies_true_damage(ignores_defense)_when_you've_got_attacked. 반사_효과는_받은_피해의_일부를_주변_적들에게_방어력_무시_피해로_돌려줍니다.
 Sharpen_increases_charge_attack_damage_more. 날카로워짐_효과는_돌진_시의_기본_공격력을_더_높여줍니다.
-Level_3_orbs_can_be_crafted_by_three_Level_2_orbs,_and_it_is_very_powerful. 3단계_오브는_2단계_오브_3개로_조합할_수_있고,_매우_강력합니다.
+Level_3_orbs_can_be_crafted_by_three_Level_2_orbs,_and_it_is_very_powerful. 3단계_오브는_2단계_오브_세_개로_조합할_수_있고,_매우_강력합니다.
 # Noti text
 Press_"Goodbye~"_to_quit_game. "잘_있거라~"를_눌러_종료하세요.
 Altar_is_full! 제단이_꽉_찼습니다!

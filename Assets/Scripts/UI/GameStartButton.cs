@@ -11,6 +11,6 @@ public class GameStartButton : MonoBehaviour {
     {
         if (isStart) return;
         isStart = true;
-        SceneManager.LoadScene("Scenes/Town");
+        SceneManager.LoadScene("Scenes/Tutorial");
     }
 }

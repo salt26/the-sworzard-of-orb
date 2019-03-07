@@ -207,8 +207,8 @@ public class GameManager : MonoBehaviour {
         loadingTipText = UIObject.GetComponent<UIInfo>().loadingTipText;
         loadingText = UIObject.GetComponent<UIInfo>().loadingText;
         tips = new List<string>();
-        tips.Add("There is turn limits in battlefield. If you use up all given turns, it considers as death.");
         tips.Add("Death resets all your data and you have to start all over again. Be careful!");
+        tips.Add("There is turn limits in battlefield. If you use up all given turns, it considers as death.");
         tips.Add("Only the highest value of the weapon elements acts as attack damage.");
         tips.Add("Magic spear has attack range of 2 and can attack two enemies at once.");
         tips.Add("Attack damage of Magic sword grows faster than that of Magic spear.");
@@ -294,7 +294,7 @@ public class GameManager : MonoBehaviour {
     {
         player.Healed(player.MaxHealth);
         turnLimit = -1;
-        if (mapName == null && sceneName.Equals("Town"))
+        if (mapName == null && sceneName.Equals("Town") && !SceneManager.GetActiveScene().name.Equals("Tutorial"))
         {
             int increase = (int)(Mathf.Log((mapLevel / 5 + 1)) / Mathf.Log(2)) + 1;
             mapLevel += increase;
@@ -426,7 +426,15 @@ public class GameManager : MonoBehaviour {
         // 플레이어 시작 위치 지정
         int randomQuadrant = Random.Range(1, 5);
         Vector2Int v = map.GetACornerPosition(randomQuadrant);
-        if (!mapAutoGeneration)
+        if (!mapAutoGeneration && SceneManager.GetActiveScene().name.Equals("Tutorial"))
+        {
+            player.GetComponent<Transform>().position = new Vector3(0f, 0f, -1f);
+            map.AddItemOnTile(100, new Vector3(21f, 1f, -1f));
+            map.AddItemOnTile(101, new Vector3(21f, 0f, -1f));
+            map.AddItemOnTile(102, new Vector3(20f, 0f, -1f));
+            map.AddItemOnTile(103, new Vector3(20f, 1f, -1f));
+        }
+        else if (!mapAutoGeneration && SceneManager.GetActiveScene().name.Equals("Town"))
         {
             player.GetComponent<Transform>().position = new Vector3(2f, 2f, -1f);
         }
