@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour {
     public GameObject restartText;
     [HideInInspector]
     public GameObject loadingPanel;
+    [HideInInspector]
+    public Text loadingTipText;
+    [HideInInspector]
+    public Text loadingText;
+    [HideInInspector]
+    public List<string> tips;
 
     [SerializeField]
     private Character selectedCharacter = null;
@@ -39,6 +45,8 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public int mapLevel = 1;
+    [HideInInspector]
+    public int tipIndex = 0;
 
     [Header("Debugging")]
     public int turnNumber = 0;
@@ -190,6 +198,20 @@ public class GameManager : MonoBehaviour {
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
         restartText = UIObject.GetComponent<UIInfo>().restartText;
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
+        loadingTipText = UIObject.GetComponent<UIInfo>().loadingTipText;
+        loadingText = UIObject.GetComponent<UIInfo>().loadingText;
+        tips = new List<string>();
+        tips.Add("There is turn limits in battlefield. If you use up all given turns, it considers as death.");
+        tips.Add("Death resets all your data and you have to start all over again. Be careful!");
+        tips.Add("Only the highest value of the weapon elements acts as attack damage.");
+        tips.Add("Magic spear has attack range of 2 and can attack two enemies at once.");
+        tips.Add("Attack damage of Magic sword grows faster than that of Magic spear.");
+        tips.Add("Level 3 orbs can be crafted by three Level 2 orbs, and it is very powerful.");
+        tips.Add("Poisoned enemies get true damage(ignores defense) after enemy's turn.");
+        tips.Add("Flurry gives true damage(ignores defense) to nearby enemies of directly attacked enemy.");
+        tips.Add("Stun makes directly attacked enemy to skip next turn by certain probablity.");
+        tips.Add("Reflect gives nearby enemies true damage(ignores defense) when you've got attacked.");
+        tips.Add("Sharpen increases charge attack damage more.");
         hasIgnoreReturnMessage = false;
         hasIgnoreShopMessage = false;
         hasIgnoreWeaponOrbMessage = false;
@@ -209,6 +231,7 @@ public class GameManager : MonoBehaviour {
             }
         }
         mapLevel = 1;
+        tipIndex = 0;
         Initialize();
         isSceneLoaded = true;
     }
@@ -286,6 +309,10 @@ public class GameManager : MonoBehaviour {
     {
         // TODO 씬 전환 중에 불투명한 패널로 화면 가리기
         isSceneLoaded = false;
+        
+        loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
+        RefreshLoadingTexts();
+        tipIndex++;
         loadingPanel.SetActive(true);
         Scene currentScene = SceneManager.GetActiveScene();
 
@@ -305,7 +332,7 @@ public class GameManager : MonoBehaviour {
         }
 
         Initialize(mapName);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(3f);
         loadingPanel.SetActive(false);
         isSceneLoaded = true;
     }
@@ -941,6 +968,12 @@ public class GameManager : MonoBehaviour {
 
         if (selectedCharacter != null)
             mySelectedBorder = Instantiate(selectedBorderPrefab, c.GetComponent<Transform>());
+    }
+
+    public void RefreshLoadingTexts()
+    {
+        loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
+        loadingText.text = StringManager.sm.Translate("Loading...");
     }
 
     public void RefreshRestartText()

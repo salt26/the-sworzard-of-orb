@@ -152,8 +152,22 @@ Thank_you._I'll_take_it. 고마워요._이건_제가_가져갈게요.
 Please_check_if_your_inventory_is_full. 인벤토리가_꽉_찼는지_확인해_보세요.
 Not_enough_gold... 골드가_부족하네요...
 I'll_return_it_to_you. 필요하다면_돌려드릴게요.
-That_would_be_useful_for_you. 그_물건은_분명_유용할_거에요.
+That_would_be_useful_for_you. 유용하게_사용하세요.
 Welcome! 어서_오세요!
+#
+# Tip text
+Only_the_highest_value_of_the_weapon_elements_acts_as_attack_damage. 무기_속성_중_가장_높은_속성들의_값만_공격력으로_발현됩니다.
+Magic_spear_has_attack_range_of_2_and_can_attack_two_enemies_at_once. 마력의_창은_사정거리가_2이고_최대_두_마리의_적을_공격할_수_있습니다.
+Attack_damage_of_Magic_sword_grows_faster_than_that_of_Magic_spear. 마력의_검은_마력의_창보다_공격력이_빠르게_오릅니다.
+There_is_turn_limits_in_battlefield._If_you_use_up_all_given_turns,_it_considers_as_death. 전장에서는_턴_제한이_있으며,_남은_턴_수가_소진되면_사망합니다.
+Death_resets_all_your_data_and_you_have_to_start_all_over_again._Be_careful! 사망하면_게임을_더는_진행할_수_없게_됩니다._주의하세요!
+#
+Poisoned_enemies_get_true_damage(ignores_defense)_after_enemy's_turn. 중독_효과에_걸린_적은_행동을_한_후에_방어력_무시_피해를_받습니다.
+Flurry_gives_true_damage(ignores_defense)_to_nearby_enemies_of_directly_attacked_enemy. 돌풍_효과는_무기로_공격받은_적_주변의_적들에게_방어력_무시_피해를_줍니다.
+Stun_makes_directly_attacked_enemy_to_skip_next_turn_by_certain_probablity. 기절_효과는_무기로_공격받은_적이_일정_확률로_행동을_하지_못하게_만듭니다.
+Reflect_gives_nearby_enemies_true_damage(ignores_defense)_when_you've_got_attacked. 반사_효과는_받은_피해의_일부를_주변_적들에게_방어력_무시_피해로_돌려줍니다.
+Sharpen_increases_charge_attack_damage_more. 날카로워짐_효과는_돌진_시의_기본_공격력을_더_높여줍니다.
+Level_3_orbs_can_be_crafted_by_three_Level_2_orbs,_and_it_is_very_powerful. 3단계_오브는_2단계_오브_3개로_조합할_수_있고,_매우_강력합니다.
 #
 # UI text
 Lv.@ @단계
@@ -188,3 +202,4 @@ OK 확인
 Don't_show_this_message. 이_메시지를_다시_보지_않습니다.
 The_number_of_live_monsters 살아있는_몬스터_수
 @_turns_left_before_you_die 사망까지_@턴_남음
+Loading... 불러오는_중...

@@ -19,6 +19,8 @@ public class UIInfo : MonoBehaviour {
     public Image weaponMark;
     public GameObject restartText;
     public GameObject loadingPanel;
+    public Text loadingTipText;
+    public Text loadingText;
     public GameObject enemyStatusUIGroup;
     public GameObject turnLimitMark;
     public List<Sprite> turnLimitSprites;
