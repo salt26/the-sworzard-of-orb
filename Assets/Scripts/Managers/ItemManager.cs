@@ -361,7 +361,7 @@ public class ItemManager : MonoBehaviour {
                 {
                     GameObject g = Instantiate(GameManager.gm.player.GetComponent<PlayerMover>().distanceSprite,
                         new Vector3(pos.x + d.x, pos.y + d.y, -0.25f), Quaternion.identity);
-                    g.GetComponent<SpriteRenderer>().color = new Color(0f, 0.8f, 0.8f, 0.8f);
+                    g.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.8f);
                     g.GetComponent<DistanceSprite>().Disappear(60);
 
                     Entity e = GameManager.gm.map.GetEntityOnTile(pos + d);

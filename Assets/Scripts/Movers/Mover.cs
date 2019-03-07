@@ -188,7 +188,7 @@ public class Mover : MonoBehaviour {
         Color originalColor = GetComponent<SpriteRenderer>().color;
 
         GameObject g = Instantiate(damageNumber, c.canvas.GetComponent<Transform>());
-        g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, DamageNumber.DamageType.Poison);
+        g.GetComponent<DamageNumber>().Initialize(oldHealth - c.currentHealth, DamageNumber.DamageType.Reflect);
 
         for (int i = 0; i < frame; i++)
         {

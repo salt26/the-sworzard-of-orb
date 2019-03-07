@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DamageNumber : MonoBehaviour {
 
-    public enum DamageType { Normal, Critical, Poison, Flurry, Heal }
+    public enum DamageType { Normal, Critical, Poison, Flurry, Heal, Reflect }
     public List<GameObject> exponents;       // (10 ^ (index)) 이미지 그룹의 parent
 
     public List<GameObject> criticalMarks;  // (10 ^ (index)) 이미지 그룹의 크리티컬 마크
