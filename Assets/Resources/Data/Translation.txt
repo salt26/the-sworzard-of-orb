@@ -170,6 +170,12 @@ Stun_makes_directly_attacked_enemy_to_skip_next_turn_by_certain_probablity. 기�
 Reflect_gives_nearby_enemies_true_damage(ignores_defense)_when_you've_got_attacked. 반사_효과는_받은_피해의_일부를_주변_적들에게_방어력_무시_피해로_돌려줍니다.
 Sharpen_increases_charge_attack_damage_more. 날카로워짐_효과는_돌진_시의_기본_공격력을_더_높여줍니다.
 Level_3_orbs_can_be_crafted_by_three_Level_2_orbs,_and_it_is_very_powerful. 3단계_오브는_2단계_오브_3개로_조합할_수_있고,_매우_강력합니다.
+# Noti text
+Press_"Goodbye~"_to_quit_game. "잘_있거라~"를_눌러_종료하세요.
+Altar_is_full! 제단이_꽉_찼습니다!
+Inventory_is_full! 가방이_가득_찼습니다.
+Item_dropped. 아이템을_떨어뜨렸습니다.
+Escape_from_here_before_@_turns_pass! @턴_안에_이곳을_탈출하십시오!
 #
 # UI text
 Lv.@ @단계
@@ -195,10 +201,6 @@ Buy_price: 구매_가격:
 Repurchase_price: 재구매_가격:
 Press_'R'_to_revive! R_키를_눌러_부활하세요!
 You_died! 당신은_죽었습니다!
-Press_"Goodbye~"_to_quit_game. "잘_있거라~"를_눌러_종료하세요.
-Altar_is_full! 제단이_꽉_찼습니다!
-Inventory_is_full! 가방이_가득_찼습니다.
-Item_dropped. 아이템을_떨어뜨렸습니다.
 Repurchase 재구매
 Sold_out 품절
 Yes 예

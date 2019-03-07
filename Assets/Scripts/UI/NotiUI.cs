@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NotiUI : MonoBehaviour
 {
     public Text notiText;
+    public int notiParam;
     private string originalNotiContent;
 
     private bool isAnimating;
@@ -16,6 +17,8 @@ public class NotiUI : MonoBehaviour
     {
         isAnimating = false;
         stopAnimation = false;
+        notiParam = 0;
+        originalNotiContent = "";
     }
     
     public void SetNotiText(string word)
@@ -25,13 +28,13 @@ public class NotiUI : MonoBehaviour
 
     IEnumerator Animation(string word)
     {
-        float frame = 100f;
+        float frame = 120f;
         float frame2 = 20f;
         if (isAnimating)
             stopAnimation = true;
         yield return null;
         isAnimating = true;
-        GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.4745098f);
+        GetComponent<Image>().color = new Color(0.6f, 0.6f, 0.6f, 0.8f);
         originalNotiContent = word;
         RefreshNotiText();
 
@@ -51,7 +54,7 @@ public class NotiUI : MonoBehaviour
                 stopAnimation = false;
                 break;
             }
-            GetComponent<Image>().color = Color.Lerp(new Color(1f, 1f, 1f, 0.4745098f), new Color(1f, 1f, 1f, 0f), i / frame2);
+            GetComponent<Image>().color = Color.Lerp(new Color(0.6f, 0.6f, 0.6f, 0.8f), new Color(1f, 1f, 1f, 0f), i / frame2);
             yield return null;
         }
         GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
@@ -62,6 +65,6 @@ public class NotiUI : MonoBehaviour
     
     public void RefreshNotiText()
     {
-        notiText.text = StringManager.sm.Translate(originalNotiContent);
+        notiText.text = StringManager.sm.Translate(originalNotiContent).Replace("@", notiParam.ToString());
     }
 }

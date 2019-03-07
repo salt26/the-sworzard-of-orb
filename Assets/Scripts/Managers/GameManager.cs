@@ -155,6 +155,13 @@ public class GameManager : MonoBehaviour {
                     ui.turnLimitMark.GetComponent<Image>().color = ui.turnLimitColors[0];
                     ui.turnLimitText.color = ui.turnLimitColors[0];
                 }
+
+                if ((RemainedTurn) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1 !=
+                    (RemainedTurn - 1) * (ui.turnLimitSprites.Count - 1) / turnLimit + 1)
+                {
+                    Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().notiParam = RemainedTurn;
+                    Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("Escape from here before @ turns pass!");
+                }
             }
         }
     }
