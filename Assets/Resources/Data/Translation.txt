@@ -116,6 +116,7 @@ Treasure_mimic 미믹
 Ice_golem 얼음_골렘
 Fire_golem 불_골렘
 Nature_golem 자연_골렘
+Tutorial_pudding 튜토리얼_푸딩
 # Monster weapon name
 Incinerator 소각로
 Extinguisher 소화기
@@ -130,6 +131,7 @@ Snowball 눈덩이
 Ice_fist 얼음_주먹
 Fire_fist 불_주먹
 Nature_fist 야생_주먹
+Cold_wind 찬_바람
 #
 # Player
 Hyacinth 히아신스
