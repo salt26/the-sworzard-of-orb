@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour {
     public int mapLevel = 1;
     [HideInInspector]
     public int tipIndex = 0;
+    [HideInInspector]
+    public int loadingProgress = 0;
 
     [Header("Debugging")]
     public int turnNumber = 0;
@@ -236,6 +238,7 @@ public class GameManager : MonoBehaviour {
         }
         mapLevel = 1;
         tipIndex = 0;
+        loadingProgress = 0;
         Initialize();
         isSceneLoaded = true;
     }
@@ -313,10 +316,10 @@ public class GameManager : MonoBehaviour {
     {
         // TODO 씬 전환 중에 불투명한 패널로 화면 가리기
         isSceneLoaded = false;
-        
+
+        loadingProgress = 0;
         loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
         RefreshLoadingTexts();
-        tipIndex++;
         loadingPanel.SetActive(true);
         Scene currentScene = SceneManager.GetActiveScene();
 
@@ -336,7 +339,13 @@ public class GameManager : MonoBehaviour {
         }
 
         Initialize(mapName);
-        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < 6; i++)
+        {
+            loadingProgress++;
+            RefreshLoadingTexts();
+            yield return new WaitForSeconds(0.5f);
+        }
+        tipIndex++;
         loadingPanel.SetActive(false);
         isSceneLoaded = true;
     }
@@ -972,7 +981,11 @@ public class GameManager : MonoBehaviour {
     public void RefreshLoadingTexts()
     {
         loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
-        loadingText.text = StringManager.sm.Translate("Loading...");
+        loadingText.text = StringManager.sm.Translate("Loading");
+        for (int i = 0; i < loadingProgress; i++)
+        {
+            loadingText.text += ".";
+        }
     }
 }
 
