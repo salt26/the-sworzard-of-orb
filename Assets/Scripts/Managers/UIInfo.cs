@@ -17,7 +17,8 @@ public class UIInfo : MonoBehaviour {
     public GameObject monsterNumberMark;
     public Text monsterNumberText;
     public Image weaponMark;
-    public GameObject restartText;
+    public GameObject notiPanel;
+    public Text notiText;
     public GameObject loadingPanel;
     public Text loadingTipText;
     public Text loadingText;

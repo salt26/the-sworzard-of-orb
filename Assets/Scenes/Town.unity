@@ -4023,7 +4023,8 @@ MonoBehaviour:
   monsterNumberMark: {fileID: 0}
   monsterNumberText: {fileID: 0}
   weaponMark: {fileID: 0}
-  restartText: {fileID: 0}
+  notiPanel: {fileID: 0}
+  notiText: {fileID: 0}
   loadingPanel: {fileID: 0}
   loadingTipText: {fileID: 0}
   loadingText: {fileID: 0}

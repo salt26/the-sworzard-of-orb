@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour {
     [HideInInspector]
     public Image weaponMark;
     [HideInInspector]
-    public GameObject restartText;
+    public GameObject notiPanel;
+    [HideInInspector]
+    public Text notiText;
     [HideInInspector]
     public GameObject loadingPanel;
     [HideInInspector]
@@ -196,7 +198,8 @@ public class GameManager : MonoBehaviour {
         monsterNumberMark = UIObject.GetComponent<UIInfo>().monsterNumberMark;
         monsterNumberText = UIObject.GetComponent<UIInfo>().monsterNumberText;
         weaponMark = UIObject.GetComponent<UIInfo>().weaponMark;
-        restartText = UIObject.GetComponent<UIInfo>().restartText;
+        notiPanel = UIObject.GetComponent<UIInfo>().notiPanel;
+        notiText = UIObject.GetComponent<UIInfo>().notiText;
         loadingPanel = UIObject.GetComponent<UIInfo>().loadingPanel;
         loadingTipText = UIObject.GetComponent<UIInfo>().loadingTipText;
         loadingText = UIObject.GetComponent<UIInfo>().loadingText;
@@ -976,9 +979,9 @@ public class GameManager : MonoBehaviour {
         loadingText.text = StringManager.sm.Translate("Loading...");
     }
 
-    public void RefreshRestartText()
+    public void RefreshNotiText()
     {
-        restartText.GetComponent<Text>().text = StringManager.sm.Translate("You died!") + "\n" +
+        notiText.text = StringManager.sm.Translate("You died!") + "\n" +
             StringManager.sm.Translate("Press \"Goodbye~\" to quit game.");
     }
 }
