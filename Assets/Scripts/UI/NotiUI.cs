@@ -22,7 +22,16 @@ public class NotiUI : MonoBehaviour
         notiParam = 0;
         originalNotiContent = "";
     }
-    
+
+    void Update()
+    {
+        if (isEternal)
+        {
+            GetComponent<Image>().color = new Color(0.6f, 0.6f, 0.6f, 0.8f);
+            RefreshNotiText();
+        }
+    }
+
     public void SetNotiText(string word)
     {
         StartCoroutine(Animation(word));

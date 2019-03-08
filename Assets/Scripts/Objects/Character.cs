@@ -107,7 +107,7 @@ public class Character : Entity {
             //Debug.Log("Enemy initialized. (call second)");
             EnemyInfo ei = EnemyManager.em.FindEnemyInfo(name, level);
             size = ei.size;
-            maxHealth = ei.maxHealth;
+            maxHealth = (int)(ei.maxHealth * (1f + (level / 10) * 0.5f));
             weapons = new List<Weapon> { ei.weapon.Clone() };
             armor = ei.armor.Clone();
             weapons[0].element += ei.weaponDelta * (level - 1);
