@@ -118,6 +118,7 @@ Ice_golem 얼음_골렘
 Fire_golem 불_골렘
 Nature_golem 자연_골렘
 Tutorial_pudding 튜토리얼_푸딩
+Tutorial_golem 튜토리얼_골렘
 # Monster weapon name
 Incinerator 소각로
 Extinguisher 소화기
@@ -132,7 +133,8 @@ Snowball 눈덩이
 Ice_fist 얼음_주먹
 Fire_fist 불_주먹
 Nature_fist 야생_주먹
-Cold_wind 찬_바람
+Cold_wind 시린_바람
+Cold_fist 시린_주먹
 #
 # Player
 Hyacinth 히아신스
@@ -168,6 +170,8 @@ Magic_spear_has_attack_range_of_2_and_can_attack_two_enemies_at_once. 마력의_
 Attack_damage_of_Magic_sword_grows_faster_than_that_of_Magic_spear. 마력의_검은_마력의_창보다_공격력이_빠르게_오릅니다.
 There_is_turn_limits_in_battlefield._If_you_use_up_all_given_turns,_it_considers_as_death. 전장에서는_턴_제한이_있으며,_남은_턴_수가_소진되면_사망합니다.
 Death_resets_all_your_data_and_you_have_to_start_all_over_again._Be_careful! 사망하면_게임을_더는_진행할_수_없게_됩니다._주의하세요!
+You_can_check_a_monster's_status_by_clicking_it. 몬스터를_클릭하면_능력치를_볼_수_있습니다.
+Just_place_your_mouse_cursor_on_the_weapon_and_armor_icon. 마우스_커서를_무기_및_방어구_아이콘_위에_올려보세요.
 #
 Poisoned_enemies_get_true_damage(ignores_defense)_after_enemy's_turn. 중독_효과에_걸린_적은_행동을_한_후에_방어력_무시_피해를_받습니다.
 Flurry_gives_true_damage(ignores_defense)_to_nearby_enemies_of_directly_attacked_enemy. 돌풍_효과는_무기로_공격받은_적_주변의_적들에게_방어력_무시_피해를_줍니다.
@@ -182,6 +186,9 @@ Inventory_is_full! 가방이_가득_찼습니다.
 Item_dropped. 아이템을_떨어뜨렸습니다.
 Escape_from_here_before_@_turns_pass! @턴_안에_이곳을_탈출하십시오!
 All_monsters_were_eliminated. 모든_몬스터를_퇴치했습니다.
+Your_Magic_sword_is_enchanted. 마력의_검이_순간_반짝였습니다.
+Your_Magic_spear_is_enchanted. 마력의_창이_순간_반짝였습니다.
+Your_Armor_is_enchanted. 방어구가_순간_반짝였습니다.
 #
 # UI text
 Lv.@ @단계

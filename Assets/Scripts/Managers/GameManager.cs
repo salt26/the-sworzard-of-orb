@@ -211,8 +211,10 @@ public class GameManager : MonoBehaviour {
         tips.Add("Death resets all your data and you have to start all over again. Be careful!");
         tips.Add("There is turn limits in battlefield. If you use up all given turns, it considers as death.");
         tips.Add("Only the highest value of the weapon elements acts as attack damage.");
+        tips.Add("You can check a monster's status by clicking it.");
         tips.Add("Magic spear has attack range of 2 and can attack two enemies at once.");
         tips.Add("Attack damage of Magic sword grows faster than that of Magic spear.");
+        tips.Add("Just place your mouse cursor on the weapon and armor icon.");
         tips.Add("Level 3 orbs can be crafted by three Level 2 orbs, and it is very powerful.");
         tips.Add("Poisoned enemies get true damage(ignores defense) after enemy's turn.");
         tips.Add("Flurry gives true damage(ignores defense) to nearby enemies of directly attacked enemy.");

@@ -477,6 +477,8 @@ public class ItemInfo
                 }
                 else
                 {
+                    GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText(
+                        "Your " + GameManager.gm.player.GetComponent<Character>().EquippedWeapon.name + " is enchanted.");
                     UseWeaponOnlyOrb();
                     return true;
                 }
@@ -509,6 +511,8 @@ public class ItemInfo
                         GameManager.gm.player.armor.armorEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
                     }
                 }
+                GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText(
+                    "Your Armor is enchanted.");
                 return true;
             }
             else
