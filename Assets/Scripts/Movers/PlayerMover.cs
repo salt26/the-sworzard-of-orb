@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMover : Mover {
 
@@ -121,10 +122,25 @@ public class PlayerMover : Mover {
             }
             else if (Input.GetKeyDown(KeyCode.O))
             {
+                /*
                 // TODO 디버그용 오브 생성 코드
                 gm.map.AddItemOnTile(Random.Range(104, 117), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
+                */
+            }
+            else if (Input.GetKeyDown(KeyCode.K) && SceneManager.GetActiveScene().name.Equals("Tutorial"))
+            {
+                GameManager.gm.IsSceneLoaded = false;
+                ColorManager.cm = null;
+                EnemyManager.em = null;
+                ItemManager.im = null;
+                MapManager.mm = null;
+                StringManager.sm = null;
+                Destroy(GameManager.gm.Canvas);
+                Destroy(GameManager.gm.gameObject);
+                GameManager.gm = null;
+                SceneManager.LoadScene("Scenes/Town");
             }
         }
         

@@ -211,4 +211,4 @@ OK 확인
 Don't_show_this_message. 이_메시지를_다시_보지_않습니다.
 The_number_of_live_monsters 살아있는_몬스터_수
 @_turns_left_before_you_die 사망까지_@턴_남음
-Loading 불러오는_중
+Moving 이동하는_중

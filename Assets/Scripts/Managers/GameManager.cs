@@ -43,12 +43,11 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public int mapLevel = 1;
-    [HideInInspector]
-    public int tipIndex = 0;
-    [HideInInspector]
-    public int loadingProgress = 0;
-    [HideInInspector]
-    public bool monsterEliminated = true;
+
+    private int tipIndex = 0;
+    private int loadingProgress = 0;
+    private bool monsterEliminated = true;
+    private bool isTutorialSkipped = false;
 
     [Header("Debugging")]
     public int turnNumber = 0;
@@ -237,6 +236,14 @@ public class GameManager : MonoBehaviour {
                 g.GetComponent<MapEntityInfo>().interactables.Remove(shop);
                 Destroy(shop.gameObject);
             }
+        }
+        if (SceneManager.GetActiveScene().name.Equals("Town"))
+        {
+            isTutorialSkipped = true;
+        }
+        else
+        {
+            isTutorialSkipped = false;
         }
         mapLevel = 1;
         tipIndex = 0;
@@ -440,6 +447,14 @@ public class GameManager : MonoBehaviour {
         else if (!mapAutoGeneration && SceneManager.GetActiveScene().name.Equals("Town"))
         {
             player.GetComponent<Transform>().position = new Vector3(2f, 2f, -1f);
+            if (isTutorialSkipped)
+            {
+                map.AddItemOnTile(100, new Vector3(2f, 1f, -1f));
+                map.AddItemOnTile(101, new Vector3(2f, 3f, -1f));
+                map.AddItemOnTile(102, new Vector3(1f, 2f, -1f));
+                map.AddItemOnTile(103, new Vector3(3f, 2f, -1f));
+                isTutorialSkipped = false;
+            }
         }
         else
         {
@@ -650,6 +665,8 @@ public class GameManager : MonoBehaviour {
         }
         if (mapAutoGeneration)
             monsterEliminated = false;
+        else
+            monsterEliminated = true;
     }
 
     /// <summary>
@@ -881,7 +898,6 @@ public class GameManager : MonoBehaviour {
         if (MonsterNumber == 0)
         {
             monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
-            Debug.Log("monsterEli " + monsterEliminated.ToString());
             if (!monsterEliminated)
             {
                 monsterEliminated = true;
@@ -1009,7 +1025,7 @@ public class GameManager : MonoBehaviour {
     public void RefreshLoadingTexts()
     {
         loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
-        loadingText.text = StringManager.sm.Translate("Loading");
+        loadingText.text = StringManager.sm.Translate("Moving");
         for (int i = 0; i < loadingProgress; i++)
         {
             loadingText.text += ".";
