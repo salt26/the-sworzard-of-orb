@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
     public int tipIndex = 0;
     [HideInInspector]
     public int loadingProgress = 0;
+    [HideInInspector]
+    public bool monsterEliminated = true;
 
     [Header("Debugging")]
     public int turnNumber = 0;
@@ -239,6 +241,7 @@ public class GameManager : MonoBehaviour {
         mapLevel = 1;
         tipIndex = 0;
         loadingProgress = 0;
+        monsterEliminated = true;
         Initialize();
         isSceneLoaded = true;
     }
@@ -637,8 +640,16 @@ public class GameManager : MonoBehaviour {
         #endregion
         
         monsterNumberText.text = MonsterNumber.ToString();
-        if (MonsterNumber == 0) monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
-        else monsterNumberText.color = ColorManager.cm.monsterNumberColors[1];
+        if (MonsterNumber == 0)
+        {
+            monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
+        }
+        else
+        {
+            monsterNumberText.color = ColorManager.cm.monsterNumberColors[1];
+        }
+        if (mapAutoGeneration)
+            monsterEliminated = false;
     }
 
     /// <summary>
@@ -867,7 +878,16 @@ public class GameManager : MonoBehaviour {
         }
         
         monsterNumberText.text = MonsterNumber.ToString();
-        if (MonsterNumber == 0) monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
+        if (MonsterNumber == 0)
+        {
+            monsterNumberText.color = ColorManager.cm.monsterNumberColors[0];
+            Debug.Log("monsterEli " + monsterEliminated.ToString());
+            if (!monsterEliminated)
+            {
+                monsterEliminated = true;
+                Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("All monsters were eliminated.");
+            }
+        }
         else monsterNumberText.color = ColorManager.cm.monsterNumberColors[1];
 
         turn = (oldTurn + 1) % 2;

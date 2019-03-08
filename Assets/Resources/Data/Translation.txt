@@ -172,11 +172,12 @@ Reflect_gives_nearby_enemies_true_damage(ignores_defense)_when_you've_got_attack
 Sharpen_increases_charge_attack_damage_more. 날카로워짐_효과는_돌진_시의_기본_공격력을_더_높여줍니다.
 Level_3_orbs_can_be_crafted_by_three_Level_2_orbs,_and_it_is_very_powerful. 3단계_오브는_2단계_오브_세_개로_조합할_수_있고,_매우_강력합니다.
 # Noti text
-Say_"Goodbye~"_to_quit_game. "잘_있거라~"를_외치고_종료하세요.
+Say_"Goodbye~"_to_quit_game. "잘_있거라~"를_외치고_게임을_종료하십시오.
 Altar_is_full! 제단이_꽉_찼습니다!
 Inventory_is_full! 가방이_가득_찼습니다.
 Item_dropped. 아이템을_떨어뜨렸습니다.
 Escape_from_here_before_@_turns_pass! @턴_안에_이곳을_탈출하십시오!
+All_monsters_were_eliminated. 모든_몬스터를_퇴치했습니다.
 #
 # UI text
 Lv.@ @단계
