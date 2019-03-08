@@ -347,7 +347,6 @@ MonoBehaviour:
   distanceSprite: {fileID: 1223321404556172, guid: 5dde81f5706e19a4b97cf1d7f0b7160d,
     type: 3}
   onAttackingSound: {fileID: 8300000, guid: cdbbe496ac59f429d86f8013a321e038, type: 3}
-  onAttackedSound: {fileID: 8300000, guid: cdbbe496ac59f429d86f8013a321e038, type: 3}
 --- !u!114 &114983017880003552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +388,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.157
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
