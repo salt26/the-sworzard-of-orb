@@ -13,6 +13,8 @@ public class ShopUI : MonoBehaviour {
     public List<Sprite> hostSprites;
     public GameObject bubbleImage;
     public Text bubbleText;
+    public AudioClip interactionSound;
+    private AudioSource audioSource;
 
     /// <summary>
     /// 상점에서 판매하는 아이템 목록. index는 구입 버튼 위치.
@@ -45,6 +47,7 @@ public class ShopUI : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        audioSource = GetComponent<AudioSource>();
 		
 	}
 
@@ -136,6 +139,8 @@ public class ShopUI : MonoBehaviour {
         {
             repurchaseItems.RemoveAt(0);
         }
+        audioSource.clip = interactionSound;
+        audioSource.Play();
         repurchaseItems.Add(item);
         GameManager.gm.player.GetComponent<Inventory>().Gold += ItemManager.im.FindItemInfo(item).SellPrice;
         UpdateRepurchaseUI();
@@ -173,6 +178,8 @@ public class ShopUI : MonoBehaviour {
             StartCoroutine(Speech("Not enough gold...", 0));
             return;
         }
+        audioSource.clip = interactionSound;
+        audioSource.Play();
         inv.Gold -= ii.SellPrice;
         inv.AddItem(ii.name);
         repurchaseItems.RemoveAt(index);
@@ -211,6 +218,8 @@ public class ShopUI : MonoBehaviour {
             StartCoroutine(Speech("Not enough gold...", 0));
             return;
         }
+        audioSource.clip = interactionSound;
+        audioSource.Play();
         inv.Gold -= ii.BuyPrice;
         inv.AddItem(ii.name);
         purchaseItems.RemoveAt(index);
