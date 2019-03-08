@@ -11,12 +11,14 @@ public class NotiUI : MonoBehaviour
 
     private bool isAnimating;
     private bool stopAnimation;
+    private bool isEternal;
 
     // Start is called before the first frame update
     void Start()
     {
         isAnimating = false;
         stopAnimation = false;
+        isEternal = false;
         notiParam = 0;
         originalNotiContent = "";
     }
@@ -26,8 +28,21 @@ public class NotiUI : MonoBehaviour
         StartCoroutine(Animation(word));
     }
 
+    public void SetEternalNotiText(string word)
+    {
+        if (isEternal) return;
+        if (isAnimating)
+            stopAnimation = true;
+        isAnimating = true;
+        isEternal = true;
+        GetComponent<Image>().color = new Color(0.6f, 0.6f, 0.6f, 0.8f);
+        originalNotiContent = word;
+        RefreshNotiText();
+    }
+
     IEnumerator Animation(string word)
     {
+        if (isEternal) yield break;
         float frame = 120f;
         float frame2 = 20f;
         if (isAnimating)

@@ -4031,6 +4031,7 @@ MonoBehaviour:
   mySelectedBorder: {fileID: 0}
   mapLevel: 0
   tipIndex: 0
+  loadingProgress: 0
   turnNumber: 0
   hasShopVisited: 0
   hasIgnoreShopMessage: 0

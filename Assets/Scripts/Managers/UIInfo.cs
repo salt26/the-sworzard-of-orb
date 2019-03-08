@@ -12,6 +12,7 @@ public class UIInfo : MonoBehaviour {
     public Text goldText;
     public List<Button> itemButtons;
     public DamagedScreen DamagedPanel;
+    public DeathScreen DeathPanel;
 
     [Header("GM")]
     public GameObject monsterNumberMark;

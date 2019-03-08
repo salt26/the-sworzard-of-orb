@@ -366,6 +366,7 @@ public class PlayerMover : Mover {
         // TODO 크기가 2 이상인 개체에 대해, 개체가 차지하고 있던 모든 타일 고려
         gm.map.SetEntityOnTile(null, t.position);
         this.enabled = false;
-        gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("Press \"Goodbye~\" to quit game.");
+        gm.Canvas.GetComponent<UIInfo>().DeathPanel.StartEffect();
+        gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetEternalNotiText("Say \"Goodbye~\" to quit game.");
     }
 }
