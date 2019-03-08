@@ -12,11 +12,24 @@ public class Portal : Interactable {
     {
         if (mapName != null && mapName.Equals("")) mapName = null;
 
-        if (mapName == null && GameManager.gm.MonsterNumber > 0 && isCharge)
+        if (SceneManager.GetActiveScene().name.Equals("Tutorial"))
+        {
+            GameManager.gm.MessageTurn("Tutorial completed!",
+                "From now, you can skip this tutorial by pressing 'K' key. Click 'OK' to move to Town.",
+                delegate { GameManager.gm.ChangeScene(sceneName, mapName); }, null);
+        }
+        else if (mapName == null && GameManager.gm.MonsterNumber > 0 && isCharge)
         {
             // 전장에서 포탈에 돌진 상호작용한 경우
             GameManager.gm.MessageTurn("Charge interaction",
                 "You had better hunt monsters as many as possible. Do you intend to escape to Town? If so, click 'Yes'. If you click 'No', you can stay here.",
+                delegate { GameManager.gm.ChangeScene(sceneName, mapName); }, null, null);
+        }
+        else if (mapName == null && GameManager.gm.MonsterNumber == 0 && isCharge)
+        {
+            // 전장에서 포탈에 돌진 상호작용한 경우
+            GameManager.gm.MessageTurn("Charge interaction",
+                "Do you intend to escape to Town? If so, click 'Yes'. If you click 'No', you can stay here.",
                 delegate { GameManager.gm.ChangeScene(sceneName, mapName); }, null, null);
         }
         else if (mapName == null && GameManager.gm.MonsterNumber > 0 && !GameManager.gm.hasIgnoreReturnMessage)

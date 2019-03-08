@@ -129,11 +129,59 @@ public class ItemTooltipUI : TooltipUI {
             }
         }
         itemTooltipText.text += "\n" + StringManager.sm.Translate(ii.tooltip).Replace("@", ii.effectParam.ToString()) + "\n";
-        if (ButtonIndex >= 200 && ButtonIndex < 300)
+        if (ButtonIndex >= 100 && ButtonIndex < 103)
+        {
+            itemTooltipText.text += StringManager.sm.Translate("Sell price:") + " " + ii.SellPrice;
+            itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to get back]");
+        }
+        else if (ButtonIndex == 103)
+        {
+            itemTooltipText.text += StringManager.sm.Translate("Sell price:") + " " + ii.SellPrice;
+            itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to compound]");
+        }
+        else if (ButtonIndex >= 200 && ButtonIndex < 300)
+        {
             itemTooltipText.text += StringManager.sm.Translate("Buy price:") + " " + ii.BuyPrice;
+            itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to buy]");
+        }
         else if (ButtonIndex >= 300 && ButtonIndex < 400)
+        {
             itemTooltipText.text += StringManager.sm.Translate("Repurchase price:") + " " + ii.SellPrice;
+            itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to repurchase]");
+        }
         else
             itemTooltipText.text += StringManager.sm.Translate("Sell price:") + " " + ii.SellPrice;
+
+        if (ButtonIndex < 100 && GameManager.gm.IsSceneLoaded &&
+            ButtonIndex < GameManager.gm.player.GetComponent<Inventory>().itemButtons.Count )
+        {
+            if (GameManager.gm.Turn == 0 &&
+                GameManager.gm.player.GetComponent<Inventory>().itemButtons[ButtonIndex].interactable)
+            {
+                itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to use]");
+                itemTooltipText.text += "\n" + StringManager.sm.Translate("[Right click to drop]");
+            }
+            else if (GameManager.gm.Turn == 0)
+            {
+                itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Right click to drop]");
+            }
+            else if (GameManager.gm.Turn == 3 &&
+                GameManager.gm.player.GetComponent<Inventory>().itemButtons[ButtonIndex].interactable)
+            {
+                if (GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>().IsContainOrbIndex(ButtonIndex))
+                {
+                    itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to get back]");
+                }
+                else
+                {
+                    itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to dedicate]");
+                }
+            }
+            else if (GameManager.gm.Turn == 4 &&
+                GameManager.gm.player.GetComponent<Inventory>().itemButtons[ButtonIndex].interactable)
+            {
+                itemTooltipText.text += "\n\n" + StringManager.sm.Translate("[Left click to sell]");
+            }
+        }
     }
 }

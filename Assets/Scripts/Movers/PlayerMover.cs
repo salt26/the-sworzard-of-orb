@@ -131,6 +131,7 @@ public class PlayerMover : Mover {
             }
             else if (Input.GetKeyDown(KeyCode.K) && SceneManager.GetActiveScene().name.Equals("Tutorial"))
             {
+                // 튜토리얼 스킵 기능
                 GameManager.gm.IsSceneLoaded = false;
                 ColorManager.cm = null;
                 EnemyManager.em = null;
@@ -141,6 +142,10 @@ public class PlayerMover : Mover {
                 Destroy(GameManager.gm.gameObject);
                 GameManager.gm = null;
                 SceneManager.LoadScene("Scenes/Town");
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameManager.gm.Canvas.GetComponent<UIInfo>().MenuUI();
             }
         }
         
@@ -383,6 +388,6 @@ public class PlayerMover : Mover {
         gm.map.SetEntityOnTile(null, t.position);
         this.enabled = false;
         gm.Canvas.GetComponent<UIInfo>().DeathPanel.StartEffect();
-        gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetEternalNotiText("Say \"Goodbye~\" to quit game.");
+        gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetEternalNotiText("Open the Menu and say \"Goodbye~\" to quit game.");
     }
 }
