@@ -4475,12 +4475,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cf3f2e889e60fc041b876812f3e46f4b,
+      objectReference: {fileID: 21300000, guid: ba2a96e6eb5f1cc47a17a917f8a20f9d,
         type: 3}
     - target: {fileID: 114133506055233350, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
         type: 3}
       propertyPath: name
-      value: Tutorial pudding
+      value: Tutorial golem
       objectReference: {fileID: 0}
     - target: {fileID: 114267566674906548, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
         type: 3}
@@ -12097,8 +12097,6 @@ MonoBehaviour:
   selectedCharacter: {fileID: 0}
   mySelectedBorder: {fileID: 0}
   mapLevel: 0
-  tipIndex: 0
-  loadingProgress: 0
   turnNumber: 0
   hasShopVisited: 0
   hasIgnoreShopMessage: 0
