@@ -11,6 +11,9 @@ public class Inventory : MonoBehaviour {
     
     private int gold = 0;
 
+    public AudioClip getItemSound;
+    private AudioSource audioSource;
+
     [HideInInspector]
     public Text goldText;
 
@@ -44,6 +47,7 @@ public class Inventory : MonoBehaviour {
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         itemImages = new List<KeyValuePair<string, GameObject>>();
         foreach (Button b in itemButtons)
         { 
@@ -70,6 +74,8 @@ public class Inventory : MonoBehaviour {
     /// <param name="item"></param>
     public bool AddItem(string item)
     {
+        audioSource.clip = getItemSound;
+        audioSource.Play();
         // 만약 이 메서드가 false를 반환하는 경우가 추가된다면, ItemEffect의 TransformWithNoEffect도 바꾸기!
         if (items.Count >= maxItemNumber)
         {

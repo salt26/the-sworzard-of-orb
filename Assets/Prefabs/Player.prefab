@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxItemNumber: 16
+  getItemSound: {fileID: 8300000, guid: 7c719075b69f63e4cabf4f89d0d02d73, type: 3}
   goldText: {fileID: 0}
   itemButtons: []
   itemImage: {fileID: 1187076300696068, guid: e118bef4dd5737748a832e5a0b2620ef, type: 3}
