@@ -11,12 +11,15 @@ public class AltarUI : MonoBehaviour {
     public List<GameObject> circlePartImages;
     public GameObject whitePanel;
     public List<GameObject> recipePanels;
+    public AudioClip orbMakingSound;
+
 
     /// <summary>
     /// Key는 오브가 들어있는 가방의 위치, Value는 오브 이름
     /// </summary>
     private List<KeyValuePair<int, string>> orbs = new List<KeyValuePair<int, string>>();
     private List<KeyValuePair<string, GameObject>> orbImages = new List<KeyValuePair<string, GameObject>>();
+    private AudioSource audioSource;
 
     public List<KeyValuePair<int, string>> Orbs
     {
@@ -28,6 +31,7 @@ public class AltarUI : MonoBehaviour {
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         foreach (Button b in altarButtons)
         {
             b.onClick.AddListener(delegate { RemoveOrb(altarButtons.IndexOf(b)); });
@@ -250,6 +254,8 @@ public class AltarUI : MonoBehaviour {
         UpdateUI();
 
         // TODO 조합 성공 이펙트 (화면 깜빡임)
+        audioSource.clip = orbMakingSound;
+        audioSource.Play();
         StartCoroutine(WhiteAnimation());
     }
 

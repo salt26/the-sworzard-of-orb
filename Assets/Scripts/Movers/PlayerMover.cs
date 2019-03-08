@@ -16,10 +16,15 @@ public class PlayerMover : Mover {
 
     private bool hasTurnEndPressed;
 
+    public AudioClip onAttackingSound;
+
+    private AudioSource audioSource;
+
     // Use this for initialization
     void Start () {
         t = GetComponent<Transform>();
         c = GetComponent<Character>();
+        audioSource = GetComponent<AudioSource>();
         gm = GameManager.gm;
         isMoving = false;
         hasTurnEndPressed = false;
@@ -235,6 +240,9 @@ public class PlayerMover : Mover {
                 {
                     c.attackSum += enemy.armor.ComputeDamage(c.EquippedWeapon, isCharge);
                 }
+
+                audioSource.clip = onAttackingSound;
+                audioSource.Play();
                 StartCoroutine(AttackAnimation(direction, enemies, isCharge));
             }
             else
