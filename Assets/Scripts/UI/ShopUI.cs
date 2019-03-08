@@ -58,7 +58,8 @@ public class ShopUI : MonoBehaviour {
 
     public void EnterShop()
     {
-        StartCoroutine(Speech("Welcome!", 2));
+        string word = new List<string>() { "Welcome!", "Take a look!" }[Random.Range(0, 2)];
+        StartCoroutine(Speech(word, 2));
     }
 
     public void EscapeShop()
