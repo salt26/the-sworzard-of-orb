@@ -12,8 +12,18 @@ public class ArmorTooltipUI : TooltipUI
     public Text statText;
     public Text armorEffectText;
 
+    void Awake()
+    {
+        isDisappearing = false;
+        time = Time.time;
+    }
+
     void Update()
     {
+        if (time > 0f && Time.time >= time + 5f)
+        {
+            Disappear();
+        }
         if (armorReference == null || !armorReference.Equals(GameManager.gm.player.EquippedWeapon))
         {
             armorReference = GameManager.gm.player.armor;

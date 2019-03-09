@@ -228,6 +228,7 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        /*
         GameObject g = GameObject.Find("MapEntityInfo");
         if (g != null)
         {
@@ -239,6 +240,7 @@ public class GameManager : MonoBehaviour {
                 Destroy(shop.gameObject);
             }
         }
+        */
         if (SceneManager.GetActiveScene().name.Equals("Town"))
         {
             isTutorialSkipped = true;
@@ -296,7 +298,7 @@ public class GameManager : MonoBehaviour {
             ChangeScene("Town");
         }
         */
-	}
+    }
 
     /// <summary>
     /// 씬을 전환합니다.
@@ -312,7 +314,7 @@ public class GameManager : MonoBehaviour {
             mapLevel += increase;
             MapManager.mm.levelText.color = ColorManager.cm.levelColors[(increase - 1) % ColorManager.cm.levelColors.Count];
         }
-        if (sceneName.Equals("Town"))
+        if (sceneName.Equals("Town") && mapLevel > 1)
         {
             // 마을로 이동할 때, 상점에 새 재고가 들어옴
             int orbID = Random.Range(100, 104);

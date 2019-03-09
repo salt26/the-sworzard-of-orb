@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TooltipUI : MonoBehaviour {
 
-    private bool isDisappearing = false;
-    private float time = -1f;
+    protected bool isDisappearing = false;
+    protected float time = -1f;
 
     void Awake()
     {
@@ -26,6 +26,7 @@ public class TooltipUI : MonoBehaviour {
     public void Disappear()
     {
         if (isDisappearing) return;
+        //Debug.Log("Disappear");
         isDisappearing = true;
         StartCoroutine("FadeOut");
     }

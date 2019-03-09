@@ -13,6 +13,12 @@ public class ItemTooltipUI : TooltipUI {
     private AltarUI altarUI;
     private ShopUI shopUI;
 
+    void Awake()
+    {
+        isDisappearing = false;
+        time = Time.time;
+    }
+
     void Start()
     {
         altarUI = GameManager.gm.Canvas.GetComponent<UIInfo>().altarPanel.GetComponent<AltarUI>();
@@ -21,7 +27,11 @@ public class ItemTooltipUI : TooltipUI {
 
     // Update is called once per frame
     void Update () {
-		if (ButtonIndex >= 0 && ButtonIndex < 100 &&
+        if (time > 0f && Time.time >= time + 5f)
+        {
+            Disappear();
+        }
+        if (ButtonIndex >= 0 && ButtonIndex < 100 &&
                 ButtonIndex < GameManager.gm.player.GetComponent<Inventory>().Items.Count)
         {
             ItemInfo ii = ItemManager.im.FindItemInfo(GameManager.gm.player.GetComponent<Inventory>().Items[ButtonIndex]);
@@ -46,7 +56,7 @@ public class ItemTooltipUI : TooltipUI {
 
             SetTooltipText(ii);
         }
-        else if (ButtonIndex >= 200 && ButtonIndex < 300)
+        else if (ButtonIndex >= 200 && ButtonIndex < 300 && shopUI.gameObject.activeInHierarchy)
         {
             ItemInfo ii = ItemManager.im.FindItemInfo(shopUI.purchaseButtons[ButtonIndex - 200].GetComponent<PurchaseButtonUI>().ItemName);
             if (ii != null)
@@ -71,12 +81,17 @@ public class ItemTooltipUI : TooltipUI {
         else if (ButtonIndex >= 400)
         {
             ItemInfo ii = ItemManager.im.FindItemInfo(ButtonIndex - 400);
-            if (ii != null)
+            if (ii != null && ii.level - 1 <= altarUI.recipePanels.Count && ii.level >= 1 && 
+                altarUI.recipePanels[ii.level - 2].activeInHierarchy)
             {
                 itemNameText.text = StringManager.sm.Translate(ii.name);
                 itemNameText.color = new Color(0.35f, 0.15f, 0.35f);
 
                 SetTooltipText(ii);
+            }
+            else
+            {
+                Disappear();
             }
         }
         else

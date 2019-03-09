@@ -11,6 +11,12 @@ public class WeaponTooltipUI : TooltipUI {
     public Text statText;
     public Text fireText, iceText, natureText;
     public Text weaponEffectText;
+    
+    void Awake()
+    {
+        isDisappearing = false;
+        time = Time.time;
+    }
 
     void Start()
     {
@@ -20,7 +26,11 @@ public class WeaponTooltipUI : TooltipUI {
     }
 
     void Update () {
-		if (weaponReference == null || !weaponReference.Equals(GameManager.gm.player.EquippedWeapon))
+        if (time > 0f && Time.time >= time + 5f)
+        {
+            Disappear();
+        }
+        if (weaponReference == null || !weaponReference.Equals(GameManager.gm.player.EquippedWeapon))
         {
             weaponReference = GameManager.gm.player.EquippedWeapon;
         }
@@ -52,7 +62,7 @@ public class WeaponTooltipUI : TooltipUI {
             StringManager.Padding(weaponReference.ValidElement.Ice) +
             "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" +
             StringManager.Padding(weaponReference.ValidElement.Nature) + "</color>\n\n";
-        effectText += StringManager.sm.Translate("Charge bonus:") + " " + (int)(weaponReference.chargeBonus * 100) + "%\n";
+        effectText += StringManager.sm.Translate("Charge bonus:") + " " + Mathf.RoundToInt(weaponReference.chargeBonus * 100) + "%\n";
         effectText += StringManager.sm.Translate("Charge attack:\t") + "<color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.baseColor) + ">" +
             StringManager.Padding((int)(weaponReference.BaseAttack() * weaponReference.chargeBonus)) +
             "</color> + <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.fireColor) + ">" +
