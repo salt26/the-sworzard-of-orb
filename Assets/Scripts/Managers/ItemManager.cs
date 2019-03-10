@@ -287,6 +287,7 @@ public class ItemManager : MonoBehaviour {
             {
                 return false;
             }
+            GameManager.gm.hasUsedReturnScroll = true;
             GameManager.gm.ChangeScene("Town", null);
             return true;
         }

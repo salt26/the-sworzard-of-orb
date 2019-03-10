@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public int mapLevel = 1;
+    [HideInInspector]
+    public bool hasUsedReturnScroll = false;
 
     private int tipIndex = 0;
     private int loadingProgress = 0;
@@ -253,6 +255,7 @@ public class GameManager : MonoBehaviour {
         tipIndex = 0;
         loadingProgress = 0;
         monsterEliminated = true;
+        hasUsedReturnScroll = false;
         Initialize();
         isSceneLoaded = true;
     }
@@ -314,13 +317,33 @@ public class GameManager : MonoBehaviour {
             mapLevel += increase;
             MapManager.mm.levelText.color = ColorManager.cm.levelColors[(increase - 1) % ColorManager.cm.levelColors.Count];
         }
-        if (sceneName.Equals("Town") && mapLevel > 1)
+        if (sceneName.Equals("Town") && mapLevel > 1 && !hasUsedReturnScroll &&
+            player.GetComponent<Inventory>().Items.IndexOf("Return scroll") == -1)
         {
             // 마을로 이동할 때, 상점에 새 재고가 들어옴
             int orbID = Random.Range(100, 104);
             string randomOrb = ItemManager.im.FindItemInfo(orbID).name;
             Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems = new List<string>
                 { "Small potion", "Large potion", "Return scroll",
+                    randomOrb, "Random orb 1", "Random orb 2" };
+        }
+        else if (sceneName.Equals("Town") && mapLevel > 1 && hasUsedReturnScroll)
+        {
+            // 마을로 이동할 때, 상점에 새 재고가 들어옴
+            hasUsedReturnScroll = false;
+            int orbID = Random.Range(100, 104);
+            string randomOrb = ItemManager.im.FindItemInfo(orbID).name;
+            Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems = new List<string>
+                { "Small potion", "Large potion", null,
+                    randomOrb, "Random orb 1", "Random orb 2" };
+        }
+        else if (sceneName.Equals("Town") && mapLevel > 1)
+        {
+            // 마을로 이동할 때, 상점에 새 재고가 들어옴
+            int orbID = Random.Range(100, 104);
+            string randomOrb = ItemManager.im.FindItemInfo(orbID).name;
+            Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems = new List<string>
+                { "Small potion", "Large potion", null,
                     randomOrb, "Random orb 1", "Random orb 2" };
         }
         StartCoroutine(LoadScene(sceneName, mapName));
@@ -500,7 +523,8 @@ public class GameManager : MonoBehaviour {
                     Interactable i = GetComponent<InteractableManager>().GetInteractable(id);
                     if (i != null)
                     {
-                        int quadrant = 0, maxLoop = 100;
+                        int quadrant = 0;
+                        int maxLoop = 100;
                         bool canCreate = true;
                         for (int j = 0; j < maxLoop; j++)
                         {
@@ -515,6 +539,7 @@ public class GameManager : MonoBehaviour {
                                         Debug.LogWarning("Exceed max loop limit!");
                                     }
                                 }
+                                //v = map.GetACornerPosition((randomQuadrant + 2) % 4);
                                 v = map.GetACornerPosition(quadrant);
                                 if (map.GetEntityOnTile(v.x, v.y) == null && map.GetTypeOfTile(v.x, v.y) == 0)
                                 {
