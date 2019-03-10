@@ -1,8 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class DataReader : MonoBehaviour {
+
+    public int gmMapLevel;
+    public List<Weapon> playerWeapons;
+    public Armor playerArmor;
+    public int playerBonusMaxHealth;
+    public int playerGold;
+    public List<string> playerItems;
 
 	// Read Data and parse it to initialize managers.
 	void Awake ()
@@ -298,6 +308,46 @@ public class DataReader : MonoBehaviour {
         }
         #endregion
 
+    }
+
+    private void Deserialize()
+    {
+        //GameManager gm = GetComponent<GameManager>();
+        Hashtable data = null;
+        try
+        {
+            FileStream fs = new FileStream("Data.dat", FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                data = (Hashtable)formatter.Deserialize(fs);
+                gmMapLevel = (int)data["mapLevel"];
+                playerWeapons = (List<Weapon>)data["weapons"];
+                playerArmor = (Armor)data["armor"];
+                playerBonusMaxHealth = (int)data["bonusMaxHealth"];
+                playerGold = (int)data["gold"];
+                playerItems = (List<string>)data["items"];
+            }
+            catch (SerializationException e)
+            {
+                Debug.LogError("Failed to deserialize. " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            // 무기, 방어구 설정해 줘야 함!!!!!!!!!!!!!!!!!!!
+            gmMapLevel = 1;
+            playerWeapons = new List<Weapon>() { /* TODO */ };
+            playerArmor = new Armor();
+            playerBonusMaxHealth = 0;
+            playerGold = 0;
+            playerItems = new List<string>();
+        }
     }
 
     private void Error(string data)

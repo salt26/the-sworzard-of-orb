@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -1058,6 +1060,34 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < loadingProgress; i++)
         {
             loadingText.text += ".";
+        }
+    }
+
+    public void SaveGame()
+    {
+        if (!SceneManager.GetActiveScene().name.Equals("Town")) return;
+        Hashtable a = new Hashtable();
+        a.Add("mapLevel", mapLevel);
+        a.Add("weapons", player.weapons);
+        a.Add("armor", player.armor);
+        a.Add("bonusMaxHealth", player.bonusMaxHealth);
+        a.Add("gold", player.GetComponent<Inventory>().Gold);
+        a.Add("items", player.GetComponent<Inventory>().Items);
+        FileStream fs = new FileStream("Data.dat", FileMode.Create);
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        try
+        {
+            formatter.Serialize(fs, a);
+        }
+        catch (SerializationException e)
+        {
+            Debug.LogError("Failed to serialize. " + e.Message);
+            throw;
+        }
+        finally
+        {
+            fs.Close();
         }
     }
 }
