@@ -1079,7 +1079,7 @@ public class GameManager : MonoBehaviour {
         a.Add("gold", player.GetComponent<Inventory>().Gold);
         a.Add("items", player.GetComponent<Inventory>().Items);
         a.Add("shopItems", Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems);
-        FileStream fs = new FileStream("Data.dat", FileMode.Create);
+        FileStream fs = new FileStream(@"Data.dat", FileMode.Create);
 
         BinaryFormatter formatter = new BinaryFormatter();
         try

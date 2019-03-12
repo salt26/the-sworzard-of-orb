@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -344,7 +345,7 @@ public class DataReader : MonoBehaviour {
         isSavedGame = false;
         try
         {
-            FileStream fs = new FileStream("Data.dat", FileMode.Open);
+            FileStream fs = new FileStream(@"Data.dat", FileMode.Open);
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -372,7 +373,7 @@ public class DataReader : MonoBehaviour {
         {
             InitializeGame();
 
-            if (!(e is FileNotFoundException || e is SerializationException))
+            if (!(e is FileNotFoundException || e is SerializationException || e is IsolatedStorageException))
             {
                 throw;
             }

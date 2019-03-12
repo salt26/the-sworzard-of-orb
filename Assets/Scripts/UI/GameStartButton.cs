@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.IsolatedStorage;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,13 +19,21 @@ public class GameStartButton : MonoBehaviour {
         engText.text = "Continue Game";
         try
         {
-            FileStream fs = new FileStream("Data.dat", FileMode.Open);
+            FileStream fs = new FileStream(@"Data.dat", FileMode.Open);
             fs.Close();
         }
-        catch (FileNotFoundException)
+        catch (System.Exception e)
         {
-            korText.text = "게임 시작";
-            engText.text = "Game Start";
+            if (e is FileNotFoundException || e is IsolatedStorageException)
+            {
+                korText.text = "게임 시작";
+                engText.text = "Game Start";
+            }
+            else
+            {
+                engText.text = e.GetType().ToString() + "\n" + e.Message;
+                throw;
+            }
         }
     }
 
@@ -34,13 +43,15 @@ public class GameStartButton : MonoBehaviour {
         isStart = true;
         try
         {
-            FileStream fs = new FileStream("Data.dat", FileMode.Open);
+            FileStream fs = new FileStream(@"Data.dat", FileMode.Open);
             fs.Close();
             SceneManager.LoadScene("Scenes/Town");
         }
-        catch (FileNotFoundException)
+        catch (System.Exception e)
         {
-            SceneManager.LoadScene("Scenes/Tutorial");
+            if (e is FileNotFoundException || e is IsolatedStorageException)
+                SceneManager.LoadScene("Scenes/Tutorial");
+            else throw;
         }
     }
 }

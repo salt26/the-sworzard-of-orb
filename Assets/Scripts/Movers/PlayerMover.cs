@@ -400,7 +400,7 @@ public class PlayerMover : Mover {
         gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetEternalNotiText("Open the Menu and say \"Goodbye~\" to quit game.");
         try
         {
-            File.Delete("Data.dat");
+            File.Delete(@"Data.dat");
         }
         catch (DirectoryNotFoundException) { }
     }
