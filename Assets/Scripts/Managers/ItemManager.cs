@@ -256,6 +256,7 @@ public class ItemManager : MonoBehaviour {
         public static bool Transform(int level)
         {
             Inventory inv = GameManager.gm.player.GetComponent<Inventory>();
+            if (!SceneManager.GetActiveScene().name.Equals("Town")) return false;
 
             List<ItemInfo> l = new List<ItemInfo>();
             foreach (KeyValuePair<int, ItemInfo> p in ItemManager.im.itemInfo)
@@ -274,7 +275,7 @@ public class ItemManager : MonoBehaviour {
         {
             Inventory inv = GameManager.gm.player.GetComponent<Inventory>();
 
-            if (inv.Items.Count >= inv.maxItemNumber)
+            if (inv.Items.Count >= inv.maxItemNumber || !SceneManager.GetActiveScene().name.Equals("Town"))
             {
                 return false;
             }
@@ -490,14 +491,7 @@ public class ItemInfo
                 GameManager.gm.player.statusUI.UpdateDefenseText(GameManager.gm.player.armor);
                 if (effectName != null && !effectName.Equals("None"))
                 {
-                    if (GameManager.gm.player.armor.effects.ContainsKey(effectName))
-                    {
-                        GameManager.gm.player.armor.effects[effectName] += effectParam;
-                    }
-                    else
-                    {
-                        GameManager.gm.player.armor.effects.Add(effectName, effectParam);
-                    }
+                    GameManager.gm.player.armor.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
 
                     if (effectName.Equals("Healthier"))
                     {
@@ -509,7 +503,7 @@ public class ItemInfo
                     }
                     else
                     {
-                        GameManager.gm.player.armor.armorEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+                        GameManager.gm.player.armor.armorEffects.Add(new KeyValuePair<string, int>(effectName, effectParam));
                     }
                 }
                 GameManager.gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText(
@@ -530,14 +524,7 @@ public class ItemInfo
         {
             bool isNotAfter = false;
 
-            if (GameManager.gm.player.EquippedWeapon.effects.ContainsKey(effectName))
-            {
-                GameManager.gm.player.EquippedWeapon.effects[effectName] += effectParam;
-            }
-            else
-            {
-                GameManager.gm.player.EquippedWeapon.effects.Add(effectName, effectParam);
-            }
+            GameManager.gm.player.EquippedWeapon.effects.Add(new KeyValuePair<string, int>(effectName, effectParam));
 
             if (effectName.Equals("Stun"))
             {
@@ -572,7 +559,7 @@ public class ItemInfo
             }
             if (!isNotAfter)
             {
-                GameManager.gm.player.EquippedWeapon.afterAttackEffect += ItemManager.im.GetOrbEffect(effectName, effectParam);
+                GameManager.gm.player.EquippedWeapon.afterAttackEffects.Add(new KeyValuePair<string, int>(effectName, effectParam));
             }
         }
         GameManager.gm.player.statusUI.UpdateAttackText(GameManager.gm.player.EquippedWeapon);

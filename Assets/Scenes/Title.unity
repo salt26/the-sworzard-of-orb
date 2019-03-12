@@ -618,9 +618,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 2c8ec35b229ad11428136580ddaa11c5, type: 3}
     m_FontSize: 112
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 131
+    m_MaxSize: 112
     m_Alignment: 8
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1343,6 +1343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb64bc23aa06c74a9d93d7f70efab00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  korText: {fileID: 1686313030}
+  engText: {fileID: 170640526}
 --- !u!1 &1596498646
 GameObject:
   m_ObjectHideFlags: 0

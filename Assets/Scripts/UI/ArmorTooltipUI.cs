@@ -20,7 +20,7 @@ public class ArmorTooltipUI : TooltipUI
 
     void Update()
     {
-        if (time > 0f && Time.time >= time + 5f)
+        if (time > 0f && Time.time >= time + 8f)
         {
             Disappear();
         }
@@ -43,7 +43,7 @@ public class ArmorTooltipUI : TooltipUI
             "</color> / <color=#" + ColorUtility.ToHtmlStringRGB(ColorManager.cm.natureColor) + ">" +
             StringManager.Padding(armorReference.ValidElement.Nature) + "</color>\n\n";
 
-        foreach (KeyValuePair<string, int> p in armorReference.effects)
+        foreach (KeyValuePair<string, int> p in armorReference.Effects)
         {
             if (p.Key.Equals("Reflect"))
             {

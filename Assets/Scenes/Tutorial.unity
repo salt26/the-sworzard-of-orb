@@ -4485,7 +4485,7 @@ PrefabInstance:
     - target: {fileID: 114267566674906548, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
         type: 3}
       propertyPath: distanceType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114267566674906548, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
         type: 3}
@@ -4495,7 +4495,7 @@ PrefabInstance:
     - target: {fileID: 114267566674906548, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
         type: 3}
       propertyPath: leaveDistance
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224113654371773926, guid: 9d58c18e5e12dd84ea52c1723bf87fc3,
         type: 3}
@@ -12176,6 +12176,7 @@ MonoBehaviour:
   selectedCharacter: {fileID: 0}
   mySelectedBorder: {fileID: 0}
   mapLevel: 0
+  hasUsedReturnScroll: 0
   turnNumber: 0
   hasShopVisited: 0
   hasIgnoreShopMessage: 0
@@ -12289,6 +12290,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c37cfd56d9a2f42aa26ceb50cfb0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gmMapLevel: 0
+  playerWeapons: []
+  playerArmor:
+    element:
+      fire: 0
+      ice: 0
+      nature: 0
+  playerBonusMaxHealth: 0
+  playerGold: 0
+  playerItems: []
+  shopItems: []
 --- !u!114 &1349403485
 MonoBehaviour:
   m_ObjectHideFlags: 0

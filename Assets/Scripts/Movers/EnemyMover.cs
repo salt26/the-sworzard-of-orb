@@ -544,7 +544,7 @@ public class EnemyMover : Mover {
             if (i == frame / 2)
             {
                 player.Damaged(damage, direction, isCritical);
-                player.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
+                c.EquippedWeapon.InvokeAfterAttackEffects(player);
                 isMoved = true;
             }
 

@@ -6,9 +6,31 @@ using UnityEngine;
 public class Armor {
 
     public Element element;
-    public ItemManager.Effect armorEffect;
-    public ItemManager.Effect activeArmorEffect;    // 해당 캐릭터의 턴이 끝날 때 발동, 몬스터만 사용
-    public Dictionary<string, int> effects = new Dictionary<string, int>();
+    //public ItemManager.Effect armorEffect;
+    public List<KeyValuePair<string, int>> armorEffects = new List<KeyValuePair<string, int>>();
+    //public ItemManager.Effect activeArmorEffect;    // 해당 캐릭터의 턴이 끝날 때 발동, 몬스터만 사용
+    public List<KeyValuePair<string, int>> activeArmorEffects = new List<KeyValuePair<string, int>>();  // 해당 캐릭터의 턴이 끝날 때 발동, 몬스터만 사용
+    public List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
+    
+    public Dictionary<string, int> Effects
+    {
+        get
+        {
+            Dictionary<string, int> e = new Dictionary<string, int>();
+            foreach (KeyValuePair<string, int> p in effects)
+            {
+                if (e.ContainsKey(p.Key))
+                {
+                    e[p.Key] += p.Value;
+                }
+                else
+                {
+                    e.Add(p.Key, p.Value);
+                }
+            }
+            return e;
+        }
+    }
 
     /// <summary>
     /// 유효 방어구 속성을 반환합니다.
@@ -60,5 +82,21 @@ public class Armor {
         int nature = Mathf.Clamp(otherWeapon.ValidElement.Nature - ValidElement.Nature, 0, 99);
 
         return Mathf.Clamp(baseDamage + fire + ice + nature, 0, 999);
+    }
+    
+    public void InvokeArmorEffects(Character target)
+    {
+        foreach (KeyValuePair<string, int> p in armorEffects)
+        {
+            ItemManager.im.GetOrbEffect(p.Key, p.Value)(target);
+        }
+    }
+    
+    public void InvokeActiveArmorEffects(Character target)
+    {
+        foreach (KeyValuePair<string, int> p in activeArmorEffects)
+        {
+            ItemManager.im.GetOrbEffect(p.Key, p.Value)(target);
+        }
     }
 }

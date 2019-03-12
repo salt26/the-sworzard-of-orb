@@ -17,7 +17,7 @@ Return_scroll 귀환_두루마리
 # Item tooltip
 It's_not_a_bug,_it's_a_feature. 버그가_아니라_기능입니다!
 Restore_@_health._Cure_poison. 체력을_@_회복합니다._중독_상태에서_벗어납니다.
-Transform_into_a_random_level_@_orb. 무작위_@단계_오브로_변합니다.
+Transform_into_a_random_level_@_orb._Save_the_game. 무작위_@단계_오브로_변합니다._게임을_저장합니다.
 Escape_to_Town_immediately._Keep_other_items_in_inventory. 즉시_마을로_탈출합니다._가방의_다른_아이템들을_보존합니다.
 # Item effect
 Heal 회복
@@ -169,7 +169,7 @@ Only_the_highest_value_of_the_weapon_elements_acts_as_attack_damage. 무기_속�
 Magic_spear_has_attack_range_of_2_and_can_attack_two_enemies_at_once. 마력의_창은_사정거리가_2이고_최대_두_마리의_적을_공격할_수_있습니다.
 Attack_damage_of_Magic_sword_grows_faster_than_that_of_Magic_spear. 마력의_검은_마력의_창보다_공격력이_빠르게_오릅니다.
 There_is_turn_limits_in_battlefield._If_you_use_up_all_given_turns,_it_considers_as_death. 전장에서는_턴_제한이_있으며,_남은_턴_수가_소진되면_사망합니다.
-Death_resets_all_your_data_and_you_have_to_start_all_over_again._Be_careful! 사망하면_게임을_더는_진행할_수_없게_됩니다._주의하세요!
+Death_resets_all_your_data(including_saved_file)_and_you_have_to_start_all_over_again._Be_careful! 사망하면_게임을_더는_진행할_수_없게_되며_저장된_파일도_날아갑니다._주의하세요!
 You_can_check_a_monster's_status_by_clicking_it. 몬스터를_클릭하면_능력치를_볼_수_있습니다.
 Just_place_your_mouse_cursor_on_the_weapon_and_armor_icon. 마우스_커서를_무기_및_방어구_아이콘_위에_올려보세요.
 #
@@ -189,6 +189,8 @@ All_monsters_were_eliminated. 모든_몬스터를_퇴치했습니다.
 Your_Magic_sword_is_enchanted. 마력의_검이_순간_반짝였습니다.
 Your_Magic_spear_is_enchanted. 마력의_창이_순간_반짝였습니다.
 Your_Armor_is_enchanted. 방어구가_순간_반짝였습니다.
+Automatically_saved. 자동_저장되었습니다.
+The_game_is_saved. 게임이_저장되었습니다.
 #
 # UI text
 Lv.@ @단계

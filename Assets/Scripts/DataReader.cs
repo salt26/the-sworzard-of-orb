@@ -4,18 +4,37 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataReader : MonoBehaviour {
 
+    [HideInInspector]
     public int gmMapLevel;
+    [HideInInspector]
     public List<Weapon> playerWeapons;
+    [HideInInspector]
     public Armor playerArmor;
+    [HideInInspector]
     public int playerBonusMaxHealth;
+    [HideInInspector]
     public int playerGold;
+    [HideInInspector]
     public List<string> playerItems;
+    [HideInInspector]
+    public List<string> shopItems;
 
-	// Read Data and parse it to initialize managers.
-	void Awake ()
+    private bool isSavedGame;   // 저장된 게임을 불러와서 시작한 경우 true가 됨
+
+    public bool IsSavedGame
+    {
+        get
+        {
+            return isSavedGame;
+        }
+    }
+
+    // Read Data and parse it to initialize managers.
+    void Awake()
     {
         ItemManager im = GetComponent<ItemManager>();
         EnemyManager em = GetComponent<EnemyManager>();
@@ -32,13 +51,13 @@ public class DataReader : MonoBehaviour {
         TextAsset monsterData = Resources.Load("Data/Monster") as TextAsset;
         TextAsset mapData = Resources.Load("Data/Map") as TextAsset;
         TextAsset translationData = Resources.Load("Data/Translation") as TextAsset;
-        
+
         string[] itemLine = itemData.text.Split('\n');
         string[] orbLine = orbData.text.Split('\n');
         string[] monsterLine = monsterData.text.Split('\n');
         string[] mapLine = mapData.text.Split('\n');
         string[] translationLine = translationData.text.Split('\n');
-        
+
         #region Parse Item.txt
         foreach (string l in itemLine)
         {
@@ -242,7 +261,7 @@ public class DataReader : MonoBehaviour {
                 em.enemyInfo.Add(enemyID, ei.Clone());
                 multiLine = -1;
             }
-            
+
         }
         #endregion
 
@@ -308,12 +327,21 @@ public class DataReader : MonoBehaviour {
         }
         #endregion
 
+        if (SceneManager.GetActiveScene().name.Equals("Town"))
+        {
+            LoadGame();
+        }
+        else
+        {
+            InitializeGame();
+        }
     }
 
-    private void Deserialize()
+    private void LoadGame()
     {
         //GameManager gm = GetComponent<GameManager>();
         Hashtable data = null;
+        isSavedGame = false;
         try
         {
             FileStream fs = new FileStream("Data.dat", FileMode.Open);
@@ -327,10 +355,12 @@ public class DataReader : MonoBehaviour {
                 playerBonusMaxHealth = (int)data["bonusMaxHealth"];
                 playerGold = (int)data["gold"];
                 playerItems = (List<string>)data["items"];
+                shopItems = (List<string>)data["shopItems"];
+                isSavedGame = true;
             }
             catch (SerializationException e)
             {
-                Debug.LogError("Failed to deserialize. " + e.Message);
+                Debug.LogError("Failed to load 'Data.dat'. " + e.Message);
                 throw;
             }
             finally
@@ -338,16 +368,40 @@ public class DataReader : MonoBehaviour {
                 fs.Close();
             }
         }
-        catch (FileNotFoundException e)
+        catch (System.Exception e)
         {
-            // 무기, 방어구 설정해 줘야 함!!!!!!!!!!!!!!!!!!!
-            gmMapLevel = 1;
-            playerWeapons = new List<Weapon>() { /* TODO */ };
-            playerArmor = new Armor();
-            playerBonusMaxHealth = 0;
-            playerGold = 0;
-            playerItems = new List<string>();
+            InitializeGame();
+
+            if (!(e is FileNotFoundException || e is SerializationException))
+            {
+                throw;
+            }
         }
+    }
+
+    private void InitializeGame()
+    {
+        gmMapLevel = 1;
+        playerWeapons = new List<Weapon>() {
+                new Weapon() {
+                    name = "Magic sword",
+                    element = new Element(3, 3, 3),
+                    range = 1
+                },
+                new Weapon()
+                {
+                    name = "Magic spear",
+                    element = new Element(5, 5, 5),
+                    range = 2
+                }
+            };
+        playerArmor = new Armor()
+        {
+            element = new Element(1, 1, 1)
+        };
+        playerBonusMaxHealth = 0;
+        playerGold = 0;
+        playerItems = new List<string>();
     }
 
     private void Error(string data)

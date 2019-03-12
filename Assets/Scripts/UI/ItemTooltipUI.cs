@@ -27,7 +27,7 @@ public class ItemTooltipUI : TooltipUI {
 
     // Update is called once per frame
     void Update () {
-        if (time > 0f && Time.time >= time + 5f)
+        if (time > 0f && Time.time >= time + 8f)
         {
             Disappear();
         }

@@ -20,7 +20,7 @@ public class ShopUI : MonoBehaviour {
     /// 상점에서 판매하는 아이템 목록. index는 구입 버튼 위치.
     /// </summary>
     [HideInInspector]
-    public List<string> purchaseItems = new List<string>();     // 아이템 목록은 GM의 ChangeScene()에서 초기화됨
+    public List<string> purchaseItems;     // 아이템 목록은 GM의 ChangeScene()에서 초기화됨
 
     /// <summary>
     /// 재구매하는 아이템 목록. index는 재구매 버튼 위치.
@@ -48,8 +48,8 @@ public class ShopUI : MonoBehaviour {
     // Use this for initialization
     void Start () {
         audioSource = GetComponent<AudioSource>();
-		
-	}
+        purchaseItems = GameManager.gm.GetComponent<DataReader>().shopItems;
+    }
 
     void Update()
     {

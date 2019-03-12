@@ -112,20 +112,26 @@ public class Character : Entity {
             armor = ei.armor.Clone();
             weapons[0].element += ei.weaponDelta * (level - 1);
             armor.element += ei.armorDelta * (level - 1);
+            bonusMaxHealth = 0;
 
-            if (ei.name.Equals("Fire golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 1);
-            else if (ei.name.Equals("Ice golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 2);
-            else if (ei.name.Equals("Nature golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 0);
+            if (ei.name.Equals("Fire golem")) armor.activeArmorEffects.Add(new KeyValuePair<string, int>("Disguise", 1));
+            else if (ei.name.Equals("Ice golem")) armor.activeArmorEffects.Add(new KeyValuePair<string, int>("Disguise", 2));
+            else if (ei.name.Equals("Nature golem")) armor.activeArmorEffects.Add(new KeyValuePair<string, int>("Disguise", 0));
             
             ((EnemyMover)mover).distanceType = ei.distanceType;
             ((EnemyMover)mover).sightDistance = ei.sightDistance;
             ((EnemyMover)mover).leaveDistance = ei.leaveDistance;
         }
-        currentHealth = maxHealth;
-        bonusMaxHealth = 0;
+        else
+        {
+            weapons = GameManager.gm.GetComponent<DataReader>().playerWeapons;
+            armor = GameManager.gm.GetComponent<DataReader>().playerArmor;
+            bonusMaxHealth = GameManager.gm.GetComponent<DataReader>().playerBonusMaxHealth;
+        }
+        currentHealth = MaxHealth;
         if (healthBar != null)
         {
-            healthBar.maxValue = maxHealth;
+            healthBar.maxValue = MaxHealth;
             healthBar.value = currentHealth;
         }
         oldHealth = currentHealth;
@@ -160,9 +166,9 @@ public class Character : Entity {
         weapons[0].element += ei.weaponDelta * (level - 1);
         armor.element += ei.armorDelta * (level - 1);
 
-        if (ei.name.Equals("Fire golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 1);
-        else if (ei.name.Equals("Ice golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 2);
-        else if (ei.name.Equals("Nature golem")) armor.activeArmorEffect += ItemManager.im.GetOrbEffect("Disguise", 0);
+        if (ei.name.Equals("Fire golem")) armor.activeArmorEffects.Add(new KeyValuePair<string, int>("Disguise", 1));
+        else if (ei.name.Equals("Ice golem")) armor.activeArmorEffects.Add(new KeyValuePair<string, int>("Disguise", 2));
+        else if (ei.name.Equals("Nature golem")) armor.activeArmorEffects.Add(new KeyValuePair<string, int>("Disguise", 0));
         
         ((EnemyMover)mover).distanceType = ei.distanceType;
         ((EnemyMover)mover).sightDistance = ei.sightDistance;
@@ -203,6 +209,7 @@ public class Character : Entity {
         hasDamaged = true;
     }
 
+    /*
     /// <summary>
     /// 공격자의 무기에 적용되어 있던 effects를 이 대상에게 적용합니다.
     /// </summary>
@@ -224,6 +231,7 @@ public class Character : Entity {
             effects(this);
         }
     }
+    */
 
     /// <summary>
     /// 대미지 계산이 완료된 후, 피격 애니메이션을 재생하기 위해 호출됩니다.

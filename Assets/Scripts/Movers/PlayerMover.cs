@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -129,7 +130,7 @@ public class PlayerMover : Mover {
             {
                 /*
                 // TODO 디버그용 오브 생성 코드
-                gm.map.AddItemOnTile(Random.Range(104, 117), t.position);
+                gm.map.AddItemOnTile(Random.Range(114, 126), t.position);
                 //gm.NextTurn();
                 StartCoroutine(DelayedNextTurn());
                 */
@@ -280,7 +281,7 @@ public class PlayerMover : Mover {
                 {
                     enemy.Damaged(enemy.armor.ComputeDamage(c.EquippedWeapon, isCharge), direction, isCharge);
                     //enemy.Damaged(Mathf.Max(0, (int)(bonusDamage * c.EquippedWeapon.Attack()) - enemy.armor.Defense()));
-                    enemy.DamagedWithEffects(c.EquippedWeapon.afterAttackEffect);
+                    c.EquippedWeapon.InvokeAfterAttackEffects(enemy);
                 }
                 gm.NextTurn();
             }
@@ -397,5 +398,10 @@ public class PlayerMover : Mover {
         this.enabled = false;
         gm.Canvas.GetComponent<UIInfo>().DeathPanel.StartEffect();
         gm.Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetEternalNotiText("Open the Menu and say \"Goodbye~\" to quit game.");
+        try
+        {
+            File.Delete("Data.dat");
+        }
+        catch (DirectoryNotFoundException) { }
     }
 }

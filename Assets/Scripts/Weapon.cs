@@ -9,13 +9,35 @@ public class Weapon {
     public string name;
     public Element element;
     public int range;
-    public ItemManager.Effect afterAttackEffect;
+    //public ItemManager.Effect afterAttackEffect;
+    public List<KeyValuePair<string, int>> afterAttackEffects = new List<KeyValuePair<string, int>>();
     public float chargeBonus;       // 돌진 시 곱해지는 추가 대미지
     public float drainedPercent;
-    public Dictionary<string, int> effects = new Dictionary<string, int>();
+    public List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
+    //public Dictionary<string, int> effects = new Dictionary<string, int>();
     public float stunEffectInTooltip;
 
     private float[] pureAmpBonus = new float[3] { 0f, 0f, 0f };  // Amp 효과로 인한 원소 스탯 증가 비율
+
+    public Dictionary<string, int> Effects
+    {
+        get
+        {
+            Dictionary<string, int> e = new Dictionary<string, int>();
+            foreach (KeyValuePair<string, int> p in effects)
+            {
+                if (e.ContainsKey(p.Key))
+                {
+                    e[p.Key] += p.Value;
+                }
+                else
+                {
+                    e.Add(p.Key, p.Value);
+                }
+            }
+            return e;
+        }
+    }
 
     public int Range
     {
@@ -147,5 +169,13 @@ public class Weapon {
     {
         // TODO
         return Mathf.Clamp(BaseAttack() + ValidElement.Sum(), 0, 999);
+    }
+
+    public void InvokeAfterAttackEffects(Character target)
+    {
+        foreach (KeyValuePair<string, int> p in afterAttackEffects)
+        {
+            ItemManager.im.GetOrbEffect(p.Key, p.Value)(target);
+        }
     }
 }

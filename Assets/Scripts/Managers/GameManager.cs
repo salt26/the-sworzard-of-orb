@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour {
         loadingTipText = UIObject.GetComponent<UIInfo>().loadingTipText;
         loadingText = UIObject.GetComponent<UIInfo>().loadingText;
         tips = new List<string>();
-        tips.Add("Death resets all your data and you have to start all over again. Be careful!");
+        tips.Add("Death resets all your data(including saved file) and you have to start all over again. Be careful!");
         tips.Add("There is turn limits in battlefield. If you use up all given turns, it considers as death.");
         tips.Add("Only the highest value of the weapon elements acts as attack damage.");
         tips.Add("You can check a monster's status by clicking it.");
@@ -245,7 +245,8 @@ public class GameManager : MonoBehaviour {
             }
         }
         */
-        if (SceneManager.GetActiveScene().name.Equals("Town"))
+        if (SceneManager.GetActiveScene().name.Equals("Town") &&
+            !GetComponent<DataReader>().IsSavedGame)
         {
             isTutorialSkipped = true;
         }
@@ -253,7 +254,7 @@ public class GameManager : MonoBehaviour {
         {
             isTutorialSkipped = false;
         }
-        mapLevel = 1;
+        mapLevel = GetComponent<DataReader>().gmMapLevel;
         tipIndex = 0;
         loadingProgress = 0;
         monsterEliminated = true;
@@ -386,6 +387,10 @@ public class GameManager : MonoBehaviour {
         }
         tipIndex++;
         loadingPanel.SetActive(false);
+        if (SceneManager.GetActiveScene().name.Equals("Town"))
+        {
+            SaveGame();
+        }
         isSceneLoaded = true;
     }
 
@@ -845,7 +850,7 @@ public class GameManager : MonoBehaviour {
         {
             foreach (Character e in enemies)
             {
-                e.DefendWithEffects(e.armor.armorEffect);
+                e.armor.InvokeArmorEffects(e);
 
                 // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
@@ -861,11 +866,11 @@ public class GameManager : MonoBehaviour {
         }
         else if (oldTurn == 1)
         {
-            player.DefendWithEffects(player.armor.armorEffect);
+            player.armor.InvokeArmorEffects(player);
             foreach (Character e in enemies)
             {
                 e.Reflected();
-                e.DefendWithEffects(e.armor.activeArmorEffect);
+                e.armor.InvokeActiveArmorEffects(e);
                 // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
                 e.trueOldHealth = e.currentHealth;
@@ -1073,12 +1078,14 @@ public class GameManager : MonoBehaviour {
         a.Add("bonusMaxHealth", player.bonusMaxHealth);
         a.Add("gold", player.GetComponent<Inventory>().Gold);
         a.Add("items", player.GetComponent<Inventory>().Items);
+        a.Add("shopItems", Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems);
         FileStream fs = new FileStream("Data.dat", FileMode.Create);
 
         BinaryFormatter formatter = new BinaryFormatter();
         try
         {
             formatter.Serialize(fs, a);
+            Canvas.GetComponent<UIInfo>().notiPanel.GetComponent<NotiUI>().SetNotiText("Automatically saved.");
         }
         catch (SerializationException e)
         {

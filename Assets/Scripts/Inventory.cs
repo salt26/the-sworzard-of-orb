@@ -47,6 +47,8 @@ public class Inventory : MonoBehaviour {
 
     void Start()
     {
+        items = GameManager.gm.GetComponent<DataReader>().playerItems;
+        Gold = GameManager.gm.GetComponent<DataReader>().playerGold;
         audioSource = GetComponent<AudioSource>();
         itemImages = new List<KeyValuePair<string, GameObject>>();
         foreach (Button b in itemButtons)
@@ -55,6 +57,7 @@ public class Inventory : MonoBehaviour {
             b.onClick.AddListener(delegate { DedicateItem(itemButtons.IndexOf(b)); });
             b.onClick.AddListener(delegate { SellItem(itemButtons.IndexOf(b)); });
         }
+        UpdateUI();
     }
 
     /// <summary>
@@ -154,6 +157,7 @@ public class Inventory : MonoBehaviour {
                     string newOrb = Items[Items.Count - 1];
                     items.RemoveAt(Items.Count - 1);
                     items.Insert(index, newOrb);
+                    GameManager.gm.SaveGame();
                 }
                 else
                 {

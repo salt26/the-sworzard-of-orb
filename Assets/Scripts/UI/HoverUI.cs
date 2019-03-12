@@ -68,10 +68,10 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
             RectTransform r = myTooltip.GetComponent<RectTransform>();
             r.anchorMin = minPos;
             r.anchorMax = maxPos;
-            if (type == UIType.Altar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
-            else if (type == UIType.Altar || type == UIType.Recipe) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
-            else if (type == UIType.Shop) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f);
-            else if (type == UIType.Repurchase) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f);
+            if (type == UIType.Altar && index != 103) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f, 0.9f);
+            else if (type == UIType.Altar || type == UIType.Recipe) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f, 0.9f);
+            else if (type == UIType.Shop) g.GetComponent<Image>().color = new Color(0.8f, 0.45f, 0.7f, 0.9f);
+            else if (type == UIType.Repurchase) g.GetComponent<Image>().color = new Color(0.8f, 0.7f, 0.55f, 0.9f);
 
             if (myTooltip.GetComponent<WeaponTooltipUI>() != null)
             {
@@ -94,7 +94,7 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
                 }
                 else if (type == UIType.Repurchase)
                 {
-                    myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 1f);
+                    myTooltip.GetComponent<RectTransform>().pivot = new Vector2(myTooltip.GetComponent<RectTransform>().pivot.x, 0f);
                 }
             }
             if (myTooltip.GetComponent<NormalTooltipUI>() != null)

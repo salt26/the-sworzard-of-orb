@@ -26,7 +26,7 @@ public class WeaponTooltipUI : TooltipUI {
     }
 
     void Update () {
-        if (time > 0f && Time.time >= time + 5f)
+        if (time > 0f && Time.time >= time + 8f)
         {
             Disappear();
         }
@@ -74,7 +74,7 @@ public class WeaponTooltipUI : TooltipUI {
         if (weaponReference.stunEffectInTooltip > 0f)
             effectText += StringManager.sm.Translate("Stun") + ": " + Mathf.RoundToInt(weaponReference.stunEffectInTooltip * 10000) / 100f + "%\n";
 
-        foreach (KeyValuePair<string, int> p in weaponReference.effects)
+        foreach (KeyValuePair<string, int> p in weaponReference.Effects)
         {
             if (p.Key.Equals("Drain"))
             {
