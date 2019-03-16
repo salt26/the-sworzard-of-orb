@@ -157,7 +157,7 @@ public class Weapon {
     {
         Element e = new Element(element.Fire, element.Ice, element.Nature);
         if (Range > 1) e = e * new Vector3(1f / Range, 1f / Range, 1f / Range);
-        return Mathf.Clamp(e.Sum(), 0, 99);
+        return Mathf.Clamp(e.Sum(), 0, 999);
     }
 
 
@@ -168,7 +168,7 @@ public class Weapon {
     public int Attack()
     {
         // TODO
-        return Mathf.Clamp(BaseAttack() + ValidElement.Sum(), 0, 999);
+        return Mathf.Clamp(BaseAttack() + ValidElement.Sum(), 0, 9999);
     }
 
     public void InvokeAfterAttackEffects(Character target)

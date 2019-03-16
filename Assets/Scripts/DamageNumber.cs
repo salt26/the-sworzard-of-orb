@@ -13,6 +13,7 @@ public class DamageNumber : MonoBehaviour {
     public List<GameObject> onesNumbers;
     public List<GameObject> tensNumbers;
     public List<GameObject> hundredsNumbers;
+    public List<GameObject> thousandsNumbers;
 
     private List<List<GameObject>> numbers;  // (10 ^ i) 이미지 그룹의 (10 ^ j)의 자리 숫자 이미지
 
@@ -25,7 +26,8 @@ public class DamageNumber : MonoBehaviour {
         {
             onesNumbers,
             tensNumbers,
-            hundredsNumbers
+            hundredsNumbers,
+            thousandsNumbers
         };
         foreach (GameObject g in exponents)
         {

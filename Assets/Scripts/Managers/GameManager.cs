@@ -255,6 +255,7 @@ public class GameManager : MonoBehaviour {
             isTutorialSkipped = false;
         }
         mapLevel = GetComponent<DataReader>().gmMapLevel;
+        Canvas.GetComponent<UIInfo>().shopPanel.GetComponent<ShopUI>().purchaseItems = GetComponent<DataReader>().shopItems;
         tipIndex = 0;
         loadingProgress = 0;
         monsterEliminated = true;
@@ -361,6 +362,10 @@ public class GameManager : MonoBehaviour {
         loadingTipText.text = StringManager.sm.Translate(tips[tipIndex % tips.Count]);
         RefreshLoadingTexts();
         loadingPanel.SetActive(true);
+        if (SceneManager.GetActiveScene().name.Equals("Town"))
+        {
+            SaveGame();
+        }
         Scene currentScene = SceneManager.GetActiveScene();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Scenes/" + sceneName, LoadSceneMode.Additive);
@@ -607,7 +612,7 @@ public class GameManager : MonoBehaviour {
                                 if (b)
                                 {
                                     // 순찰 경로 지정
-                                    if (ei.type == EnemyInfo.Type.Normal)
+                                    if (ei.type == EnemyInfo.Type.Normal || (mapLevel >= 64 && ei.type == EnemyInfo.Type.Elite))
                                     {
                                         int distance = 4;
                                         bool b2 = true;
@@ -669,7 +674,7 @@ public class GameManager : MonoBehaviour {
                         
                         c.GetComponent<EnemyMover>().checkpoints = new List<Vector3>();
 
-                        if (ei.type == EnemyInfo.Type.Normal)
+                        if (ei.type == EnemyInfo.Type.Normal || (mapLevel >= 64 && ei.type == EnemyInfo.Type.Elite))
                         {
                             c.GetComponent<EnemyMover>().checkpoints.Add(new Vector3(x2, y2, -1f));
                             availableTile.Set(x2, y2);
@@ -845,7 +850,7 @@ public class GameManager : MonoBehaviour {
             else yield return null;
         }
 
-        /* 페이즈 4: 방어구 특수 효과(반사, 재생, 탈바꿈) 대미지 애니메이션 처리 */
+        /* 페이즈 4: 방어구 특수 효과(반사, 재생) 대미지 애니메이션 처리 */
         if (oldTurn == 0)
         {
             foreach (Character e in enemies)
@@ -870,7 +875,6 @@ public class GameManager : MonoBehaviour {
             foreach (Character e in enemies)
             {
                 e.Reflected();
-                e.armor.InvokeActiveArmorEffects(e);
                 // 턴을 넘길 때의 각 적의 현재 체력을 기억
                 e.oldHealth = e.currentHealth;
                 e.trueOldHealth = e.currentHealth;
@@ -929,7 +933,41 @@ public class GameManager : MonoBehaviour {
         {
             e.DeathCheck();
         }
-        
+
+        /* 페이즈 6: 탈바꿈 애니메이션 처리 */
+        if (oldTurn == 0)
+        {
+
+        }
+        else if (oldTurn == 1)
+        {
+            foreach (Character e in enemies)
+            {
+                e.armor.InvokeActiveArmorEffects(e);
+                // 턴을 넘길 때의 각 적의 현재 체력을 기억
+                e.oldHealth = e.currentHealth;
+                e.trueOldHealth = e.currentHealth;
+            }
+            player.oldHealth = player.currentHealth;
+        }
+
+        while (true)
+        {
+            ready = true;
+            foreach (Character e in enemies)
+            {
+                if (e.Alive && e.Mover.IsMoving)
+                {
+                    ready = false;
+                    break;
+                }
+            }
+            if (player.Alive && player.Mover.IsMoving) ready = false;
+
+            if (ready) break;
+            else yield return null;
+        }
+
         monsterNumberText.text = MonsterNumber.ToString();
         if (MonsterNumber == 0)
         {

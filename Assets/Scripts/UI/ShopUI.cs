@@ -48,7 +48,6 @@ public class ShopUI : MonoBehaviour {
     // Use this for initialization
     void Start () {
         audioSource = GetComponent<AudioSource>();
-        purchaseItems = GameManager.gm.GetComponent<DataReader>().shopItems;
     }
 
     void Update()

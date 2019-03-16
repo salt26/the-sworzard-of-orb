@@ -21,7 +21,7 @@ public class Element {
     {
         get
         {
-            return Mathf.Clamp(fire, 0, 99);
+            return Mathf.Clamp(fire, 0, 999);
         }
         set
         {
@@ -33,7 +33,7 @@ public class Element {
     {
         get
         {
-            return Mathf.Clamp(ice, 0, 99);
+            return Mathf.Clamp(ice, 0, 999);
         }
         set
         {
@@ -45,7 +45,7 @@ public class Element {
     {
         get
         {
-            return Mathf.Clamp(nature, 0, 99);
+            return Mathf.Clamp(nature, 0, 999);
         }
         set
         {
@@ -114,6 +114,6 @@ public class Element {
 
     public int Sum()
     {
-        return Mathf.Clamp(fire + ice + nature, 0, 999);
+        return Mathf.Clamp(fire + ice + nature, 0, 9999);
     }
 }

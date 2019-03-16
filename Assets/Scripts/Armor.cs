@@ -51,7 +51,7 @@ public class Armor {
     public int Defense()
     {
         // TODO
-        return Mathf.Clamp(BaseDefense() + ValidElement.Sum(), 0, 999);
+        return Mathf.Clamp(BaseDefense() + ValidElement.Sum(), 0, 9999);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class Armor {
     /// <returns></returns>
     public int BaseDefense()
     {
-        return Mathf.Clamp(element.Sum(), 0, 99);
+        return Mathf.Clamp(element.Sum(), 0, 999);
     }
 
     /// <summary>
@@ -74,14 +74,14 @@ public class Armor {
         //Mathf.Max(0, (int)(bonusDamage * otherWeapon.Attack()) - Defense())
         int baseDamage;
         if (isCharge)
-            baseDamage = Mathf.Clamp((int)(otherWeapon.chargeBonus * otherWeapon.BaseAttack()) - BaseDefense(), 0, 999);
+            baseDamage = Mathf.Clamp((int)(otherWeapon.chargeBonus * otherWeapon.BaseAttack()) - BaseDefense(), 0, 9999);
         else
-            baseDamage = Mathf.Clamp(otherWeapon.BaseAttack() - BaseDefense(), 0, 999);
-        int fire = Mathf.Clamp(otherWeapon.ValidElement.Fire - ValidElement.Fire, 0, 99);
-        int ice = Mathf.Clamp(otherWeapon.ValidElement.Ice - ValidElement.Ice, 0, 99);
-        int nature = Mathf.Clamp(otherWeapon.ValidElement.Nature - ValidElement.Nature, 0, 99);
+            baseDamage = Mathf.Clamp(otherWeapon.BaseAttack() - BaseDefense(), 0, 9999);
+        int fire = Mathf.Clamp(otherWeapon.ValidElement.Fire - ValidElement.Fire, 0, 999);
+        int ice = Mathf.Clamp(otherWeapon.ValidElement.Ice - ValidElement.Ice, 0, 999);
+        int nature = Mathf.Clamp(otherWeapon.ValidElement.Nature - ValidElement.Nature, 0, 999);
 
-        return Mathf.Clamp(baseDamage + fire + ice + nature, 0, 999);
+        return Mathf.Clamp(baseDamage + fire + ice + nature, 0, 9999);
     }
     
     public void InvokeArmorEffects(Character target)

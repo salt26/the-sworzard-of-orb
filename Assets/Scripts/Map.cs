@@ -102,7 +102,11 @@ public class Map : MonoBehaviour {
             if (MapManager.mm.mapText != null)
                 MapManager.mm.mapText.text = StringManager.sm.Translate(SceneManager.GetActiveScene().name);    // TODO
             if (MapManager.mm.levelText != null)
+            {
                 MapManager.mm.levelText.text = StringManager.sm.Translate("Lv.@").Replace("@", GameManager.gm.mapLevel.ToString());
+                int increase = (int)(Mathf.Log((GameManager.gm.mapLevel / 5 + 1)) / Mathf.Log(2)) + 1;
+                MapManager.mm.levelText.color = ColorManager.cm.levelColors[(increase - 1) % ColorManager.cm.levelColors.Count];
+            }
             if (Camera.main != null)
                 Camera.main.backgroundColor = MapManager.mm.townBackgroundColor;
         }
@@ -154,7 +158,11 @@ public class Map : MonoBehaviour {
         if (MapManager.mm.mapText != null)
             MapManager.mm.mapText.text = StringManager.sm.Translate(mi.name);
         if (MapManager.mm.levelText != null)
+        {
             MapManager.mm.levelText.text = StringManager.sm.Translate("Lv.@").Replace("@", GameManager.gm.mapLevel.ToString());
+            int increase = (int)(Mathf.Log((GameManager.gm.mapLevel / 5 + 1)) / Mathf.Log(2)) + 1;
+            MapManager.mm.levelText.color = ColorManager.cm.levelColors[(increase - 1) % ColorManager.cm.levelColors.Count];
+        }
 
         if (Camera.main != null)
             Camera.main.backgroundColor = mi.backgroundColor;
